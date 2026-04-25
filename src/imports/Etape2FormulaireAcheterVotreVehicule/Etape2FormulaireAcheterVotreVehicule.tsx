@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import svgPaths from "./svg-g9ybnh21zu";
 
 function OverlayBorder() {
@@ -581,8 +582,9 @@ function Svg9() {
 }
 
 function Link1() {
+  const navigate = useNavigate();
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid inset-[28px_16px_61px_377px] rounded-[12px]" data-name="Link">
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid inset-[28px_16px_61px_377px] rounded-[12px] cursor-pointer" data-name="Link" onClick={() => navigate("/acheter-votre-vehicule")}>
       <Svg9 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[18px] justify-center leading-[0] left-[calc(50%+11.7px)] text-[14px] text-[rgba(255,255,255,0.55)] text-center top-1/2 w-[129.15px]">
         <p className="leading-[normal]">Nouvelle recherche</p>
@@ -592,8 +594,9 @@ function Link1() {
 }
 
 function Link2() {
+  const navigate = useNavigate();
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[13px] left-[calc(50%-113.92px)] top-[calc(50%+27px)] w-[113.95px]" data-name="Link">
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[13px] left-[calc(50%-113.92px)] top-[calc(50%+27px)] w-[113.95px] cursor-pointer" data-name="Link" onClick={() => navigate("/acheter-votre-vehicule")}>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-[calc(50%+1.92px)] text-[#bcff3d] text-[11px] text-center top-[6.14px] w-[118px]">
         <p className="leading-[normal]">Modifier ma demande</p>
       </div>
@@ -612,8 +615,9 @@ function Link3() {
 }
 
 function Link4() {
+  const navigate = useNavigate();
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[13px] left-[calc(50%+127.07px)] top-[calc(50%+27px)] w-[87.61px]" data-name="Link">
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[13px] left-[calc(50%+127.07px)] top-[calc(50%+27px)] w-[87.61px] cursor-pointer" data-name="Link" onClick={() => navigate("/")}>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-[calc(50%+1.43px)] text-[#bcff3d] text-[11px] text-center top-[6.14px] w-[91px]">
         <p className="leading-[normal]">{`Retour à l'accueil`}</p>
       </div>

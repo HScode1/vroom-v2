@@ -1,3 +1,5 @@
+import { useState, type ChangeEvent } from "react";
+import { useNavigate } from "react-router";
 import svgPaths from "./svg-njp194lwj3";
 
 function Group() {
@@ -357,7 +359,20 @@ function Container() {
 function Options() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-0 right-[319px] rounded-[11px] top-[70px]" data-name="Options">
-      <Container />
+      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+        <option value="">Sélectionner...</option>
+        <option>Audi</option>
+        <option>BMW</option>
+        <option>Citroën</option>
+        <option>Dacia</option>
+        <option>Ford</option>
+        <option>Mercedes</option>
+        <option>Peugeot</option>
+        <option>Renault</option>
+        <option>Toyota</option>
+        <option>Volkswagen</option>
+        <option>Autre</option>
+      </select>
     </div>
   );
 }
@@ -388,7 +403,7 @@ function Container1() {
 function Input() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[319px] overflow-clip right-0 rounded-[11px] top-[70px]" data-name="Input">
-      <Container1 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 308…" />
     </div>
   );
 }
@@ -406,7 +421,7 @@ function Container2() {
 function Input1() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-0 overflow-clip right-[319px] rounded-[11px] top-[148px]" data-name="Input">
-      <Container2 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Sport, Prestige, GT Line…" />
     </div>
   );
 }
@@ -437,7 +452,12 @@ function Container3() {
 function Options1() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[319px] right-0 rounded-[11px] top-[148px]" data-name="Options">
-      <Container3 />
+      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+        <option value="">Sélectionner...</option>
+        {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
+          <option key={y}>{y}</option>
+        ))}
+      </select>
     </div>
   );
 }
@@ -468,7 +488,7 @@ function Container4() {
 function Input2() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-0 overflow-clip right-0 rounded-[11px] top-[226px]" data-name="Input">
-      <Container4 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : 45 000 km" type="number" min="0" />
     </div>
   );
 }
@@ -605,7 +625,15 @@ function Container5() {
 function Options2() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-0 right-[319px] rounded-[11px] top-[148px]" data-name="Options">
-      <Container5 />
+      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+        <option value="">Sélectionner...</option>
+        <option>Essence</option>
+        <option>Diesel</option>
+        <option>Hybride</option>
+        <option>Hybride rechargeable</option>
+        <option>Électrique</option>
+        <option>GPL</option>
+      </select>
     </div>
   );
 }
@@ -623,18 +651,35 @@ function Container6() {
 function Input3() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[319px] overflow-clip right-0 rounded-[11px] top-[148px]" data-name="Input">
-      <Container6 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Noir, Blanc, Gris…" />
     </div>
   );
 }
 
 function Section2Caracteristiques() {
+  const [boite, setBoite] = useState<'manuelle' | 'automatique'>('manuelle');
+  const [portes, setPortes] = useState<3 | 5>(3);
+
   return (
     <div className="absolute h-[194px] left-[36px] right-[36px] top-[447.39px]" data-name="SECTION 2 : Caractéristiques">
       <HorizontalBorder1 />
       <Label4 />
-      <OverlayBorder9 />
-      <OverlayBorder10 />
+      <div
+        className={`absolute border border-solid inset-[70px_476.5px_78px_0] rounded-[11px] cursor-pointer transition-colors ${boite === 'manuelle' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => setBoite('manuelle')}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.91px)] text-[14px] text-center top-[22px] w-[60.913px] transition-colors ${boite === 'manuelle' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:9pt_Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`}>
+          <p className="leading-[normal]">Manuelle</p>
+        </div>
+      </div>
+      <div
+        className={`absolute border border-solid inset-[70px_319px_78px_157.5px] rounded-[11px] cursor-pointer transition-colors ${boite === 'automatique' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => setBoite('automatique')}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[14px] text-center top-[22px] w-[84.6px] transition-colors ${boite === 'automatique' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:9pt_Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`}>
+          <p className="leading-[normal]">Automatique</p>
+        </div>
+      </div>
       <Label5 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[379px] text-[#bcff3d] text-[11px] top-[135px] tracking-[0.88px] uppercase w-[6.612px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">*</p>
@@ -642,8 +687,22 @@ function Section2Caracteristiques() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[77px] text-[#bcff3d] text-[11px] top-[135px] tracking-[0.88px] uppercase w-[6.612px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">*</p>
       </div>
-      <OverlayBorder11 />
-      <OverlayBorder12 />
+      <div
+        className={`absolute border border-solid inset-[70px_157.5px_78px_319px] rounded-[11px] cursor-pointer transition-colors ${portes === 3 ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => setPortes(3)}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.52px)] text-[14px] text-center top-[22px] w-[56.318px] transition-colors ${portes === 3 ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:9pt_Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`}>
+          <p className="leading-[normal]">3 portes</p>
+        </div>
+      </div>
+      <div
+        className={`absolute border border-solid inset-[70px_0_78px_476.5px] rounded-[11px] cursor-pointer transition-colors ${portes === 5 ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => setPortes(5)}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[14px] text-center top-[22px] w-[55.168px] transition-colors ${portes === 5 ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:9pt_Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`}>
+          <p className="leading-[normal]">5 portes</p>
+        </div>
+      </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-0 text-[11px] text-[rgba(255,255,255,0.25)] top-[calc(50%+38px)] tracking-[0.88px] uppercase w-[72.341px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Carburant</p>
       </div>
@@ -782,14 +841,50 @@ function OverlayBorder19() {
 }
 
 function Section3Photos() {
+  const [photos, setPhotos] = useState<{ avant?: string; arriere?: string; coteGauche?: string; autre?: string }>({});
+
+  const handlePhoto = (slot: keyof typeof photos) => (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) setPhotos(prev => ({ ...prev, [slot]: URL.createObjectURL(file) }));
+  };
+
+  const slotBase = "absolute overflow-clip rounded-[10px] cursor-pointer";
+  const slotBg = "bg-[rgba(188,255,61,0.05)] border border-[rgba(188,255,61,0.2)] border-solid";
+
   return (
     <div className="absolute h-[459.5px] left-[36px] right-[36px] top-[677.39px]" data-name="SECTION 3 : Photos">
       <HorizontalBorder2 />
       <OverlayBorder13 />
-      <OverlayBorder16 />
-      <OverlayBorder17 />
-      <OverlayBorder18 />
-      <OverlayBorder19 />
+      {/* Avant */}
+      <label className={`${slotBase} ${slotBg} inset-[309px_475.5px_0_0]`}>
+        <input type="file" accept="image/*" className="hidden" onChange={handlePhoto('avant')} />
+        {photos.avant && <img src={photos.avant} className="absolute inset-0 w-full h-full object-cover" alt="avant" />}
+        <div className={`-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[13px] justify-center leading-[0] left-[60.8px] text-[#bcff3d] text-[10px] top-[74.25px] w-[28.223px] ${photos.avant ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]' : ''}`}>
+          <p className="leading-[normal]">Avant</p>
+        </div>
+      </label>
+      {/* Arrière */}
+      <label className={`${slotBase} ${slotBg} inset-[309px_317px_0_158.5px]`}>
+        <input type="file" accept="image/*" className="hidden" onChange={handlePhoto('arriere')} />
+        {photos.arriere && <img src={photos.arriere} className="absolute inset-0 w-full h-full object-cover" alt="arriere" />}
+        <div className={`-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[13px] justify-center leading-[0] left-[58.16px] text-[#bcff3d] text-[10px] top-[74.25px] w-[33.95px] ${photos.arriere ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]' : ''}`}>
+          <p className="leading-[normal]">Arrière</p>
+        </div>
+      </label>
+      {/* Côté gauche */}
+      <label className={`${slotBase} ${slotBg} inset-[309px_158.5px_0_317px]`}>
+        <input type="file" accept="image/*" className="hidden" onChange={handlePhoto('coteGauche')} />
+        {photos.coteGauche && <img src={photos.coteGauche} className="absolute inset-0 w-full h-full object-cover" alt="cote-gauche" />}
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[13px] justify-center leading-[0] left-[73.5px] text-[#bcff3d] text-[10px] text-center top-[73.5px] w-[71px] ${photos.coteGauche ? 'drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]' : ''}`}>
+          <p className="leading-[normal]">Côté gauche</p>
+        </div>
+      </label>
+      {/* + autres */}
+      <label className={`${slotBase} bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid inset-[309px_0_0_475.5px]`}>
+        <input type="file" accept="image/*" className="hidden" onChange={handlePhoto('autre')} />
+        {photos.autre && <img src={photos.autre} className="absolute inset-0 w-full h-full object-cover" alt="autre" />}
+        {!photos.autre && <Svg6 />}
+      </label>
     </div>
   );
 }
@@ -837,10 +932,7 @@ function Label6() {
 function Textarea() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[96px] left-0 overflow-auto right-0 rounded-[11px] top-[70px]" data-name="Textarea">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[36px] justify-center leading-[0] left-[16px] text-[14px] text-[rgba(255,255,255,0.25)] top-[31px] w-[551.09px] whitespace-pre-wrap" style={{ fontVariationSettings: "'opsz' 9" }}>
-        <p className="leading-[normal] mb-0">{`Indiquez ici tout élément utile à signaler : dommages carrosserie, véhicule accidenté, `}</p>
-        <p className="leading-[normal]">{`problème moteur ou mécanique, historique d'entretien, équipements optionnels…`}</p>
-      </div>
+      <textarea className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] py-[14px] w-full h-full resize-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Indiquez ici tout élément utile à signaler : dommages carrosserie, véhicule accidenté, problème moteur ou mécanique, historique d'entretien, équipements optionnels…" />
     </div>
   );
 }
@@ -905,7 +997,7 @@ function Container7() {
 function Input4() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-0 overflow-clip right-[319px] rounded-[11px] top-[70px]" data-name="Input">
-      <Container7 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" type="text" autoComplete="given-name" />
     </div>
   );
 }
@@ -936,7 +1028,7 @@ function Container8() {
 function Input5() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[319px] overflow-clip right-0 rounded-[11px] top-[70px]" data-name="Input">
-      <Container8 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" type="text" autoComplete="family-name" />
     </div>
   );
 }
@@ -967,7 +1059,7 @@ function Container9() {
 function Input6() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-0 overflow-clip right-[319px] rounded-[11px] top-[148px]" data-name="Input">
-      <Container9 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
     </div>
   );
 }
@@ -998,7 +1090,7 @@ function Container10() {
 function Input7() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[319px] overflow-clip right-0 rounded-[11px] top-[148px]" data-name="Input">
-      <Container10 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[16px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="+33 6 00 00 00 00" type="tel" autoComplete="tel" />
     </div>
   );
 }
@@ -1050,8 +1142,9 @@ function Svg10() {
 }
 
 function Button() {
+  const navigate = useNavigate();
   return (
-    <div className="absolute bg-[#bcff3d] h-[52px] left-[36px] right-[36px] rounded-[14px] top-[76px]" data-name="Button">
+    <div className="absolute bg-[#bcff3d] h-[52px] left-[36px] right-[36px] rounded-[14px] top-[76px] cursor-pointer" data-name="Button" onClick={() => navigate("/vendre-votre-vehicule/formulaire")}>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.85px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[275.637px]">
         <p className="leading-[normal]">Envoyer ma demande de reprise</p>
       </div>

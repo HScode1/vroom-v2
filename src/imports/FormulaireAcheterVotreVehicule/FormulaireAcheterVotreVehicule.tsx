@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import svgPaths from "./svg-fi2qbhww8w";
 
 function OverlayBorder() {
@@ -706,7 +708,20 @@ function Container() {
 function Options() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 right-[468px] rounded-[12px] top-[73px]" data-name="Options">
-      <Container />
+      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+        <option value="">Sélectionner...</option>
+        <option>Audi</option>
+        <option>BMW</option>
+        <option>Citroën</option>
+        <option>Dacia</option>
+        <option>Ford</option>
+        <option>Mercedes</option>
+        <option>Peugeot</option>
+        <option>Renault</option>
+        <option>Toyota</option>
+        <option>Volkswagen</option>
+        <option>Autre</option>
+      </select>
     </div>
   );
 }
@@ -724,7 +739,7 @@ function Container1() {
 function Input() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[234px] overflow-clip right-[234px] rounded-[12px] top-[73px]" data-name="Input">
-      <Container1 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
     </div>
   );
 }
@@ -742,7 +757,12 @@ function Container2() {
 function Options1() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[468px] right-0 rounded-[12px] top-[73px]" data-name="Options">
-      <Container2 />
+      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+        <option value="">Peu importe</option>
+        {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
+          <option key={y}>{y}</option>
+        ))}
+      </select>
     </div>
   );
 }
@@ -803,12 +823,22 @@ function Container3() {
 function Options2() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[351px] right-0 rounded-[12px] top-[165px]" data-name="Options">
-      <Container3 />
+      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+        <option value="">Peu importe</option>
+        <option>Essence</option>
+        <option>Diesel</option>
+        <option>Hybride</option>
+        <option>Hybride rechargeable</option>
+        <option>Électrique</option>
+        <option>GPL</option>
+      </select>
     </div>
   );
 }
 
 function Section1LeVehicule() {
+  const [boite, setBoite] = useState<'automatique' | 'manuelle' | 'peuImporte'>('automatique');
+
   return (
     <div className="absolute h-[213px] left-[40px] right-[40px] top-[119px]" data-name="SECTION 1 : Le véhicule">
       <HorizontalBorder2 />
@@ -825,9 +855,33 @@ function Section1LeVehicule() {
       <Options1 />
       <div className="absolute border-[rgba(255,255,255,0.4)] border-l-4 border-r-4 border-solid border-t-5 h-[5px] left-[666px] right-[16px] top-[94.5px]" data-name="Border" />
       <Label1 />
-      <OverlayBorder11 />
-      <OverlayBorder12 />
-      <OverlayBorder13 />
+      {/* Automatique */}
+      <div
+        className={`absolute border border-solid h-[48px] left-0 right-[579.52px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${boite === 'automatique' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => setBoite('automatique')}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[14px] text-center top-[23px] w-[88.817px] transition-colors ${boite === 'automatique' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
+          <p className="leading-[normal]">Automatique</p>
+        </div>
+      </div>
+      {/* Manuelle */}
+      <div
+        className={`absolute border border-solid h-[48px] left-[120.48px] right-[465.25px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${boite === 'manuelle' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => setBoite('manuelle')}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[14px] text-center top-[23px] w-[57.987px] transition-colors ${boite === 'manuelle' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
+          <p className="leading-[normal]">Manuelle</p>
+        </div>
+      </div>
+      {/* Peu importe */}
+      <div
+        className={`absolute border border-solid h-[48px] left-[234.75px] right-[350.98px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${boite === 'peuImporte' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => setBoite('peuImporte')}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.15px)] text-[14px] text-center top-[23px] w-[79.071px] transition-colors ${boite === 'peuImporte' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
+          <p className="leading-[normal]">Peu importe</p>
+        </div>
+      </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[13px] justify-center leading-[0] left-[351px] right-[263.16px] text-[11px] text-[rgba(255,255,255,0.25)] top-[151.5px] tracking-[0.88px] uppercase">
         <p className="leading-[normal]">Carburant</p>
       </div>
@@ -877,11 +931,16 @@ function Input1() {
 }
 
 function Section2Budget() {
+  const [budget, setBudget] = useState(20000);
+  const min = 5000;
+  const max = 100000;
+  const pct = ((budget - min) / (max - min)) * 100;
+
   return (
     <div className="absolute h-[142px] left-[40px] right-[40px] top-[368px]" data-name="SECTION 2 : Budget">
       <HorizontalBorder3 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-0 right-[501.26px] text-[#bcff3d] text-[32px] top-[69px]">
-        <p className="leading-[32px]">{`20 000 `}</p>
+        <p className="leading-[32px]">{budget.toLocaleString("fr-FR")}</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Regular',sans-serif] font-normal h-[19px] justify-center leading-[0] left-[188.39px] right-[489.05px] text-[16px] text-[rgba(255,255,255,0.4)] top-[73.5px]">
         <p className="leading-[16px]">€</p>
@@ -889,7 +948,24 @@ function Section2Budget() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] left-0 right-[566.34px] text-[12px] text-[rgba(255,255,255,0.4)] top-[92.5px]">
         <p className="leading-[normal]">budget maximum TTC</p>
       </div>
-      <Input1 />
+      {/* Slider interactif */}
+      <div className="absolute left-0 right-0 top-[104px] h-[28px]">
+        <div className="absolute left-0 right-0 h-[4px] top-[12px] bg-[rgba(255,255,255,0.08)] rounded-[4px]" />
+        <div className="absolute left-0 h-[4px] top-[12px] bg-[#bcff3d] rounded-[4px]" style={{ width: `${pct}%` }} />
+        <div
+          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 size-[22px] bg-[#bcff3d] rounded-full shadow-[0px_0px_0px_4px_rgba(188,255,61,0.15)] pointer-events-none"
+          style={{ left: `${pct}%` }}
+        />
+        <input
+          type="range"
+          min={min}
+          max={max}
+          step={1000}
+          value={budget}
+          onChange={(e) => setBudget(Number(e.target.value))}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+        />
+      </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[12px] justify-center leading-[0] left-0 right-[650.38px] text-[10px] text-[rgba(255,255,255,0.25)] top-[136px]">
         <p className="leading-[normal]">5 000 €</p>
       </div>
@@ -1003,13 +1079,38 @@ function ParagraphOverlayBorder3() {
 }
 
 function Section3HorizonDachat() {
+  const [horizon, setHorizon] = useState<'immediat' | '1-3mois' | '3-6mois' | '6plus'>('immediat');
+
+  const card = (val: typeof horizon, active: boolean) =>
+    `absolute border border-solid h-[98px] rounded-[12px] top-[53px] cursor-pointer transition-colors ${active ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d] text-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.4)]'}`;
+
   return (
     <div className="absolute h-[151px] left-[40px] right-[40px] top-[542px]" data-name="SECTION 3 : Horizon d'achat">
       <HorizontalBorder4 />
-      <ParagraphOverlayBorder />
-      <ParagraphOverlayBorder1 />
-      <ParagraphOverlayBorder2 />
-      <ParagraphOverlayBorder3 />
+      {/* Immédiatement */}
+      <div className={`${card('immediat', horizon === 'immediat')} left-0 right-[525px]`} onClick={() => setHorizon('immediat')}>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:SemiBold',sans-serif] font-semibold h-[24px] justify-center left-[77px] right-[76.7px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>⚡</p></div>
+        <div className={`-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[31.28px] right-[29.08px] text-[13px] top-[54.5px]`} style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Immédiatement</p></div>
+        <div className={`-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[37.83px] opacity-60 right-[37.51px] text-[11px] top-[73px]`} style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Dès que possible</p></div>
+      </div>
+      {/* Dans 1 à 3 mois */}
+      <div className={`${card('1-3mois', horizon === '1-3mois')} left-[175px] right-[350px]`} onClick={() => setHorizon('1-3mois')}>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[24px] justify-center left-[74.75px] right-[74.39px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>📅</p></div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[34.58px] right-[33.22px] text-[13px] top-[54.5px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Dans 1 à 3 mois</p></div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[24.77px] opacity-60 right-[24.21px] text-[11px] top-[73px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Je prépare mon projet</p></div>
+      </div>
+      {/* Dans 3 à 6 mois */}
+      <div className={`${card('3-6mois', horizon === '3-6mois')} left-[350px] right-[175px]`} onClick={() => setHorizon('3-6mois')}>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[24px] justify-center left-[74.75px] right-[74.39px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>🗓️</p></div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[32.73px] right-[31.64px] text-[13px] top-[54.5px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Dans 3 à 6 mois</p></div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[39.89px] opacity-60 right-[39.58px] text-[11px] top-[73px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Je me renseigne</p></div>
+      </div>
+      {/* + de 6 mois */}
+      <div className={`${card('6plus', horizon === '6plus')} left-[525px] right-0`} onClick={() => setHorizon('6plus')}>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[24px] justify-center left-[74.75px] right-[74.39px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>🔭</p></div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[45.8px] right-[45.17px] text-[13px] top-[54.5px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">+ de 6 mois</p></div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[54.06px] opacity-60 right-[53.71px] text-[11px] top-[73px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Pas pressé</p></div>
+      </div>
     </div>
   );
 }
@@ -1054,10 +1155,7 @@ function Label2() {
 function Textarea() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[88px] left-0 overflow-auto right-0 rounded-[12px] top-[73px]" data-name="Textarea">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[36px] justify-center leading-[0] left-[18px] right-[32.92px] text-[14px] text-[rgba(255,255,255,0.25)] top-[32px] whitespace-pre-wrap" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal] mb-0">{`Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 `}</p>
-        <p className="leading-[normal]">km, de préférence en noir ou gris…</p>
-      </div>
+      <textarea className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] py-[14px] w-full h-full resize-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…" />
     </div>
   );
 }
@@ -1122,7 +1220,7 @@ function Container4() {
 function Input2() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 overflow-clip right-[351px] rounded-[12px] top-[73px]" data-name="Input">
-      <Container4 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" type="text" autoComplete="given-name" />
     </div>
   );
 }
@@ -1153,7 +1251,7 @@ function Container5() {
 function Input3() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[351px] overflow-clip right-0 rounded-[12px] top-[73px]" data-name="Input">
-      <Container5 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" type="text" autoComplete="family-name" />
     </div>
   );
 }
@@ -1184,7 +1282,7 @@ function Container6() {
 function Input4() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 overflow-clip right-0 rounded-[12px] top-[153px]" data-name="Input">
-      <Container6 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
     </div>
   );
 }
@@ -1225,7 +1323,7 @@ function Container7() {
 function Input5() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[81.77px] overflow-clip right-0 rounded-br-[12px] rounded-tr-[12px] top-[255.39px]" data-name="Input">
-      <Container7 />
+      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
     </div>
   );
 }
@@ -1280,8 +1378,9 @@ function Svg22() {
 }
 
 function Button() {
+  const navigate = useNavigate();
   return (
-    <div className="absolute bg-[#bcff3d] h-[54px] left-[40px] right-[40px] rounded-[14px] top-[61.18px]" data-name="Button">
+    <div className="absolute bg-[#bcff3d] h-[54px] left-[40px] right-[40px] rounded-[14px] top-[61.18px] cursor-pointer" data-name="Button" onClick={() => navigate("/acheter-votre-vehicule/etape-2")}>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.82px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[188.096px]">
         <p className="leading-[normal]">Envoyer ma demande</p>
       </div>
