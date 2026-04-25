@@ -1,0 +1,1336 @@
+import svgPaths from "./svg-saghog0tif";
+import imgBorder from "./931a34b107fc3c4e1f36267ef0a5e19f63a2f227.png";
+import imgOverlayBorderShadow from "./6fe70e2a5397ec3b9133f6ab99aa1ef13cf3c1c2.png";
+import imgBorder1 from "./fcdd907733c2793ee67fc155a82d6bb2381771a9.png";
+
+function OverlayBorder() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.22)] border-solid h-[30px] left-0 right-[814px] rounded-[100px] top-[80px]" data-name="Overlay+Border">
+      <div className="-translate-y-1/2 absolute bg-[#bcff3d] left-[18px] rounded-[3px] size-[6px] top-1/2" data-name="Background" />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[32px] text-[#bcff3d] text-[11px] top-[calc(50%-0.11px)] tracking-[1.32px] uppercase w-[273px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Vroom Adbisor · Agence automobile</p>
+      </div>
+    </div>
+  );
+}
+
+function Border() {
+  return (
+    <div className="absolute border border-[rgba(255,255,255,0.08)] border-solid h-[320px] left-[620.22px] overflow-clip right-0 rounded-[20px] top-[64px]" data-name="Border">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <img alt="" className="absolute h-[208.44%] left-0 max-w-none top-[-54.22%] w-full" src={imgBorder} />
+      </div>
+    </div>
+  );
+}
+
+function OverlayBorderShadow() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0)] border-2 border-[#0c0d0c] border-solid h-[200px] left-[628px] overflow-clip right-[292px] rounded-[16px] shadow-[0px_0px_0px_1px_rgba(255,255,255,0.08)] top-[339px]" data-name="Overlay+Border+Shadow">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <img alt="" className="absolute h-full left-[-24.97%] max-w-none top-0 w-[149.94%]" src={imgOverlayBorderShadow} />
+      </div>
+    </div>
+  );
+}
+
+function ParagraphOverlayBorderOverlayBlur() {
+  return (
+    <div className="absolute backdrop-blur-[10px] bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.25)] border-solid h-[78px] leading-[0] left-[986.08px] right-0 rounded-[16px] text-center top-[396px]" data-name="Paragraph+Overlay+Border+OverlayBlur">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[26px] justify-center left-[70.17px] text-[#bcff3d] text-[26px] top-[30px] w-[100.502px]">
+        <p className="leading-[26px]">⭐ 5,0</p>
+      </div>
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[65.6px] text-[11px] text-[rgba(255,255,255,0.55)] top-[56px] w-[55.366px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">sur Google</p>
+      </div>
+    </div>
+  );
+}
+
+function SectionHero() {
+  return (
+    <div className="absolute h-[616px] left-[160px] right-[160px] top-[128px]" data-name="Section - HERO">
+      <OverlayBorder />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[171.19px] justify-center leading-[0] left-0 right-[598.16px] text-[52px] text-white top-[219.71px] tracking-[-1.56px]">
+        <p className="leading-[54.6px] mb-0">{`L'automobile`}</p>
+        <p className="leading-[54.6px] mb-0">autrement,</p>
+        <p className="leading-[54.6px] text-[#bcff3d]">avec vous.</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light justify-center leading-[0] left-0 right-[577px] text-[16px] text-[rgba(255,255,255,0.55)] top-[381px] whitespace-pre-wrap" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[28px] mb-0">{`Chez Vroom Advisor , nous avons réinventé l'expérience d'achat et de vente automobile. Plus de stress, et de mauvaises surprises,`}</p>
+        <p className="leading-[28px] mb-0">{`juste un conseiller dédié, une sélection rigoureuse `}</p>
+        <p className="leading-[28px]">et un accompagnement de A à Z.</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-0 right-[994.58px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
+        <p className="leading-[32px]">500+</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[14.89px] right-[1009.53px] text-[12px] text-[rgba(255,255,255,0.4)] text-center top-[519.89px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">véhicules vendus</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-[157.03px] right-[849.43px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
+        <p className="leading-[32px]">98%</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[168.59px] right-[860.77px] text-[12px] text-[rgba(255,255,255,0.4)] text-center top-[519.89px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">clients satisfaits</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-[302.19px] right-[680.92px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
+        <p className="leading-[32px]">3 ans</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[340.17px] right-[718.83px] text-[12px] text-[rgba(255,255,255,0.4)] text-center top-[519.89px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">{`d'expertise`}</p>
+      </div>
+      <Border />
+      <OverlayBorderShadow />
+      <ParagraphOverlayBorderOverlayBlur />
+    </div>
+  );
+}
+
+function Border1() {
+  return (
+    <div className="absolute aspect-[520/390] border border-[rgba(255,255,255,0.08)] border-solid left-[-34px] overflow-clip right-[560px] rounded-[20px] top-[7px]" data-name="Border">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <img alt="" className="absolute h-full left-[-6.16%] max-w-none top-0 w-[112.31%]" src={imgBorder1} />
+      </div>
+    </div>
+  );
+}
+
+function Svg() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[15px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15 15">
+        <g id="SVG">
+          <path d={svgPaths.p21409e00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.25" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder2() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[18px] rounded-[10px] size-[36px] top-[17px]" data-name="Overlay+Border">
+      <Svg />
+    </div>
+  );
+}
+
+function OverlayBorder1() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[74.5px] left-[600px] right-0 rounded-[14px] top-[454px]" data-name="Overlay+Border">
+      <OverlayBorder2 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[155.701px]">
+        <p className="leading-[normal]">Transparence totale</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[19.5px] justify-center leading-[0] left-[68px] text-[13px] text-[rgba(255,255,255,0.4)] top-[46.75px] w-[306.864px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[19.5px]">Prix clairs, historique du véhicule, zéro frais cachés.</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg1() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[15px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15 15">
+        <g id="SVG">
+          <path d={svgPaths.p33162d80} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.25" />
+          <path d={svgPaths.p2ec9be80} id="Vector_2" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.25" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder4() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[18px] rounded-[10px] size-[36px] top-[17px]" data-name="Overlay+Border">
+      <Svg1 />
+    </div>
+  );
+}
+
+function OverlayBorder3() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[94px] left-[600px] right-0 rounded-[14px] top-[542.5px]" data-name="Overlay+Border">
+      <OverlayBorder4 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[123.16px]">
+        <p className="leading-[normal]">Conseiller dédié</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[36.5px] justify-center leading-[0] left-[68px] text-[13px] text-[rgba(255,255,255,0.4)] top-[56.25px] w-[421.305px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[19.5px] mb-0">{`Un expert vous accompagne du premier contact jusqu'à la remise des`}</p>
+        <p className="leading-[19.5px]">clés.</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg2() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[15px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15 15">
+        <g clipPath="url(#clip0_6_318)" id="SVG">
+          <path d={svgPaths.p2ad7a580} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.25" />
+          <path d={svgPaths.p17be1d00} id="Vector_2" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.25" />
+        </g>
+        <defs>
+          <clipPath id="clip0_6_318">
+            <rect fill="white" height="15" width="15" />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder6() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[18px] rounded-[10px] size-[36px] top-[17px]" data-name="Overlay+Border">
+      <Svg2 />
+    </div>
+  );
+}
+
+function OverlayBorder5() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[74.5px] left-[600px] right-0 rounded-[14px] top-[650.5px]" data-name="Overlay+Border">
+      <OverlayBorder6 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[123.701px]">
+        <p className="leading-[normal]">Qualité garantie</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[19.5px] justify-center leading-[0] left-[68px] text-[13px] text-[rgba(255,255,255,0.4)] top-[46.75px] w-[408.786px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[19.5px]">{`Chaque véhicule passe un contrôle 100 points avant d'être proposé.`}</p>
+      </div>
+    </div>
+  );
+}
+
+function SectionNotreHistoire() {
+  return (
+    <div className="absolute h-[725px] left-[160px] right-[160px] top-[817px]" data-name="Section - NOTRE HISTOIRE">
+      <Border1 />
+      <div className="absolute bg-[#bcff3d] h-px left-[600px] opacity-60 right-[492px] top-[6.5px]" data-name="Horizontal Divider" />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[640px] opacity-80 right-[370.25px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Notre histoire</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[136px] justify-center leading-[0] left-[600px] right-[41.73px] text-[40px] text-white top-[96px] tracking-[-0.8px]">
+        <p className="leading-[44px] mb-0">Nés de la</p>
+        <p className="leading-[44px] mb-0">passion</p>
+        <p className="leading-[44px] text-[#bcff3d]">{`de l'automobile`}</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[229px] justify-center leading-[0] left-[600px] right-[34px] text-[15px] text-[rgba(255,255,255,0.55)] top-[303.5px] whitespace-pre-wrap" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="mb-0">
+          <span className="leading-[27px]">{`Vroom Paris est née d'un constat simple : `}</span>
+          <span className="font-['DM_Sans:Bold',sans-serif] font-bold leading-[27px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+            acheter ou vendre une voiture ne devrait pas être une épreuve.
+          </span>
+          <span className="leading-[27px]">{` Trop souvent, les clients se retrouvaient seuls face à des offres opaques, des prix injustes et un manque d'accompagnement.`}</span>
+        </p>
+        <p className="leading-[27px] mb-0">​</p>
+        <p>
+          <span className="leading-[27px]">{`Nous avons créé Vroom pour changer ça. Notre agence, installée à `}</span>
+          <span className="font-['DM_Sans:Bold',sans-serif] font-bold leading-[27px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+            Soisy-sous-Montmorency,
+          </span>
+          <span className="leading-[27px]">{` réunit une équipe de passionnés qui mettent leur expertise au service d'une seule mission : `}</span>
+          <span className="font-['DM_Sans:Bold',sans-serif] font-bold leading-[27px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+            vous trouver le bon véhicule, au bon prix, sans effort de votre côté.
+          </span>
+        </p>
+      </div>
+      <OverlayBorder1 />
+      <OverlayBorder3 />
+      <OverlayBorder5 />
+    </div>
+  );
+}
+
+function Svg3() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[20px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g id="SVG">
+          <path d={svgPaths.p1529bd80} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder8() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[28px] rounded-[14px] size-[48px] top-[32px]" data-name="Overlay+Border">
+      <Svg3 />
+    </div>
+  );
+}
+
+function OverlayBorder7() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[279.39px] left-0 overflow-clip right-[757.34px] rounded-[22px] top-[166px]" data-name="Overlay+Border">
+      <OverlayBorder8 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[40.13px] text-[18px] text-white top-[111px]">
+        <p className="leading-[normal]">Transparence totale</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[35.1px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[23.8px] mb-0">Prix clairs, historique complet du véhicule, zéro</p>
+        <p className="leading-[23.8px] mb-0">frais cachés. Vous savez exactement ce que</p>
+        <p className="leading-[23.8px]">vous achetez avant de signer.</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg4() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[20px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g id="SVG">
+          <path d={svgPaths.p27365a00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+          <path d={svgPaths.p32ab0300} id="Vector_2" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder10() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.12)] border border-[rgba(188,255,61,0.3)] border-solid left-[28px] rounded-[14px] size-[48px] top-[32px]" data-name="Overlay+Border">
+      <Svg4 />
+    </div>
+  );
+}
+
+function OverlayBorder11() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.12)] border border-[rgba(188,255,61,0.22)] border-solid h-[26px] left-[28px] rounded-[100px] top-[219.39px] w-[165.31px]" data-name="Overlay+Border">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:SemiBold',sans-serif] font-semibold h-[14px] justify-center leading-[0] left-[12px] text-[#bcff3d] text-[11px] top-1/2 tracking-[0.66px] w-[146.101px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">⭐ Notre force principale</p>
+      </div>
+    </div>
+  );
+}
+
+function OverlayBorder9() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.06)] border border-[rgba(188,255,61,0.22)] border-solid h-[279.39px] left-[378.66px] overflow-clip right-[378.67px] rounded-[22px] top-[166px]" data-name="Overlay+Border">
+      <OverlayBorder10 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[104.32px] text-[18px] text-white top-[111px]">
+        <p className="leading-[normal]">Conseiller dédié</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[38.83px] text-[14px] text-[rgba(255,255,255,0.55)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[23.8px] mb-0">Un expert vous accompagne du premier</p>
+        <p className="leading-[23.8px] mb-0">{`contact jusqu'à la remise des clés. Vous n'êtes`}</p>
+        <p className="leading-[23.8px]">jamais seul dans votre projet.</p>
+      </div>
+      <OverlayBorder11 />
+      <div className="absolute right-[-60px] size-[180px] top-[-60px]" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\\'0 0 180 180\\' xmlns=\\'http://www.w3.org/2000/svg\\' preserveAspectRatio=\\'none\\'><rect x=\\'0\\' y=\\'0\\' height=\\'100%\\' width=\\'100%\\' fill=\\'url(%23grad)\\' opacity=\\'1\\'/><defs><radialGradient id=\\'grad\\' gradientUnits=\\'userSpaceOnUse\\' cx=\\'0\\' cy=\\'0\\' r=\\'10\\' gradientTransform=\\'matrix(12.728 0 0 12.728 90 90)\\'><stop stop-color=\\'rgba(188,255,61,0.12)\\' offset=\\'0\\'/><stop stop-color=\\'rgba(188,255,61,0)\\' offset=\\'0.65\\'/></radialGradient></defs></svg>')" }} data-name="Gradient" />
+    </div>
+  );
+}
+
+function Svg5() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[20px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g clipPath="url(#clip0_6_322)" id="SVG">
+          <path d={svgPaths.p2bd33880} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+          <path d={svgPaths.p8e7df80} id="Vector_2" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+        </g>
+        <defs>
+          <clipPath id="clip0_6_322">
+            <rect fill="white" height="20" width="20" />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder13() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[28px] rounded-[14px] size-[48px] top-[32px]" data-name="Overlay+Border">
+      <Svg5 />
+    </div>
+  );
+}
+
+function OverlayBorder12() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[279.39px] left-[757.33px] overflow-clip right-[0.01px] rounded-[22px] top-[166px]" data-name="Overlay+Border">
+      <OverlayBorder13 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[104.4px] text-[18px] text-white top-[111px]">
+        <p className="leading-[normal]">Qualité garantie</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[45.2px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[23.8px] mb-0">Chaque véhicule passe un contrôle rigoureux</p>
+        <p className="leading-[23.8px] mb-0">{`100 points avant d'être proposé. Garantie 12`}</p>
+        <p className="leading-[23.8px]">mois incluse sur chaque achat.</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg6() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[20px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g id="SVG">
+          <path d={svgPaths.p2213f00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder15() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[28px] rounded-[14px] size-[48px] top-[32px]" data-name="Overlay+Border">
+      <Svg6 />
+    </div>
+  );
+}
+
+function OverlayBorder14() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[237.39px] left-0 overflow-clip right-[757.34px] rounded-[22px] top-[461.39px]" data-name="Overlay+Border">
+      <OverlayBorder15 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[51.58px] text-[18px] text-white top-[111px]">
+        <p className="leading-[normal]">Livraison à domicile</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[59.6px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[23.8px] mb-0">Votre véhicule livré directement chez vous,</p>
+        <p className="leading-[23.8px] mb-0">partout en France. Immatriculation et</p>
+        <p className="leading-[23.8px]">démarches administratives incluses.</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg7() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[20px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g id="SVG">
+          <path d={svgPaths.pb94cf80} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder17() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[28px] rounded-[14px] size-[48px] top-[32px]" data-name="Overlay+Border">
+      <Svg7 />
+    </div>
+  );
+}
+
+function OverlayBorder16() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[237.39px] left-[378.66px] overflow-clip right-[378.67px] rounded-[22px] top-[461.39px]" data-name="Overlay+Border">
+      <OverlayBorder17 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[187.23px] text-[18px] text-white top-[111px]">
+        <p className="leading-[normal]">Prix justes</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[34.36px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[23.8px] mb-0">Accès à tout le marché automobile pour vous</p>
+        <p className="leading-[23.8px] mb-0">trouver la meilleure offre. Nous négocions pour</p>
+        <p className="leading-[23.8px]">vous, sans commission cachée.</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg8() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[20px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g clipPath="url(#clip0_6_308)" id="SVG">
+          <path d={svgPaths.p14d24500} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+          <path d="M10 5V10L13.3333 11.6667" id="Vector_2" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.66667" />
+        </g>
+        <defs>
+          <clipPath id="clip0_6_308">
+            <rect fill="white" height="20" width="20" />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder19() {
+  return (
+    <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.18)] border-solid left-[28px] rounded-[14px] size-[48px] top-[32px]" data-name="Overlay+Border">
+      <Svg8 />
+    </div>
+  );
+}
+
+function OverlayBorder18() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[237.39px] left-[757.33px] overflow-clip right-[0.01px] rounded-[22px] top-[461.39px]" data-name="Overlay+Border">
+      <OverlayBorder19 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[120.41px] text-[18px] text-white top-[111px]">
+        <p className="leading-[normal]">Réactivité 7j/7</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[40.76px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[23.8px] mb-0">Notre équipe répond sous 24h, 7 jours sur 7.</p>
+        <p className="leading-[23.8px] mb-0">Disponible par téléphone, email ou WhatsApp</p>
+        <p className="leading-[23.8px]">selon vos préférences.</p>
+      </div>
+    </div>
+  );
+}
+
+function SectionNosValeurs() {
+  return (
+    <div className="absolute h-[770.78px] left-[160px] right-[160px] top-[1615px]" data-name="Section - NOS VALEURS">
+      <div className="absolute bg-[#bcff3d] h-px left-0 opacity-60 right-[1092px] top-[6.5px]" data-name="Horizontal Divider" />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 right-[935.64px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Ce qui nous définit</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[630.14px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
+        <p className="leading-[44px] mb-0">Nos valeurs,</p>
+        <p className="leading-[44px] text-[#bcff3d]">votre confiance</p>
+      </div>
+      <OverlayBorder7 />
+      <OverlayBorder9 />
+      <OverlayBorder12 />
+      <OverlayBorder14 />
+      <OverlayBorder16 />
+      <OverlayBorder18 />
+    </div>
+  );
+}
+
+function Svg9() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[16px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+        <g id="SVG">
+          <path d={svgPaths.p1f31df00} fill="var(--fill-0, #BCFF3D)" id="Vector" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder20() {
+  return (
+    <div className="-translate-y-1/2 absolute bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.2)] border-solid left-[22px] rounded-[12px] size-[42px] top-1/2" data-name="Overlay+Border">
+      <Svg9 />
+    </div>
+  );
+}
+
+function Link() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[80px] left-0 right-[600px] rounded-[16px] top-[222.5px]" data-name="Link">
+      <OverlayBorder20 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-11px)] tracking-[0.88px] uppercase w-[68.836px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Téléphone</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[121.548px]">
+        <p className="leading-[normal]">06 70 76 07 19</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg10() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[16px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+        <g id="SVG">
+          <path d={svgPaths.p33da2400} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.33333" />
+          <path d={svgPaths.p1e10f200} id="Vector_2" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.33333" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder21() {
+  return (
+    <div className="-translate-y-1/2 absolute bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.2)] border-solid left-[22px] rounded-[12px] size-[42px] top-1/2" data-name="Overlay+Border">
+      <Svg10 />
+    </div>
+  );
+}
+
+function Link1() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[80px] left-0 right-[600px] rounded-[16px] top-[318.5px]" data-name="Link">
+      <OverlayBorder21 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-11px)] tracking-[0.88px] uppercase w-[35.858px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Email</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[204.379px]">
+        <p className="leading-[normal]">contact@vroomparis.fr</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg11() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[16px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+        <g clipPath="url(#clip0_6_301)" id="SVG">
+          <path d={svgPaths.p276a7e00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.33333" />
+          <path d={svgPaths.p17781bc0} id="Vector_2" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.33333" />
+        </g>
+        <defs>
+          <clipPath id="clip0_6_301">
+            <rect fill="white" height="16" width="16" />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder23() {
+  return (
+    <div className="-translate-y-1/2 absolute bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.2)] border-solid left-[22px] rounded-[12px] size-[42px] top-1/2" data-name="Overlay+Border">
+      <Svg11 />
+    </div>
+  );
+}
+
+function OverlayBorder22() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[89px] left-0 right-[600px] rounded-[16px] top-[414.5px]" data-name="Overlay+Border">
+      <OverlayBorder23 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-18.5px)] tracking-[0.88px] uppercase w-[53.132px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Adresse</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[34px] justify-center leading-[0] left-[78px] text-[14px] text-white top-[calc(50%+8.5px)] w-[255.58px]">
+        <p className="leading-[normal] mb-0">4 bis Av. Alexandre Dumas, 95230</p>
+        <p className="leading-[normal]">Soisy-sous-Montmorency</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg12() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 size-[15px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15 15">
+        <g id="SVG">
+          <path d={svgPaths.p21ee9780} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.25" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function OverlayBorder24() {
+  return (
+    <div className="-translate-y-1/2 absolute bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.2)] border-solid left-[28px] rounded-[9px] size-[34px] top-1/2" data-name="Overlay+Border">
+      <Svg12 />
+    </div>
+  );
+}
+
+function OverlayHorizontalBorder() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.08)] border-b border-solid h-[71px] left-0 right-0 top-0" data-name="Overlay+HorizontalBorder">
+      <OverlayBorder24 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[74px] text-[14px] text-white top-[calc(50%-8px)] w-[205.63px]">
+        <p className="leading-[normal]">Envoyez-nous un message</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[74px] text-[11px] text-[rgba(255,255,255,0.4)] top-[calc(50%+9.5px)] w-[162.889px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Nous vous répondons sous 24h.</p>
+      </div>
+    </div>
+  );
+}
+
+function Container() {
+  return (
+    <div className="absolute h-[18px] left-[16px] overflow-clip right-[16px] top-[13px]" data-name="Container">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[18px] justify-center leading-[0] left-0 text-[14px] text-[rgba(255,255,255,0.25)] top-[9px] w-[31.015px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Jean</p>
+      </div>
+    </div>
+  );
+}
+
+function Input() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[28px] overflow-clip right-[265px] rounded-[11px] top-[119px]" data-name="Input">
+      <Container />
+    </div>
+  );
+}
+
+function Container1() {
+  return (
+    <div className="absolute h-[18px] left-[16px] overflow-clip right-[16px] top-[13px]" data-name="Container">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[18px] justify-center leading-[0] left-0 text-[14px] text-[rgba(255,255,255,0.25)] top-[9px] w-[48.598px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Dupont</p>
+      </div>
+    </div>
+  );
+}
+
+function Input1() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[265px] overflow-clip right-[28px] rounded-[11px] top-[119px]" data-name="Input">
+      <Container1 />
+    </div>
+  );
+}
+
+function Container2() {
+  return (
+    <div className="absolute h-[18px] left-[16px] overflow-clip right-[16px] top-[13px]" data-name="Container">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[18px] justify-center leading-[0] left-0 text-[14px] text-[rgba(255,255,255,0.25)] top-[9px] w-[107.526px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">jean@email.com</p>
+      </div>
+    </div>
+  );
+}
+
+function Input2() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[28px] overflow-clip right-[28px] rounded-[11px] top-[197px]" data-name="Input">
+      <Container2 />
+    </div>
+  );
+}
+
+function Container3() {
+  return (
+    <div className="-translate-y-1/2 absolute h-[18px] left-[16px] overflow-clip right-[36px] top-1/2" data-name="Container">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[18px] justify-center leading-[0] left-0 text-[14px] text-white top-[9px] w-[89.418px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[18px]">Sélectionner...</p>
+      </div>
+    </div>
+  );
+}
+
+function Options() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[46px] left-[28px] right-[28px] rounded-[11px] top-[275px]" data-name="Options">
+      <Container3 />
+    </div>
+  );
+}
+
+function Textarea() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[80px] left-[28px] overflow-auto right-[28px] rounded-[11px] top-[353px]" data-name="Textarea">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[18px] justify-center leading-[0] left-[16px] right-[339.58px] text-[14px] text-[rgba(255,255,255,0.25)] top-[22px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Votre message…</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg13() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%+80.03px)] size-[14px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14 14">
+        <g id="SVG">
+          <path d={svgPaths.p12068718} id="Vector" stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.45833" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Button() {
+  return (
+    <div className="absolute bg-[#bcff3d] h-[49px] left-[28px] right-[28px] rounded-[13px] top-[16px]" data-name="Button">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-10.85px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[152.398px]">
+        <p className="leading-[normal]">Envoyer le message</p>
+      </div>
+      <Svg13 />
+    </div>
+  );
+}
+
+function HorizontalBorder() {
+  return (
+    <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t h-[114px] left-0 right-0 top-[473px]" data-name="HorizontalBorder">
+      <Button />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[147.41px] right-[146.7px] text-[11px] text-[rgba(255,255,255,0.25)] text-center top-[82px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Données confidentielles · Réponse sous 24h</p>
+      </div>
+    </div>
+  );
+}
+
+function FormulaireSimple() {
+  return (
+    <div className="absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid h-[589px] left-[600px] overflow-clip right-0 rounded-[24px] top-0" data-name="FORMULAIRE SIMPLE">
+      <OverlayHorizontalBorder />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[429.22px] text-[11px] text-[rgba(255,255,255,0.25)] top-[106px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p>
+          <span className="leading-[normal]">{`Prénom `}</span>
+          <span className="leading-[normal] text-[#bcff3d]">*</span>
+        </p>
+      </div>
+      <Input />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[265px] right-[214.37px] text-[11px] text-[rgba(255,255,255,0.25)] top-[106px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p>
+          <span className="leading-[normal]">{`Nom `}</span>
+          <span className="leading-[normal] text-[#bcff3d]">*</span>
+        </p>
+      </div>
+      <Input1 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[443.52px] text-[11px] text-[rgba(255,255,255,0.25)] top-[184px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p>
+          <span className="leading-[normal]">{`Email `}</span>
+          <span className="leading-[normal] text-[#bcff3d]">*</span>
+        </p>
+      </div>
+      <Input2 />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[453.28px] text-[11px] text-[rgba(255,255,255,0.25)] top-[262px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Sujet</p>
+      </div>
+      <Options />
+      <div className="absolute border-[rgba(255,255,255,0.4)] border-l-4 border-r-4 border-solid border-t-5 h-[5px] left-[468px] right-[42px] top-[295.5px]" data-name="Border" />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[423.23px] text-[11px] text-[rgba(255,255,255,0.25)] top-[340px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p>
+          <span className="leading-[normal]">{`Message `}</span>
+          <span className="leading-[normal] text-[#bcff3d]">*</span>
+        </p>
+      </div>
+      <Textarea />
+      <HorizontalBorder />
+    </div>
+  );
+}
+
+function SectionContact() {
+  return (
+    <div className="absolute h-[589px] left-[166px] right-[154px] top-[2459px]" data-name="Section - CONTACT">
+      <div className="absolute bg-[#bcff3d] h-px left-0 opacity-60 right-[1092px] top-[6.5px]" data-name="Horizontal Divider" />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 right-[958.38px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Nous contacter</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[662.17px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
+        <p className="leading-[44px] mb-0">Une question ?</p>
+        <p className="leading-[44px] text-[#bcff3d]">Écrivez-nous.</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[46.25px] justify-center leading-[0] left-0 right-[605.14px] text-[15px] text-[rgba(255,255,255,0.45)] top-[160.13px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[26.25px] mb-0">Notre équipe est disponible du lundi au samedi pour répondre à toutes vos</p>
+        <p className="leading-[26.25px]">questions. Nous vous répondons sous 24h.</p>
+      </div>
+      <Link />
+      <Link1 />
+      <OverlayBorder22 />
+      <FormulaireSimple />
+    </div>
+  );
+}
+
+function Svg14() {
+  return (
+    <div className="absolute h-[14px] left-[512px] overflow-clip right-[26px] top-[24px]" data-name="SVG">
+      <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
+        <div className="absolute inset-[-11.79%_-5.89%_-23.57%_-5.89%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.82496 4.73744">
+            <path d={svgPaths.p10e7bf00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.16667" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BackgroundBorder() {
+  return (
+    <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-0 right-[566px] rounded-[16px] top-[166px]" data-name="Background+Border">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[306.94px] text-[14px] text-white top-[32.5px]">
+        <p className="leading-[normal]">{`Qu'est-ce que Vroom Advisor ?`}</p>
+      </div>
+      <Svg14 />
+    </div>
+  );
+}
+
+function Svg15() {
+  return (
+    <div className="absolute h-[14px] left-[512px] overflow-clip right-[26px] top-[24px]" data-name="SVG">
+      <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
+        <div className="absolute inset-[-11.79%_-5.89%_-23.57%_-5.89%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.82496 4.73744">
+            <path d={svgPaths.p10e7bf00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.16667" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BackgroundBorder1() {
+  return (
+    <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-[566px] right-0 rounded-[16px] top-[166px]" data-name="Background+Border">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[186.97px] text-[14px] text-white top-[32.5px]">
+        <p className="leading-[normal]">Comment fonctionne le service VroomAdvisor ?</p>
+      </div>
+      <Svg15 />
+    </div>
+  );
+}
+
+function Svg16() {
+  return (
+    <div className="absolute h-[14px] left-[512px] overflow-clip right-[26px] top-[24px]" data-name="SVG">
+      <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
+        <div className="absolute inset-[-11.79%_-5.89%_-23.57%_-5.89%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.82496 4.73744">
+            <path d={svgPaths.p10e7bf00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.16667" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BackgroundBorder2() {
+  return (
+    <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-0 right-[566px] rounded-[16px] top-[245px]" data-name="Background+Border">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[175.71px] text-[14px] text-white top-[32.5px]">
+        <p className="leading-[normal]">Est-ce que vous proposez la livraison à domicile ?</p>
+      </div>
+      <Svg16 />
+    </div>
+  );
+}
+
+function Svg17() {
+  return (
+    <div className="absolute h-[14px] left-[512px] overflow-clip right-[26px] top-[24px]" data-name="SVG">
+      <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
+        <div className="absolute inset-[-11.79%_-5.89%_-23.57%_-5.89%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.82496 4.73744">
+            <path d={svgPaths.p10e7bf00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.16667" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BackgroundBorder3() {
+  return (
+    <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-[566px] right-0 rounded-[16px] top-[245px]" data-name="Background+Border">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[238.16px] text-[14px] text-white top-[32.5px]">
+        <p className="leading-[normal]">{`Quelle garantie est incluse avec l'achat ?`}</p>
+      </div>
+      <Svg17 />
+    </div>
+  );
+}
+
+function Svg18() {
+  return (
+    <div className="absolute h-[14px] left-[512px] overflow-clip right-[26px] top-[24px]" data-name="SVG">
+      <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
+        <div className="absolute inset-[-11.79%_-5.89%_-23.57%_-5.89%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.82496 4.73744">
+            <path d={svgPaths.p10e7bf00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.16667" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BackgroundBorder4() {
+  return (
+    <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-0 right-[566px] rounded-[16px] top-[324px]" data-name="Background+Border">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[189.23px] text-[14px] text-white top-[32.5px]">
+        <p className="leading-[normal]">Comment se passe la reprise de mon véhicule ?</p>
+      </div>
+      <Svg18 />
+    </div>
+  );
+}
+
+function Svg19() {
+  return (
+    <div className="absolute h-[14px] left-[512px] overflow-clip right-[26px] top-[24px]" data-name="SVG">
+      <div className="absolute bottom-[37.5%] left-1/4 right-1/4 top-[37.5%]" data-name="Vector">
+        <div className="absolute inset-[-11.79%_-5.89%_-23.57%_-5.89%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 7.82496 4.73744">
+            <path d={svgPaths.p10e7bf00} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.16667" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BackgroundBorder5() {
+  return (
+    <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-[566px] right-0 rounded-[16px] top-[324px]" data-name="Background+Border">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[195.45px] text-[14px] text-white top-[32.5px]">
+        <p className="leading-[normal]">Proposez-vous des solutions de financement ?</p>
+      </div>
+      <Svg19 />
+    </div>
+  );
+}
+
+function SectionFaq() {
+  return (
+    <div className="absolute h-[491px] left-[160px] right-[160px] top-[3220px]" data-name="Section - FAQ">
+      <div className="absolute bg-[#bcff3d] h-px left-0 opacity-60 right-[1092px] top-[6.5px]" data-name="Horizontal Divider" />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 right-[913.65px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">Questions fréquentes</p>
+      </div>
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[595.12px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
+        <p className="leading-[44px] mb-0">Tout ce que vous</p>
+        <p className="leading-[44px] text-[#bcff3d]">voulez savoir</p>
+      </div>
+      <BackgroundBorder />
+      <BackgroundBorder1 />
+      <BackgroundBorder2 />
+      <BackgroundBorder3 />
+      <BackgroundBorder4 />
+      <BackgroundBorder5 />
+    </div>
+  );
+}
+
+function Group() {
+  return (
+    <div className="absolute inset-[0.81%_46.71%_97.82%_46.74%]">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 94.4211 59.6792">
+        <g id="Group 72">
+          <g id="Vector">
+            <mask fill="white" id="path-1-inside-1_6_286">
+              <path d={svgPaths.p7bf8d00} />
+            </mask>
+            <path d={svgPaths.p7bf8d00} fill="var(--fill-0, white)" mask="url(#path-1-inside-1_6_286)" stroke="var(--stroke-0, white)" strokeWidth="2" />
+          </g>
+          <path d={svgPaths.p23d76a00} fill="var(--fill-0, white)" id="Vector_2" stroke="var(--stroke-0, white)" />
+          <path d={svgPaths.p15f5b900} fill="var(--fill-0, white)" id="Vector_3" stroke="var(--stroke-0, white)" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Svg20() {
+  return (
+    <div className="-translate-y-1/2 absolute left-[16px] size-[16px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+        <g id="SVG">
+          <path d={svgPaths.p2a44c680} id="Vector" stroke="var(--stroke-0, black)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Link2() {
+  return (
+    <div className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link">
+      <Svg20 />
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.18px)] not-italic text-[16px] text-black text-center top-[calc(50%-0.25px)] w-[107.125px]">
+        <p className="leading-[24px]">06 70 76 07 19</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg21() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-84.63px)] size-[16px] top-1/2" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+        <g id="SVG">
+          <path d={svgPaths.p17070980} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+          <path d={svgPaths.p120c8200} id="Vector_2" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Link3() {
+  return (
+    <div className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link">
+      <Svg21 />
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.16px)] not-italic text-[16px] text-center text-white top-[calc(50%-0.25px)] w-[161.595px]">
+        <p className="leading-[24px]">contact@vroomparis.fr</p>
+      </div>
+    </div>
+  );
+}
+
+function Svg22() {
+  return (
+    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[16.002px] left-[calc(50%-465.93px)] top-[calc(50%+4.5px)] w-[14.15px]" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14.15 16.0018">
+        <g id="SVG">
+          <path d={svgPaths.p274fd670} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.17917" />
+          <path d={svgPaths.p1c743f00} id="Vector_2" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.17917" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Link4() {
+  return (
+    <div className="absolute h-[24px] left-0 right-0 top-0" data-name="Link">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.19px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[127.557px]">
+        <p className="leading-[24px]">Showroom</p>
+      </div>
+    </div>
+  );
+}
+
+function Link5() {
+  return (
+    <div className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[150px]">
+        <p className="leading-[24px]">Acheter un véhicule</p>
+      </div>
+    </div>
+  );
+}
+
+function Link6() {
+  return (
+    <div className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
+        <p className="leading-[24px]">Vendre votre véhicule</p>
+      </div>
+    </div>
+  );
+}
+
+function Link7() {
+  return <div className="absolute h-[24px] left-0 right-0 top-[96px]" data-name="Link" />;
+}
+
+function Nav() {
+  return (
+    <div className="absolute h-[120px] left-[357.33px] right-[357.33px] top-[48px]" data-name="Nav">
+      <Link4 />
+      <Link5 />
+      <Link6 />
+      <Link7 />
+    </div>
+  );
+}
+
+function Link8() {
+  return (
+    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[180px]">
+        <p className="leading-[24px]">Consulation automobile</p>
+      </div>
+    </div>
+  );
+}
+
+function Link9() {
+  return (
+    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
+        <p className="leading-[24px]">À propos</p>
+      </div>
+    </div>
+  );
+}
+
+function Link10() {
+  return (
+    <div className="absolute h-[24px] left-[0.34px] right-[-0.34px] top-[-4px]" data-name="Link">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.17px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[189.407px]">
+        <p className="leading-[24px]">Politique de confidentialité</p>
+      </div>
+    </div>
+  );
+}
+
+function Link11() {
+  return (
+    <div className="absolute h-[24px] left-[0.34px] right-[-0.34px] top-[28px]" data-name="Link">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.16px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[151.447px]">
+        <p className="leading-[24px]">Conditions générales</p>
+      </div>
+    </div>
+  );
+}
+
+function Nav1() {
+  return (
+    <div className="absolute h-[88px] left-[698.66px] right-[16px] top-[52px]" data-name="Nav">
+      <Link10 />
+      <Link11 />
+    </div>
+  );
+}
+
+function Svg23() {
+  return (
+    <div className="absolute left-0 size-[20px] top-0" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g id="SVG">
+          <path d={svgPaths.p30c8d680} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Link12() {
+  return (
+    <div className="-translate-x-1/2 absolute bottom-[93px] left-[calc(50%+306px)] top-[204px] w-[20px]" data-name="Link">
+      <Svg23 />
+    </div>
+  );
+}
+
+function Svg24() {
+  return (
+    <div className="absolute left-0 size-[20px] top-0" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g id="SVG">
+          <path d={svgPaths.p4b98700} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+          <path d={svgPaths.p19f4a800} id="Vector_2" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+          <path d="M14.5833 5.41667H14.5917" id="Vector_3" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Link13() {
+  return (
+    <div className="-translate-x-1/2 absolute bottom-[93px] left-[calc(50%+342px)] top-[204px] w-[20px]" data-name="Link">
+      <Svg24 />
+    </div>
+  );
+}
+
+function Svg25() {
+  return (
+    <div className="absolute left-0 size-[20px] top-0" data-name="SVG">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g id="SVG">
+          <path d={svgPaths.p2ffa5d80} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function Link14() {
+  return (
+    <div className="-translate-x-1/2 absolute bottom-[93px] left-[calc(50%+378px)] top-[204px] w-[20px]" data-name="Link">
+      <Svg25 />
+    </div>
+  );
+}
+
+function HorizontalBorder1() {
+  return (
+    <div className="absolute border-[#1f2937] border-solid border-t h-[49px] left-[16px] right-[16px] top-[268px]" data-name="HorizontalBorder">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.16px)] not-italic text-[#9ca3af] text-[16px] text-center top-[35.75px] w-[300.597px]">
+        <p className="leading-[24px]">© 2026 Vroom Paris. Tous droits réservés.</p>
+      </div>
+    </div>
+  );
+}
+
+function Container4() {
+  return (
+    <div className="absolute h-[317px] left-[208px] right-[208px] top-[48px]" data-name="Container">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:Regular',sans-serif] font-normal h-[28px] justify-center leading-[0] left-[calc(50%-341.1px)] text-[20px] text-center text-white top-[14px] tracking-[-0.4px] w-[175.161px]">
+        <p className="leading-[28px]">Qu’attendez-vous ?</p>
+      </div>
+      <Link2 />
+      <Link3 />
+      <Svg22 />
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[42.5px] justify-center leading-[0] left-[calc(50%-330.17px)] not-italic text-[16px] text-center text-white top-[175.75px] w-[284.77px]">
+        <p className="leading-[24px]">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</p>
+      </div>
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:Regular',sans-serif] font-normal h-[28px] justify-center leading-[0] left-[calc(50%+0.26px)] text-[20px] text-center text-white top-[14px] tracking-[-0.4px] w-[215.174px]">
+        <p className="leading-[28px]">Informations générales :</p>
+      </div>
+      <Nav />
+      <Link8 />
+      <Link9 />
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:Regular',sans-serif] font-normal h-[28px] justify-center leading-[0] left-[calc(50%+341.55px)] text-[20px] text-center text-white top-[14px] tracking-[-0.4px] w-[152.536px]">
+        <p className="leading-[28px]">Mentions légales</p>
+      </div>
+      <Nav1 />
+      <Link12 />
+      <Link13 />
+      <Link14 />
+      <HorizontalBorder1 />
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <div className="absolute bg-[#181818] h-[413px] left-0 right-0 top-[3934px]" data-name="Footer">
+      <Container4 />
+    </div>
+  );
+}
+
+export default function AProposDeNous() {
+  return (
+    <div className="bg-[#181818] relative size-full" data-name="A propos de nous">
+      <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">
+        <div className="absolute inset-[-26.92%_-7.51%]">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
+            <g filter="url(#filter0_f_6_334)" id="Union">
+              <path d={svgPaths.p541d700} fill="url(#paint0_linear_6_334)" />
+            </g>
+            <defs>
+              <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_334" width="3064.78" x="6.36565e-06" y="3.20925e-06">
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                <feGaussianBlur result="effect1_foregroundBlur_6_334" stdDeviation="100" />
+              </filter>
+              <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_334" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
+                <stop stopColor="#C8EC66" />
+                <stop offset="0.25" stopColor="#D4FF60" />
+                <stop offset="0.5" stopColor="#72F9D8" />
+                <stop offset="0.75" stopColor="#FCFFB4" />
+                <stop offset="1" stopColor="white" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+      <SectionHero />
+      <SectionNotreHistoire />
+      <SectionNosValeurs />
+      <SectionContact />
+      <SectionFaq />
+      <div className="absolute flex inset-[0.94%_2.86%_98.5%_94.02%] items-center justify-center" style={{ containerType: "size" }}>
+        <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
+          <div className="relative size-full" data-name="Vector">
+            <div className="absolute inset-[-2.22%_-4.17%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26 47">
+                <path d="M25 1V46M13 1V46M1 1V46" id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Group />
+      <Footer />
+    </div>
+  );
+}
