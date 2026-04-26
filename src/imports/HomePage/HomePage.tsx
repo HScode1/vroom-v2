@@ -1,3 +1,4 @@
+import { useState } from "react";
 import svgPaths from "./svg-gblhduksgt";
 import imgIPhone16 from "./bce2e8571e4f8518e7458dc942a118877f14fa46.png";
 import imgMercedesBenzLogo from "./96f8bb8d3678fe064dfed164c840139d345544de.png";
@@ -294,9 +295,17 @@ function Svg8() {
   );
 }
 
-function BackgroundShadow() {
+function BackgroundShadow({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
   return (
-    <div className="absolute bg-[#f4fbdb] inset-[4112px_34.03%_2907px_36.88%] overflow-clip rounded-[24px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)]" data-name="Background+Shadow">
+    <button
+      aria-pressed={isActive}
+      className={`absolute bg-[#f4fbdb] h-[640px] left-[581px] overflow-clip rounded-[24px] text-left w-[419px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c8ec66] ${
+        isActive ? "top-[4112px] z-30 scale-100" : "top-[4088px] z-10 scale-[0.96] opacity-95"
+      }`}
+      data-name="Background+Shadow"
+      onClick={onClick}
+      type="button"
+    >
       <OverlayShadow />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[28px] justify-center leading-[0] left-[113.19px] not-italic opacity-80 text-[#1f2937] text-[20px] top-[54px] w-[92.613px]">
         <p className="leading-[28px]">18-25 ans</p>
@@ -336,7 +345,7 @@ function BackgroundShadow() {
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[20px] justify-center leading-[0] left-[calc(50%+13.45px)] not-italic opacity-70 text-[#1f2937] text-[14px] text-center top-[613.5px] w-[159.323px]">
         <p className="leading-[20px]">Garantie 24 mois incluse</p>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -504,9 +513,17 @@ function Svg16() {
   );
 }
 
-function BackgroundShadow1() {
+function BackgroundShadow1({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
   return (
-    <div className="absolute bg-[#c8ec66] inset-[4259px_34.03%_2760px_36.88%] overflow-x-clip overflow-y-auto rounded-[24px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)]" data-name="Background+Shadow">
+    <button
+      aria-pressed={isActive}
+      className={`absolute bg-[#c8ec66] h-[640px] left-[581px] overflow-clip rounded-[24px] text-left w-[419px] shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#c8ec66] ${
+        isActive ? "top-[4259px] z-30 scale-100" : "top-[4283px] z-10 scale-[0.96] opacity-95"
+      }`}
+      data-name="Background+Shadow"
+      onClick={onClick}
+      type="button"
+    >
       <OverlayShadow1 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[28px] justify-center leading-[0] left-[108.02px] not-italic opacity-80 text-[#1f2937] text-[20px] top-[54px] w-[141.399px]">
         <p className="leading-[28px]">Professionnels</p>
@@ -546,11 +563,13 @@ function BackgroundShadow1() {
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[20px] justify-center leading-[0] left-[calc(50%+13.47px)] not-italic opacity-70 text-[#1f2937] text-[14px] text-center top-[613.5px] w-[193.46px]">
         <p className="leading-[20px]">+2500 professionnels équipés</p>
       </div>
-    </div>
+    </button>
   );
 }
 
 function Group10() {
+  const [activeDriverCard, setActiveDriverCard] = useState<"young" | "vtc">("vtc");
+
   return (
     <div className="absolute contents left-[140px] top-[3978px]">
       <p className="-translate-x-1/2 absolute font-['Lexend:Medium',sans-serif] font-medium h-[72px] leading-[0] left-[740.5px] text-[48px] text-center text-white top-[3978px] w-[463px]">
@@ -562,9 +581,9 @@ function Group10() {
         <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66] text-[56px]">{`chaque `}</span>
         <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[56px]">type de conducteur</span>
       </p>
-      <BackgroundShadow />
-      <BackgroundShadow1 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Light',sans-serif] font-light h-[95px] justify-center leading-[0] left-[990px] text-[18px] text-white top-[4494.5px] w-[323px]">
+      <BackgroundShadow isActive={activeDriverCard === "young"} onClick={() => setActiveDriverCard("young")} />
+      <BackgroundShadow1 isActive={activeDriverCard === "vtc"} onClick={() => setActiveDriverCard("vtc")} />
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Light',sans-serif] font-light h-[95px] justify-center leading-[0] left-[1040px] text-[18px] text-white top-[4494.5px] w-[323px] z-20">
         <p className="leading-[28px] mb-0">Que vous soyez un jeune conducteur à la recherche de votre</p>
         <p className="leading-[28px] mb-0">{`première voiture ou un chauffeur VTC ayant besoin d'un`}</p>
         <p className="leading-[28px] mb-0">véhicule professionnel, nous avons des solutions adaptées à</p>
@@ -1152,7 +1171,7 @@ function Svg26() {
 
 function OverlayBorder3() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid bottom-[1846px] left-[126px] rounded-[8px] top-[5811px] w-[205.25px]" data-name="Overlay+Border">
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[126px] rounded-[8px] top-[5811px] w-[205.25px]" data-name="Overlay+Border">
       <Svg26 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[31px] text-[12px] text-[rgba(255,255,255,0.6)] top-1/2 w-[160.699px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">Visio · Téléphone · WhatsApp</p>
@@ -1178,7 +1197,7 @@ function Svg27() {
 
 function OverlayBorder4() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid bottom-[1846px] left-[339.25px] rounded-[8px] top-[5811px] w-[143.19px]" data-name="Overlay+Border">
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[339.25px] rounded-[8px] top-[5811px] w-[143.19px]" data-name="Overlay+Border">
       <Svg27 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[31px] text-[12px] text-[rgba(255,255,255,0.6)] top-1/2 w-[98.542px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">30 ou 45 minutes</p>
@@ -1201,7 +1220,7 @@ function Svg28() {
 
 function OverlayBorder5() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid bottom-[1806px] left-[126px] rounded-[8px] top-[5851px] w-[250.92px]" data-name="Overlay+Border">
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[126px] rounded-[8px] top-[5851px] w-[250.92px]" data-name="Overlay+Border">
       <Svg28 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[31px] text-[12px] text-[rgba(255,255,255,0.6)] top-1/2 w-[206.6px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">{`Accompagnement jusqu'à la livraison`}</p>
@@ -1222,14 +1241,73 @@ function Svg29() {
   );
 }
 
+const WEEK_DAYS = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"];
+const CONSULTATION_TIMES = ["09:00", "10:30", "11:00", "14:00", "15:30", "16:00", "17:00", "18:00"];
+const CONSULTATION_DURATIONS = [
+  { value: 30, label: "30 min", detail: "Conseil rapide" },
+  { value: 45, label: "45 min", detail: "Analyse complète" },
+];
+
+function getDateKey(date: Date) {
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+}
+
+function getMonthLabel(date: Date) {
+  const label = date.toLocaleDateString("fr-FR", { month: "long", year: "numeric" });
+  return label.charAt(0).toUpperCase() + label.slice(1);
+}
+
+function getSelectedDateLabel(date: Date) {
+  return date.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+}
+
+function isBookableDate(date: Date) {
+  const day = date.getDay();
+  const isWeekday = day !== 0 && day !== 6;
+  const firstAvailableDate = new Date(date.getFullYear(), date.getMonth(), 11);
+
+  return isWeekday && date >= firstAvailableDate;
+}
+
+function getFirstBookableDate(monthDate: Date) {
+  const date = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
+
+  while (date.getMonth() === monthDate.getMonth()) {
+    if (isBookableDate(date)) {
+      return new Date(date);
+    }
+
+    date.setDate(date.getDate() + 1);
+  }
+
+  return new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
+}
+
+function getCalendarCells(monthDate: Date) {
+  const firstDay = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
+  const mondayOffset = (firstDay.getDay() + 6) % 7;
+  const startDate = new Date(firstDay);
+  startDate.setDate(firstDay.getDate() - mondayOffset);
+
+  return Array.from({ length: 42 }, (_, index) => {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + index);
+    return date;
+  });
+}
+
 function Button3() {
+  const scrollToCalendar = () => {
+    document.getElementById("home-consultation-calendar")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   return (
-    <div className="absolute bg-[#bcff3d] h-[45px] left-[126px] rounded-[100px] top-[5919px] w-[277.36px]" data-name="Button">
+    <button className="absolute bg-[#bcff3d] h-[45px] left-[126px] rounded-[100px] top-[5919px] w-[277.36px] cursor-pointer transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 focus:ring-offset-2 focus:ring-offset-[#181818]" data-name="Button" onClick={scrollToCalendar} type="button">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-15.68px)] text-[#0d0d0d] text-[14px] text-center top-1/2 tracking-[0.14px] w-[216px]">
-        <p className="leading-[normal]">Réserver une créneau</p>
+        <p className="leading-[normal]">Réserver un créneau</p>
       </div>
       <Svg29 />
-    </div>
+    </button>
   );
 }
 
@@ -1725,10 +1803,167 @@ function OverlayBorderOverlayBlur() {
 }
 
 function Calendar() {
+  const [viewMonth, setViewMonth] = useState(new Date(2026, 2, 1));
+  const [selectedDate, setSelectedDate] = useState(new Date(2026, 2, 13));
+  const [selectedTime, setSelectedTime] = useState("10:30");
+  const [selectedDuration, setSelectedDuration] = useState(30);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const calendarCells = getCalendarCells(viewMonth);
+  const selectedDateKey = getDateKey(selectedDate);
+
+  const changeMonth = (direction: number) => {
+    const nextMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + direction, 1);
+    const nextDate = getFirstBookableDate(nextMonth);
+
+    setViewMonth(nextMonth);
+    setSelectedDate(nextDate);
+    setSelectedTime("10:30");
+    setIsConfirmed(false);
+  };
+
+  const selectDate = (date: Date) => {
+    if (!isBookableDate(date)) {
+      return;
+    }
+
+    setViewMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+    setSelectedDate(date);
+    setIsConfirmed(false);
+  };
+
   return (
-    <div className="absolute h-[782.22px] left-[832px] right-[136.56px] top-[5232px]" data-name="CALENDAR">
+    <div className="absolute h-[782.22px] left-[832px] right-[136.56px] top-[5232px]" data-name="CALENDAR" id="home-consultation-calendar">
       <div className="absolute inset-[-30px]" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\\'0 0 531.44 842.22\\' xmlns=\\'http://www.w3.org/2000/svg\\' preserveAspectRatio=\\'none\\'><rect x=\\'0\\' y=\\'0\\' height=\\'100%\\' width=\\'100%\\' fill=\\'url(%23grad)\\' opacity=\\'1\\'/><defs><radialGradient id=\\'grad\\' gradientUnits=\\'userSpaceOnUse\\' cx=\\'0\\' cy=\\'0\\' r=\\'10\\' gradientTransform=\\'matrix(42.515 0 0 67.378 265.72 421.11)\\'><stop stop-color=\\'rgba(188,255,61,0.05)\\' offset=\\'0\\'/><stop stop-color=\\'rgba(188,255,61,0)\\' offset=\\'0.7\\'/></radialGradient></defs></svg>')" }} data-name="Gradient" />
-      <OverlayBorderOverlayBlur />
+      <div className="-translate-y-1/2 absolute backdrop-blur-[10px] bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[782.22px] left-0 right-0 rounded-[24px] top-1/2" data-name="Overlay+Border+OverlayBlur">
+        <div className="absolute bg-[#bcff3d] h-[25px] left-[calc(23.13%-0.54px)] right-[calc(23.13%-0.54px)] rounded-[100px] top-[-16px]" data-name="Background">
+          <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[16px] text-[#0c0d0c] text-[11px] top-[12.5px] tracking-[0.44px] w-[226.016px]">
+            <p className="leading-[normal]">⚡ Prochain créneau dispo : demain</p>
+          </div>
+        </div>
+
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[56px] text-[18px] text-white top-[51px] w-[180px]">
+          <p className="leading-[normal]">{getMonthLabel(viewMonth)}</p>
+        </div>
+
+        <button aria-label="Mois précédent" className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.09)] border-solid left-[347.44px] rounded-[8px] size-[30px] top-[36px] text-[14px] text-[rgba(255,255,255,0.4)] transition-colors hover:border-[#bcff3d]/50 hover:text-[#bcff3d] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" onClick={() => changeMonth(-1)} type="button">
+          ‹
+        </button>
+        <button aria-label="Mois suivant" className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.09)] border-solid left-[383.44px] rounded-[8px] size-[30px] top-[36px] text-[14px] text-[rgba(255,255,255,0.4)] transition-colors hover:border-[#bcff3d]/50 hover:text-[#bcff3d] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" onClick={() => changeMonth(1)} type="button">
+          ›
+        </button>
+
+        <div className="absolute grid grid-cols-7 gap-[8px] left-[56px] right-[56px] top-[94px]">
+          {WEEK_DAYS.map((day) => (
+            <div className="font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal leading-[13px] text-[10px] text-[rgba(255,255,255,0.22)] text-center tracking-[0.9px] uppercase" key={day}>
+              {day}
+            </div>
+          ))}
+        </div>
+
+        <div className="absolute grid grid-cols-7 gap-[8px] left-[56px] right-[56px] top-[126px]">
+          {calendarCells.map((date) => {
+            const isCurrentMonth = date.getMonth() === viewMonth.getMonth();
+            const isSelected = getDateKey(date) === selectedDateKey;
+            const isBookable = isCurrentMonth && isBookableDate(date);
+
+            return (
+              <button
+                aria-pressed={isSelected}
+                className={`relative aspect-square rounded-[10px] font-['DM_Sans:9pt_Regular',sans-serif] text-[15px] transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
+                  isSelected
+                    ? "bg-[#bcff3d] font-bold text-[#0c0d0c]"
+                    : isBookable
+                      ? "bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.72)] hover:bg-[rgba(188,255,61,0.12)] hover:text-[#bcff3d]"
+                      : "cursor-not-allowed text-[rgba(255,255,255,0.20)]"
+                }`}
+                disabled={!isBookable}
+                key={getDateKey(date)}
+                onClick={() => selectDate(date)}
+                type="button"
+              >
+                {date.getDate()}
+                {isBookable && !isSelected ? <span className="-translate-x-1/2 absolute bg-[#bcff3d] bottom-[4px] left-1/2 opacity-55 rounded-[2px] size-[4px]" /> : null}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="absolute bg-[rgba(255,255,255,0.06)] h-px left-[56px] right-[56px] top-[446.22px]" data-name="Horizontal Divider" />
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Medium',sans-serif] font-medium h-[13px] justify-center leading-[0] left-[56px] text-[10px] text-[rgba(255,255,255,0.22)] top-[476.5px] tracking-[1.2px] uppercase w-[186px]">
+          <p className="leading-[normal]">Créneaux disponibles</p>
+        </div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[14px] justify-center leading-[0] left-[286px] right-[56px] text-[#bcff3d] text-[11px] text-right top-[476.22px] capitalize">
+          <p className="leading-[normal]">{getSelectedDateLabel(selectedDate)}</p>
+        </div>
+
+        <div className="absolute grid grid-cols-4 gap-[6px] left-[56px] right-[56px] top-[493.22px]">
+          {CONSULTATION_TIMES.map((time) => {
+            const isSelected = selectedTime === time;
+
+            return (
+              <button
+                aria-pressed={isSelected}
+                className={`h-[42px] rounded-[9px] border font-['DM_Sans:9pt_Regular',sans-serif] text-[14px] transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
+                  isSelected
+                    ? "bg-[rgba(188,255,61,0.11)] border-[#bcff3d] font-semibold text-[#bcff3d]"
+                    : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.07)] text-[rgba(255,255,255,0.4)] hover:border-[#bcff3d]/50 hover:text-[#bcff3d]"
+                }`}
+                key={time}
+                onClick={() => {
+                  setSelectedTime(time);
+                  setIsConfirmed(false);
+                }}
+                type="button"
+              >
+                {time}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Medium',sans-serif] font-medium h-[13px] justify-center leading-[0] left-[56px] text-[10px] text-[rgba(255,255,255,0.22)] top-[605.5px] tracking-[1.2px] uppercase w-[209px]">
+          <p className="leading-[normal]">Durée de la consultation</p>
+        </div>
+        <div className="absolute grid grid-cols-2 gap-[8px] left-[56px] right-[56px] top-[620.22px]">
+          {CONSULTATION_DURATIONS.map((duration) => {
+            const isSelected = selectedDuration === duration.value;
+
+            return (
+              <button
+                aria-pressed={isSelected}
+                className={`h-[58px] rounded-[9px] border text-center transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
+                  isSelected
+                    ? "bg-[rgba(188,255,61,0.07)] border-[#bcff3d] text-[#bcff3d]"
+                    : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.07)] text-[rgba(255,255,255,0.5)] hover:border-[#bcff3d]/50 hover:text-[#bcff3d]"
+                }`}
+                key={duration.value}
+                onClick={() => {
+                  setSelectedDuration(duration.value);
+                  setIsConfirmed(false);
+                }}
+                type="button"
+              >
+                <span className="block font-['Syne:Bold',sans-serif] font-bold text-[16px] leading-[19px]">{duration.label}</span>
+                <span className={`block font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal mt-[3px] text-[10px] tracking-[0.7px] uppercase ${isSelected ? "text-[rgba(188,255,61,0.5)]" : "text-[rgba(255,255,255,0.25)]"}`}>
+                  {duration.detail}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="absolute left-[56px] right-[56px] top-[698px]">
+          <button className="h-[44px] w-full rounded-[100px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] font-bold text-[#0d0d0d] text-[13px] tracking-[0.13px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" onClick={() => setIsConfirmed(true)} type="button">
+            Confirmer ce créneau
+          </button>
+          <p className={`mt-[10px] text-center font-['Plus_Jakarta_Sans:Medium',sans-serif] text-[11px] transition-opacity ${isConfirmed ? "text-[#bcff3d] opacity-100" : "text-[rgba(255,255,255,0.35)] opacity-100"}`}>
+            {isConfirmed
+              ? `Créneau confirmé : ${getSelectedDateLabel(selectedDate)} à ${selectedTime}, ${selectedDuration} min.`
+              : `${getSelectedDateLabel(selectedDate)} à ${selectedTime}, ${selectedDuration} min.`}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
