@@ -809,7 +809,12 @@ function LogoPartenaire() {
 
 function Section() {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-gradient-to-r from-[rgba(0,153,255,0.5)] h-[787px] left-1/2 overflow-clip to-[rgba(200,236,102,0.5)] top-[calc(50%+2908px)] w-[1524px]" data-name="Section">
+    <div
+      className="absolute bg-gradient-to-r from-[rgba(0,153,255,0.5)] h-[787px] overflow-clip to-[rgba(200,236,102,0.5)] top-[6296px]"
+      style={{ width: "100vw", left: "calc((1440px - 100vw) / 2)" }}
+      data-name="Section"
+    >
+      {/* Full-viewport background effects */}
       <div className="absolute inset-[-96px_0_29px_0] opacity-7" data-name="div.h2d-a7f96044" />
       <div className="absolute inset-[359px_0_-1px_-14px]" data-name="div.framer-18rkvef">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1538 429">
@@ -822,42 +827,45 @@ function Section() {
           </defs>
         </svg>
       </div>
-      <Group7 />
-      <OverlayBorder />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[24px] justify-center leading-[0] left-[199px] text-[16px] text-white top-[211px] w-[353px]">
-        <p className="leading-[24px]">Gestion complète de votre flotte automobile</p>
-      </div>
-      <OverlayBorder1 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[24px] justify-center leading-[0] left-[199px] text-[16px] text-white top-[253px] w-[414px]">
-        <p className="leading-[24px]">Solutions adaptées aux entreprises de toutes tailles</p>
-      </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[105px] justify-center leading-[0] left-[742px] text-[18px] text-justify text-white top-[248.5px] w-[621px]">
-        <p className="leading-[28px] mb-0">{`Vroom for Business facilite l'achat et la revente de véhicules pour votre`}</p>
-        <p className="leading-[28px] mb-0">{`entreprise. Profitez d'une plateforme dédiée et personnalisée pour gérer`}</p>
-        <p className="leading-[28px] mb-0">{`l'ensemble de votre flotte automobile avec des options de financement`}</p>
-        <p className="leading-[28px]">flexibles et simplifiées.</p>
-      </div>
-      <OverlayBorder2 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[24px] justify-center leading-[0] left-[199px] text-[16px] text-white top-[295px] w-[374px]">
-        <p className="leading-[24px]">Optimisation des coûts et processus simplifiés</p>
-      </div>
-      <DivFramer1K7Tcaq />
-      <Renault2021TextSvgFill />
-      <LogoPartenaire />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Thin',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%+7px)] not-italic text-[18px] text-center text-white top-[744px] tracking-[-0.4px] w-[258px]">
-        <p className="leading-[28px]">Devenir partenaire Vroom Advisor</p>
-      </div>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%-3.41px)] not-italic text-[40px] text-center text-white top-[537px] tracking-[-0.4px] w-[215.174px]">
-        <p className="leading-[28px]">+ 15</p>
-      </div>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%+3.59px)] not-italic text-[20px] text-center text-white top-[573px] tracking-[-0.4px] w-[215.174px]">
-        <p className="leading-[28px]">Partenaires</p>
-      </div>
-      <div className="absolute left-[728px] size-[68px] top-[632px]" data-name="image 7">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage7} />
-      </div>
-      <div className="absolute left-[1238px] size-[69px] top-[637px]" data-name="image 8">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage8} />
+      {/* Content wrapper re-aligned to the 1440px page grid */}
+      <div className="absolute top-0 bottom-0" style={{ left: "calc((100vw - 1440px) / 2)", width: "1440px" }}>
+        <Group7 />
+        <OverlayBorder />
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[24px] justify-center leading-[0] left-[199px] text-[16px] text-white top-[211px] w-[353px]">
+          <p className="leading-[24px]">Gestion complète de votre flotte automobile</p>
+        </div>
+        <OverlayBorder1 />
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[24px] justify-center leading-[0] left-[199px] text-[16px] text-white top-[253px] w-[414px]">
+          <p className="leading-[24px]">Solutions adaptées aux entreprises de toutes tailles</p>
+        </div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[105px] justify-center leading-[0] left-[742px] text-[18px] text-justify text-white top-[248.5px] w-[621px]">
+          <p className="leading-[28px] mb-0">{`Vroom for Business facilite l'achat et la revente de véhicules pour votre`}</p>
+          <p className="leading-[28px] mb-0">{`entreprise. Profitez d'une plateforme dédiée et personnalisée pour gérer`}</p>
+          <p className="leading-[28px] mb-0">{`l'ensemble de votre flotte automobile avec des options de financement`}</p>
+          <p className="leading-[28px]">flexibles et simplifiées.</p>
+        </div>
+        <OverlayBorder2 />
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[24px] justify-center leading-[0] left-[199px] text-[16px] text-white top-[295px] w-[374px]">
+          <p className="leading-[24px]">Optimisation des coûts et processus simplifiés</p>
+        </div>
+        <DivFramer1K7Tcaq />
+        <Renault2021TextSvgFill />
+        <LogoPartenaire />
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Thin',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%+7px)] not-italic text-[18px] text-center text-white top-[744px] tracking-[-0.4px] w-[258px]">
+          <p className="leading-[28px]">Devenir partenaire Vroom Advisor</p>
+        </div>
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%-3.41px)] not-italic text-[40px] text-center text-white top-[537px] tracking-[-0.4px] w-[215.174px]">
+          <p className="leading-[28px]">+ 15</p>
+        </div>
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%+3.59px)] not-italic text-[20px] text-center text-white top-[573px] tracking-[-0.4px] w-[215.174px]">
+          <p className="leading-[28px]">Partenaires</p>
+        </div>
+        <div className="absolute left-[728px] size-[68px] top-[632px]" data-name="image 7">
+          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage7} />
+        </div>
+        <div className="absolute left-[1238px] size-[69px] top-[637px]" data-name="image 8">
+          <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage8} />
+        </div>
       </div>
     </div>
   );
@@ -1118,7 +1126,7 @@ function Container1() {
 
 function Footer() {
   return (
-    <div className="absolute bg-[#181818] h-[413px] left-0 right-0 top-[7276px]" data-name="Footer">
+    <div className="absolute bg-[#181818] h-[413px] left-0 right-0 top-[7083px]" data-name="Footer">
       <Container1 />
     </div>
   );

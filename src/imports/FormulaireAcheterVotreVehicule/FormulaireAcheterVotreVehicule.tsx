@@ -279,20 +279,25 @@ function OverlayBorder7() {
   );
 }
 
-function StepsNav() {
+function StepsNav({ step }: { step: number }) {
+  const tabs = [
+    { n: 1, label: 'Votre véhicule idéal' },
+    { n: 2, label: 'Budget & préférences' },
+    { n: 3, label: 'Vos coordonnées' },
+  ];
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[60px] left-[80px] right-[42px] rounded-[20px] top-[65.12px]" data-name="Steps nav">
-      <OverlayBorder7 />
-      <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.08)] h-[28px] left-[425px] top-1/2 w-px" data-name="Vertical Divider" />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(255,255,255,0.15)] left-[calc(50%-73.42px)] rounded-[4px] size-[8px] top-1/2" data-name="Overlay" />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[16px] justify-center leading-[0] left-[calc(50%+10.14px)] text-[13px] text-[rgba(255,255,255,0.4)] text-center top-1/2 w-[139.118px]">
-        <p className="leading-[normal]">{`Budget & préférences`}</p>
-      </div>
-      <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.08)] h-[28px] left-[793.33px] top-1/2 w-px" data-name="Vertical Divider" />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(255,255,255,0.15)] left-[calc(50%+309.2px)] rounded-[4px] size-[8px] top-1/2" data-name="Overlay" />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[16px] justify-center leading-[0] left-[calc(50%+378.5px)] text-[13px] text-[rgba(255,255,255,0.4)] text-center top-1/2 w-[110.601px]">
-        <p className="leading-[normal]">Vos coordonnées</p>
-      </div>
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[60px] left-[80px] right-[42px] rounded-[20px] top-[65.12px] flex items-center overflow-hidden" data-name="Steps nav">
+      {tabs.map((tab, i) => (
+        <div key={tab.n} className="flex items-center flex-1 h-full">
+          {i > 0 && <div className="bg-[rgba(255,255,255,0.08)] h-[28px] w-px flex-shrink-0" data-name="Vertical Divider" />}
+          <div className={`flex flex-1 items-center justify-center gap-[8px] h-[46px] mx-[4px] rounded-[16px] transition-colors ${step === tab.n ? 'bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.2)]' : ''}`}>
+            <div className={`rounded-[4px] size-[8px] flex-shrink-0 ${step === tab.n ? 'bg-[#bcff3d]' : 'bg-[rgba(255,255,255,0.15)]'}`} />
+            <span className={`font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold text-[13px] leading-none ${step === tab.n ? 'text-[#bcff3d]' : 'text-[rgba(255,255,255,0.4)]'}`}>
+              {tab.label}
+            </span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -836,11 +841,11 @@ function Options2() {
   );
 }
 
-function Section1LeVehicule() {
+function Section1LeVehicule({ top = 119 }: { top?: number }) {
   const [boite, setBoite] = useState<'automatique' | 'manuelle' | 'peuImporte'>('automatique');
 
   return (
-    <div className="absolute h-[213px] left-[40px] right-[40px] top-[119px]" data-name="SECTION 1 : Le véhicule">
+    <div className="absolute h-[213px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 1 : Le véhicule">
       <HorizontalBorder2 />
       <Label />
       <Options />
@@ -930,14 +935,14 @@ function Input1() {
   );
 }
 
-function Section2Budget() {
+function Section2Budget({ top = 368 }: { top?: number }) {
   const [budget, setBudget] = useState(20000);
   const min = 5000;
   const max = 100000;
   const pct = ((budget - min) / (max - min)) * 100;
 
   return (
-    <div className="absolute h-[142px] left-[40px] right-[40px] top-[368px]" data-name="SECTION 2 : Budget">
+    <div className="absolute h-[142px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 2 : Budget">
       <HorizontalBorder3 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-0 right-[501.26px] text-[#bcff3d] text-[32px] top-[69px]">
         <p className="leading-[32px]">{budget.toLocaleString("fr-FR")}</p>
@@ -1078,14 +1083,14 @@ function ParagraphOverlayBorder3() {
   );
 }
 
-function Section3HorizonDachat() {
+function Section3HorizonDachat({ top = 542 }: { top?: number }) {
   const [horizon, setHorizon] = useState<'immediat' | '1-3mois' | '3-6mois' | '6plus'>('immediat');
 
   const card = (val: typeof horizon, active: boolean) =>
     `absolute border border-solid h-[98px] rounded-[12px] top-[53px] cursor-pointer transition-colors ${active ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d] text-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.4)]'}`;
 
   return (
-    <div className="absolute h-[151px] left-[40px] right-[40px] top-[542px]" data-name="SECTION 3 : Horizon d'achat">
+    <div className="absolute h-[151px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 3 : Horizon d'achat">
       <HorizontalBorder4 />
       {/* Immédiatement */}
       <div className={`${card('immediat', horizon === 'immediat')} left-0 right-[525px]`} onClick={() => setHorizon('immediat')}>
@@ -1160,9 +1165,9 @@ function Textarea() {
   );
 }
 
-function Section4Notes() {
+function Section4Notes({ top = 729 }: { top?: number }) {
   return (
-    <div className="absolute h-[161px] left-[40px] right-[40px] top-[729px]" data-name="SECTION 4 : Notes">
+    <div className="absolute h-[161px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 4 : Notes">
       <HorizontalBorder5 />
       <Label2 />
       <Textarea />
@@ -1328,9 +1333,9 @@ function Input5() {
   );
 }
 
-function Section4Coordonnees() {
+function Section4Coordonnees({ top = 926 }: { top?: number }) {
   return (
-    <div className="absolute h-[325.78px] left-[40px] right-[40px] top-[926px]" data-name="SECTION 4 : Coordonnées">
+    <div className="absolute h-[325.78px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 4 : Coordonnées">
       <HorizontalBorder6 />
       <Label3 />
       <Input2 />
@@ -1445,9 +1450,9 @@ function Svg25() {
   );
 }
 
-function FormBody() {
+function FormBody({ top = 1303.78 }: { top?: number }) {
   return (
-    <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t h-[177.19px] left-0 right-0 top-[1303.78px]" data-name="form-body">
+    <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t h-[177.19px] left-0 right-0" style={{ top }} data-name="form-body">
       <Svg21 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] left-[64px] right-[62.54px] text-[12px] text-[rgba(255,255,255,0.4)] top-[33.5px]">
         <p className="leading-[19.2px]">Vos données sont strictement confidentielles et utilisées uniquement pour répondre à votre demande de véhicule.</p>
@@ -1469,30 +1474,117 @@ function FormBody() {
   );
 }
 
-function FormCard() {
+function SuivantRow({ top, step, onNext, onPrev }: { top: number; step: number; onNext: () => void; onPrev: () => void }) {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid h-[1482.97px] left-[87px] overflow-clip right-[421px] rounded-[28px] top-[165.12px]" data-name="FORM CARD">
+    <div className="absolute left-[40px] right-[40px] flex gap-[12px]" style={{ top }}>
+      {step > 1 && (
+        <button
+          onClick={onPrev}
+          className="flex-1 h-[54px] border border-[rgba(255,255,255,0.12)] rounded-[14px] bg-[rgba(255,255,255,0.04)] text-white text-[15px] font-bold cursor-pointer tracking-[0.3px] transition-colors hover:bg-[rgba(255,255,255,0.08)]"
+          style={{ fontFamily: "'Syne', sans-serif" }}
+        >
+          ← Précédent
+        </button>
+      )}
+      <button
+        onClick={onNext}
+        className="flex-1 h-[54px] bg-[#bcff3d] rounded-[14px] text-[#0c0d0c] text-[15px] font-bold cursor-pointer tracking-[0.3px] transition-opacity hover:opacity-90"
+        style={{ fontFamily: "'Syne', sans-serif" }}
+      >
+        Suivant →
+      </button>
+    </div>
+  );
+}
+
+function PrecedentButton({ top, onPrev }: { top: number; onPrev: () => void }) {
+  return (
+    <button
+      onClick={onPrev}
+      className="absolute left-[40px] right-[40px] h-[48px] border border-[rgba(255,255,255,0.12)] rounded-[14px] bg-[rgba(255,255,255,0.04)] text-white text-[15px] font-bold cursor-pointer tracking-[0.3px] transition-colors hover:bg-[rgba(255,255,255,0.08)]"
+      style={{ top, fontFamily: "'Syne', sans-serif" }}
+    >
+      ← Précédent
+    </button>
+  );
+}
+
+function FormCard({ step, onNext, onPrev }: { step: number; onNext: () => void; onPrev: () => void }) {
+  // Step 1 — Votre véhicule idéal
+  // Section1: top=119, h=213, ends=332 → button at 368
+  // Card height: 368+54+40 = 462
+  const renderStep1 = () => (
+    <>
+      <Section1LeVehicule top={119} />
+      <SuivantRow top={368} step={1} onNext={onNext} onPrev={onPrev} />
+    </>
+  );
+
+  // Step 2 — Budget & préférences
+  // Section2: top=119, h=142, ends=261
+  // Section3: top=297 (261+36), h=151, ends=448
+  // Section4Notes: top=484 (448+36), h=161, ends=645
+  // Button: top=685 (645+40)
+  // Card height: 685+54+40 = 779
+  const renderStep2 = () => (
+    <>
+      <Section2Budget top={119} />
+      <Section3HorizonDachat top={297} />
+      <Section4Notes top={484} />
+      <SuivantRow top={685} step={2} onNext={onNext} onPrev={onPrev} />
+    </>
+  );
+
+  // Step 3 — Vos coordonnées
+  // Section4Coordonnees: top=119, h=325.78, ends=444.78
+  // PrecedentButton: top=465, h=48, ends=513
+  // FormBody: top=530, h=177.19, ends=707
+  // Card height: 720
+  const renderStep3 = () => (
+    <>
+      <Section4Coordonnees top={119} />
+      <PrecedentButton top={465} onPrev={onPrev} />
+      <FormBody top={530} />
+    </>
+  );
+
+  const cardHeights: Record<number, number> = { 1: 462, 2: 779, 3: 720 };
+
+  return (
+    <div
+      className="absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid left-[87px] overflow-clip right-[421px] rounded-[28px] top-[165.12px]"
+      style={{ height: cardHeights[step] }}
+      data-name="FORM CARD"
+    >
       <OverlayHorizontalBorder />
-      <Section1LeVehicule />
-      <Section2Budget />
-      <Section3HorizonDachat />
-      <Section4Notes />
-      <Section4Coordonnees />
-      <FormBody />
+      {step === 1 && renderStep1()}
+      {step === 2 && renderStep2()}
+      {step === 3 && renderStep3()}
     </div>
   );
 }
 
 function FormSection() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const sectionHeights: Record<number, number> = { 1: 700, 2: 1020, 3: 980 };
+
   return (
-    <div className="absolute h-[1560.97px] left-[80px] right-[80px] top-[850.88px]" data-name="FORM SECTION">
+    <div
+      className="absolute left-[80px] right-[80px] top-[850.88px]"
+      style={{ height: sectionHeights[currentStep] }}
+      data-name="FORM SECTION"
+    >
       <div className="absolute bg-[rgba(255,255,255,0.08)] h-px left-[80px] right-[80px] top-0" data-name="Horizontal Divider" />
-      <StepsNav />
+      <StepsNav step={currentStep} />
       <OverlayBorder8 />
-      <div className="absolute bottom-0 h-[1395.969970703125px] left-[880px] pointer-events-none top-[165px]">
+      <div className="absolute bottom-0 left-[880px] pointer-events-none top-[165px]">
         <Sidebar />
       </div>
-      <FormCard />
+      <FormCard
+        step={currentStep}
+        onNext={() => setCurrentStep(s => Math.min(3, s + 1))}
+        onPrev={() => setCurrentStep(s => Math.max(1, s - 1))}
+      />
     </div>
   );
 }
