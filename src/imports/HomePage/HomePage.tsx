@@ -10,6 +10,65 @@ import imgImageRemovebg1 from "./68297c37c62088e6f25beeb99b890264d41ec9fd.png";
 import imgCommanderUnVehicule from "./28b5e3bd0392406194bedf4941ae0ec6300e0d9b.png";
 import imgRectangle16 from "./d12aa5c5f3cb959f7ac03ad4a2e7ab329d632d4d.png";
 import imgAcheterUnVehicule from "./e0de623de74cc21ab7c67e1329b4727a39894ea2.png";
+import imgClio from "./clio-3.jpg";
+import imgGolf from "./golf.webp";
+import imgBmw from "./bmw.webp";
+
+type ShowroomVehicle = {
+  brand: string;
+  model: string;
+  subtitle: string;
+  price: string;
+  image: string;
+  specs: {
+    fuel: string;
+    year: string;
+    mileage: string;
+    gearbox: string;
+  };
+};
+
+const SHOWROOM_VEHICLES: ShowroomVehicle[] = [
+  {
+    brand: "BMW",
+    model: "Série 7",
+    subtitle: "740Ld xDrive M Sport",
+    price: "24 990 €",
+    image: imgBmw,
+    specs: {
+      fuel: "Diesel",
+      year: "2021",
+      mileage: "88 500 km",
+      gearbox: "Automatique",
+    },
+  },
+  {
+    brand: "Volkswagen",
+    model: "Polo",
+    subtitle: "4 Phase 2 1.4",
+    price: "3 490 €",
+    image: imgGolf,
+    specs: {
+      fuel: "Essence",
+      year: "2008",
+      mileage: "172 000 km",
+      gearbox: "Manuelle",
+    },
+  },
+  {
+    brand: "Renault",
+    model: "Clio 3",
+    subtitle: "1.2 75ch Dynamique",
+    price: "3 890 €",
+    image: imgClio,
+    specs: {
+      fuel: "Essence",
+      year: "2012",
+      mileage: "190 200 km",
+      gearbox: "Manuelle",
+    },
+  },
+];
 
 function Frame1() {
   return <div className="absolute h-[209px] left-[1216px] rounded-[10px] top-[2847px] w-[361px]" />;
@@ -2111,6 +2170,19 @@ function CommanderUnVehicule() {
   );
 }
 
+function ShowroomSpecBox({ label, value, className, labelClassName, valueClassName }: { label: string; value: string; className: string; labelClassName: string; valueClassName: string }) {
+  return (
+    <div className={`absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.07)] border-solid leading-[0] rounded-[12px] ${className}`} data-name="Paragraph+Overlay+Border">
+      <div className={`-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[13px] justify-center text-[10px] text-[rgba(255,255,255,0.3)] top-[18.5px] tracking-[0.8px] uppercase ${labelClassName}`} style={{ fontVariationSettings: "'opsz' 14" }}>
+        <p className="leading-[normal]">{label}</p>
+      </div>
+      <div className={`-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[18px] justify-center text-[15px] text-white top-[37px] ${valueClassName}`}>
+        <p className="leading-[normal]">{value}</p>
+      </div>
+    </div>
+  );
+}
+
 function ParagraphOverlayBorder2() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.07)] border-solid inset-[216.85px_975.66px_243.15px_64px] leading-[0] rounded-[12px]" data-name="Paragraph+Overlay+Border">
@@ -2177,16 +2249,16 @@ function Svg32() {
 
 function Link14() {
   return (
-    <div className="absolute bg-[#bcff3d] border border-[#bcff3d] border-solid bottom-[70px] h-[44px] left-[307px] rounded-[100px] w-[156px]" data-name="Link">
+    <a className="absolute bg-[#bcff3d] border border-[#bcff3d] border-solid bottom-[70px] h-[44px] left-[307px] rounded-[100px] w-[156px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" data-name="Link" href="/showroom/produit">
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[16px] justify-center leading-[0] left-[22px] text-[#0c0d0c] text-[13px] top-1/2 w-[132.893px]">
         <p className="leading-[normal]">En savoir plus</p>
       </div>
       <Svg32 />
-    </div>
+    </a>
   );
 }
 
-function Slide() {
+function Slide({ vehicle }: { vehicle: ShowroomVehicle }) {
   return (
     <div className="absolute inset-[0_0.34px_0_0]" data-name="SLIDE 1">
       <div className="absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold inset-[48px_798.33px_459px_64px] justify-center leading-[0] text-[11px] text-[rgba(255,255,255,0.2)] tracking-[1.76px] uppercase">
@@ -2194,44 +2266,33 @@ function Slide() {
       </div>
       <div className="absolute bg-[rgba(255,255,255,0.15)] inset-[54px_760.72px_465px_89.94px]" data-name="Horizontal Divider" />
       <div className="absolute flex flex-col font-['DM_Sans:SemiBold',sans-serif] font-semibold inset-[81px_752.25px_423px_64px] justify-center leading-[0] opacity-80 text-[#bcff3d] text-[12px] tracking-[1.68px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">Renault</p>
+        <p className="leading-[normal]">{vehicle.brand}</p>
       </div>
       <div className="absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold inset-[97px_572.03px_353px_64px] justify-center leading-[0] text-[58px] text-white tracking-[-2.32px]">
-        <p className="leading-[55.1px]">Clio 5</p>
+        <p className="leading-[55.1px]">{vehicle.model}</p>
       </div>
       <div className="absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal inset-[168.1px_640.21px_334.9px_64px] justify-center leading-[0] text-[13px] text-[rgba(255,255,255,0.35)] tracking-[1.04px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">1.6 E-Tech 145 Première</p>
+        <p className="leading-[normal]">{vehicle.subtitle}</p>
       </div>
-      <ParagraphOverlayBorder2 />
-      <ParagraphOverlayBorder3 />
-      <ParagraphOverlayBorder4 />
-      <ParagraphOverlayBorder5 />
+      <ShowroomSpecBox className="inset-[216.85px_975.66px_243.15px_64px]" label="Carburant" labelClassName="left-[14px] right-[74.13px]" value={vehicle.specs.fuel} valueClassName="left-[14px] right-[73.14px]" />
+      <ShowroomSpecBox className="inset-[216.85px_785.66px_243.15px_253px]" label="Année" labelClassName="left-[14px] right-[102.92px]" value={vehicle.specs.year} valueClassName="left-[14px] right-[99.52px]" />
+      <ShowroomSpecBox className="inset-[286.85px_975.66px_173.15px_64px]" label="Kilométrage" labelClassName="left-[14px] right-[64.27px]" value={vehicle.specs.mileage} valueClassName="left-[14px] right-[55.37px]" />
+      <ShowroomSpecBox className="inset-[286.85px_785.66px_173.15px_253px]" label="Boîte" labelClassName="left-[14px] right-[107.23px]" value={vehicle.specs.gearbox} valueClassName="left-[14px] right-[29.41px]" />
       <div className="absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold inset-[410px_910.66px_73px_64px] justify-center leading-[0] text-[#bcff3d] text-[32px]">
-        <p className="leading-[32px]">14 900 €</p>
+        <p className="leading-[32px]">{vehicle.price}</p>
       </div>
       <Link14 />
       <div className="absolute h-[454px] left-[542px] top-[51px] w-[676px]">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgRectangle16} />
-      </div>
-      <div className="absolute flex items-center justify-center left-[855px] size-[51px] top-[234px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
-        <div className="flex-none rotate-90">
-          <div className="relative size-[51px]">
-            <div className="absolute bottom-1/4 left-[6.7%] right-[6.7%] top-0">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44.1673 38.25">
-                <path d={svgPaths.p3413e700} fill="var(--fill-0, white)" fillOpacity="0.7" id="Polygon 1" />
-              </svg>
-            </div>
-          </div>
-        </div>
+        <img alt="" className="absolute inset-0 max-w-none object-cover object-center pointer-events-none size-full" src={vehicle.image} />
       </div>
     </div>
   );
 }
 
-function Container2() {
+function Container2({ vehicle }: { vehicle: ShowroomVehicle }) {
   return (
     <div className="absolute h-[520px] left-[126px] overflow-clip right-[96px] top-[3158px]" data-name="Container">
-      <Slide />
+      <Slide vehicle={vehicle} />
     </div>
   );
 }
@@ -2248,11 +2309,11 @@ function Svg33() {
   );
 }
 
-function Button6() {
+function Button6({ onClick }: { onClick: () => void }) {
   return (
-    <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[64px] rounded-[23px] size-[46px] top-[calc(50%+0.5px)]" data-name="Button">
+    <button aria-label="Véhicule précédent" className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[64px] rounded-[23px] size-[46px] top-[calc(50%+0.5px)] transition-colors hover:border-[#bcff3d]/40 focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" data-name="Button" onClick={onClick} type="button">
       <Svg33 />
-    </div>
+    </button>
   );
 }
 
@@ -2268,11 +2329,11 @@ function Svg34() {
   );
 }
 
-function Button7() {
+function Button7({ onClick }: { onClick: () => void }) {
   return (
-    <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[120px] rounded-[23px] size-[46px] top-[calc(50%+0.5px)]" data-name="Button">
+    <button aria-label="Véhicule suivant" className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[120px] rounded-[23px] size-[46px] top-[calc(50%+0.5px)] transition-colors hover:border-[#bcff3d]/40 focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" data-name="Button" onClick={onClick} type="button">
       <Svg34 />
-    </div>
+    </button>
   );
 }
 
@@ -2290,23 +2351,54 @@ function Svg35() {
 
 function Link15() {
   return (
-    <div className="-translate-y-1/2 absolute h-[16px] left-[1014px] top-[calc(50%+3.5px)] w-[180.88px]" data-name="Link">
+    <a className="-translate-y-1/2 absolute h-[16px] left-[1014px] top-[calc(50%+3.5px)] w-[180.88px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" data-name="Link" href="/showroom">
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[16px] justify-center leading-[0] left-0 text-[13px] text-[rgba(255,255,255,0.4)] top-1/2 w-[160.204px]">
         <p className="leading-[normal]">Voir tous nos véhicules</p>
       </div>
       <Svg35 />
-    </div>
+    </a>
   );
 }
 
-function HorizontalBorder1() {
+function HorizontalBorder1({ activeIndex, onPrevious, onNext, onSelect }: { activeIndex: number; onPrevious: () => void; onNext: () => void; onSelect: (index: number) => void }) {
   return (
     <div className="absolute h-[103px] left-[136px] right-[66px] top-[3690px]" data-name="HorizontalBorder">
-      <Button6 />
-      <Button7 />
-      <div className="-translate-y-1/2 absolute bg-[#bcff3d] h-[6px] left-[565px] rounded-[3px] top-[calc(50%+3.5px)] w-[22px]" data-name="Background" />
-      <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.15)] left-[595px] rounded-[3px] size-[6px] top-[calc(50%+3.5px)]" data-name="Overlay" />
-      <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.15)] left-[609px] rounded-[3px] size-[6px] top-[calc(50%+3.5px)]" data-name="Overlay" />
+      <Button6 onClick={onPrevious} />
+      <Button7 onClick={onNext} />
+      {SHOWROOM_VEHICLES.map((vehicle, index) => {
+        const isActive = activeIndex === index;
+        const leftClassName =
+          activeIndex === 0
+            ? index === 0
+              ? "left-[565px]"
+              : index === 1
+                ? "left-[595px]"
+                : "left-[609px]"
+            : activeIndex === 1
+              ? index === 0
+                ? "left-[565px]"
+                : index === 1
+                  ? "left-[579px]"
+                  : "left-[609px]"
+              : index === 0
+                ? "left-[565px]"
+                : index === 1
+                  ? "left-[579px]"
+                  : "left-[593px]";
+        const sizeClassName = isActive ? "h-[6px] w-[22px]" : "size-[6px]";
+
+        return (
+          <button
+            aria-label={`Afficher ${vehicle.brand} ${vehicle.model}`}
+            aria-pressed={isActive}
+            className={`-translate-y-1/2 absolute ${isActive ? "bg-[#bcff3d]" : "bg-[rgba(255,255,255,0.15)]"} ${leftClassName} ${sizeClassName} rounded-[3px] top-[calc(50%+3.5px)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50`}
+            data-name={isActive ? "Background" : "Overlay"}
+            key={vehicle.model}
+            onClick={() => onSelect(index)}
+            type="button"
+          />
+        );
+      })}
       <Link15 />
     </div>
   );
@@ -2353,12 +2445,12 @@ function Svg36() {
 
 function Button8() {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[calc(50%-2486.5px)] w-[213.913px]" data-name="Button">
+    <a className="-translate-x-1/2 -translate-y-1/2 absolute bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[calc(50%-2486.5px)] w-[213.913px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" data-name="Button" href="/showroom">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[21.5px] justify-center leading-[0] left-[calc(50%-16.3px)] not-italic text-[#1f2937] text-[18px] text-center top-[calc(50%-0.25px)] w-[155.32px]">
         <p className="leading-[28px]">Notre sélection</p>
       </div>
       <Svg36 />
-    </div>
+    </a>
   );
 }
 
@@ -2381,6 +2473,15 @@ function Group4() {
 }
 
 export default function HomePage() {
+  const [showroomIndex, setShowroomIndex] = useState(0);
+  const activeShowroomVehicle = SHOWROOM_VEHICLES[showroomIndex];
+  const showPreviousVehicle = () => {
+    setShowroomIndex((currentIndex) => (currentIndex - 1 + SHOWROOM_VEHICLES.length) % SHOWROOM_VEHICLES.length);
+  };
+  const showNextVehicle = () => {
+    setShowroomIndex((currentIndex) => (currentIndex + 1) % SHOWROOM_VEHICLES.length);
+  };
+
   return (
     <div className="bg-[#181818] relative size-full" data-name="home page">
       <Frame1 />
@@ -2504,8 +2605,8 @@ export default function HomePage() {
           <span className="leading-[54.6px] text-[#bcff3d]">showroom</span>
         </p>
       </div>
-      <Container2 />
-      <HorizontalBorder1 />
+      <Container2 vehicle={activeShowroomVehicle} />
+      <HorizontalBorder1 activeIndex={showroomIndex} onNext={showNextVehicle} onPrevious={showPreviousVehicle} onSelect={setShowroomIndex} />
       <Group9 />
       <Button8 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[20px] justify-center leading-[0] left-[1170px] not-italic text-[34px] text-center text-white top-[1247px] w-[280px]">
