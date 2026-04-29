@@ -26,7 +26,7 @@ const NAV_LINKS = [
 ];
 
 const PAGE_SIZES: Record<string, { width: number; height: number }> = {
-  "/": { width: 1440, height: 7496 },
+  "/": { width: 1440, height: 7900 },
   "/a-propos": { width: 1440, height: 4347 },
   "/conseils": { width: 1440, height: 4379 },
   "/conseils/formulaire": { width: 1440, height: 2404 },

@@ -163,7 +163,7 @@ function Group6() {
 }
 
 function Container() {
-  return <div className="absolute bg-[#0f0d0d] inset-[31.92%_0.21%_62.15%_-0.76%] opacity-60" data-name="Container" />;
+  return <div className="absolute bg-[#0f0d0d] h-[620px] opacity-60 top-[2357px]" data-name="Container" style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw" }} />;
 }
 
 function Svg() {
@@ -180,12 +180,12 @@ function Svg() {
 
 function Button() {
   return (
-    <div className="absolute bg-[#c8ec66] h-[60px] left-[122px] overflow-clip rounded-[9999px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] top-[2806px] w-[266.16px]" data-name="Button">
+    <a className="absolute bg-[#c8ec66] h-[60px] left-[122px] overflow-clip rounded-[9999px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] top-[2806px] w-[266.16px] transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70" data-name="Button" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%-13.58px)] not-italic text-[#1f2937] text-[18px] text-center top-1/2 w-[189px]">
         <p className="leading-[28px]">Découvrir notre offre</p>
       </div>
       <Svg />
-    </div>
+    </a>
   );
 }
 
@@ -2138,6 +2138,70 @@ function CtaBasDroite() {
   );
 }
 
+function FullscreenHero() {
+  return (
+    <section
+      className="absolute top-0 z-20 min-h-[900px] overflow-hidden bg-[#050909]"
+      data-name="fullscreen hero"
+      style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw", height: "100vh" }}
+    >
+      <img alt="" className="absolute inset-0 size-full object-cover object-center" src={imgImage6} />
+      <div className="absolute bottom-0 left-0 right-0 h-[38vh] bg-[linear-gradient(180deg,rgba(5,9,9,0)_0%,rgba(5,9,9,0.08)_28%,rgba(238,243,239,0.78)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.12)_0%,rgba(0,0,0,0)_58%,rgba(24,24,24,0.28)_100%)]" />
+
+      <div className="absolute left-[7vw] right-[4vw] top-[34px] h-[31px]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1289.75 31">
+          <g>
+            <g>
+              <path d={svgPaths.p20d54300} fill="var(--fill-0, #C8C8C8)" />
+              <path d={svgPaths.p3554500} fill="var(--fill-0, #C8C8C8)" />
+              <path d={svgPaths.p40a2e00} fill="var(--fill-0, #C8C8C8)" />
+            </g>
+            <path d={svgPaths.p3c030100} stroke="var(--stroke-0, #C8C8C8)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+          </g>
+        </svg>
+      </div>
+
+      <div className="absolute left-1/2 top-[23.5vh] z-10 -translate-x-1/2 scale-x-[1.34] text-center font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[0] text-white tracking-[-8px]">
+        <p className="mb-0 text-[180px] leading-[136px]">Acheter</p>
+        <p className="text-[#bcff3d] text-[170px] leading-[128px]">simplement.</p>
+      </div>
+
+      <img
+        alt=""
+        className="absolute inset-0 z-20 size-full object-cover object-center pointer-events-none"
+        src={imgImage6}
+        style={{ clipPath: "inset(47% 0 0 0)" }}
+      />
+
+      <div className="absolute bottom-[16vh] left-[5vw] z-30 flex items-center gap-[8px] font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.35)]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <svg className="size-[12px]" fill="none" viewBox="0 0 12 12">
+          <path d={svgPaths.p8610900} stroke="#BCFF3D" />
+        </svg>
+        <span>Garantie 12 mois incluse</span>
+      </div>
+
+      <div className="absolute bottom-[8vh] left-[5vw] z-30 font-['DM_Sans:Light',sans-serif] font-light text-[12px] text-[rgba(255,255,255,0.3)]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        Contrôlés · Garantis · Livrés à domicile
+      </div>
+
+      <a
+        aria-label="Acheter votre véhicule"
+        className="absolute bottom-[11vh] right-[7vw] z-30 h-[44px] w-[306px] rounded-[100px] bg-[#bcff3d] font-['Syne:ExtraBold',sans-serif] font-extrabold text-[#0c0d0c] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+        href="/acheter-votre-vehicule"
+      >
+        <span className="absolute left-[18px] top-1/2 -translate-y-1/2 text-[13px] tracking-[0.52px]">Acheter votre véhicule</span>
+        <Svg31 />
+      </a>
+
+      <div className="absolute bottom-[6.5vh] right-[8.5vw] z-30 flex items-center gap-[12px] font-['DM_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.18)]" style={{ fontVariationSettings: "'opsz' 14" }}>
+        <span className="h-px w-[24px] bg-[rgba(255,255,255,0.15)]" />
+        <span>Scroll pour explorer</span>
+      </div>
+    </section>
+  );
+}
+
 function OverlayBorder15() {
   return (
     <div className="-translate-x-1/2 absolute bg-[rgba(188,255,61,0.08)] border border-[rgba(188,255,61,0.2)] border-solid h-[28px] left-[calc(50%+7.93px)] rounded-[100px] top-[928px] w-[203.86px]" data-name="Overlay+Border">
@@ -2484,8 +2548,10 @@ export default function HomePage() {
 
   return (
     <div className="bg-[#181818] relative size-full" data-name="home page">
-      <Frame1 />
-      <div className="absolute h-[1038.64px] left-[-280px] top-[-259px] w-[1841.571px]" data-name="Union">
+      <FullscreenHero />
+      <div className="absolute inset-0" style={{ transform: "translateY(max(0px, calc(100vh - 900px)))" }}>
+        <Frame1 />
+        <div className="absolute h-[1038.64px] left-[-280px] top-[-259px] w-[1841.571px]" data-name="Union">
         <div className="absolute inset-[-19.26%_-10.86%]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2241.57 1438.64">
             <g filter="url(#filter0_f_1_685)" id="Union">
@@ -2545,13 +2611,13 @@ export default function HomePage() {
         <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">Solutions</span>
       </p>
       <Container />
-      <div className="absolute flex h-[664.974px] items-center justify-center left-[776px] top-[2335px] w-[566.613px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "604" } as React.CSSProperties}>
+      <a aria-label="Acheter votre véhicule" className="absolute flex h-[664.974px] items-center justify-center left-[776px] top-[2335px] w-[566.613px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/50" href="/acheter-votre-vehicule" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "604" } as React.CSSProperties}>
         <div className="flex-none rotate-[8.53deg]">
           <div className="h-[600px] relative w-[483px]" data-name="iPhone 16">
             <img alt="" className="absolute block inset-0 max-w-none size-full" height="600" src={imgIPhone16} width="483" />
           </div>
         </div>
-      </div>
+      </a>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2535.75px] tracking-[-1.5px] w-[654px]">
         <p className="leading-[60px]">ACHETEZ VOTRE</p>
       </div>
@@ -2618,6 +2684,7 @@ export default function HomePage() {
           <span className="leading-[normal]">V</span>
           <span className="leading-[normal] text-[#bcff3d]">room</span>
         </p>
+      </div>
       </div>
     </div>
   );
