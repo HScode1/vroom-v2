@@ -51,7 +51,7 @@ function PageWrapper({ path, children }: { path: string; children: React.ReactNo
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen w-full bg-[#181818] overflow-x-auto">
+      <div className="h-screen w-full bg-[#181818] overflow-x-auto overflow-y-auto">
         <nav className="fixed top-4 right-4 z-50 flex gap-2 flex-wrap max-w-[700px] justify-end">
           {NAV_LINKS.map(({ to, label }) => (
             <NavLink
