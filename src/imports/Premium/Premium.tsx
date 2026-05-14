@@ -1,5 +1,71 @@
+import { useState } from "react";
 import svgPaths from "./svg-wzz9z1ej01";
 import imgCaptureDecran20251209A1739081 from "./c8e73a968bf4d279e3e7f298702c6d9e2caeab3d.png";
+
+const BRAND_OPTIONS = [
+  { id: "all", label: "Tous", count: 80 },
+  { id: "mercedes-benz", label: "Mercedes-Benz", count: 12 },
+  { id: "bmw", label: "BMW", count: 21 },
+  { id: "audi", label: "Audi", count: 22 },
+  { id: "porsche", label: "Porshe", count: 9 },
+  { id: "tesla", label: "Tesla", count: 5 },
+  { id: "jaguar", label: "Jaguar", count: 21 },
+] as const;
+
+const FILTER_SECTIONS = [
+  "Type de carburant",
+  "Boîtes de vitesse",
+  "Kilométrage",
+  "Années",
+  "Prix",
+] as const;
+
+function FilterRadio({
+  option,
+  top,
+  isSelected,
+  onSelect,
+  withBorder = false,
+}: {
+  option: (typeof BRAND_OPTIONS)[number];
+  top: number;
+  isSelected: boolean;
+  onSelect: () => void;
+  withBorder?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`absolute right-[0.25px] left-0 h-[28px] text-left ${withBorder ? "border-b border-solid border-white h-[61px]" : ""}`}
+      style={{ top }}
+      data-name="p-radio-button-wrapper"
+      aria-pressed={isSelected}
+    >
+      <div
+        className={`absolute left-0 rounded-[14px] size-[28px] border-2 border-solid ${isSelected ? "border-white bg-white" : "border-white bg-transparent"}`}
+        style={{ top: withBorder ? 8 : option.id === "audi" ? 0.41 : 0 }}
+        data-name="Slot → Input"
+      >
+        {isSelected ? (
+          <div className="absolute left-[2px] top-[2px] size-[24px]">
+            <svg className="absolute inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
+              <path d={svgPaths.p3c6311f0} fill="var(--fill-0, #181818)" />
+            </svg>
+          </div>
+        ) : null}
+      </div>
+      <div
+        className="absolute left-[36px] flex h-[24px] -translate-y-1/2 flex-col justify-center font-['Helvetica_Neue:Regular',sans-serif] not-italic leading-[0] text-white"
+        style={{ top: withBorder ? 22 : option.id === "all" ? 14 : 14.41 }}
+      >
+        <p className="text-[16px] leading-[24px]">
+          {option.label} <span className="text-white">({option.count})</span>
+        </p>
+      </div>
+    </button>
+  );
+}
 
 function PRadioButtonWrapper() {
   return (
@@ -180,16 +246,16 @@ function PAccordion() {
   );
 }
 
-function Section() {
+function Section({ selectedBrand, onSelectBrand }: { selectedBrand: string; onSelectBrand: (brand: string) => void }) {
   return (
     <div className="absolute h-[365px] left-[68px] right-[1540px] top-[369px]" data-name="Section">
-      <PRadioButtonWrapper />
-      <PRadioButtonWrapper1 />
-      <PRadioButtonWrapper2 />
-      <PRadioButtonWrapper3 />
-      <PRadioButtonWrapper4 />
-      <PRadioButtonWrapper5 />
-      <PRadioButtonWrapper6 />
+      <FilterRadio option={BRAND_OPTIONS[0]} top={47.59} isSelected={selectedBrand === BRAND_OPTIONS[0].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[0].id)} />
+      <FilterRadio option={BRAND_OPTIONS[1]} top={91.59} isSelected={selectedBrand === BRAND_OPTIONS[1].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[1].id)} />
+      <FilterRadio option={BRAND_OPTIONS[2]} top={135.59} isSelected={selectedBrand === BRAND_OPTIONS[2].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[2].id)} />
+      <FilterRadio option={BRAND_OPTIONS[3]} top={179.59} isSelected={selectedBrand === BRAND_OPTIONS[3].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[3].id)} />
+      <FilterRadio option={BRAND_OPTIONS[4]} top={223.59} isSelected={selectedBrand === BRAND_OPTIONS[4].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[4].id)} />
+      <FilterRadio option={BRAND_OPTIONS[5]} top={267.59} isSelected={selectedBrand === BRAND_OPTIONS[5].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[5].id)} />
+      <FilterRadio option={BRAND_OPTIONS[6]} top={303.59} isSelected={selectedBrand === BRAND_OPTIONS[6].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[6].id)} withBorder />
       <PAccordion />
     </div>
   );
@@ -238,11 +304,20 @@ function Heading3Button1() {
   );
 }
 
-function PAccordion1() {
+function PAccordion1({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[734px]" data-name="p-accordion">
-      <Heading3Button1 />
-    </div>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[734px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+      <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[132px]">
+          <p className="leading-[24px]">Type de carburant</p>
+        </div>
+        <div className="absolute flex items-center justify-center left-[279px] size-[19.5px] top-[17.25px]">
+          <div className={`flex-none transition-transform ${isOpen ? "rotate-90" : ""}`}>
+            <PIconPlus319993ESvg1 />
+          </div>
+        </div>
+      </div>
+    </button>
   );
 }
 
@@ -289,11 +364,20 @@ function Heading3Button2() {
   );
 }
 
-function PAccordion2() {
+function PAccordion2({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[789px]" data-name="p-accordion">
-      <Heading3Button2 />
-    </div>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[789px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+      <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[13.8px] text-white top-1/2 w-[120.67px]">
+          <p className="leading-[24px]">Boîtes de vitesse</p>
+        </div>
+        <div className="absolute flex items-center justify-center left-[279px] size-[19.5px] top-[17.25px]">
+          <div className={`flex-none transition-transform ${isOpen ? "rotate-90" : ""}`}>
+            <PIconPlus319993ESvg2 />
+          </div>
+        </div>
+      </div>
+    </button>
   );
 }
 
@@ -340,11 +424,20 @@ function Heading3Button3() {
   );
 }
 
-function PAccordion3() {
+function PAccordion3({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[844px]" data-name="p-accordion">
-      <Heading3Button3 />
-    </div>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[844px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+      <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[88.48px]">
+          <p className="leading-[24px]">Kilométrage</p>
+        </div>
+        <div className="absolute flex items-center justify-center left-[279px] size-[19.5px] top-[17.25px]">
+          <div className={`flex-none transition-transform ${isOpen ? "rotate-90" : ""}`}>
+            <PIconPlus319993ESvg3 />
+          </div>
+        </div>
+      </div>
+    </button>
   );
 }
 
@@ -391,11 +484,20 @@ function Heading3Button4() {
   );
 }
 
-function PAccordion4() {
+function PAccordion4({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[899px]" data-name="p-accordion">
-      <Heading3Button4 />
-    </div>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[899px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+      <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[120.81px]">
+          <p className="leading-[24px]">Années</p>
+        </div>
+        <div className="absolute flex items-center justify-center left-[279px] size-[19.5px] top-[17.25px]">
+          <div className={`flex-none transition-transform ${isOpen ? "rotate-90" : ""}`}>
+            <PIconPlus319993ESvg4 />
+          </div>
+        </div>
+      </div>
+    </button>
   );
 }
 
@@ -442,21 +544,30 @@ function Heading3Button5() {
   );
 }
 
-function PAccordion5() {
+function PAccordion5({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[954px]" data-name="p-accordion">
-      <Heading3Button5 />
-    </div>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[954px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+      <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[120.81px]">
+          <p className="leading-[24px]">Prix</p>
+        </div>
+        <div className="absolute flex items-center justify-center left-[279px] size-[19.5px] top-[17.25px]">
+          <div className={`flex-none transition-transform ${isOpen ? "rotate-90" : ""}`}>
+            <PIconPlus319993ESvg5 />
+          </div>
+        </div>
+      </div>
+    </button>
   );
 }
 
-function PButtonButton() {
+function PButtonButton({ onReset }: { onReset: () => void }) {
   return (
-    <div className="absolute border-2 border-solid border-white h-[54px] left-[70px] right-[1540px] rounded-[4px] top-[1058px]" data-name="p-button → Button">
+    <button type="button" onClick={onReset} className="absolute border-2 border-solid border-white h-[54px] left-[70px] right-[1540px] rounded-[4px] top-[1058px] text-left" data-name="p-button → Button">
       <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[87.3px] not-italic text-[15.3px] text-white top-[25px] w-[122.34px]">
         <p className="leading-[24px]">réinitialiser le filtre</p>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -541,11 +652,11 @@ function ListPointsFortsTechniques() {
 
 function PLinkLinkSelectionnerModele() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[975px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[975px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -649,11 +760,11 @@ function ListPointsFortsTechniques1() {
 
 function PLinkLinkSelectionnerModele1() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[1668px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[1668px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -757,11 +868,11 @@ function ListPointsFortsTechniques2() {
 
 function PLinkLinkSelectionnerModele2() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[3054px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[3054px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -865,11 +976,11 @@ function ListPointsFortsTechniques3() {
 
 function PLinkLinkSelectionnerModele3() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[2361px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[597px] right-[1112px] rounded-[4px] top-[2361px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -973,11 +1084,11 @@ function ListPointsFortsTechniques4() {
 
 function PLinkLinkSelectionnerModele4() {
   return (
-    <div className="absolute bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[975px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[975px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#010205] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1081,11 +1192,11 @@ function ListPointsFortsTechniques5() {
 
 function PLinkLinkSelectionnerModele5() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[1668px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[1668px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1189,11 +1300,11 @@ function ListPointsFortsTechniques6() {
 
 function PLinkLinkSelectionnerModele6() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[3054px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[3054px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1297,11 +1408,11 @@ function ListPointsFortsTechniques7() {
 
 function PLinkLinkSelectionnerModele7() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[2361px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1078px] right-[631px] rounded-[4px] top-[2361px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1405,11 +1516,11 @@ function ListPointsFortsTechniques8() {
 
 function PLinkLinkSelectionnerModele8() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[975px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[975px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1513,11 +1624,11 @@ function ListPointsFortsTechniques9() {
 
 function PLinkLinkSelectionnerModele9() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[1668px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[1668px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1621,11 +1732,11 @@ function ListPointsFortsTechniques10() {
 
 function PLinkLinkSelectionnerModele10() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[3054px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[3054px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1729,11 +1840,11 @@ function ListPointsFortsTechniques11() {
 
 function PLinkLinkSelectionnerModele11() {
   return (
-    <div className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[2361px]" data-name="p-link → Link - Sélectionner modèle">
+    <a className="absolute bg-[#010205] border-2 border-[#010205] border-solid h-[54px] left-[1563px] right-[146px] rounded-[4px] top-[2361px]" data-name="p-link → Link - Sélectionner modèle" href="/showroom/produit">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[#fbfcff] text-[14.8px] text-center top-[25px] w-[136.53px]">
         <p className="leading-[24px]">Voir les détails</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1756,23 +1867,23 @@ function Group8() {
   );
 }
 
-function Link() {
+function Link({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
   return (
-    <div className="-translate-y-1/2 absolute bg-[#c8ec66] h-[59px] left-[1031px] rounded-[9999px] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)] top-[calc(50%-1693px)] w-[188px]" data-name="Link">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[19px] justify-center leading-[0] left-[112.5px] not-italic text-[24px] text-center text-white top-[29.5px] w-[165px]">
+    <button type="button" onClick={onClick} className={`-translate-y-1/2 absolute h-[59px] left-[1031px] rounded-[9999px] top-[calc(50%-1693px)] w-[188px] ${isActive ? "bg-[#c8ec66] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)]" : "bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"}`} data-name="Link" aria-pressed={isActive}>
+      <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[19px] justify-center leading-[0] left-[112.5px] not-italic text-[24px] text-center top-[29.5px] w-[165px] ${isActive ? "text-white" : "text-[#010205]"}`}>
         <p className="leading-[24px]">Citadine</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Link1() {
+function Link1({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
   return (
-    <div className="-translate-y-1/2 absolute bg-white h-[59px] left-[926px] rounded-[9999px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-[calc(50%-1693px)] w-[164px]" data-name="Link">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[19px] justify-center leading-[0] left-[76px] not-italic text-[#010205] text-[24px] text-center top-1/2 w-[176px]">
+    <button type="button" onClick={onClick} className={`-translate-y-1/2 absolute h-[59px] left-[926px] rounded-[9999px] top-[calc(50%-1693px)] w-[164px] ${isActive ? "bg-[#c8ec66] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)]" : "bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"}`} data-name="Link" aria-pressed={isActive}>
+      <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[19px] justify-center leading-[0] left-[76px] not-italic text-[24px] text-center top-1/2 w-[176px] ${isActive ? "text-white" : "text-[#010205]"}`}>
         <p className="leading-[24px]">Premium</p>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -1824,12 +1935,12 @@ function Svg() {
 
 function Link2() {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link">
+    <a className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link" href="tel:+33670760719">
       <Svg />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.18px)] not-italic text-[16px] text-black text-center top-[calc(50%-0.25px)] w-[107.125px]">
         <p className="leading-[24px]">06 70 76 07 19</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1848,12 +1959,12 @@ function Svg1() {
 
 function Link3() {
   return (
-    <div className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link">
+    <a className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link" href="mailto:contact@vroomparis.fr">
       <Svg1 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.16px)] not-italic text-[16px] text-center text-white top-[calc(50%-0.25px)] w-[161.595px]">
         <p className="leading-[24px]">contact@vroomparis.fr</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1872,31 +1983,31 @@ function Svg2() {
 
 function Link4() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-0" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-0" data-name="Link" href="/showroom">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.19px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[127.557px]">
         <p className="leading-[24px]">Showroom</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link5() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[150px]">
         <p className="leading-[24px]">Acheter un véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link6() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link" href="/vendre-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">Vendre votre véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1917,21 +2028,21 @@ function Nav() {
 
 function Link8() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link" href="/conseils">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[180px]">
         <p className="leading-[24px]">Consulation automobile</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link9() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link" href="/a-propos">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">À propos</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -2038,7 +2149,7 @@ function HorizontalBorder() {
 
 function Container() {
   return (
-    <div className="absolute h-[317px] left-[208px] right-[208px] top-[48px]" data-name="Container">
+    <div className="absolute h-[317px] left-1/2 top-[48px] w-[1504px] -translate-x-1/2" data-name="Container">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:Regular',sans-serif] font-normal h-[28px] justify-center leading-[0] left-[calc(50%-341.1px)] text-[20px] text-center text-white top-[14px] tracking-[-0.4px] w-[175.161px]">
         <p className="leading-[28px]">Qu’attendez-vous ?</p>
       </div>
@@ -2075,6 +2186,18 @@ function Footer() {
 }
 
 export default function Premium() {
+  const [selectedBrand, setSelectedBrand] = useState<(typeof BRAND_OPTIONS)[number]["id"]>("mercedes-benz");
+  const [selectedCategory, setSelectedCategory] = useState<"premium" | "citadine">("citadine");
+  const [openSection, setOpenSection] = useState<(typeof FILTER_SECTIONS)[number] | null>("Type de carburant");
+
+  const resetFilters = () => {
+    setSelectedBrand("all");
+    setSelectedCategory("premium");
+    setOpenSection("Type de carburant");
+  };
+
+  const selectedBrandLabel = BRAND_OPTIONS.find((option) => option.id === selectedBrand)?.label ?? "Tous";
+
   return (
     <div className="bg-[#181818] relative size-full" data-name="premium">
       <div className="absolute h-[742.872px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
@@ -2100,13 +2223,13 @@ export default function Premium() {
           </svg>
         </div>
       </div>
-      <Section />
-      <PAccordion1 />
-      <PAccordion2 />
-      <PAccordion3 />
-      <PAccordion4 />
-      <PAccordion5 />
-      <PButtonButton />
+      <Section selectedBrand={selectedBrand} onSelectBrand={(brand) => setSelectedBrand(brand)} />
+      <PAccordion1 isOpen={openSection === "Type de carburant"} onToggle={() => setOpenSection((current) => current === "Type de carburant" ? null : "Type de carburant")} />
+      <PAccordion2 isOpen={openSection === "Boîtes de vitesse"} onToggle={() => setOpenSection((current) => current === "Boîtes de vitesse" ? null : "Boîtes de vitesse")} />
+      <PAccordion3 isOpen={openSection === "Kilométrage"} onToggle={() => setOpenSection((current) => current === "Kilométrage" ? null : "Kilométrage")} />
+      <PAccordion4 isOpen={openSection === "Années"} onToggle={() => setOpenSection((current) => current === "Années" ? null : "Années")} />
+      <PAccordion5 isOpen={openSection === "Prix"} onToggle={() => setOpenSection((current) => current === "Prix" ? null : "Prix")} />
+      <PButtonButton onReset={resetFilters} />
       <Group2 />
       <Group3 />
       <Group9 />
@@ -2120,13 +2243,13 @@ export default function Premium() {
       <Group11 />
       <Group8 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-[517px] not-italic text-[24.8px] text-[transparent] top-[373px] w-[118px]">
-        <p className="leading-[37.89px]">Citröen</p>
+        <p className="leading-[37.89px]">{selectedBrandLabel}</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[78px] justify-center leading-[0] left-[68px] text-[43.9px] text-white top-[194px] w-[472px]">
         <p className="leading-[62.88px]">Aperçu du modèle</p>
       </div>
-      <Link />
-      <Link1 />
+      <Link isActive={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} />
+      <Link1 isActive={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} />
       <div className="absolute flex inset-[1.07%_2.86%_98.29%_94.59%] items-center justify-center" style={{ containerType: "size" }}>
         <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
           <div className="relative size-full" data-name="Vector">

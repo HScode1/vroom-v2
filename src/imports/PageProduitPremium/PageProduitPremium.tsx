@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import svgPaths from "./svg-e2a6upuiz3";
 import imgPictureA290 from "./adf5b1cba6c70082754343ed9b3203d797ea65f4.png";
 import imgPictureA291 from "./ef0d6bd9f0f2987d8c5717276c603f97d24e79a2.png";
@@ -8,175 +10,52 @@ import imgPictureA295 from "./0b7a653a942239bd2b59be1522158006c71986ad.png";
 import imgPictureA296 from "./2f0ebbaa1caece13340fb10b2aa9a5c488bff476.png";
 import img8301 from "./4685cd6aaefc7c761762a595fa5d5078fbae0729.png";
 
-function PictureA() {
+const galleryImages = [img8301, imgPictureA291, imgPictureA292, imgPictureA293, imgPictureA294, imgPictureA295, imgPictureA296];
+const thumbnailImages = [imgPictureA290, imgPictureA291, imgPictureA292, imgPictureA293, imgPictureA294, imgPictureA295, imgPictureA296];
+const sellerNotePreview = "BMW X3 xDrive30i AWD 2019 Blanc alpin | 2.0L TwinPower Turbo | Boîte automatique 8 vitesses. Ce BMW X3, ayant appartenu à un seul propriétaire et repris localement, offre l'équilibre parfait entre luxe, performance et technologie.";
+const sellerNoteFull = "BMW X3 xDrive30i AWD 2019 Blanc alpin | 2.0L TwinPower Turbo | Boîte automatique 8 vitesses. Ce BMW X3, ayant appartenu à un seul propriétaire et repris localement, offre l'équilibre parfait entre luxe, performance et technologie. Avec la dynamique de conduite légendaire de BMW et sa transmission intégrale intelligente, ce SUV est conçu pour un usage quotidien confortable comme pour les longs trajets.";
+
+function ThumbnailButton({
+  index,
+  src,
+  selected,
+  onSelect,
+}: {
+  index: number;
+  src: string;
+  selected: boolean;
+  onSelect: (index: number) => void;
+}) {
   return (
-    <div className="absolute aspect-[120/67.5] left-0 right-0 top-0" data-name="Picture → A290">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-[100.16%] left-0 max-w-none top-[-0.08%] w-full" src={imgPictureA290} />
-      </div>
-    </div>
+    <button
+      aria-label={`Afficher la photo ${index + 1}`}
+      className="absolute h-[67.5px] overflow-hidden rounded-[4px] top-0 w-[120px] cursor-pointer transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-white/70"
+      data-name="Item → Button"
+      onClick={() => onSelect(index)}
+      style={{ left: `${index * 128}px` }}
+      type="button"
+    >
+      <img alt="" className="absolute inset-0 h-full w-full object-cover" src={src} />
+      <div className={`absolute border-4 border-solid inset-0 rounded-[4px] ${selected ? "border-white" : "border-transparent"}`} data-name="Border" />
+      <div className={`absolute border-2 border-solid inset-0 rounded-[4px] ${selected ? "border-white/90" : "border-transparent"}`} data-name="Border" />
+    </button>
   );
 }
 
-function ItemButton() {
-  return (
-    <div className="absolute h-[67.5px] left-0 overflow-clip rounded-[4px] top-0 w-[120px]" data-name="Item → Button">
-      <PictureA />
-      <div className="absolute border-4 border-solid border-white inset-0 rounded-[4px]" data-name="Border" />
-      <div className="absolute border-2 border-solid border-white inset-0 rounded-[4px]" data-name="Border" />
-    </div>
-  );
-}
-
-function PictureA1() {
-  return (
-    <div className="absolute aspect-[120/67.5] left-0 right-0 top-0" data-name="Picture → A290">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-[100.16%] left-0 max-w-none top-[-0.08%] w-full" src={imgPictureA291} />
-      </div>
-    </div>
-  );
-}
-
-function ItemButton1() {
-  return (
-    <div className="absolute h-[67.5px] left-[128px] overflow-clip rounded-[4px] top-0 w-[120px]" data-name="Item → Button">
-      <PictureA1 />
-      <div className="absolute border-4 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-      <div className="absolute border-2 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-    </div>
-  );
-}
-
-function PictureA2() {
-  return (
-    <div className="absolute aspect-[120/67.5] left-0 right-0 top-0" data-name="Picture → A290">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-[100.16%] left-0 max-w-none top-[-0.08%] w-full" src={imgPictureA292} />
-      </div>
-    </div>
-  );
-}
-
-function ItemButton2() {
-  return (
-    <div className="absolute h-[67.5px] left-[256px] overflow-clip rounded-[4px] top-0 w-[120px]" data-name="Item → Button">
-      <PictureA2 />
-      <div className="absolute border-4 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-      <div className="absolute border-2 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-    </div>
-  );
-}
-
-function PictureA3() {
-  return (
-    <div className="absolute aspect-[120/67.5] left-0 right-0 top-0" data-name="Picture → A290">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-[100.16%] left-0 max-w-none top-[-0.08%] w-full" src={imgPictureA293} />
-      </div>
-    </div>
-  );
-}
-
-function ItemButton3() {
-  return (
-    <div className="absolute h-[67.5px] left-[384px] overflow-clip rounded-[4px] top-0 w-[120px]" data-name="Item → Button">
-      <PictureA3 />
-      <div className="absolute border-4 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-      <div className="absolute border-2 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-    </div>
-  );
-}
-
-function PictureA4() {
-  return (
-    <div className="absolute aspect-[120/67.5] left-0 right-0 top-0" data-name="Picture → A290">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-[100.16%] left-0 max-w-none top-[-0.08%] w-full" src={imgPictureA294} />
-      </div>
-    </div>
-  );
-}
-
-function ItemButton4() {
-  return (
-    <div className="absolute h-[67.5px] left-[512px] overflow-clip rounded-[4px] top-0 w-[120px]" data-name="Item → Button">
-      <PictureA4 />
-      <div className="absolute border-4 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-      <div className="absolute border-2 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-    </div>
-  );
-}
-
-function PictureA5() {
-  return (
-    <div className="absolute aspect-[120/67.5] left-0 right-0 top-0" data-name="Picture → A290">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-[100.16%] left-0 max-w-none top-[-0.08%] w-full" src={imgPictureA295} />
-      </div>
-    </div>
-  );
-}
-
-function ItemButton5() {
-  return (
-    <div className="absolute h-[67.5px] left-[640px] overflow-clip rounded-[4px] top-0 w-[120px]" data-name="Item → Button">
-      <PictureA5 />
-      <div className="absolute border-4 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-      <div className="absolute border-2 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-    </div>
-  );
-}
-
-function PictureA6() {
-  return (
-    <div className="absolute aspect-[120/67.5] left-0 overflow-clip right-0 top-0" data-name="Picture → A290">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-[100.16%] left-0 max-w-none top-[-0.08%] w-full" src={imgPictureA296} />
-      </div>
-      <div className="absolute flex items-center justify-center left-[50px] size-[19px] top-[24px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
-        <div className="flex-none rotate-90">
-          <div className="relative size-[19px]">
-            <div className="absolute bottom-1/4 left-[6.7%] right-[6.7%] top-0">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.4545 14.25">
-                <path d={svgPaths.p2623e3b0} fill="var(--fill-0, #272626)" fillOpacity="0.4" id="Polygon 1" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ItemButton6() {
-  return (
-    <div className="absolute h-[67.5px] left-[768px] overflow-clip rounded-[4px] top-0 w-[120px]" data-name="Item → Button">
-      <PictureA6 />
-      <div className="absolute border-4 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-      <div className="absolute border-2 border-solid border-white inset-0 opacity-0 rounded-[4px]" data-name="Border" />
-    </div>
-  );
-}
-
-function List() {
+function List({ selectedIndex, onSelect }: { selectedIndex: number; onSelect: (index: number) => void }) {
   return (
     <div className="absolute bottom-[0.5px] left-0 overflow-x-auto overflow-y-clip top-0 w-[888px]" data-name="List">
-      <ItemButton />
-      <ItemButton1 />
-      <ItemButton2 />
-      <ItemButton3 />
-      <ItemButton4 />
-      <ItemButton5 />
-      <ItemButton6 />
+      {thumbnailImages.map((src, index) => (
+        <ThumbnailButton index={index} key={src} onSelect={onSelect} selected={selectedIndex === index} src={src} />
+      ))}
     </div>
   );
 }
 
-function Container() {
+function Container({ selectedIndex, onSelect }: { selectedIndex: number; onSelect: (index: number) => void }) {
   return (
     <div className="absolute inset-[1176px_639px_1435px_108px] overflow-clip" data-name="Container">
-      <List />
+      <List onSelect={onSelect} selectedIndex={selectedIndex} />
     </div>
   );
 }
@@ -318,9 +197,9 @@ function SlotSparkStackSlot() {
   );
 }
 
-function Lit198533735SvgLit() {
+function Lit198533735SvgLit({ isOpen }: { isOpen: boolean }) {
   return (
-    <div className="absolute h-[24px] left-[580.7px] right-0 top-[8px]" data-name="lit$198533735 → SVG - lit$198533735">
+    <div className={`absolute h-[24px] left-[580.7px] right-0 top-[8px] transition-transform ${isOpen ? "" : "rotate-180"}`} data-name="lit$198533735 → SVG - lit$198533735">
       <div className="absolute bottom-[33.33%] left-1/4 right-1/4 top-[35.75%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12 7.42">
           <path d={svgPaths.p3abbeb00} fill="var(--fill-0, white)" id="Vector" />
@@ -330,40 +209,40 @@ function Lit198533735SvgLit() {
   );
 }
 
-function ButtonPartButton() {
+function ButtonPartButton({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="absolute h-[83.2px] left-0 right-0 top-0" data-name="Button::part(button)">
+    <button className="absolute h-[83.2px] left-0 right-0 top-0 cursor-pointer text-left" data-name="Button::part(button)" onClick={onToggle} type="button">
       <SlotSparkStackSlotSparkStackSlotSparkSvgSvgLit />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[34px] justify-center leading-[0] left-[28px] text-[26px] text-white top-[19.5px] tracking-[-0.48px] w-[228.495px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[31.2px]">Évolution du prix</p>
       </div>
-      <SlotSparkStackSlot />
-      <Lit198533735SvgLit />
-    </div>
+      {isOpen ? <SlotSparkStackSlot /> : null}
+      <Lit198533735SvgLit isOpen={isOpen} />
+    </button>
   );
 }
 
-function SectionSparkAccordion() {
+function SectionSparkAccordion({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className="absolute border-[rgba(0,0,0,0)] border-b border-solid h-[84.2px] left-[16px] right-[16.3px] top-[196.2px]" data-name="Section → spark-accordion">
-      <ButtonPartButton />
+    <div className={`absolute border-[rgba(0,0,0,0)] border-b border-solid left-[16px] right-[16.3px] top-[196.2px] transition-[height] ${isOpen ? "h-[84.2px]" : "h-[38px]"}`} data-name="Section → spark-accordion">
+      <ButtonPartButton isOpen={isOpen} onToggle={onToggle} />
     </div>
   );
 }
 
-function Section1() {
+function Section1({ isPriceHistoryOpen, onTogglePriceHistory }: { isPriceHistoryOpen: boolean; onTogglePriceHistory: () => void }) {
   return (
     <div className="absolute border border-[#e0e4e3] border-solid h-[327px] left-[1233px] right-[57px] rounded-[10px] top-[592px]" data-name="Section">
       <Section2 />
       <div className="absolute bg-[#e0e4e3] h-px left-[16px] right-[16.3px] top-[179.2px]" data-name="spark-separator" />
-      <SectionSparkAccordion />
+      <SectionSparkAccordion isOpen={isPriceHistoryOpen} onToggle={onTogglePriceHistory} />
     </div>
   );
 }
 
 function SparkSvgSvgLit() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[10.42%_16.67%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10.6667 12.6667">
           <path d={svgPaths.p4fcfb00} fill="var(--fill-0, white)" id="Vector" />
@@ -386,7 +265,7 @@ function Item() {
 
 function SparkSvgSvgLit1() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[10.42%_16.67%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10.6667 12.6667">
           <path d={svgPaths.p4fcfb00} fill="var(--fill-0, white)" id="Vector" />
@@ -409,7 +288,7 @@ function Item1() {
 
 function SparkSvgSvgLit2() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[12.5%_14.58%_12.5%_16.67%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11 12">
           <path d={svgPaths.p1c49cb80} fill="var(--fill-0, white)" id="Vector" />
@@ -432,7 +311,7 @@ function Item2() {
 
 function SparkSvgSvgLit3() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[16.67%_4.17%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 14.6667 10.6667">
           <path d={svgPaths.p67fb5f1} fill="var(--fill-0, white)" id="Vector" />
@@ -469,7 +348,7 @@ function SparkListSlotList() {
 
 function SparkSvgSvgLit4() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[8.33%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13.3333 13.3333">
           <path d={svgPaths.p3a933b00} fill="var(--fill-0, white)" id="Vector" />
@@ -512,7 +391,7 @@ function PowerTrain() {
 
 function SparkSvgSvgLit5() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <PowerTrain />
     </div>
   );
@@ -531,7 +410,7 @@ function Item5() {
 
 function SparkSvgSvgLit6() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[8.33%_16.67%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10.6667 13.3333">
           <path d={svgPaths.p2d1c6bd0} fill="var(--fill-0, white)" id="Vector" />
@@ -554,7 +433,7 @@ function Item6() {
 
 function SparkSvgSvgLit7() {
   return (
-    <div className="absolute h-[16px] left-0 right-[287.34px] top-[4px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[18px] left-0 top-[3px] w-[18px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[23.29%_12.5%_20.83%_14.58%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 11.6667 8.94">
           <path d={svgPaths.p54fdc00} fill="var(--fill-0, white)" id="Vector" />
@@ -659,6 +538,7 @@ function Background() {
           <span className="font-['Helvetica_Neue:Bold',sans-serif] leading-[24px] not-italic">accompagnement personnalisé.</span>
         </p>
       </div>
+      <a className="absolute inset-0" href="mailto:contact@vroomparis.fr?subject=BMW%20X3%20xDrive30i%20d%27occasion" aria-label="Contacter un conseiller" />
       <SparkButtonLinkPartBase />
     </div>
   );
@@ -675,82 +555,42 @@ function Section4() {
   );
 }
 
-function Container1() {
+function Section5({ sellerNotesExpanded, onToggleSellerNotes }: { sellerNotesExpanded: boolean; onToggleSellerNotes: () => void }) {
   return (
-    <div className="absolute h-[96px] left-0 overflow-clip top-0 w-[638.7px]" data-name="Container">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[92px] justify-center leading-[0] left-0 not-italic text-[15.8px] text-white top-[48px] w-[624.36px]">
-        <p className="leading-[24px] mb-0">BMW X3 xDrive30i AWD 2019 Blanc alpin | 2.0L TwinPower Turbo | Boîte automatique 8</p>
-        <p className="leading-[24px] mb-0">vitesses. Ce BMW X3, ayant appartenu à un seul propriétaire et repris localement, offre</p>
-        <p className="leading-[24px] mb-0">{`l'équilibre parfait entre luxe, performance et technologie. Avec la dynamique de conduite`}</p>
-        <p className="leading-[24px]">légendaire de BMW et sa transmission intégrale intelligente, ce SUV est conçu pour…</p>
+    <div className="absolute left-[1233px] right-[57.3px] top-[1597px]" data-name="Section">
+      <div className="flex flex-col gap-6 text-white">
+        <div className="flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold leading-[0] text-[26px] tracking-[-0.48px] w-[214.703px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+          <p className="leading-[31.2px]">Notes du vendeur</p>
+        </div>
+        <p className="max-w-[624px] font-['Helvetica_Neue:Regular',sans-serif] text-[15.8px] leading-[24px]">
+          {sellerNotesExpanded ? sellerNoteFull : sellerNotePreview}
+        </p>
+        <button
+          className="inline-flex w-fit items-center gap-3 font-['Helvetica_Neue:Bold',sans-serif] text-[15.1px] leading-[24px] text-white cursor-pointer"
+          data-name="Button::part(base)"
+          onClick={onToggleSellerNotes}
+          type="button"
+        >
+          <span>{sellerNotesExpanded ? "Réduire les notes du vendeur" : "Afficher plus de notes du vendeur"}</span>
+          <span className={`inline-flex transition-transform ${sellerNotesExpanded ? "rotate-180" : ""}`}>
+            <svg className="block h-3 w-3" fill="none" preserveAspectRatio="none" viewBox="0 0 8 4.94667">
+              <path d={svgPaths.p3eb4b800} fill="var(--fill-0, white)" />
+            </svg>
+          </span>
+        </button>
+        <a
+          className="inline-flex w-fit items-center gap-3 font-['Helvetica_Neue:Bold',sans-serif] text-[15.4px] leading-[24px] text-white"
+          data-name="spark-link → Slot → Link"
+          href="https://www.vroomparis.fr"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <span>Voir le véhicule sur le site web du concessionnaire</span>
+          <svg className="block h-4 w-4 flex-none" fill="none" preserveAspectRatio="none" viewBox="0 0 9.33333 9.33333">
+            <path d={svgPaths.p1773e480} fill="var(--fill-0, white)" />
+          </svg>
+        </a>
       </div>
-    </div>
-  );
-}
-
-function SparkSvgPartIconSvgLit() {
-  return (
-    <div className="absolute h-[16px] left-[247.73px] right-0 top-[2px]" data-name="spark-svg::part(icon) → SVG - lit$198533735">
-      <div className="absolute bottom-[33.33%] left-1/4 right-1/4 top-[35.75%]" data-name="Vector">
-        <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 8 4.94667">
-          <path d={svgPaths.p3eb4b800} fill="var(--fill-0, white)" id="Vector" />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-function ButtonPartBase() {
-  return (
-    <div className="absolute h-[20px] left-0 top-[112px] w-[263.73px]" data-name="Button::part(base)">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[20px] justify-center leading-[0] left-[calc(50%-9.9px)] not-italic text-[15.1px] text-center text-white top-[10px] w-[243.93px]">
-        <p className="leading-[normal]">Afficher plus de notes du vendeur</p>
-      </div>
-      <SparkSvgPartIconSvgLit />
-    </div>
-  );
-}
-
-function CarsLineClamp() {
-  return (
-    <div className="absolute h-[132px] left-0 top-[47.2px] w-[638.7px]" data-name="cars-line-clamp">
-      <Container1 />
-      <ButtonPartBase />
-    </div>
-  );
-}
-
-function SparkSvgImgPartBaseOuvreDansUneNouvelleFenetreSvgLit1() {
-  return (
-    <div className="absolute h-[16px] left-[371.82px] right-0 top-[2px]" data-name="spark-svg → Img::part(base) - , ouvre dans une nouvelle fenêtre → SVG - lit$198533735">
-      <div className="absolute inset-[20.83%]" data-name="Vector">
-        <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9.33333 9.33333">
-          <path d={svgPaths.p1773e480} fill="var(--fill-0, white)" id="Vector" />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-function SparkLinkSlotLink1() {
-  return (
-    <div className="absolute h-[20px] left-0 top-[197.2px] w-[387.82px]" data-name="spark-link → Slot → Link">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[20px] justify-center leading-[0] left-0 not-italic text-[15.4px] text-white top-[10px] w-[369.02px]">
-        <p className="leading-[24px]">{`Voir le véhicule sur le site web du concessionnaire `}</p>
-      </div>
-      <SparkSvgImgPartBaseOuvreDansUneNouvelleFenetreSvgLit1 />
-    </div>
-  );
-}
-
-function Section5() {
-  return (
-    <div className="absolute h-[219.2px] left-[1233px] right-[57.3px] top-[1597px]" data-name="Section">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[34px] justify-center leading-[0] left-0 text-[26px] text-white top-[15.5px] tracking-[-0.48px] w-[214.703px]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[31.2px]">Notes du vendeur</p>
-      </div>
-      <CarsLineClamp />
-      <SparkLinkSlotLink1 />
     </div>
   );
 }
@@ -819,7 +659,7 @@ function Group2() {
 
 function SparkSvgSvgLit8() {
   return (
-    <div className="absolute h-[22px] left-0 right-[317.85px] top-[1.1px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[20px] left-0 top-[2px] w-[20px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[23.29%_12.5%_20.83%_14.58%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.0417 12.2925">
           <path d={svgPaths.p1ee0d00} fill="var(--fill-0, white)" id="Vector" />
@@ -842,7 +682,7 @@ function Item8() {
 
 function SparkSvgSvgLit9() {
   return (
-    <div className="absolute h-[22px] left-0 right-[317.85px] top-[1.09px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[20px] left-0 top-[2px] w-[20px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[23.29%_12.5%_20.83%_14.58%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.0417 12.2925">
           <path d={svgPaths.p1ee0d00} fill="var(--fill-0, white)" id="Vector" />
@@ -865,7 +705,7 @@ function Item9() {
 
 function SparkSvgSvgLit10() {
   return (
-    <div className="absolute h-[22px] left-0 right-[317.85px] top-[1.1px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[20px] left-0 top-[2px] w-[20px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[23.29%_12.5%_20.83%_14.58%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.0417 12.2925">
           <path d={svgPaths.p1ee0d00} fill="var(--fill-0, white)" id="Vector" />
@@ -888,7 +728,7 @@ function Item10() {
 
 function SparkSvgSvgLit11() {
   return (
-    <div className="absolute h-[22px] left-0 right-[276.84px] top-[1.1px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[20px] left-0 top-[2px] w-[20px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[23.29%_12.5%_20.83%_14.58%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.0417 12.2925">
           <path d={svgPaths.p1ee0d00} fill="var(--fill-0, white)" id="Vector" />
@@ -911,7 +751,7 @@ function Item11() {
 
 function SparkSvgSvgLit12() {
   return (
-    <div className="absolute h-[22px] left-0 right-[276.84px] top-[1.09px]" data-name="spark-svg → SVG - lit$198533735">
+    <div className="absolute h-[20px] left-0 top-[2px] w-[20px]" data-name="spark-svg → SVG - lit$198533735">
       <div className="absolute inset-[23.29%_12.5%_20.83%_14.58%]" data-name="Vector">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16.0417 12.2925">
           <path d={svgPaths.p1ee0d00} fill="var(--fill-0, white)" id="Vector" />
@@ -1086,12 +926,12 @@ function Svg3() {
 
 function Link() {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link">
+    <a className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link" href="tel:+33670760719">
       <Svg3 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.18px)] not-italic text-[16px] text-black text-center top-[calc(50%-0.25px)] w-[107.125px]">
         <p className="leading-[24px]">06 70 76 07 19</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1110,12 +950,12 @@ function Svg4() {
 
 function Link1() {
   return (
-    <div className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link">
+    <a className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link" href="mailto:contact@vroomparis.fr">
       <Svg4 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.16px)] not-italic text-[16px] text-center text-white top-[calc(50%-0.25px)] w-[161.595px]">
         <p className="leading-[24px]">contact@vroomparis.fr</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1134,31 +974,31 @@ function Svg5() {
 
 function Link2() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-0" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-0" data-name="Link" href="/showroom">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.19px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[127.557px]">
         <p className="leading-[24px]">Showroom</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link3() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[150px]">
         <p className="leading-[24px]">Acheter un véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link4() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link" href="/vendre-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">Vendre votre véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1179,21 +1019,21 @@ function Nav() {
 
 function Link6() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link" href="/conseils">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[180px]">
         <p className="leading-[24px]">Consulation automobile</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link7() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link" href="/a-propos">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">À propos</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1300,7 +1140,7 @@ function HorizontalBorder() {
 
 function Container2() {
   return (
-    <div className="absolute h-[317px] left-[208px] right-[208px] top-[48px]" data-name="Container">
+    <div className="absolute h-[317px] left-1/2 top-[48px] w-[1504px] -translate-x-1/2" data-name="Container">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:Regular',sans-serif] font-normal h-[28px] justify-center leading-[0] left-[calc(50%-341.1px)] text-[20px] text-center text-white top-[14px] tracking-[-0.4px] w-[175.161px]">
         <p className="leading-[28px]">Qu’attendez-vous ?</p>
       </div>
@@ -1330,13 +1170,30 @@ function Container2() {
 
 function Footer() {
   return (
-    <div className="absolute bg-[#181818] h-[413px] left-[6px] right-[-37px] top-[2306px]" data-name="Footer">
+    <div className="absolute bg-[#181818] h-[413px] left-0 right-0 top-[2306px]" data-name="Footer">
       <Container2 />
     </div>
   );
 }
 
 export default function PageProduitPremium() {
+  const navigate = useNavigate();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [isPriceHistoryOpen, setIsPriceHistoryOpen] = useState(true);
+  const [sellerNotesExpanded, setSellerNotesExpanded] = useState(false);
+
+  const selectedImage = galleryImages[selectedImageIndex];
+  const goToPreviousImage = () => setSelectedImageIndex((current) => (current === 0 ? galleryImages.length - 1 : current - 1));
+  const goToNextImage = () => setSelectedImageIndex((current) => (current === galleryImages.length - 1 ? 0 : current + 1));
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+      return;
+    }
+
+    navigate("/showroom");
+  };
+
   return (
     <div className="bg-[#181818] relative size-full" data-name="page produit premium">
       <div className="absolute h-[742.871px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
@@ -1362,31 +1219,38 @@ export default function PageProduitPremium() {
           </svg>
         </div>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[78px] justify-center leading-[0] left-[158px] not-italic text-[33.9px] text-white top-[264px] w-[150px]">
-        <p className="leading-[62.88px]">Retour</p>
-      </div>
-      <div className="-translate-y-1/2 absolute flex items-center justify-center left-[125px] size-[21.31px] top-[calc(50%-1092.85px)]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "0" } as React.CSSProperties}>
-        <div className="-rotate-130 flex-none">
-          <div className="border-r-2 border-solid border-t-2 border-white size-[15.126px]" data-name="Border" />
+      <button className="absolute h-[78px] left-[110px] top-[225px] w-[220px] cursor-pointer text-left" onClick={handleBack} type="button">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[78px] justify-center leading-[0] left-[48px] not-italic text-[33.9px] text-white top-[39px] w-[150px]">
+          <p className="leading-[62.88px]">Retour</p>
         </div>
-      </div>
-      <Container />
+        <div className="-translate-y-1/2 absolute flex items-center justify-center left-[15px] size-[21.31px] top-[39px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "0" } as React.CSSProperties}>
+          <div className="-rotate-130 flex-none">
+            <div className="border-r-2 border-solid border-t-2 border-white size-[15.126px]" data-name="Border" />
+          </div>
+        </div>
+      </button>
+      <Container onSelect={setSelectedImageIndex} selectedIndex={selectedImageIndex} />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[46.5px] justify-center leading-[0] left-[1233px] text-[40px] text-white top-[326.25px] tracking-[-0.48px] w-[587.768px]">
         <p className="leading-[43.2px]">{`BMW X3 xDrive30i d'occasion`}</p>
       </div>
       <Section />
-      <Section1 />
+      <Section1 isPriceHistoryOpen={isPriceHistoryOpen} onTogglePriceHistory={() => setIsPriceHistoryOpen((current) => !current)} />
       <Section3 />
       <Section4 />
-      <Section5 />
+      <Section5 onToggleSellerNotes={() => setSellerNotesExpanded((current) => !current)} sellerNotesExpanded={sellerNotesExpanded} />
       <Section6 />
       <div className="absolute h-[768px] left-[106px] top-[371px] w-[1024px]" data-name="8301">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={img8301} />
+        <img alt="BMW X3 xDrive30i" className="absolute inset-0 max-w-none object-cover size-full" src={selectedImage} />
       </div>
-      <ButtonPreviousSlide />
-      <ButtonNextSlide />
-      <Button />
-      <Background1 />
+      <button className="absolute bg-white left-[125px] size-[34px] top-[753px] cursor-pointer" data-name="Button - Previous slide" onClick={goToPreviousImage} type="button">
+        <Svg />
+      </button>
+      <button className="absolute bg-white h-[35px] right-[815px] top-[755px] w-[34px] cursor-pointer" data-name="Button - Next slide" onClick={goToNextImage} type="button">
+        <Svg1 />
+      </button>
+      <button className="absolute bg-white border border-[#f2f5fc] border-solid left-[1074px] rounded-[2px] size-[28px] top-[1079px] cursor-pointer" data-name="Button" onClick={() => window.open(selectedImage, "_blank", "noopener,noreferrer")} type="button">
+        <Svg2 />
+      </button>
       <Group3 />
       <div className="absolute flex inset-[1.51%_2.86%_97.59%_94.59%] items-center justify-center" style={{ containerType: "size" }}>
         <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
@@ -1397,6 +1261,11 @@ export default function PageProduitPremium() {
               </svg>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="absolute bg-[#626366] bottom-[1608px] h-[22px] left-[134px] rounded-[16px] w-[33px]" data-name="Background">
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[15px] justify-center leading-[0] left-[calc(50%+0.59px)] not-italic text-[9.6px] text-center text-white top-[calc(50%-0.5px)] uppercase w-[22px]">
+          <p className="leading-[12px]">{selectedImageIndex + 1} / 7</p>
         </div>
       </div>
       <Footer />

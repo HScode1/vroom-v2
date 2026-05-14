@@ -1,4 +1,122 @@
+import { useState } from "react";
+import { useSearchParams } from "react-router";
 import svgPaths from "./svg-38w28sfzwv";
+
+type BookingMonth = {
+  id: string;
+  label: string;
+  leadingPreview: number[];
+  trailingPreview: number[];
+  dates: {
+    day: number;
+    weekday: string;
+    available: boolean;
+    isToday?: boolean;
+  }[];
+};
+
+const BOOKING_MONTHS: BookingMonth[] = [
+  {
+    id: "2026-03",
+    label: "Mars 2026",
+    leadingPreview: [23, 24, 25, 26, 27, 28, 1],
+    trailingPreview: [28, 29],
+    dates: [
+      { day: 9, weekday: "Lu", available: true },
+      { day: 10, weekday: "Ma", available: true },
+      { day: 11, weekday: "Me", available: true },
+      { day: 12, weekday: "Je", available: true },
+      { day: 13, weekday: "Ve", available: true, isToday: true },
+      { day: 14, weekday: "Sa", available: true },
+      { day: 15, weekday: "Di", available: true },
+      { day: 16, weekday: "Lu", available: true },
+      { day: 17, weekday: "Ma", available: true },
+      { day: 18, weekday: "Me", available: true },
+      { day: 19, weekday: "Je", available: true },
+      { day: 20, weekday: "Ve", available: false },
+      { day: 21, weekday: "Sa", available: true },
+      { day: 22, weekday: "Di", available: true },
+      { day: 23, weekday: "Lu", available: true },
+      { day: 24, weekday: "Ma", available: true },
+      { day: 25, weekday: "Me", available: true },
+      { day: 26, weekday: "Je", available: true },
+      { day: 27, weekday: "Ve", available: true },
+      { day: 28, weekday: "Sa", available: true },
+      { day: 29, weekday: "Di", available: true },
+      { day: 30, weekday: "Lu", available: true },
+      { day: 31, weekday: "Ma", available: true },
+    ],
+  },
+  {
+    id: "2026-04",
+    label: "Avril 2026",
+    leadingPreview: [30, 31, 1, 2, 3, 4, 5],
+    trailingPreview: [18, 19],
+    dates: [
+      { day: 1, weekday: "Me", available: true },
+      { day: 2, weekday: "Je", available: true },
+      { day: 3, weekday: "Ve", available: true },
+      { day: 6, weekday: "Lu", available: true },
+      { day: 7, weekday: "Ma", available: true },
+      { day: 8, weekday: "Me", available: false },
+      { day: 9, weekday: "Je", available: true },
+      { day: 10, weekday: "Ve", available: true },
+      { day: 13, weekday: "Lu", available: true },
+      { day: 14, weekday: "Ma", available: true },
+      { day: 15, weekday: "Me", available: true },
+      { day: 16, weekday: "Je", available: true },
+      { day: 17, weekday: "Ve", available: true },
+    ],
+  },
+];
+
+const BOOKING_DURATIONS = [
+  { id: "30", label: "30 min", description: "Conseil rapide", recommended: true },
+  { id: "45", label: "45 min", description: "Analyse complète", recommended: false },
+] as const;
+
+const BOOKING_FORMATS = [
+  { id: "visio", label: "Visio" },
+  { id: "telephone", label: "Téléphone" },
+  { id: "whatsapp", label: "WhatsApp" },
+] as const;
+
+const CALENDAR_WEEKDAYS = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"] as const;
+
+const BOOKING_SLOTS = [
+  { time: "09:00", available: true },
+  { time: "10:30", available: true },
+  { time: "11:00", available: true },
+  { time: "14:00", available: true },
+  { time: "15:00", available: false },
+  { time: "15:30", available: true },
+  { time: "16:00", available: true },
+  { time: "17:00", available: true },
+  { time: "18:00", available: true },
+] as const;
+
+const FAQ_ITEMS = [
+  {
+    question: "Comment se déroule la consultation ?",
+    answer:
+      "Entièrement en ligne, en visio, au téléphone ou via WhatsApp selon votre préférence. Votre conseiller vous appelle à l'heure convenue, sans déplacement nécessaire.",
+  },
+  {
+    question: "Quelle différence entre 30 et 45 minutes ?",
+    answer:
+      "30 minutes conviennent si votre projet est déjà bien cadré. 45 minutes permettent une analyse plus complète avec financement, reprise et comparatif détaillé.",
+  },
+  {
+    question: "VroomAdvisor peut-il trouver n'importe quel véhicule ?",
+    answer:
+      "Les conseillers accèdent à l'ensemble du marché: occasion, neuf et commande constructeur. Le service n'est pas limité à un stock propriétaire.",
+  },
+  {
+    question: "Puis-je annuler ou reporter mon rendez-vous ?",
+    answer:
+      "Oui. L'annulation et le report restent gratuits jusqu'à 24 heures avant le créneau choisi, via l'email de confirmation.",
+  },
+] as const;
 
 function Group() {
   return (
@@ -626,7 +744,7 @@ function OverlayBorder13() {
 
 function Svg3() {
   return (
-    <div className="-translate-x-1/2 absolute left-1/2 size-[15px] top-[12px]" data-name="SVG">
+    <div className="relative size-[15px]" data-name="SVG">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15 15">
         <g id="SVG">
           <path d={svgPaths.p27db0c80} id="Vector" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.25" />
@@ -649,7 +767,7 @@ function OverlayBorder14() {
 
 function MdiPhone() {
   return (
-    <div className="absolute left-[56.33px] size-[18px] top-[12.44px]" data-name="mdi:phone">
+    <div className="relative size-[18px]" data-name="mdi:phone">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
         <g id="mdi:phone">
           <path d={svgPaths.p3416a200} fill="var(--fill-0, #757575)" id="Vector" />
@@ -672,7 +790,7 @@ function OverlayBorder15() {
 
 function Svg4() {
   return (
-    <div className="-translate-x-1/2 absolute left-[calc(50%+0.83px)] size-[15px] top-[15.44px]" data-name="SVG">
+    <div className="relative size-[15px]" data-name="SVG">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 15 15">
         <g id="SVG">
           <path d={svgPaths.p21ee9780} id="Vector" stroke="var(--stroke-0, white)" strokeOpacity="0.4" strokeWidth="1.25" />
@@ -749,9 +867,340 @@ function OverlayBorder() {
 }
 
 function BookingCard() {
+  const [searchParams] = useSearchParams();
+  const requestedDate = searchParams.get("date");
+  const requestedMonthId = requestedDate?.slice(0, 7);
+  const requestedDay = Number(requestedDate?.slice(8, 10));
+  const requestedDurationLabel = searchParams.get("duration");
+  const requestedSlot = searchParams.get("slot");
+  const requestedFormat = searchParams.get("format");
+
+  const initialMonthIndex = Math.max(
+    0,
+    BOOKING_MONTHS.findIndex((month) => month.id === requestedMonthId),
+  );
+  const initialMonth = BOOKING_MONTHS[initialMonthIndex] ?? BOOKING_MONTHS[0];
+  const initialDate =
+    initialMonth.dates.find((date) => date.day === requestedDay && date.available)?.day ??
+    initialMonth.dates.find((date) => date.available)?.day ??
+    initialMonth.dates[0].day;
+  const initialDuration =
+    BOOKING_DURATIONS.find((duration) => duration.label === requestedDurationLabel)?.id ?? "30";
+  const initialSlot =
+    BOOKING_SLOTS.find((slot) => slot.time === requestedSlot && slot.available)?.time ?? "10:30";
+  const initialFormat =
+    BOOKING_FORMATS.find((format) => format.id === requestedFormat)?.id ?? "visio";
+
+  const [activeMonthIndex, setActiveMonthIndex] = useState(initialMonthIndex);
+  const [selectedDate, setSelectedDate] = useState(initialDate);
+  const [selectedDuration, setSelectedDuration] = useState(initialDuration);
+  const [selectedSlot, setSelectedSlot] = useState(initialSlot);
+  const [selectedFormat, setSelectedFormat] = useState(initialFormat);
+
+  const activeMonth = BOOKING_MONTHS[activeMonthIndex];
+  const selectedDateItem = activeMonth.dates.find((date) => date.day === selectedDate) ?? activeMonth.dates[0];
+  const selectedDurationItem = BOOKING_DURATIONS.find((duration) => duration.id === selectedDuration) ?? BOOKING_DURATIONS[0];
+  let currentRow = 0;
+  let previousWeekdayIndex = -1;
+  const calendarCells = activeMonth.dates.map((date) => {
+    const weekdayIndex = CALENDAR_WEEKDAYS.indexOf(date.weekday);
+
+    if (previousWeekdayIndex !== -1 && weekdayIndex <= previousWeekdayIndex) {
+      currentRow += 1;
+    }
+
+    previousWeekdayIndex = weekdayIndex;
+
+    return {
+      ...date,
+      row: currentRow,
+      col: weekdayIndex,
+    };
+  });
+
   return (
     <div className="absolute h-[850px] left-[80px] right-[80px] top-[658.56px]" data-name="BOOKING CARD">
-      <OverlayBorder />
+      <div className="absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid inset-x-0 top-0 h-[770px] overflow-hidden rounded-[28px]">
+        <div className="absolute bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.08)] border-b border-solid h-[75px] inset-x-0 top-0">
+          <div className="absolute bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.2)] border-solid left-[40px] rounded-[10px] size-[38px] top-[18px]">
+            <Svg />
+          </div>
+          <div className="absolute left-[92px] top-[18px]">
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold text-[14px] text-white">Prise de rendez-vous VroomAdvisor</p>
+            <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.4)]">
+              Sélectionnez une date, une durée et un créneau.
+            </p>
+          </div>
+          <div className="absolute bg-[#bcff3d] h-[27px] right-[42px] rounded-[100px] top-[24px] w-[204px]">
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold leading-[27px] text-[#0c0d0c] text-[11px] text-center tracking-[0.44px]">
+              Prochain dispo : demain
+            </p>
+          </div>
+        </div>
+
+        <div className="absolute border-[rgba(255,255,255,0.08)] border-r border-solid bottom-0 left-0 top-[75px] w-[598px]">
+          <div className="absolute left-[48px] top-[42px]">
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold text-[22px] text-white">{activeMonth.label}</p>
+          </div>
+          <button
+            type="button"
+            className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[475px] rounded-[10px] size-[34px] top-[40px] text-[rgba(255,255,255,0.4)]"
+            onClick={() =>
+              setActiveMonthIndex((current) => {
+                const nextIndex = Math.max(0, current - 1);
+                setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
+                return nextIndex;
+              })
+            }
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[515px] rounded-[10px] size-[34px] top-[40px] text-[rgba(255,255,255,0.4)]"
+            onClick={() =>
+              setActiveMonthIndex((current) => {
+                const nextIndex = Math.min(BOOKING_MONTHS.length - 1, current + 1);
+                setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
+                return nextIndex;
+              })
+            }
+          >
+            ›
+          </button>
+
+          {CALENDAR_WEEKDAYS.map((weekday, index) => (
+            <div
+              key={weekday}
+              className="absolute text-[11px] text-[rgba(255,255,255,0.25)] text-center tracking-[0.88px] uppercase"
+              style={{ left: `${48 + index * 72.44}px`, top: "104px", width: "66.44px" }}
+            >
+              <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] leading-[14px]">{weekday}</p>
+            </div>
+          ))}
+
+          {activeMonth.leadingPreview.map((day, index) => (
+            <div
+              key={`leading-${activeMonth.id}-${day}-${index}`}
+              className="absolute text-[15px] text-[rgba(255,255,255,0.07)] text-center"
+              style={{ left: `${48 + (index % 7) * 72.44}px`, top: "150px", width: "66.44px" }}
+            >
+              <p className="font-['DM_Sans:9pt_Regular',sans-serif] leading-[66.44px]" style={{ fontVariationSettings: "'opsz' 9" }}>
+                {day}
+              </p>
+            </div>
+          ))}
+
+          {calendarCells.map((date) => {
+            const isSelected = date.day === selectedDate;
+            const isDisabled = !date.available;
+            const left = 48 + date.col * 72.44;
+            const top = 210.44 + date.row * 72.44;
+
+            let className =
+              "absolute aspect-square w-[66.44px] rounded-[10px] border transition-colors duration-150 ";
+
+            if (isSelected) {
+              className += "bg-[#bcff3d] border-[#bcff3d] text-[#0c0d0c]";
+            } else if (date.isToday) {
+              className += "bg-[rgba(255,255,255,0.04)] border-[rgba(188,255,61,0.38)] text-[#bcff3d]";
+            } else if (isDisabled) {
+              className += "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.4)] opacity-25";
+            } else {
+              className += "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.7)] hover:border-[rgba(188,255,61,0.38)]";
+            }
+
+            return (
+              <button
+                key={`${activeMonth.id}-${date.day}`}
+                type="button"
+                disabled={isDisabled}
+                onClick={() => setSelectedDate(date.day)}
+                className={`${className} p-0`}
+                style={{ left: `${left}px`, top: `${top}px` }}
+              >
+                <span
+                  className={`absolute inset-0 flex items-center justify-center font-['DM_Sans:9pt_Regular',sans-serif] text-[15px] ${
+                    isSelected ? "font-bold" : ""
+                  }`}
+                  style={{ fontVariationSettings: "'opsz' 9" }}
+                >
+                  {date.day}
+                </span>
+                {!isSelected && !isDisabled && (
+                  <span className="absolute bg-[#bcff3d] bottom-[5px] left-1/2 opacity-55 rounded-[2px] size-[4px] -translate-x-1/2" />
+                )}
+                {date.isToday && !isSelected && (
+                  <span className="absolute bg-[#bcff3d] bottom-[5px] left-1/2 opacity-55 rounded-[2px] size-[4px] -translate-x-1/2" />
+                )}
+              </button>
+            );
+          })}
+
+          {activeMonth.trailingPreview.map((day, index) => (
+            <div
+              key={`trailing-${activeMonth.id}-${day}-${index}`}
+              className="absolute text-[15px] text-[rgba(255,255,255,0.2)] text-center"
+              style={{ left: `${48 + (5 + index) * 72.44}px`, top: "500.19px", width: "66.44px" }}
+            >
+              <p className="font-['DM_Sans:9pt_Regular',sans-serif] leading-[66.44px]" style={{ fontVariationSettings: "'opsz' 9" }}>
+                {day}
+              </p>
+            </div>
+          ))}
+
+          <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t bottom-[34px] left-[48px] right-[48px] top-[590px]">
+            <div className="absolute flex gap-6 left-0 top-[16px]">
+              <div className="flex items-center gap-2 text-[11px] text-[rgba(255,255,255,0.4)]">
+                <span className="bg-[#bcff3d] opacity-55 rounded-[4px] size-[8px]" />
+                <span>Disponible</span>
+              </div>
+              <div className="flex items-center gap-2 text-[11px] text-[rgba(255,255,255,0.4)]">
+                <span className="bg-[#bcff3d] rounded-[4px] size-[8px]" />
+                <span>Sélectionné</span>
+              </div>
+              <div className="flex items-center gap-2 text-[11px] text-[rgba(255,255,255,0.4)]">
+                <span className="border border-[rgba(188,255,61,0.5)] rounded-[4px] size-[8px]" />
+                <span>Aujourd&apos;hui</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-[598px] right-0 top-[75px]">
+          <div className="absolute bg-[rgba(188,255,61,0.06)] border border-[rgba(188,255,61,0.16)] border-solid left-[44px] right-[44px] rounded-[14px] top-[36px] h-[74px] pl-[74px] pr-[32px] py-[18px]">
+            <div className="absolute bg-[rgba(188,255,61,0.12)] left-[20px] rounded-[10px] size-[40px] top-[17px]">
+              <Svg2 />
+            </div>
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold text-[15px] text-white">
+              {selectedDateItem.weekday} {selectedDate} {activeMonth.label}
+            </p>
+            <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[11px] text-[rgba(255,255,255,0.4)]">
+              Créneau choisi : {selectedSlot} · Format : {BOOKING_FORMATS.find((item) => item.id === selectedFormat)?.label}
+            </p>
+          </div>
+
+          <div className="absolute left-[44px] top-[140px]">
+            <p className="font-['Plus_Jakarta_Sans:Medium',sans-serif] text-[10px] text-[rgba(255,255,255,0.25)] tracking-[1.4px] uppercase">
+              Durée de la consultation
+            </p>
+          </div>
+          <div className="absolute grid grid-cols-2 gap-4 left-[44px] right-[44px] top-[155px]">
+            {BOOKING_DURATIONS.map((duration) => {
+              const isSelected = duration.id === selectedDuration;
+              return (
+                <button
+                  key={duration.id}
+                  type="button"
+                  onClick={() => setSelectedDuration(duration.id)}
+                  className={`relative h-[88px] rounded-[14px] border text-center transition-colors ${
+                    isSelected
+                      ? "bg-[rgba(188,255,61,0.07)] border-[#bcff3d]"
+                      : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] hover:border-[rgba(188,255,61,0.28)]"
+                  }`}
+                >
+                  <p className={`font-['Syne:ExtraBold',sans-serif] mt-[18px] text-[20px] ${isSelected ? "text-[#bcff3d]" : "text-[rgba(255,255,255,0.4)]"}`}>
+                    {duration.label}
+                  </p>
+                  <p className={`font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[11px] ${isSelected ? "text-[rgba(188,255,61,0.45)]" : "text-[rgba(255,255,255,0.25)]"}`}>
+                    {duration.description}
+                  </p>
+                  {duration.recommended && (
+                    <span className="absolute bg-[rgba(188,255,61,0.14)] rounded-[100px] px-3 py-1 right-[14px] top-[10px] text-[#bcff3d] text-[9px] tracking-[0.9px] uppercase">
+                      Recommandé
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="absolute left-[44px] top-[286px]">
+            <p className="font-['DM_Sans:Medium',sans-serif] text-[10px] text-[rgba(255,255,255,0.25)] tracking-[1.4px] uppercase">
+              Créneaux disponibles
+            </p>
+          </div>
+          <div className="absolute grid grid-cols-3 gap-4 left-[44px] right-[44px] top-[301px]">
+            {BOOKING_SLOTS.map((slot) => {
+              const isSelected = slot.time === selectedSlot;
+              return (
+                <button
+                  key={slot.time}
+                  type="button"
+                  disabled={!slot.available}
+                  onClick={() => setSelectedSlot(slot.time)}
+                  className={`h-[44px] rounded-[11px] border text-[14px] transition-colors ${
+                    isSelected
+                      ? "bg-[rgba(188,255,61,0.1)] border-[#bcff3d] text-[#bcff3d]"
+                      : slot.available
+                        ? "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.4)] hover:border-[rgba(188,255,61,0.28)]"
+                        : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.25)] line-through opacity-25"
+                  }`}
+                >
+                  {slot.time}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="absolute left-[44px] top-[479px]">
+            <p className="font-['DM_Sans:Medium',sans-serif] text-[10px] text-[rgba(255,255,255,0.25)] tracking-[1.4px] uppercase">
+              Format du rendez-vous
+            </p>
+          </div>
+          <div className="absolute grid grid-cols-3 gap-4 left-[44px] right-[44px] top-[494px]">
+            {BOOKING_FORMATS.map((format) => {
+              const isSelected = format.id === selectedFormat;
+              return (
+                <button
+                  key={format.id}
+                  type="button"
+                  onClick={() => setSelectedFormat(format.id)}
+                  className={`h-[88px] rounded-[12px] border text-center transition-colors ${
+                    isSelected
+                      ? "bg-[rgba(188,255,61,0.07)] border-[#bcff3d] text-[#bcff3d]"
+                      : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.4)] hover:border-[rgba(188,255,61,0.28)]"
+                  }`}
+                >
+                  <span className="relative block h-full">
+                    {format.id === "visio" && (
+                      <span className="absolute left-1/2 top-[14px] -translate-x-1/2">
+                        <Svg3 />
+                      </span>
+                    )}
+                    {format.id === "telephone" && (
+                      <span className="absolute left-1/2 top-[14px] -translate-x-1/2">
+                        <MdiPhone />
+                      </span>
+                    )}
+                    {format.id === "whatsapp" && (
+                      <span className="absolute left-1/2 top-[14px] -translate-x-1/2">
+                        <Svg4 />
+                      </span>
+                    )}
+                    <span className="block pt-[42px] font-['Plus_Jakarta_Sans:SemiBold',sans-serif] text-[12px]">{format.label}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <a
+            href={`/conseils/formulaire?date=${activeMonth.id}-${String(selectedDate).padStart(2, "0")}&duration=${selectedDurationItem.label}&slot=${selectedSlot}&format=${selectedFormat}`}
+            className="absolute bg-[#bcff3d] h-[52px] left-[44px] right-[44px] rounded-[14px] top-[596px]"
+          >
+            <span className="block font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold leading-[52px] text-[#0c0d0c] text-[15px] text-center tracking-[0.3px]">
+              Confirmer ma réservation →
+            </span>
+          </a>
+
+          <div className="absolute left-[44px] right-[44px] top-[664px]">
+            <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[11px] text-[rgba(255,255,255,0.25)] text-center">
+              Confirmation par email · Annulation gratuite jusqu&apos;à 24h avant
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1445,13 +1894,36 @@ function BackgroundBorder13() {
 }
 
 function SectionFaq() {
+  const [openIndex, setOpenIndex] = useState(0);
+
   return (
     <div className="absolute h-[631.52px] left-[80px] right-[80px] top-[1799.35px]" data-name="Section - FAQ">
       <Container3 />
-      <BackgroundBorder10 />
-      <BackgroundBorder11 />
-      <BackgroundBorder12 />
-      <BackgroundBorder13 />
+      <div className="absolute grid grid-cols-2 gap-[20px] left-0 right-0 top-[271.39px]">
+        {FAQ_ITEMS.map((item, index) => {
+          const isOpen = index === openIndex;
+          return (
+            <button
+              key={item.question}
+              type="button"
+              onClick={() => setOpenIndex(isOpen ? -1 : index)}
+              className={`bg-[#111411] border border-[rgba(255,255,255,0.08)] rounded-[16px] px-[28px] pt-[24px] text-left transition-colors ${
+                isOpen ? "min-h-[140px] border-[rgba(188,255,61,0.32)]" : "h-[92px] hover:border-[rgba(188,255,61,0.18)]"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <p className="font-['Syne:SemiBold',sans-serif] text-[14px] leading-[18.2px] text-white">{item.question}</p>
+                <span className={`mt-1 text-[#bcff3d] text-[18px] transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
+              </div>
+              {isOpen && (
+                <p className="font-['DM_Sans:9pt_Regular',sans-serif] mt-5 text-[13px] leading-[21.45px] text-[rgba(255,255,255,0.4)]">
+                  {item.answer}
+                </p>
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -1511,12 +1983,12 @@ function Svg18() {
 
 function Link() {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link">
+    <a className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link" href="tel:+33670760719">
       <Svg18 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.18px)] not-italic text-[16px] text-black text-center top-[calc(50%-0.25px)] w-[107.125px]">
         <p className="leading-[24px]">06 70 76 07 19</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1535,12 +2007,12 @@ function Svg19() {
 
 function Link1() {
   return (
-    <div className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link">
+    <a className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link" href="mailto:contact@vroomparis.fr">
       <Svg19 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.16px)] not-italic text-[16px] text-center text-white top-[calc(50%-0.25px)] w-[161.595px]">
         <p className="leading-[24px]">contact@vroomparis.fr</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1559,31 +2031,31 @@ function Svg20() {
 
 function Link2() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-0" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-0" data-name="Link" href="/showroom">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.19px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[127.557px]">
         <p className="leading-[24px]">Showroom</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link3() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[150px]">
         <p className="leading-[24px]">Acheter un véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link4() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link" href="/vendre-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">Vendre votre véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1604,21 +2076,21 @@ function Nav() {
 
 function Link6() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link" href="/conseils">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[180px]">
         <p className="leading-[24px]">Consulation automobile</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link7() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link" href="/a-propos">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">À propos</p>
       </div>
-    </div>
+    </a>
   );
 }
 

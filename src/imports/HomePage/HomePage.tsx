@@ -963,12 +963,12 @@ function Svg20() {
 
 function Link() {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link">
+    <a className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link" href="tel:+33670760719">
       <Svg20 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.18px)] not-italic text-[16px] text-black text-center top-[calc(50%-0.25px)] w-[107.125px]">
         <p className="leading-[24px]">06 70 76 07 19</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -987,12 +987,12 @@ function Svg21() {
 
 function Link1() {
   return (
-    <div className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link">
+    <a className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link" href="mailto:contact@vroomparis.fr">
       <Svg21 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.16px)] not-italic text-[16px] text-center text-white top-[calc(50%-0.25px)] w-[161.595px]">
         <p className="leading-[24px]">contact@vroomparis.fr</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1011,31 +1011,31 @@ function Svg22() {
 
 function Link2() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-0" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-0" data-name="Link" href="/showroom">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.19px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[127.557px]">
         <p className="leading-[24px]">Showroom</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link3() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[150px]">
         <p className="leading-[24px]">Acheter un véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link4() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link" href="/vendre-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">Vendre votre véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1056,21 +1056,21 @@ function Nav() {
 
 function Link6() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link" href="/conseils">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[180px]">
         <p className="leading-[24px]">Consulation automobile</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link7() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link" href="/a-propos">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">À propos</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -2157,7 +2157,6 @@ function FullscreenHero() {
               <path d={svgPaths.p3554500} fill="var(--fill-0, #C8C8C8)" />
               <path d={svgPaths.p40a2e00} fill="var(--fill-0, #C8C8C8)" />
             </g>
-            <path d={svgPaths.p3c030100} stroke="var(--stroke-0, #C8C8C8)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
           </g>
         </svg>
       </div>

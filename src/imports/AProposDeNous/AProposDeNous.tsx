@@ -1,7 +1,123 @@
+import { useState } from "react";
 import svgPaths from "./svg-saghog0tif";
 import imgBorder from "./931a34b107fc3c4e1f36267ef0a5e19f63a2f227.png";
 import imgOverlayBorderShadow from "./6fe70e2a5397ec3b9133f6ab99aa1ef13cf3c1c2.png";
 import imgBorder1 from "./fcdd907733c2793ee67fc155a82d6bb2381771a9.png";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../app/components/ui/accordion";
+import { Input as UITextInput } from "../../app/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../app/components/ui/select";
+import { Textarea as UITextarea } from "../../app/components/ui/textarea";
+import { cn } from "../../app/components/ui/utils";
+
+const valueCards = [
+  {
+    id: "transparence",
+    title: "Transparence totale",
+    description:
+      "Prix clairs, historique complet du véhicule, zéro frais cachés. Vous savez exactement ce que vous achetez avant de signer.",
+    icon: <Svg3 />,
+    accent: false,
+    badge: null,
+    layout: "h-[279.39px] left-0 right-[757.34px] top-[166px]",
+  },
+  {
+    id: "conseiller",
+    title: "Conseiller dédié",
+    description:
+      "Un expert vous accompagne du premier contact jusqu'à la remise des clés. Vous n'êtes jamais seul dans votre projet.",
+    icon: <Svg4 />,
+    accent: true,
+    badge: "⭐ Notre force principale",
+    layout: "h-[279.39px] left-[378.66px] right-[378.67px] top-[166px]",
+  },
+  {
+    id: "qualite",
+    title: "Qualité garantie",
+    description:
+      "Chaque véhicule passe un contrôle rigoureux 100 points avant d'être proposé. Garantie 12 mois incluse sur chaque achat.",
+    icon: <Svg5 />,
+    accent: false,
+    badge: null,
+    layout: "h-[279.39px] left-[757.33px] right-[0.01px] top-[166px]",
+  },
+  {
+    id: "livraison",
+    title: "Livraison à domicile",
+    description:
+      "Votre véhicule livré directement chez vous, partout en France. Immatriculation et démarches administratives incluses.",
+    icon: <Svg6 />,
+    accent: false,
+    badge: null,
+    layout: "h-[237.39px] left-0 right-[757.34px] top-[461.39px]",
+  },
+  {
+    id: "prix",
+    title: "Prix justes",
+    description:
+      "Accès à tout le marché automobile pour vous trouver la meilleure offre. Nous négocions pour vous, sans commission cachée.",
+    icon: <Svg7 />,
+    accent: false,
+    badge: null,
+    layout: "h-[237.39px] left-[378.66px] right-[378.67px] top-[461.39px]",
+  },
+  {
+    id: "reactivite",
+    title: "Réactivité 7j/7",
+    description:
+      "Notre équipe répond sous 24h, 7 jours sur 7. Disponible par téléphone, email ou WhatsApp selon vos préférences.",
+    icon: <Svg8 />,
+    accent: false,
+    badge: null,
+    layout: "h-[237.39px] left-[757.33px] right-[0.01px] top-[461.39px]",
+  },
+];
+
+const faqItems = [
+  {
+    id: "faq-1",
+    question: "Qu'est-ce que Vroom Advisor ?",
+    answer:
+      "Vroom Advisor est une agence automobile qui accompagne l'achat, la vente et la recherche de véhicules avec un conseiller dédié, de la sélection jusqu'à la remise des clés.",
+  },
+  {
+    id: "faq-2",
+    question: "Comment fonctionne le service VroomAdvisor ?",
+    answer:
+      "Vous échangez avec un conseiller, nous cadrons votre besoin, puis nous recherchons, négocions et sécurisons le véhicule ou la vente selon votre projet.",
+  },
+  {
+    id: "faq-3",
+    question: "Est-ce que vous proposez la livraison à domicile ?",
+    answer:
+      "Oui. La livraison peut être organisée partout en France, avec accompagnement sur l'immatriculation et les démarches administratives.",
+  },
+  {
+    id: "faq-4",
+    question: "Quelle garantie est incluse avec l'achat ?",
+    answer:
+      "Chaque achat inclut une garantie 12 mois et un contrôle rigoureux du véhicule avant livraison.",
+  },
+  {
+    id: "faq-5",
+    question: "Comment se passe la reprise de mon véhicule ?",
+    answer:
+      "Nous évaluons votre véhicule, validons une estimation transparente puis organisons la reprise avec un processus simplifié et encadré.",
+  },
+  {
+    id: "faq-6",
+    question: "Proposez-vous des solutions de financement ?",
+    answer:
+      "Oui. Selon votre dossier et le véhicule visé, nous pouvons vous orienter vers des solutions de financement adaptées.",
+  },
+];
+
+const contactSubjects = [
+  "Achat d'un véhicule",
+  "Vente de mon véhicule",
+  "Reprise",
+  "Financement",
+  "Question générale",
+];
 
 function OverlayBorder() {
   return (
@@ -488,6 +604,8 @@ function OverlayBorder18() {
 }
 
 function SectionNosValeurs() {
+  const [activeValue, setActiveValue] = useState("conseiller");
+
   return (
     <div className="absolute h-[770.78px] left-[160px] right-[160px] top-[1615px]" data-name="Section - NOS VALEURS">
       <div className="absolute bg-[#bcff3d] h-px left-0 opacity-60 right-[1092px] top-[6.5px]" data-name="Horizontal Divider" />
@@ -498,12 +616,61 @@ function SectionNosValeurs() {
         <p className="leading-[44px] mb-0">Nos valeurs,</p>
         <p className="leading-[44px] text-[#bcff3d]">votre confiance</p>
       </div>
-      <OverlayBorder7 />
-      <OverlayBorder9 />
-      <OverlayBorder12 />
-      <OverlayBorder14 />
-      <OverlayBorder16 />
-      <OverlayBorder18 />
+      <div className="absolute left-[418px] right-0 top-[52px]">
+        <div className="inline-flex rounded-full border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[11px] uppercase tracking-[1.1px] text-[#bcff3d]">
+          {valueCards.find((card) => card.id === activeValue)?.title}
+        </div>
+      </div>
+      <div className="absolute left-[418px] right-[80px] top-[88px] text-[14px] leading-[24px] text-[rgba(255,255,255,0.5)]">
+        {valueCards.find((card) => card.id === activeValue)?.description}
+      </div>
+      {valueCards.map((card) => {
+        const isActive = activeValue === card.id;
+
+        return (
+          <button
+            key={card.id}
+            type="button"
+            onMouseEnter={() => setActiveValue(card.id)}
+            onFocus={() => setActiveValue(card.id)}
+            onClick={() => setActiveValue(card.id)}
+            className={cn(
+              "absolute overflow-clip rounded-[22px] border text-left transition-all duration-200",
+              card.layout,
+              card.accent || isActive
+                ? "border-[rgba(188,255,61,0.26)] bg-[rgba(188,255,61,0.06)] shadow-[0_0_0_1px_rgba(188,255,61,0.08)]"
+                : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]",
+              isActive ? "translate-y-[-4px]" : "hover:translate-y-[-4px]",
+            )}
+            data-name="Overlay+Border"
+          >
+            <div
+              className={cn(
+                "absolute left-[28px] top-[32px] size-[48px] rounded-[14px] border",
+                card.accent || isActive
+                  ? "border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.12)]"
+                  : "border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.09)]",
+              )}
+            >
+              {card.icon}
+            </div>
+            <div className="absolute left-[28px] right-[28px] top-[100px] font-['Syne:ExtraBold',sans-serif] text-[18px] text-white">
+              {card.title}
+            </div>
+            <div className="absolute left-[28px] right-[28px] top-[140px] text-[14px] leading-[23.8px] text-[rgba(255,255,255,0.5)]">
+              {card.description}
+            </div>
+            {card.badge ? (
+              <div className="absolute left-[28px] top-[219.39px] rounded-[100px] border border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.12)] px-3 py-[5px] text-[11px] font-semibold tracking-[0.66px] text-[#bcff3d]">
+                {card.badge}
+              </div>
+            ) : null}
+            {card.id === "conseiller" ? (
+              <div className="absolute right-[-60px] top-[-60px] size-[180px]" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\\'0 0 180 180\\' xmlns=\\'http://www.w3.org/2000/svg\\' preserveAspectRatio=\\'none\\'><rect x=\\'0\\' y=\\'0\\' height=\\'100%\\' width=\\'100%\\' fill=\\'url(%23grad)\\' opacity=\\'1\\'/><defs><radialGradient id=\\'grad\\' gradientUnits=\\'userSpaceOnUse\\' cx=\\'0\\' cy=\\'0\\' r=\\'10\\' gradientTransform=\\'matrix(12.728 0 0 12.728 90 90)\\'><stop stop-color=\\'rgba(188,255,61,0.12)\\' offset=\\'0\\'/><stop stop-color=\\'rgba(188,255,61,0)\\' offset=\\'0.65\\'/></radialGradient></defs></svg>')" }} />
+            ) : null}
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -530,7 +697,11 @@ function OverlayBorder20() {
 
 function Link() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[80px] left-0 right-[600px] rounded-[16px] top-[222.5px]" data-name="Link">
+    <a
+      href="tel:+33670760719"
+      className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[80px] left-0 right-[600px] rounded-[16px] top-[222.5px] transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
+      data-name="Link"
+    >
       <OverlayBorder20 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-11px)] tracking-[0.88px] uppercase w-[68.836px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Téléphone</p>
@@ -538,7 +709,7 @@ function Link() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[121.548px]">
         <p className="leading-[normal]">06 70 76 07 19</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -565,7 +736,11 @@ function OverlayBorder21() {
 
 function Link1() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[80px] left-0 right-[600px] rounded-[16px] top-[318.5px]" data-name="Link">
+    <a
+      href="mailto:contact@vroomparis.fr"
+      className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[80px] left-0 right-[600px] rounded-[16px] top-[318.5px] transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
+      data-name="Link"
+    >
       <OverlayBorder21 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-11px)] tracking-[0.88px] uppercase w-[35.858px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Email</p>
@@ -573,7 +748,7 @@ function Link1() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[204.379px]">
         <p className="leading-[normal]">contact@vroomparis.fr</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -605,7 +780,13 @@ function OverlayBorder23() {
 
 function OverlayBorder22() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[89px] left-0 right-[600px] rounded-[16px] top-[414.5px]" data-name="Overlay+Border">
+    <a
+      href="https://maps.google.com/?q=4+bis+Av.+Alexandre+Dumas,+95230+Soisy-sous-Montmorency"
+      target="_blank"
+      rel="noreferrer"
+      className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[89px] left-0 right-[600px] rounded-[16px] top-[414.5px] transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
+      data-name="Overlay+Border"
+    >
       <OverlayBorder23 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-18.5px)] tracking-[0.88px] uppercase w-[53.132px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Adresse</p>
@@ -614,7 +795,7 @@ function OverlayBorder22() {
         <p className="leading-[normal] mb-0">4 bis Av. Alexandre Dumas, 95230</p>
         <p className="leading-[normal]">Soisy-sous-Montmorency</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -769,8 +950,42 @@ function HorizontalBorder() {
 }
 
 function FormulaireSimple() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<"idle" | "success">("idle");
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const nextErrors: Record<string, string> = {};
+
+    if (!form.firstName.trim()) nextErrors.firstName = "Le prénom est requis.";
+    if (!form.lastName.trim()) nextErrors.lastName = "Le nom est requis.";
+    if (!form.email.trim()) nextErrors.email = "L'email est requis.";
+    if (!form.message.trim()) nextErrors.message = "Le message est requis.";
+
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      setStatus("idle");
+      return;
+    }
+
+    setErrors({});
+    setStatus("success");
+  };
+
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid h-[589px] left-[600px] overflow-clip right-0 rounded-[24px] top-0" data-name="FORMULAIRE SIMPLE">
+    <form
+      onSubmit={handleSubmit}
+      className="absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid h-[589px] left-[600px] overflow-clip right-0 rounded-[24px] top-0"
+      data-name="FORMULAIRE SIMPLE"
+    >
       <OverlayHorizontalBorder />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[429.22px] text-[11px] text-[rgba(255,255,255,0.25)] top-[106px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p>
@@ -778,35 +993,101 @@ function FormulaireSimple() {
           <span className="leading-[normal] text-[#bcff3d]">*</span>
         </p>
       </div>
-      <Input />
+      <div className="absolute left-[28px] right-[265px] top-[119px]">
+        <UITextInput
+          value={form.firstName}
+          onChange={(event) => setForm((current) => ({ ...current, firstName: event.target.value }))}
+          placeholder="Jean"
+          aria-invalid={Boolean(errors.firstName)}
+          className="h-[46px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+        />
+      </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[265px] right-[214.37px] text-[11px] text-[rgba(255,255,255,0.25)] top-[106px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p>
           <span className="leading-[normal]">{`Nom `}</span>
           <span className="leading-[normal] text-[#bcff3d]">*</span>
         </p>
       </div>
-      <Input1 />
+      <div className="absolute left-[265px] right-[28px] top-[119px]">
+        <UITextInput
+          value={form.lastName}
+          onChange={(event) => setForm((current) => ({ ...current, lastName: event.target.value }))}
+          placeholder="Dupont"
+          aria-invalid={Boolean(errors.lastName)}
+          className="h-[46px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+        />
+      </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[443.52px] text-[11px] text-[rgba(255,255,255,0.25)] top-[184px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p>
           <span className="leading-[normal]">{`Email `}</span>
           <span className="leading-[normal] text-[#bcff3d]">*</span>
         </p>
       </div>
-      <Input2 />
+      <div className="absolute left-[28px] right-[28px] top-[197px]">
+        <UITextInput
+          type="email"
+          value={form.email}
+          onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+          placeholder="jean@email.com"
+          aria-invalid={Boolean(errors.email)}
+          className="h-[46px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+        />
+      </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[453.28px] text-[11px] text-[rgba(255,255,255,0.25)] top-[262px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Sujet</p>
       </div>
-      <Options />
-      <div className="absolute border-[rgba(255,255,255,0.4)] border-l-4 border-r-4 border-solid border-t-5 h-[5px] left-[468px] right-[42px] top-[295.5px]" data-name="Border" />
+      <div className="absolute left-[28px] right-[28px] top-[275px]">
+        <Select value={form.subject} onValueChange={(value) => setForm((current) => ({ ...current, subject: value }))}>
+          <SelectTrigger className="h-[46px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white data-[placeholder]:text-[rgba(255,255,255,0.6)]">
+            <SelectValue placeholder="Sélectionner..." />
+          </SelectTrigger>
+          <SelectContent className="border-[rgba(255,255,255,0.08)] bg-[#181818] text-white">
+            {contactSubjects.map((subject) => (
+              <SelectItem key={subject} value={subject}>
+                {subject}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[28px] right-[423.23px] text-[11px] text-[rgba(255,255,255,0.25)] top-[340px] tracking-[0.88px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p>
           <span className="leading-[normal]">{`Message `}</span>
           <span className="leading-[normal] text-[#bcff3d]">*</span>
         </p>
       </div>
-      <Textarea />
-      <HorizontalBorder />
-    </div>
+      <div className="absolute left-[28px] right-[28px] top-[353px]">
+        <UITextarea
+          value={form.message}
+          onChange={(event) => setForm((current) => ({ ...current, message: event.target.value }))}
+          placeholder="Votre message…"
+          aria-invalid={Boolean(errors.message)}
+          className="h-[80px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+        />
+      </div>
+      <div className="absolute right-[28px] top-[441px] text-[11px] text-[rgba(255,255,255,0.3)]">
+        {form.message.length}/500
+      </div>
+      <div className="absolute left-[28px] top-[441px] text-[11px] text-[#ff8e8e]">
+        {errors.firstName || errors.lastName || errors.email || errors.message || ""}
+      </div>
+      <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t left-0 right-0 top-[473px]">
+        <button
+          type="submit"
+          className="absolute left-[28px] right-[28px] top-[16px] h-[49px] rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01]"
+        >
+          <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-10.85px)] top-1/2 flex h-[17px] w-[152.398px] flex-col justify-center text-center font-['Syne:Bold',sans-serif] text-[14px] font-bold text-[#0c0d0c] leading-[0]">
+            <p className="leading-[normal]">Envoyer le message</p>
+          </div>
+          <Svg13 />
+        </button>
+        <div className="-translate-y-1/2 absolute left-[147.41px] right-[146.7px] top-[82px] flex flex-col justify-center text-center font-['DM_Sans:Regular',sans-serif] text-[11px] leading-[0] text-[rgba(255,255,255,0.25)]">
+          <p className="leading-[normal]">
+            {status === "success" ? "Message prêt à être envoyé · Vérifiez vos informations" : "Données confidentielles · Réponse sous 24h"}
+          </p>
+        </div>
+      </div>
+    </form>
   );
 }
 
@@ -984,6 +1265,10 @@ function BackgroundBorder5() {
 }
 
 function SectionFaq() {
+  const [openItem, setOpenItem] = useState<string | undefined>("faq-1");
+  const leftColumnItems = faqItems.filter((_, index) => index % 2 === 0);
+  const rightColumnItems = faqItems.filter((_, index) => index % 2 === 1);
+
   return (
     <div className="absolute h-[491px] left-[160px] right-[160px] top-[3220px]" data-name="Section - FAQ">
       <div className="absolute bg-[#bcff3d] h-px left-0 opacity-60 right-[1092px] top-[6.5px]" data-name="Horizontal Divider" />
@@ -994,12 +1279,56 @@ function SectionFaq() {
         <p className="leading-[44px] mb-0">Tout ce que vous</p>
         <p className="leading-[44px] text-[#bcff3d]">voulez savoir</p>
       </div>
-      <BackgroundBorder />
-      <BackgroundBorder1 />
-      <BackgroundBorder2 />
-      <BackgroundBorder3 />
-      <BackgroundBorder4 />
-      <BackgroundBorder5 />
+      <Accordion
+        type="single"
+        collapsible
+        value={openItem}
+        onValueChange={setOpenItem}
+        className="absolute left-0 right-0 top-[166px] flex items-start gap-x-[22px]"
+      >
+        <div className="flex-1 space-y-[12px]">
+          {leftColumnItems.map((item) => (
+            <AccordionItem
+              key={item.id}
+              value={item.id}
+              className={cn(
+                "rounded-[16px] border px-[26px] transition-all duration-200",
+                openItem === item.id
+                  ? "border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.06)]"
+                  : "border-[rgba(255,255,255,0.08)] bg-[#111411]",
+              )}
+            >
+              <AccordionTrigger className="py-[22px] font-['Syne:SemiBold',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="pb-[22px] font-['DM_Sans:Regular',sans-serif] text-[14px] leading-[24px] text-[rgba(255,255,255,0.55)]">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </div>
+        <div className="flex-1 space-y-[12px]">
+          {rightColumnItems.map((item) => (
+            <AccordionItem
+              key={item.id}
+              value={item.id}
+              className={cn(
+                "rounded-[16px] border px-[26px] transition-all duration-200",
+                openItem === item.id
+                  ? "border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.06)]"
+                  : "border-[rgba(255,255,255,0.08)] bg-[#111411]",
+              )}
+            >
+              <AccordionTrigger className="py-[22px] font-['Syne:SemiBold',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
+                {item.question}
+              </AccordionTrigger>
+              <AccordionContent className="pb-[22px] font-['DM_Sans:Regular',sans-serif] text-[14px] leading-[24px] text-[rgba(255,255,255,0.55)]">
+                {item.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </div>
+      </Accordion>
     </div>
   );
 }
@@ -1037,12 +1366,12 @@ function Svg20() {
 
 function Link2() {
   return (
-    <div className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link">
+    <a className="-translate-x-1/2 absolute bg-[#c8ec66] h-[40px] left-[calc(50%-341.34px)] rounded-[8px] top-[52px] w-[162.76px]" data-name="Link" href="tel:+33670760719">
       <Svg20 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.18px)] not-italic text-[16px] text-black text-center top-[calc(50%-0.25px)] w-[107.125px]">
         <p className="leading-[24px]">06 70 76 07 19</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1061,12 +1390,12 @@ function Svg21() {
 
 function Link3() {
   return (
-    <div className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link">
+    <a className="absolute h-[24px] left-[16px] right-[698.67px] top-[116px]" data-name="Link" href="mailto:contact@vroomparis.fr">
       <Svg21 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+12.16px)] not-italic text-[16px] text-center text-white top-[calc(50%-0.25px)] w-[161.595px]">
         <p className="leading-[24px]">contact@vroomparis.fr</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1085,31 +1414,31 @@ function Svg22() {
 
 function Link4() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-0" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-0" data-name="Link" href="/showroom">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[18.5px] justify-center leading-[0] left-[calc(50%+0.19px)] not-italic text-[16px] text-center text-white top-[11.75px] w-[127.557px]">
         <p className="leading-[24px]">Showroom</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link5() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[32px]" data-name="Link" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[150px]">
         <p className="leading-[24px]">Acheter un véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link6() {
   return (
-    <div className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link">
+    <a className="absolute h-[24px] left-0 right-0 top-[68px]" data-name="Link" href="/vendre-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">Vendre votre véhicule</p>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -1130,21 +1459,21 @@ function Nav() {
 
 function Link8() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[144px]" data-name="Link" href="/conseils">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[11.5px] w-[180px]">
         <p className="leading-[24px]">Consulation automobile</p>
       </div>
-    </div>
+    </a>
   );
 }
 
 function Link9() {
   return (
-    <div className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link">
+    <a className="absolute h-[24px] left-[357.33px] right-[357.33px] top-[180px]" data-name="Link" href="/a-propos">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[19px] justify-center leading-[0] left-1/2 not-italic text-[16px] text-center text-white top-[6.5px] w-[170px]">
         <p className="leading-[24px]">À propos</p>
       </div>
-    </div>
+    </a>
   );
 }
 

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router";
 import HomePage from "../imports/HomePage/HomePage";
 import AProposDeNous from "../imports/AProposDeNous/AProposDeNous";
@@ -36,15 +37,62 @@ const PAGE_SIZES: Record<string, { width: number; height: number }> = {
   "/acheter-votre-vehicule": { width: 1440, height: 2933 },
   "/acheter-votre-vehicule/etape-2": { width: 1440, height: 2584 },
   "/showroom": { width: 1920, height: 3833 },
-  "/showroom/produit": { width: 1440, height: 2719 },
+  "/showroom/produit": { width: 1920, height: 2719 },
 };
 
 function PageWrapper({ path, children }: { path: string; children: React.ReactNode }) {
   const { width, height } = PAGE_SIZES[path] ?? { width: 1440, height: 900 };
+  const wrapperClassName = path === "/showroom/produit" ? "relative" : "relative mx-auto";
   return (
-    <div className="relative mx-auto" style={{ width, height }}>
+    <div className={wrapperClassName} style={{ width, height }}>
       {children}
     </div>
+  );
+}
+
+function HamburgerNav() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <nav className="fixed top-4 right-4 z-50">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex flex-col justify-center items-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 transition-colors gap-[5px]"
+        aria-label="Menu"
+      >
+        <span
+          className={`block w-5 h-0.5 bg-white transition-all duration-300 origin-center ${open ? "rotate-45 translate-y-[7px]" : ""}`}
+        />
+        <span
+          className={`block w-5 h-0.5 bg-white transition-all duration-300 ${open ? "opacity-0" : ""}`}
+        />
+        <span
+          className={`block w-5 h-0.5 bg-white transition-all duration-300 origin-center ${open ? "-rotate-45 -translate-y-[7px]" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div className="absolute top-14 right-0 bg-[#1e1e1e] border border-white/10 rounded-2xl overflow-hidden min-w-[200px] shadow-2xl">
+          {NAV_LINKS.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-5 py-3 text-sm transition-colors ${
+                  isActive
+                    ? "bg-[#bcff3d] text-black font-semibold"
+                    : "text-white hover:bg-white/10"
+                }`
+              }
+            >
+              {label}
+            </NavLink>
+          ))}
+        </div>
+      )}
+    </nav>
   );
 }
 
@@ -52,22 +100,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="h-screen w-full bg-[#181818] overflow-x-auto overflow-y-auto">
-        <nav className="fixed top-4 right-4 z-50 flex gap-2 flex-wrap max-w-[700px] justify-end">
-          {NAV_LINKS.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end
-              className={({ isActive }) =>
-                `px-4 py-2 rounded-full text-sm ${
-                  isActive ? "bg-[#bcff3d] text-black" : "bg-white/10 text-white"
-                }`
-              }
-            >
-              {label}
-            </NavLink>
-          ))}
-        </nav>
+        <HamburgerNav />
 
         <Routes>
           <Route path="/" element={<PageWrapper path="/"><HomePage /></PageWrapper>} />

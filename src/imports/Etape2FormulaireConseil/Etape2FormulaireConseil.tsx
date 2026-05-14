@@ -1,4 +1,43 @@
+import { useNavigate, useSearchParams } from "react-router";
 import svgPaths from "./svg-t3kgt1lbc3";
+
+function formatBookingDate(value: string | null) {
+  if (!value) {
+    return "Vendredi 13 mars 2026";
+  }
+
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) {
+    return "Vendredi 13 mars 2026";
+  }
+
+  const weekday = new Intl.DateTimeFormat("fr-FR", { weekday: "long" }).format(date);
+  const day = new Intl.DateTimeFormat("fr-FR", { day: "2-digit" }).format(date);
+  const month = new Intl.DateTimeFormat("fr-FR", { month: "long" }).format(date);
+  const year = new Intl.DateTimeFormat("fr-FR", { year: "numeric" }).format(date);
+  return `${weekday.charAt(0).toUpperCase()}${weekday.slice(1)} ${day} ${month} ${year}`;
+}
+
+function formatBookingTime(slot: string | null, duration: string | null) {
+  return `${slot || "10:30"} — ${duration || "30 min"}`;
+}
+
+function formatBookingFormat(value: string | null) {
+  switch (value) {
+    case "telephone":
+      return "Consultation par téléphone";
+    case "whatsapp":
+      return "Consultation sur WhatsApp";
+    case "visio":
+    default:
+      return "Consultation en visio";
+  }
+}
+
+function formatFullName(firstName: string | null, lastName: string | null) {
+  const fullName = `${firstName || "Jean"} ${lastName || "Dupont"}`.trim();
+  return fullName || "Jean Dupont";
+}
 
 function Group() {
   return (
@@ -148,20 +187,20 @@ function TopBar() {
   );
 }
 
-function Paragraph() {
+function Paragraph({ fullName, email }: { fullName: string; email: string }) {
   return (
     <div className="-translate-x-1/2 absolute font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[69.28px] leading-[0] left-1/2 text-[14px] text-[rgba(255,255,255,0.55)] text-center top-[211.89px] w-[420px]" data-name="Paragraph">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center left-[calc(50%-0.5px)] top-[12.11px] w-[393px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p>
           <span className="font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal leading-[23.1px]">{`Votre consultation est réservée, `}</span>
-          <span className="font-['Plus_Jakarta_Sans:Medium',sans-serif] font-medium leading-[23.1px] text-[rgba(255,255,255,0.85)]">Jean Dupont</span>
+          <span className="font-['Plus_Jakarta_Sans:Medium',sans-serif] font-medium leading-[23.1px] text-[rgba(255,255,255,0.85)]">{fullName}</span>
           <span className="font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal leading-[23.1px]">. Un email de</span>
         </p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[41px] justify-center left-[calc(50%-0.5px)] top-[46.61px] w-[403px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="mb-0">
           <span className="font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal leading-[23.1px]">{`confirmation a été envoyé à `}</span>
-          <span className="font-['Plus_Jakarta_Sans:Medium',sans-serif] font-medium leading-[23.1px] text-[rgba(255,255,255,0.85)]">jean.dupont@email.com</span>
+          <span className="font-['Plus_Jakarta_Sans:Medium',sans-serif] font-medium leading-[23.1px] text-[rgba(255,255,255,0.85)]">{email}</span>
           <span className="font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal leading-[23.1px]">. Votre</span>
         </p>
         <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] leading-[23.1px]">{`conseiller vous contactera à l'heure choisie.`}</p>
@@ -191,7 +230,7 @@ function OverlayBorder4() {
   );
 }
 
-function SuccessHero() {
+function SuccessHero({ fullName, email }: { fullName: string; email: string }) {
   return (
     <div className="absolute h-[317.17px] left-0 right-0 top-[73px]" data-name="SUCCESS HERO">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[31px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[26px] text-center text-white top-[186.5px] w-[489.691px]">
@@ -200,7 +239,7 @@ function SuccessHero() {
           <span className="leading-[29.9px] text-[#bcff3d]">confirmé !</span>
         </p>
       </div>
-      <Paragraph />
+      <Paragraph fullName={fullName} email={email} />
       <div className="absolute border border-[rgba(188,255,61,0.18)] border-solid inset-[52px_275px_177.17px_275px] rounded-[44px]" data-name="Border" />
       <div className="absolute border border-[rgba(188,255,61,0.18)] border-solid inset-[52px_275px_177.17px_275px] rounded-[44px]" data-name="Border" />
       <div className="absolute border border-[rgba(188,255,61,0.18)] border-solid inset-[52px_275px_177.17px_275px] rounded-[44px]" data-name="Border" />
@@ -254,7 +293,7 @@ function OverlayBorder5() {
   );
 }
 
-function HorizontalBorder() {
+function HorizontalBorder({ bookingDate }: { bookingDate: string }) {
   return (
     <div className="absolute border-[rgba(255,255,255,0.08)] border-b border-solid h-[62px] left-0 right-0 top-[51px]" data-name="HorizontalBorder">
       <OverlayBorder5 />
@@ -262,7 +301,7 @@ function HorizontalBorder() {
         <p className="leading-[normal]">Date</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[18px] justify-center leading-[0] left-[68px] text-[14px] text-[rgba(255,255,255,0.85)] top-[39px] w-[151.287px]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">Vendredi 13 mars 2026</p>
+        <p className="leading-[normal]">{bookingDate}</p>
       </div>
     </div>
   );
@@ -317,7 +356,7 @@ function OverlayBorder7() {
   );
 }
 
-function HorizontalBorder1() {
+function HorizontalBorder1({ bookingTime }: { bookingTime: string }) {
   return (
     <div className="absolute border-[rgba(255,255,255,0.08)] border-b border-solid h-[62px] left-0 right-0 top-[113px]" data-name="HorizontalBorder">
       <OverlayBorder6 />
@@ -325,7 +364,7 @@ function HorizontalBorder1() {
         <p className="leading-[normal]">{`Heure & durée`}</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[18px] justify-center leading-[0] left-[68px] text-[14px] text-[rgba(255,255,255,0.85)] top-[39px] w-[130.181px]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">10:30 — 30 minutes</p>
+        <p className="leading-[normal]">{bookingTime}</p>
       </div>
       <OverlayBorder7 />
     </div>
@@ -352,7 +391,7 @@ function OverlayBorder8() {
   );
 }
 
-function HorizontalBorder2() {
+function HorizontalBorder2({ bookingFormat }: { bookingFormat: string }) {
   return (
     <div className="absolute border-[rgba(255,255,255,0.08)] border-b border-solid h-[62px] left-0 right-0 top-[175px]" data-name="HorizontalBorder">
       <OverlayBorder8 />
@@ -360,7 +399,7 @@ function HorizontalBorder2() {
         <p className="leading-[normal]">Format</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[18px] justify-center leading-[0] left-[68px] text-[14px] text-[rgba(255,255,255,0.85)] top-[39px] w-[138.437px]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">Consultation en visio</p>
+        <p className="leading-[normal]">{bookingFormat}</p>
       </div>
     </div>
   );
@@ -422,20 +461,30 @@ function OverlayBorder10() {
   );
 }
 
-function RdvRecapCard() {
+function RdvRecapCard({
+  bookingDate,
+  bookingTime,
+  bookingFormat,
+  email,
+}: {
+  bookingDate: string;
+  bookingTime: string;
+  bookingFormat: string;
+  email: string;
+}) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[370px] left-[36px] overflow-clip right-[36px] rounded-[20px] top-[422.17px]" data-name="RDV RECAP CARD">
       <OverlayHorizontalBorder />
-      <HorizontalBorder />
-      <HorizontalBorder1 />
-      <HorizontalBorder2 />
+      <HorizontalBorder bookingDate={bookingDate} />
+      <HorizontalBorder1 bookingTime={bookingTime} />
+      <HorizontalBorder2 bookingFormat={bookingFormat} />
       <HorizontalBorder3 />
       <OverlayBorder10 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[68px] text-[11px] text-[rgba(255,255,255,0.25)] top-[319px] tracking-[0.88px] uppercase w-[160.044px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">Confirmation envoyée à</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[18px] justify-center leading-[0] left-[68px] text-[14px] text-[rgba(255,255,255,0.85)] top-[338px] w-[161.235px]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">jean.dupont@email.com</p>
+        <p className="leading-[normal]">{email}</p>
       </div>
     </div>
   );
@@ -458,12 +507,12 @@ function Svg12() {
 
 function Button() {
   return (
-    <div className="absolute bg-[#bcff3d] h-[50px] left-[36px] right-[325px] rounded-[12px] top-0" data-name="Button">
+    <button type="button" className="absolute bg-[#bcff3d] h-[50px] left-[36px] right-[325px] rounded-[12px] top-0" data-name="Button">
       <Svg12 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%+12.17px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[170.492px]">
         <p className="leading-[normal]">Ajouter à mon agenda</p>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -482,60 +531,68 @@ function Svg13() {
 
 function Button1() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[50px] left-[323px] right-[36px] rounded-[12px] top-0" data-name="Button">
+    <button type="button" className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[50px] left-[323px] right-[36px] rounded-[12px] top-0" data-name="Button">
       <Svg13 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[18px] justify-center leading-[0] left-[calc(50%+11.67px)] text-[14px] text-[rgba(255,255,255,0.55)] text-center top-1/2 w-[102.127px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">{`Renvoyer l'email`}</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Link() {
+function Link({ onClick, label }: { onClick: () => void; label: string }) {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[14px] left-[calc(50%-115.85px)] top-[calc(50%+23.5px)] w-[134.75px]" data-name="Link">
+    <button type="button" onClick={onClick} className="-translate-x-1/2 -translate-y-1/2 absolute h-[14px] left-[calc(50%-115.85px)] top-[calc(50%+23.5px)] w-[134.75px]" data-name="Link">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.2px)] text-[#bcff3d] text-[11px] text-center top-[7px] w-[135.159px]" style={{ fontVariationSettings: "'opsz' 9" }}>
-        <p className="leading-[normal]">Modifier mon rendez-vous</p>
+        <p className="leading-[normal]">{label}</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Link1() {
+function Link1({ onClick, label }: { onClick: () => void; label: string }) {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[14px] left-[calc(50%+24.59px)] top-[calc(50%+23.5px)] w-[117.73px]" data-name="Link">
+    <button type="button" onClick={onClick} className="-translate-x-1/2 -translate-y-1/2 absolute h-[14px] left-[calc(50%+24.59px)] top-[calc(50%+23.5px)] w-[117.73px]" data-name="Link">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.46px)] text-[#bcff3d] text-[11px] text-center top-[7px] w-[118.66px]" style={{ fontVariationSettings: "'opsz' 9" }}>
-        <p className="leading-[normal]">Annuler ma réservation</p>
+        <p className="leading-[normal]">{label}</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Link2() {
+function Link2({ onClick, label }: { onClick: () => void; label: string }) {
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[14px] left-[calc(50%+140.43px)] top-[calc(50%+23.5px)] w-[85.58px]" data-name="Link">
+    <button type="button" onClick={onClick} className="-translate-x-1/2 -translate-y-1/2 absolute h-[14px] left-[calc(50%+140.43px)] top-[calc(50%+23.5px)] w-[85.58px]" data-name="Link">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.3px)] text-[#bcff3d] text-[11px] text-center top-[7px] w-[86.176px]" style={{ fontVariationSettings: "'opsz' 9" }}>
-        <p className="leading-[normal]">{`Retour à l'accueil`}</p>
+        <p className="leading-[normal]">{label}</p>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Actions() {
+function Actions({
+  onEdit,
+  onCancel,
+  onHome,
+}: {
+  onEdit: () => void;
+  onCancel: () => void;
+  onHome: () => void;
+}) {
   return (
     <div className="absolute h-[133px] left-0 right-0 top-[824.17px]" data-name="ACTIONS">
       <Button />
       <Button1 />
       <div className="absolute bg-[rgba(255,255,255,0.08)] h-px left-[36px] right-[36px] top-[66px]" data-name="Horizontal Divider" />
-      <Link />
+      <Link onClick={onEdit} label="Modifier mon rendez-vous" />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%-41.22px)] text-[11px] text-[rgba(255,255,255,0.08)] text-center top-[90px] w-[2.509px]">
         <p className="leading-[normal]">·</p>
       </div>
-      <Link1 />
+      <Link1 onClick={onCancel} label="Annuler ma réservation" />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+90.7px)] text-[11px] text-[rgba(255,255,255,0.08)] text-center top-[90px] w-[2.509px]">
         <p className="leading-[normal]">·</p>
       </div>
-      <Link2 />
+      <Link2 onClick={onHome} label="Retour à l'accueil" />
     </div>
   );
 }
@@ -598,13 +655,31 @@ function BottomStrip() {
   );
 }
 
-function OverlayBorder() {
+function OverlayBorder({
+  fullName,
+  email,
+  bookingDate,
+  bookingTime,
+  bookingFormat,
+  onEdit,
+  onCancel,
+  onHome,
+}: {
+  fullName: string;
+  email: string;
+  bookingDate: string;
+  bookingTime: string;
+  bookingFormat: string;
+  onEdit: () => void;
+  onCancel: () => void;
+  onHome: () => void;
+}) {
   return (
     <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid h-[1006.17px] left-[416px] overflow-clip right-[384px] rounded-[28px] top-[calc(50%+15.58px)]" data-name="Overlay+Border">
       <TopBar />
-      <SuccessHero />
-      <RdvRecapCard />
-      <Actions />
+      <SuccessHero fullName={fullName} email={email} />
+      <RdvRecapCard bookingDate={bookingDate} bookingTime={bookingTime} bookingFormat={bookingFormat} email={email} />
+      <Actions onEdit={onEdit} onCancel={onCancel} onHome={onHome} />
       <BottomStrip />
     </div>
   );
@@ -875,6 +950,14 @@ function Footer() {
 }
 
 export default function Etape2FormulaireConseil() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const bookingDate = formatBookingDate(searchParams.get("date"));
+  const bookingTime = formatBookingTime(searchParams.get("slot"), searchParams.get("duration"));
+  const bookingFormat = formatBookingFormat(searchParams.get("format"));
+  const fullName = formatFullName(searchParams.get("firstName"), searchParams.get("lastName"));
+  const email = searchParams.get("email") || "jean.dupont@email.com";
+
   return (
     <div className="bg-[#181818] relative size-full" data-name="etape 2 formulaire conseil">
       <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.781px]" data-name="Union">
@@ -917,7 +1000,16 @@ export default function Etape2FormulaireConseil() {
         <p className="leading-[26.35px] mb-0">Choisissez votre créneau. Un expert VroomAdvisor vous</p>
         <p className="leading-[26.35px]">{`rappelle à l'heure choisie.`}</p>
       </div>
-      <OverlayBorder />
+      <OverlayBorder
+        fullName={fullName}
+        email={email}
+        bookingDate={bookingDate}
+        bookingTime={bookingTime}
+        bookingFormat={bookingFormat}
+        onEdit={() => navigate(`/conseils/formulaire?${searchParams.toString()}`)}
+        onCancel={() => navigate(`/conseils?${searchParams.toString()}`)}
+        onHome={() => navigate("/")}
+      />
       <Footer />
     </div>
   );
