@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from "react-router";
 import HomePage from "../imports/HomePage/HomePage";
 import AProposDeNous from "../imports/AProposDeNous/AProposDeNous";
@@ -38,7 +38,7 @@ const NAV_LINKS = [
 ];
 
 const PAGE_SIZES: Record<string, { width: number; height: number }> = {
-  "/": { width: 1440, height: 7900 },
+  "/": { width: 1440, height: 7468 },
   "/a-propos": { width: 1440, height: 4347 },
   "/conseils": { width: 1440, height: 4379 },
   "/conseils/formulaire": { width: 1440, height: 2404 },
@@ -53,10 +53,59 @@ const PAGE_SIZES: Record<string, { width: number; height: number }> = {
 
 function PageWrapper({ path, children }: { path: string; children: React.ReactNode }) {
   const { width, height } = PAGE_SIZES[path] ?? { width: 1440, height: 900 };
-  const wrapperClassName = path === "/showroom/produit" ? "relative" : "relative mx-auto";
+
+  if (path === "/showroom/produit") {
+    return <ResponsivePageWrapper height={height} width={width}>{children}</ResponsivePageWrapper>;
+  }
+
+  const wrapperClassName = "relative mx-auto";
   return (
     <div className={wrapperClassName} style={{ width, height }}>
       {children}
+    </div>
+  );
+}
+
+function ResponsivePageWrapper({
+  width,
+  height,
+  children,
+}: {
+  width: number;
+  height: number;
+  children: React.ReactNode;
+}) {
+  const getScale = () => {
+    if (typeof window === "undefined") {
+      return 1;
+    }
+
+    const horizontalPadding = 32;
+    return Math.min(1, Math.max(0.5, (window.innerWidth - horizontalPadding) / width));
+  };
+
+  const [scale, setScale] = useState(getScale);
+
+  useEffect(() => {
+    const handleResize = () => setScale(getScale());
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [width]);
+
+  return (
+    <div className="relative mx-auto w-full overflow-x-hidden" style={{ height: height * scale }}>
+      <div
+        className="absolute left-1/2 top-0 origin-top"
+        style={{
+          width,
+          height,
+          transform: `translateX(-50%) scale(${scale})`,
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -145,7 +194,7 @@ export default function App() {
             <Route
               path="*"
               element={
-                <div className="h-[100dvh] w-full bg-[#181818] overflow-x-hidden overflow-y-auto">
+                <div className="h-[100dvh] w-full bg-[#181818] overflow-x-hidden overflow-y-auto overscroll-none">
                   <HamburgerNav />
                   <Routes>
                     <Route path="/" element={<PageWrapper path="/"><HomePage /></PageWrapper>} />

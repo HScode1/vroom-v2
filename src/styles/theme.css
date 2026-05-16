@@ -135,6 +135,14 @@
 
   html {
     font-size: var(--font-size);
+    background: #181818;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    background: #181818;
   }
 
   h1 {

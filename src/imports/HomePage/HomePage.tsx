@@ -1204,7 +1204,7 @@ function Container1() {
 
 function Footer() {
   return (
-    <div className="absolute bg-[#181818] h-[413px] left-0 right-0 top-[7083px]" data-name="Footer">
+    <div className="absolute bg-[#181818] h-[385px] left-0 right-0 top-[7083px]" data-name="Footer">
       <Container1 />
     </div>
   );
@@ -2282,9 +2282,9 @@ function FullscreenHero() {
 
 function OverlayBorder15() {
   return (
-    <div className="-translate-x-1/2 absolute bg-[rgba(188,255,61,0.08)] border border-[rgba(188,255,61,0.2)] border-solid h-[28px] left-[calc(50%+7.93px)] rounded-[100px] top-[928px] w-[203.86px]" data-name="Overlay+Border">
+    <div className="-translate-x-1/2 absolute bg-[rgba(188,255,61,0.08)] border border-[rgba(188,255,61,0.2)] border-solid h-[28px] left-[calc(50%+7.93px)] rounded-[100px] top-[928px] w-[248px]" data-name="Overlay+Border">
       <div className="-translate-y-1/2 absolute bg-[#bcff3d] left-[18px] rounded-[2.5px] size-[5px] top-1/2" data-name="Background" />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[calc(50%+6.66px)] text-[#bcff3d] text-[11px] text-center top-1/2 tracking-[1.76px] uppercase w-[153.179px]" style={{ fontVariationSettings: "'opsz' 14" }}>
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[calc(50%+6.66px)] text-[#bcff3d] text-[11px] text-center top-1/2 tracking-[1.76px] uppercase w-[196px] whitespace-nowrap" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Ce que nous faisons</p>
       </div>
     </div>
@@ -2587,7 +2587,7 @@ function Svg36() {
 
 function Button8() {
   return (
-    <a className="-translate-x-1/2 -translate-y-1/2 absolute bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[calc(50%-2486.5px)] w-[213.913px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" data-name="Button" href="/showroom">
+    <a className="-translate-x-1/2 absolute bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[1340px] w-[213.913px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" data-name="Button" href="/showroom">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[21.5px] justify-center leading-[0] left-[calc(50%-16.3px)] not-italic text-[#1f2937] text-[18px] text-center top-[calc(50%-0.25px)] w-[155.32px]">
         <p className="leading-[28px]">Notre sélection</p>
       </div>
