@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router";
+import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from "react-router";
 import HomePage from "../imports/HomePage/HomePage";
 import AProposDeNous from "../imports/AProposDeNous/AProposDeNous";
 import PageConseil from "../imports/PageConseil/PageConseil";
@@ -11,6 +11,17 @@ import FormulaireAcheterVotreVehicule from "../imports/FormulaireAcheterVotreVeh
 import Etape2FormulaireAcheterVotreVehicule from "../imports/Etape2FormulaireAcheterVotreVehicule/Etape2FormulaireAcheterVotreVehicule";
 import Premium from "../imports/Premium/Premium";
 import PageProduitPremium from "../imports/PageProduitPremium/PageProduitPremium";
+import { AdminAuthProvider, useAdminAuth } from "../admin/context/AdminAuthContext";
+import { AdminDataProvider } from "../admin/context/AdminDataContext";
+import AdminLayout from "../admin/layout/AdminLayout";
+import AdminLogin from "../admin/pages/AdminLogin";
+import AdminDashboard from "../admin/pages/AdminDashboard";
+import AdminVehicules from "../admin/pages/AdminVehicules";
+import AdminVehiculeForm from "../admin/pages/AdminVehiculeForm";
+import AdminDemandesAchat from "../admin/pages/AdminDemandesAchat";
+import AdminDemandesVente from "../admin/pages/AdminDemandesVente";
+import AdminDemandeVenteDetail from "../admin/pages/AdminDemandeVenteDetail";
+import AdminRendezVous from "../admin/pages/AdminRendezVous";
 
 const NAV_LINKS = [
   { to: "/", label: "Accueil" },
@@ -50,8 +61,16 @@ function PageWrapper({ path, children }: { path: string; children: React.ReactNo
   );
 }
 
+function ProtectedAdminRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated } = useAdminAuth();
+  return isAuthenticated ? <>{children}</> : <Navigate to="/admin/login" replace />;
+}
+
 function HamburgerNav() {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
   const [open, setOpen] = useState(false);
+  if (isAdmin) return null;
 
   return (
     <nav className="fixed top-4 right-4 z-50">
@@ -98,24 +117,55 @@ function HamburgerNav() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="h-screen w-full bg-[#181818] overflow-x-auto overflow-y-auto">
-        <HamburgerNav />
+    <AdminAuthProvider>
+      <AdminDataProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* ── Admin routes (own full-screen layout) ── */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedAdminRoute>
+                  <AdminLayout />
+                </ProtectedAdminRoute>
+              }
+            >
+              <Route index element={<AdminDashboard />} />
+              <Route path="vehicules" element={<AdminVehicules />} />
+              <Route path="vehicules/nouveau" element={<AdminVehiculeForm />} />
+              <Route path="vehicules/:id/edit" element={<AdminVehiculeForm />} />
+              <Route path="demandes/achat" element={<AdminDemandesAchat />} />
+              <Route path="demandes/vente" element={<AdminDemandesVente />} />
+              <Route path="demandes/vente/:id" element={<AdminDemandeVenteDetail />} />
+              <Route path="rendez-vous" element={<AdminRendezVous />} />
+            </Route>
 
-        <Routes>
-          <Route path="/" element={<PageWrapper path="/"><HomePage /></PageWrapper>} />
-          <Route path="/a-propos" element={<PageWrapper path="/a-propos"><AProposDeNous /></PageWrapper>} />
-          <Route path="/conseils" element={<PageWrapper path="/conseils"><PageConseil /></PageWrapper>} />
-          <Route path="/conseils/formulaire" element={<PageWrapper path="/conseils/formulaire"><RedirectionFormulaireConseil /></PageWrapper>} />
-          <Route path="/conseils/formulaire/etape-2" element={<PageWrapper path="/conseils/formulaire/etape-2"><Etape2FormulaireConseil /></PageWrapper>} />
-          <Route path="/vendre-votre-vehicule" element={<PageWrapper path="/vendre-votre-vehicule"><PageCmsVendreVotreVehicule /></PageWrapper>} />
-          <Route path="/vendre-votre-vehicule/formulaire" element={<PageWrapper path="/vendre-votre-vehicule/formulaire"><Etape2FormulaireVendreVotreVehicule /></PageWrapper>} />
-          <Route path="/acheter-votre-vehicule" element={<PageWrapper path="/acheter-votre-vehicule"><FormulaireAcheterVotreVehicule /></PageWrapper>} />
-          <Route path="/acheter-votre-vehicule/etape-2" element={<PageWrapper path="/acheter-votre-vehicule/etape-2"><Etape2FormulaireAcheterVotreVehicule /></PageWrapper>} />
-          <Route path="/showroom" element={<PageWrapper path="/showroom"><Premium /></PageWrapper>} />
-          <Route path="/showroom/produit" element={<PageWrapper path="/showroom/produit"><PageProduitPremium /></PageWrapper>} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+            {/* ── Public site routes ── */}
+            <Route
+              path="*"
+              element={
+                <div className="h-screen w-full bg-[#181818] overflow-x-auto overflow-y-auto">
+                  <HamburgerNav />
+                  <Routes>
+                    <Route path="/" element={<PageWrapper path="/"><HomePage /></PageWrapper>} />
+                    <Route path="/a-propos" element={<PageWrapper path="/a-propos"><AProposDeNous /></PageWrapper>} />
+                    <Route path="/conseils" element={<PageWrapper path="/conseils"><PageConseil /></PageWrapper>} />
+                    <Route path="/conseils/formulaire" element={<PageWrapper path="/conseils/formulaire"><RedirectionFormulaireConseil /></PageWrapper>} />
+                    <Route path="/conseils/formulaire/etape-2" element={<PageWrapper path="/conseils/formulaire/etape-2"><Etape2FormulaireConseil /></PageWrapper>} />
+                    <Route path="/vendre-votre-vehicule" element={<PageWrapper path="/vendre-votre-vehicule"><PageCmsVendreVotreVehicule /></PageWrapper>} />
+                    <Route path="/vendre-votre-vehicule/formulaire" element={<PageWrapper path="/vendre-votre-vehicule/formulaire"><Etape2FormulaireVendreVotreVehicule /></PageWrapper>} />
+                    <Route path="/acheter-votre-vehicule" element={<PageWrapper path="/acheter-votre-vehicule"><FormulaireAcheterVotreVehicule /></PageWrapper>} />
+                    <Route path="/acheter-votre-vehicule/etape-2" element={<PageWrapper path="/acheter-votre-vehicule/etape-2"><Etape2FormulaireAcheterVotreVehicule /></PageWrapper>} />
+                    <Route path="/showroom" element={<PageWrapper path="/showroom"><Premium /></PageWrapper>} />
+                    <Route path="/showroom/produit" element={<PageWrapper path="/showroom/produit"><PageProduitPremium /></PageWrapper>} />
+                  </Routes>
+                </div>
+              }
+            />
+          </Routes>
+        </BrowserRouter>
+      </AdminDataProvider>
+    </AdminAuthProvider>
   );
 }

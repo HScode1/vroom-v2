@@ -1150,17 +1150,6 @@ export default function Etape2FormulaireVendreVotreVehicule() {
       <div className="absolute h-[1638px] inset-[207px_167px_0_913px] pointer-events-none">
         <Sidebar />
       </div>
-      <div className="absolute flex inset-[2.22%_2.86%_96.48%_94.02%] items-center justify-center" style={{ containerType: "size" }}>
-        <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
-          <div className="relative size-full" data-name="Vector">
-            <div className="absolute inset-[-2.22%_-4.17%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26 47">
-                <path d="M25 1V46M13 1V46M1 1V46" id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
       <Group />
       <Footer />
     </div>

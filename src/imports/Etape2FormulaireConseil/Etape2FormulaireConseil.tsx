@@ -983,17 +983,6 @@ export default function Etape2FormulaireConseil() {
           </svg>
         </div>
       </div>
-      <div className="absolute flex inset-[1.85%_2.86%_97.07%_94.02%] items-center justify-center" style={{ containerType: "size" }}>
-        <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
-          <div className="relative size-full" data-name="Vector">
-            <div className="absolute inset-[-2.22%_-4.17%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26 47">
-                <path d="M25 1V46M13 1V46M1 1V46" id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
       <Group />
       <Heading />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[48.34px] justify-center leading-[0] left-[calc(50%+0.1px)] text-[17px] text-[rgba(255,255,255,0.55)] text-center top-[520.05px] w-[438.59px]" style={{ fontVariationSettings: "'opsz' 9" }}>

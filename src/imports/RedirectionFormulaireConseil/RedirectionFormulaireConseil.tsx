@@ -656,17 +656,6 @@ export default function RedirectionFormulaireConseil() {
           </svg>
         </div>
       </div>
-      <div className="absolute flex inset-[1.71%_2.86%_97.3%_94.02%] items-center justify-center" style={{ containerType: "size" }}>
-        <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
-          <div className="relative size-full">
-            <div className="absolute inset-[-2.22%_-4.17%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26 47">
-                <path d="M25 1V46M13 1V46M1 1V46" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
       <Group />
       <Heading1 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[48.34px] justify-center leading-[0] left-[calc(50%+1.1px)] text-[17px] text-[rgba(255,255,255,0.55)] text-center top-[572.05px] w-[438.59px]" style={{ fontVariationSettings: "'opsz' 9" }}>

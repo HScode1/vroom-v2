@@ -1252,17 +1252,6 @@ export default function PageProduitPremium() {
         <Svg2 />
       </button>
       <Group3 />
-      <div className="absolute flex inset-[1.51%_2.86%_97.59%_94.59%] items-center justify-center" style={{ containerType: "size" }}>
-        <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
-          <div className="relative size-full" data-name="Vector">
-            <div className="absolute inset-[-2.03%_-4.08%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.5 51.2297">
-                <path d={svgPaths.p195bf00} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="absolute bg-[#626366] bottom-[1608px] h-[22px] left-[134px] rounded-[16px] w-[33px]" data-name="Background">
         <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[15px] justify-center leading-[0] left-[calc(50%+0.59px)] not-italic text-[9.6px] text-center text-white top-[calc(50%-0.5px)] uppercase w-[22px]">
           <p className="leading-[12px]">{selectedImageIndex + 1} / 7</p>

@@ -2250,17 +2250,6 @@ export default function Premium() {
       </div>
       <Link isActive={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} />
       <Link1 isActive={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} />
-      <div className="absolute flex inset-[1.07%_2.86%_98.29%_94.59%] items-center justify-center" style={{ containerType: "size" }}>
-        <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
-          <div className="relative size-full" data-name="Vector">
-            <div className="absolute inset-[-2.03%_-4.08%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26.5 51.2297">
-                <path d={svgPaths.p195bf00} id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
       <Group12 />
       <Group13 />
       <Footer />

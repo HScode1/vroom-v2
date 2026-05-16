@@ -2260,17 +2260,6 @@ export default function PageConseil() {
         </div>
       </div>
       <div className="absolute bottom-[3808px] right-[-210px] size-[500px]" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\\'0 0 500 500\\' xmlns=\\'http://www.w3.org/2000/svg\\' preserveAspectRatio=\\'none\\'><rect x=\\'0\\' y=\\'0\\' height=\\'100%\\' width=\\'100%\\' fill=\\'url(%23grad)\\' opacity=\\'1\\'/><defs><radialGradient id=\\'grad\\' gradientUnits=\\'userSpaceOnUse\\' cx=\\'0\\' cy=\\'0\\' r=\\'10\\' gradientTransform=\\'matrix(35.355 0 0 35.355 250 250)\\'><stop stop-color=\\'rgba(188,255,61,0.05)\\' offset=\\'0\\'/><stop stop-color=\\'rgba(188,255,61,0)\\' offset=\\'0.65\\'/></radialGradient></defs></svg>')" }} data-name="Gradient" />
-      <div className="absolute flex inset-[0.93%_2.86%_98.52%_94.02%] items-center justify-center" style={{ containerType: "size" }}>
-        <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
-          <div className="relative size-full" data-name="Vector">
-            <div className="absolute inset-[-2.22%_-4.17%]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26 47">
-                <path d="M25 1V46M13 1V46M1 1V46" id="Vector" stroke="var(--stroke-0, white)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
       <Group />
       <BookingCard />
       <PageContent />
