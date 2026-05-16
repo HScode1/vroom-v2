@@ -73,45 +73,45 @@ function HamburgerNav() {
   if (isAdmin) return null;
 
   return (
-    <nav className="fixed top-4 right-4 z-50">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex flex-col justify-center items-center w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 transition-colors gap-[5px]"
-        aria-label="Menu"
-      >
-        <span
-          className={`block w-5 h-0.5 bg-white transition-all duration-300 origin-center ${open ? "rotate-45 translate-y-[7px]" : ""}`}
-        />
-        <span
-          className={`block w-5 h-0.5 bg-white transition-all duration-300 ${open ? "opacity-0" : ""}`}
-        />
-        <span
-          className={`block w-5 h-0.5 bg-white transition-all duration-300 origin-center ${open ? "-rotate-45 -translate-y-[7px]" : ""}`}
-        />
-      </button>
+    <>
+      <nav className="fixed top-4 right-4 z-[60]">
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full bg-white/10 transition-colors hover:bg-white/20"
+          aria-label="Menu"
+        >
+          <span
+            className={`block h-0.5 w-5 origin-center bg-white transition-all duration-300 ${open ? "translate-y-[7px] rotate-45" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-5 bg-white transition-all duration-300 ${open ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-5 origin-center bg-white transition-all duration-300 ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
+          />
+        </button>
 
-      {open && (
-        <div className="absolute top-14 right-0 bg-[#1e1e1e] border border-white/10 rounded-2xl overflow-hidden min-w-[200px] shadow-2xl">
-          {NAV_LINKS.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                `block px-5 py-3 text-sm transition-colors ${
-                  isActive
-                    ? "bg-[#bcff3d] text-black font-semibold"
-                    : "text-white hover:bg-white/10"
-                }`
-              }
-            >
-              {label}
-            </NavLink>
-          ))}
-        </div>
-      )}
-    </nav>
+        {open && (
+          <div className="absolute right-0 top-14 min-w-[200px] overflow-hidden rounded-2xl border border-white/10 bg-[#1e1e1e] shadow-2xl">
+            {NAV_LINKS.map(({ to, label }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end
+                onClick={() => setOpen(false)}
+                className={({ isActive }) =>
+                  `block px-5 py-3 text-sm transition-colors ${
+                    isActive ? "bg-[#bcff3d] font-semibold text-black" : "text-white hover:bg-white/10"
+                  }`
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
+          </div>
+        )}
+      </nav>
+    </>
   );
 }
 
@@ -145,7 +145,7 @@ export default function App() {
             <Route
               path="*"
               element={
-                <div className="h-screen w-full bg-[#181818] overflow-x-auto overflow-y-auto">
+                <div className="h-[100dvh] w-full bg-[#181818] overflow-x-hidden overflow-y-auto">
                   <HamburgerNav />
                   <Routes>
                     <Route path="/" element={<PageWrapper path="/"><HomePage /></PageWrapper>} />

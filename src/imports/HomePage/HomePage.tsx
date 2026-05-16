@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import svgPaths from "./svg-gblhduksgt";
 import imgIPhone16 from "./bce2e8571e4f8518e7458dc942a118877f14fa46.png";
 import imgMercedesBenzLogo from "./96f8bb8d3678fe064dfed164c840139d345544de.png";
@@ -163,7 +163,7 @@ function Group6() {
 }
 
 function Container() {
-  return <div className="absolute bg-[#0f0d0d] h-[620px] opacity-60 top-[2357px]" data-name="Container" style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw" }} />;
+  return <div className="absolute bg-[#0f0d0d] h-[520px] opacity-60 top-[2357px]" data-name="Container" style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw" }} />;
 }
 
 function Svg() {
@@ -180,7 +180,7 @@ function Svg() {
 
 function Button() {
   return (
-    <a className="absolute bg-[#c8ec66] h-[60px] left-[122px] overflow-clip rounded-[9999px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] top-[2806px] w-[266.16px] transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70" data-name="Button" href="/acheter-votre-vehicule">
+    <a className="absolute bg-[#c8ec66] h-[60px] left-[122px] overflow-clip rounded-[9999px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] top-[2738px] w-[266.16px] transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70" data-name="Button" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%-13.58px)] not-italic text-[#1f2937] text-[18px] text-center top-1/2 w-[189px]">
         <p className="leading-[28px]">Découvrir notre offre</p>
       </div>
@@ -2138,64 +2138,143 @@ function CtaBasDroite() {
   );
 }
 
-function FullscreenHero() {
+function BrandBar() {
   return (
-    <section
-      className="absolute top-0 z-20 min-h-[900px] overflow-hidden bg-[#050909]"
-      data-name="fullscreen hero"
-      style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw", height: "100vh" }}
-    >
-      <img alt="" className="absolute inset-0 size-full object-cover object-center" src={imgImage6} />
-      <div className="absolute bottom-0 left-0 right-0 h-[38vh] bg-[linear-gradient(180deg,rgba(5,9,9,0)_0%,rgba(5,9,9,0.08)_28%,rgba(238,243,239,0.78)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.12)_0%,rgba(0,0,0,0)_58%,rgba(24,24,24,0.28)_100%)]" />
-
-      <div className="absolute left-[7vw] right-[4vw] top-[34px] h-[31px]">
+    <div className="absolute h-[30px] left-[103px] right-[48px] top-[25px]">
+      <div className="absolute inset-[-1px_0_0_0]">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1289.75 31">
-          <g>
-            <g>
-              <path d={svgPaths.p20d54300} fill="var(--fill-0, #C8C8C8)" />
-              <path d={svgPaths.p3554500} fill="var(--fill-0, #C8C8C8)" />
-              <path d={svgPaths.p40a2e00} fill="var(--fill-0, #C8C8C8)" />
+          <g id="Group 82">
+            <g id="Group 24">
+              <path d={svgPaths.p20d54300} fill="var(--fill-0, #C8C8C8)" id="Vector" />
+              <path d={svgPaths.p3554500} fill="var(--fill-0, #C8C8C8)" id="Vector_2" />
+              <path d={svgPaths.p40a2e00} fill="var(--fill-0, #C8C8C8)" id="Vector_3" />
             </g>
           </g>
         </svg>
       </div>
+    </div>
+  );
+}
 
-      <div className="absolute left-1/2 top-[23.5vh] z-10 -translate-x-1/2 scale-x-[1.34] text-center font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[0] text-white tracking-[-8px]">
-        <p className="mb-0 text-[180px] leading-[136px]">Acheter</p>
-        <p className="text-[#bcff3d] text-[170px] leading-[128px]">simplement.</p>
-      </div>
+function FullscreenHero() {
+  const [scale, setScale] = useState(1);
 
-      <img
-        alt=""
-        className="absolute inset-0 z-20 size-full object-cover object-center pointer-events-none"
-        src={imgImage6}
-        style={{ clipPath: "inset(47% 0 0 0)" }}
-      />
+  useEffect(() => {
+    const updateScale = () => {
+      const scaleX = window.innerWidth / 1440;
+      const scaleY = window.innerHeight / 860;
+      setScale(Math.max(scaleX, scaleY));
+    };
 
-      <div className="absolute bottom-[16vh] left-[5vw] z-30 flex items-center gap-[8px] font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.35)]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <svg className="size-[12px]" fill="none" viewBox="0 0 12 12">
-          <path d={svgPaths.p8610900} stroke="#BCFF3D" />
-        </svg>
-        <span>Garantie 12 mois incluse</span>
-      </div>
+    updateScale();
+    window.addEventListener("resize", updateScale);
 
-      <div className="absolute bottom-[8vh] left-[5vw] z-30 font-['DM_Sans:Light',sans-serif] font-light text-[12px] text-[rgba(255,255,255,0.3)]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        Contrôlés · Garantis · Livrés à domicile
-      </div>
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
 
-      <a
-        aria-label="Acheter votre véhicule"
-        className="absolute bottom-[11vh] right-[7vw] z-30 h-[44px] w-[306px] rounded-[100px] bg-[#bcff3d] font-['Syne:ExtraBold',sans-serif] font-extrabold text-[#0c0d0c] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
-        href="/acheter-votre-vehicule"
-      >
-        <span className="absolute left-[18px] top-1/2 -translate-y-1/2 text-[13px] tracking-[0.52px]">Acheter votre véhicule</span>
-        <Svg31 />
-      </a>
+  return (
+    <section
+      className="absolute top-0 z-20 h-[100dvh] overflow-hidden"
+      data-name="fullscreen hero"
+      style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw" }}
+    >
+      <div className="relative h-[100dvh] w-screen overflow-hidden">
+        <div
+          className="absolute left-0 top-0 origin-top-left overflow-hidden bg-[#181818]"
+          style={{ width: "1440px", height: "860px", transform: `scale(${scale})` }}
+          data-name="Hero Section"
+        >
+          <div
+            className="pointer-events-none absolute right-0 top-0 z-10 h-[96px] w-[120px]"
+            style={{ background: "radial-gradient(circle at top right, rgba(5,8,12,0.98) 0%, rgba(5,8,12,0.96) 38%, rgba(5,8,12,0.78) 62%, rgba(5,8,12,0) 100%)" }}
+          />
 
-      <div className="absolute bottom-[6.5vh] right-[8.5vw] z-30 flex items-center gap-[12px] font-['DM_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.18)]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <span className="h-px w-[24px] bg-[rgba(255,255,255,0.15)]" />
-        <span>Scroll pour explorer</span>
+          <div className="absolute h-[1038.64px] left-[-280px] top-[-259px] w-[1841.571px]" data-name="Union">
+            <div className="absolute inset-[-19.26%_-10.86%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2241.57 1438.64">
+                <g filter="url(#filter0_f_hero_main)" id="Union">
+                  <path d={svgPaths.p3b211180} fill="url(#paint0_linear_hero_main)" />
+                </g>
+                <defs>
+                  <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1438.64" id="filter0_f_hero_main" width="2241.57" x="-5.29191e-06" y="6.17938e-06">
+                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                    <feGaussianBlur result="effect1_foregroundBlur_hero_main" stdDeviation="100" />
+                  </filter>
+                  <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_hero_main" x1="86.332" x2="1771.33" y1="958.124" y2="-375.954">
+                    <stop stopColor="#C8EC66" />
+                    <stop offset="0.25" stopColor="#D4FF60" />
+                    <stop offset="0.5" stopColor="#72F9D8" />
+                    <stop offset="0.75" stopColor="#FCFFB4" />
+                    <stop offset="1" stopColor="white" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+          <div className="absolute h-[965px] left-[-4px] top-[-155px] w-[1448px]" data-name="image 6">
+            <img alt="" className="absolute inset-0 size-full max-w-none object-cover pointer-events-none" src={imgImage6} />
+          </div>
+
+          <BrandBar />
+
+          <div className="absolute left-0 right-0 top-[148px] flex h-[303px] flex-col justify-center text-center font-['Syne:ExtraBold',sans-serif] text-[0px] font-extrabold leading-[0] tracking-[-11px] text-white">
+            <p className="mb-0 text-[150px] leading-[113.6px]">Acheter</p>
+            <p className="text-[130px] leading-[113.6px] text-[#bcff3d]">simplement.</p>
+          </div>
+
+          <div className="absolute h-[471px] left-[-46px] top-[353px] w-[1500px]" data-name="image-removebg 1">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <img alt="" className="absolute left-0 top-[-112.31%] h-[212.31%] w-full max-w-none" src={imgImageRemovebg1} />
+            </div>
+          </div>
+
+          <div className="-translate-y-1/2 absolute left-[55px] top-[743px] size-[12px]" data-name="SVG">
+            <svg className="absolute inset-0 block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12 12">
+              <g id="SVG">
+                <path d={svgPaths.p8610900} id="Vector" stroke="var(--stroke-0, #BCFF3D)" />
+              </g>
+            </svg>
+          </div>
+          <div
+            className="-translate-y-1/2 absolute left-[75px] top-[743px] flex h-[16px] w-[134.475px] flex-col justify-center font-['DM_Sans:Regular',sans-serif] text-[12px] font-normal leading-[0] text-[rgba(255,255,255,0.35)]"
+            style={{ fontVariationSettings: "'opsz' 14" }}
+          >
+            <p className="leading-[normal]">Garantie 12 mois incluse</p>
+          </div>
+
+          <div
+            className="-translate-y-1/2 absolute left-[55px] right-[1174.62px] top-[769px] flex h-[16px] flex-col justify-center font-['DM_Sans:Light',sans-serif] text-[12px] font-light leading-[0] text-[rgba(255,255,255,0.3)]"
+            style={{ fontVariationSettings: "'opsz' 14" }}
+          >
+            <p className="leading-[normal]">Contrôlés · Garantis · Livrés à domicile</p>
+          </div>
+
+          <div className="absolute right-[65px] top-[710px] h-[69px] w-[271.64px]" data-name="CTA BAS DROITE">
+            <div className="absolute right-[-0.36px] top-0 h-[44px] w-[306px] rounded-[100px] bg-[#bcff3d]" data-name="Link">
+              <div className="absolute left-[18px] top-1/2 flex h-[16px] w-[247px] -translate-y-1/2 flex-col justify-center font-['Syne:ExtraBold',sans-serif] text-[13px] font-extrabold leading-[0] tracking-[0.52px] text-[#0c0d0c]">
+                <p className="leading-[normal]">Acheter votre véhicule</p>
+              </div>
+              <div className="absolute left-[265px] top-1/2 size-[13px] -translate-y-1/2" data-name="SVG">
+                <svg className="absolute inset-0 block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+                  <g id="SVG">
+                    <path d={svgPaths.p3d0c5000} id="Vector" stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.35417" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <div className="absolute right-[151.92px] top-[62px] h-px w-[24px] bg-[rgba(255,255,255,0.15)]" data-name="Horizontal Divider" />
+
+            <div
+              className="-translate-y-1/2 absolute right-[143.92px] top-[62.5px] flex h-[13px] w-[144.232px] translate-x-full flex-col justify-center font-['DM_Sans:Regular',sans-serif] text-[10px] font-normal uppercase leading-[0] tracking-[1.4px] text-[rgba(255,255,255,0.18)]"
+              style={{ fontVariationSettings: "'opsz' 14" }}
+            >
+              <p className="leading-[normal]">Scroll pour explorer</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -2548,7 +2627,7 @@ export default function HomePage() {
   return (
     <div className="bg-[#181818] relative size-full" data-name="home page">
       <FullscreenHero />
-      <div className="absolute inset-0" style={{ transform: "translateY(max(0px, calc(100vh - 900px)))" }}>
+      <div className="absolute inset-0" style={{ transform: "translateY(calc(100dvh - 860px))" }}>
         <Frame1 />
         <div className="absolute h-[1038.64px] left-[-280px] top-[-259px] w-[1841.571px]" data-name="Union">
         <div className="absolute inset-[-19.26%_-10.86%]">
@@ -2573,7 +2652,7 @@ export default function HomePage() {
           </svg>
         </div>
       </div>
-      <div className="absolute flex h-[698.639px] items-center justify-center left-[690px] top-[2357px] w-[669.918px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
+      <div className="absolute flex h-[698.639px] items-center justify-center left-[690px] top-[2329px] w-[669.918px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
         <div className="flex-none rotate-90">
           <div className="h-[669.918px] relative w-[698.639px]" data-name="Union">
             <div className="absolute inset-[-29.85%_-28.63%]">
@@ -2600,7 +2679,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="absolute bg-[#c8ec66] blur-[142px] left-[-120px] rounded-[9999px] size-[256px] top-[2361px]" data-name="Background+Blur" />
+      <div className="absolute bg-[#c8ec66] blur-[142px] left-[-120px] rounded-[9999px] size-[256px] top-[2333px]" data-name="Background+Blur" />
       <div className="absolute bg-[#9cc726] blur-[142px] bottom-[3601px] right-[-224px] rounded-[9999px] size-[320px]" data-name="Background+Blur" />
       <Frame />
       <Group8 />
@@ -2610,20 +2689,20 @@ export default function HomePage() {
         <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">Solutions</span>
       </p>
       <Container />
-      <a aria-label="Acheter votre véhicule" className="absolute flex h-[664.974px] items-center justify-center left-[776px] top-[2335px] w-[566.613px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/50" href="/acheter-votre-vehicule" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "604" } as React.CSSProperties}>
+      <a aria-label="Acheter votre véhicule" className="absolute flex h-[760px] items-center justify-center left-[760px] top-[2225px] w-[620px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/50" href="/acheter-votre-vehicule" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "604" } as React.CSSProperties}>
         <div className="flex-none rotate-[8.53deg]">
-          <div className="h-[600px] relative w-[483px]" data-name="iPhone 16">
-            <img alt="" className="absolute block inset-0 max-w-none size-full" height="600" src={imgIPhone16} width="483" />
+          <div className="h-[690px] relative w-[555px]" data-name="iPhone 16">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" height="690" src={imgIPhone16} width="555" />
           </div>
         </div>
       </a>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2535.75px] tracking-[-1.5px] w-[654px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2467.75px] tracking-[-1.5px] w-[654px]">
         <p className="leading-[60px]">ACHETEZ VOTRE</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2607.75px] tracking-[-1.5px] w-[395px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2539.75px] tracking-[-1.5px] w-[395px]">
         <p className="leading-[60px]">VEHICULE</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:ExtraBold',sans-serif] font-extrabold h-[136px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2709.75px] tracking-[-1.5px] w-[575px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:ExtraBold',sans-serif] font-extrabold h-[136px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2641.75px] tracking-[-1.5px] w-[575px]">
         <p className="font-['Syne:Bold',sans-serif] font-bold mb-0">
           <span className="leading-[60px]">{`DEPUIS `}</span>
           <span className="bg-clip-text bg-gradient-to-r from-[#c8ec66] leading-[60px] text-[transparent] to-[#b5e43d]">VOTRE</span>
@@ -2635,24 +2714,6 @@ export default function HomePage() {
       <Section />
       <Footer />
       <Group11 />
-      <div className="absolute h-[965px] left-[-4px] top-[-155px] w-[1448px]" data-name="image 6">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgImage6} />
-      </div>
-      <Group12 />
-      <div className="absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold inset-[1.92%_0_94.16%_0] justify-center leading-[0] text-[0px] text-center text-white tracking-[-11px]">
-        <p className="leading-[113.6px] mb-0 text-[150px]">Acheter</p>
-        <p className="leading-[113.6px] text-[#bcff3d] text-[130px]">simplement.</p>
-      </div>
-      <div className="absolute h-[471px] left-[-46px] top-[353px] w-[1500px]" data-name="image-removebg 1">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[212.31%] left-0 max-w-none top-[-112.31%] w-full" src={imgImageRemovebg1} />
-        </div>
-      </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[16px] justify-center leading-[0] left-[55px] right-[1174.62px] text-[12px] text-[rgba(255,255,255,0.3)] top-[769px]" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">Contrôlés · Garantis · Livrés à domicile</p>
-      </div>
-      <Group13 />
-      <CtaBasDroite />
       <OverlayBorder15 />
       <OverlayBorder16 />
       <CommanderUnVehicule />
