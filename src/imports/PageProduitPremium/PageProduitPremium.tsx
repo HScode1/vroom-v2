@@ -1176,6 +1176,45 @@ function Footer() {
   );
 }
 
+function MobileFooter() {
+  return (
+    <footer className="mt-10 border-t border-[#1f2937] py-8">
+      <div className="mx-auto max-w-[760px] px-5 sm:px-8">
+        <div className="space-y-8 rounded-[24px] bg-[#111411] p-5 sm:p-6">
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Qu’attendez-vous ?</div>
+            <a href="tel:+33670760719" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-4 py-3 text-[15px] text-black">
+              06 70 76 07 19
+            </a>
+            <div className="mt-4 text-[15px] text-white">contact@vroomparis.fr</div>
+            <div className="mt-4 text-[15px] leading-6 text-white">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</div>
+          </div>
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+            <div className="mt-4 space-y-2 text-[15px] text-white">
+              <a href="/showroom">Showroom</a>
+              <a href="/acheter-votre-vehicule">Acheter un véhicule</a>
+              <a href="/vendre-votre-vehicule">Vendre votre véhicule</a>
+              <a href="/conseils">Consultation automobile</a>
+              <a href="/a-propos">À propos</a>
+            </div>
+          </div>
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+            <div className="mt-4 space-y-2 text-[15px] text-white">
+              <div>Politique de confidentialité</div>
+              <div>Conditions générales</div>
+            </div>
+          </div>
+          <div className="border-t border-[#1f2937] pt-4 text-center text-[14px] text-[#9ca3af]">
+            © 2026 Vroom Paris. Tous droits réservés.
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 export default function PageProduitPremium() {
   const navigate = useNavigate();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -1194,70 +1233,251 @@ export default function PageProduitPremium() {
     navigate("/showroom");
   };
 
+  const mobileSpecsLeft = [
+    "Couleur extérieure Blanc",
+    "intérieur noir",
+    "Type de carburant essence",
+    "Moteur essence 4 cylindres en ligne 2 litres, injection directe, DACT, distribution variable",
+  ];
+  const mobileSpecsRight = [
+    "22-29 mpg",
+    "Transmission intégrale",
+    "Transmission automatique",
+    "Aucun accident ni dommage n'a été signalé.",
+  ];
+  const mobileHistoryItems = [
+    "Titre de propriété propre",
+    "Aucun accident ni dommage n'a été signalé.",
+    "1 propriétaire",
+    "Usage personnel uniquement",
+    "Aucun rappel en cours n'a été signalé.",
+  ];
+
   return (
-    <div className="bg-[#181818] relative size-full" data-name="page produit premium">
-      <div className="absolute h-[742.871px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
-        <div className="absolute inset-[-26.92%_-7.51%]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
-            <g filter="url(#filter0_f_6_3338)" id="Union">
-              <path d={svgPaths.p57e6680} fill="url(#paint0_linear_6_3338)" />
-            </g>
-            <defs>
-              <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_3338" width="3064.78" x="2.20415e-06" y="3.20925e-06">
-                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
-                <feGaussianBlur result="effect1_foregroundBlur_6_3338" stdDeviation="100" />
-              </filter>
-              <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_3338" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
-                <stop stopColor="#C8EC66" />
-                <stop offset="0.25" stopColor="#D4FF60" />
-                <stop offset="0.5" stopColor="#72F9D8" />
-                <stop offset="0.75" stopColor="#FCFFB4" />
-                <stop offset="1" stopColor="white" />
-              </linearGradient>
-            </defs>
-          </svg>
+    <div className="bg-[#181818] relative min-h-screen size-full" data-name="page produit premium">
+      <div className="relative overflow-hidden xl:hidden">
+        <div className="pointer-events-none absolute left-1/2 top-[-120px] h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(200,236,102,0.18)_0%,rgba(200,236,102,0)_68%)]" />
+        <div className="mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
+          <button className="mb-6 inline-flex items-center gap-3 text-left text-white" onClick={handleBack} type="button">
+            <span className="inline-flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/5 text-[18px]">←</span>
+            <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[20px]">Retour</span>
+          </button>
+
+          <div className="relative overflow-hidden rounded-[24px] border border-white/8 bg-[#0f0f10]">
+            <img alt="BMW X3 xDrive30i" className="h-[260px] w-full object-cover sm:h-[340px]" src={selectedImage} />
+            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
+              <div className="rounded-full bg-[#626366] px-3 py-1 text-[11px] uppercase text-white">
+                {selectedImageIndex + 1} / {galleryImages.length}
+              </div>
+              <div className="flex gap-2">
+                <button className="flex size-9 items-center justify-center rounded-full bg-white text-[#626366]" onClick={goToPreviousImage} type="button">‹</button>
+                <button className="flex size-9 items-center justify-center rounded-full bg-white text-[#626366]" onClick={goToNextImage} type="button">›</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
+            {thumbnailImages.map((src, index) => (
+              <button
+                key={src}
+                aria-label={`Afficher la photo ${index + 1}`}
+                className="relative h-[68px] w-[108px] shrink-0 overflow-hidden rounded-[8px]"
+                onClick={() => setSelectedImageIndex(index)}
+                type="button"
+              >
+                <img alt="" className="h-full w-full object-cover" src={src} />
+                <div className={`absolute inset-0 rounded-[8px] border-2 ${selectedImageIndex === index ? "border-white" : "border-transparent"}`} />
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <h1 className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[32px] leading-[1.1] tracking-[-0.48px] text-white">BMW X3 xDrive30i d&apos;occasion</h1>
+
+            <div className="mt-5 rounded-[18px] bg-white/0 shadow-[0px_0px_10px_0px_rgba(68,89,88,0.1)]">
+              <div className="text-[42px] font-['DM_Sans:Bold',sans-serif] font-bold tracking-[-0.48px] text-white">16 990 €</div>
+              <div className="mt-1 font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-white">85 912 km</div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="rounded-full bg-[#e3f4f1] px-3 py-1 text-[12px] text-[#181818]">Bonne affaire</span>
+                <span className="rounded-full bg-[#f0f2f1] px-3 py-1 text-[12px] text-[#181818]">baisse de prix de 1 000 €</span>
+                <span className="rounded-full bg-[#f0f2f1] px-3 py-1 text-[12px] text-[#181818]">Forte demande</span>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-[18px] border border-[#e0e4e3] p-5">
+              <div className="font-['DM_Sans:Bold',sans-serif] text-[26px] tracking-[-0.48px] text-white">
+                Un prix cohérent <span className="text-[#21a38a]">avec le marché</span>
+              </div>
+              <div className="relative mt-5 h-[90px]">
+                <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#b072f9]" />
+                <div className="absolute left-[14%] right-[14%] top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#21a38a]" />
+                <div className="absolute right-0 top-1/2 h-1 w-[26%] -translate-y-1/2 rounded-full bg-[#fa7412]" />
+                <div className="absolute left-[15%] top-1/2 size-[10px] -translate-y-1/2 rounded-full bg-[#21a38a] shadow-[0px_0px_0px_5px_#c6eae3]" />
+                <div className="absolute left-[8%] top-[64px] text-[11px] text-white">16 990 €</div>
+              </div>
+              <p className="mt-3 font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6 text-white">
+                Ce véhicule est proposé à un tarif aligné avec les prix constatés sur le marché français.
+              </p>
+              <button
+                className="mt-5 flex w-full items-center justify-between border-t border-white/10 pt-4 text-left"
+                onClick={() => setIsPriceHistoryOpen((current) => !current)}
+                type="button"
+              >
+                <span className="font-['DM_Sans:Bold',sans-serif] text-[24px] text-white">Évolution du prix</span>
+                <span className={`text-white transition-transform ${isPriceHistoryOpen ? "" : "rotate-180"}`}>⌃</span>
+              </button>
+              {isPriceHistoryOpen ? (
+                <p className="mt-3 font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6 text-white">
+                  Ce véhicule a bénéficié d’un ajustement tarifaire pour vous proposer le meilleur prix.
+                </p>
+              ) : null}
+            </div>
+
+            <div className="mt-8">
+              <div className="font-['DM_Sans:Bold',sans-serif] text-[26px] tracking-[-0.48px] text-white">Caractéristiques principales du véhicule</div>
+              <div className="mt-2 font-['Helvetica_Neue:Regular',sans-serif] text-[12px] leading-5 text-white">
+                Numéro d&apos;identification du véhicule (VIN) : 5UXTR9C52KLP97298 / Numéro de stock : LX14141
+              </div>
+              <div className="mt-6 grid gap-6 sm:grid-cols-2">
+                <div className="space-y-3">
+                  {mobileSpecsLeft.map((item) => (
+                    <div key={item} className="flex items-start gap-3 text-white">
+                      <span className="mt-1 text-[14px]">•</span>
+                      <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-3">
+                  {mobileSpecsRight.map((item) => (
+                    <div key={item} className="flex items-start gap-3 text-white">
+                      <span className="mt-1 text-[14px]">•</span>
+                      <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <div className="font-['DM_Sans:Bold',sans-serif] text-[26px] tracking-[-0.48px] text-white">Contacter un conseiller pour ce véhicule</div>
+              <div className="mt-4 rounded-[18px] bg-[#c8ec66] px-5 py-6 text-[#181818]">
+                <p className="font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6">
+                  Contactez-nous dès maintenant pour <span className="font-['Helvetica_Neue:Bold',sans-serif]">vérifier</span> la disponibilité, <span className="font-['Helvetica_Neue:Bold',sans-serif]">réserver</span> le véhicule ou obtenir un <span className="font-['Helvetica_Neue:Bold',sans-serif]">accompagnement personnalisé.</span>
+                </p>
+                <a
+                  className="mt-5 inline-flex w-full items-center justify-center rounded-full border border-white bg-white px-5 py-3 text-[14px] font-bold text-[#181818]"
+                  href="mailto:contact@vroomparis.fr?subject=BMW%20X3%20xDrive30i%20d%27occasion"
+                >
+                  Contacter un conseiller
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <div className="font-['DM_Sans:Bold',sans-serif] text-[26px] tracking-[-0.48px] text-white">Notes du vendeur</div>
+              <p className="mt-4 font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6 text-white">
+                {sellerNotesExpanded ? sellerNoteFull : sellerNotePreview}
+              </p>
+              <button
+                className="mt-4 inline-flex items-center gap-3 font-['Helvetica_Neue:Bold',sans-serif] text-[15px] text-white"
+                onClick={() => setSellerNotesExpanded((current) => !current)}
+                type="button"
+              >
+                <span>{sellerNotesExpanded ? "Réduire les notes du vendeur" : "Afficher plus de notes du vendeur"}</span>
+                <span className={`transition-transform ${sellerNotesExpanded ? "rotate-180" : ""}`}>⌄</span>
+              </button>
+              <a
+                className="mt-4 inline-flex items-center gap-3 font-['Helvetica_Neue:Bold',sans-serif] text-[15px] text-white"
+                href="https://www.vroomparis.fr"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span>Voir le véhicule sur le site web du concessionnaire</span>
+                <span>↗</span>
+              </a>
+            </div>
+
+            <div className="mt-8">
+              <div className="font-['DM_Sans:Bold',sans-serif] text-[26px] tracking-[-0.48px] text-white">Rapport d&apos;historique du véhicule</div>
+              <div className="mt-4 text-[16px] text-white">AutoCheck par Experian</div>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {mobileHistoryItems.map((item) => (
+                  <div key={item} className="flex items-start gap-3 text-white">
+                    <span className="mt-1 text-[14px]">✓</span>
+                    <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <MobileFooter />
         </div>
       </div>
-      <button className="absolute h-[78px] left-[110px] top-[225px] w-[220px] cursor-pointer text-left" onClick={handleBack} type="button">
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[78px] justify-center leading-[0] left-[48px] not-italic text-[33.9px] text-white top-[39px] w-[150px]">
-          <p className="leading-[62.88px]">Retour</p>
-        </div>
-        <div className="-translate-y-1/2 absolute flex items-center justify-center left-[15px] size-[21.31px] top-[39px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "0" } as React.CSSProperties}>
-          <div className="-rotate-130 flex-none">
-            <div className="border-r-2 border-solid border-t-2 border-white size-[15.126px]" data-name="Border" />
+      <div className="relative mx-auto hidden min-h-[2719px] w-[1920px] xl:block">
+        <div className="absolute h-[742.871px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
+          <div className="absolute inset-[-26.92%_-7.51%]">
+            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
+              <g filter="url(#filter0_f_6_3338)" id="Union">
+                <path d={svgPaths.p57e6680} fill="url(#paint0_linear_6_3338)" />
+              </g>
+              <defs>
+                <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_3338" width="3064.78" x="2.20415e-06" y="3.20925e-06">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                  <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                  <feGaussianBlur result="effect1_foregroundBlur_6_3338" stdDeviation="100" />
+                </filter>
+                <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_3338" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
+                  <stop stopColor="#C8EC66" />
+                  <stop offset="0.25" stopColor="#D4FF60" />
+                  <stop offset="0.5" stopColor="#72F9D8" />
+                  <stop offset="0.75" stopColor="#FCFFB4" />
+                  <stop offset="1" stopColor="white" />
+                </linearGradient>
+              </defs>
+            </svg>
           </div>
         </div>
-      </button>
-      <Container onSelect={setSelectedImageIndex} selectedIndex={selectedImageIndex} />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[46.5px] justify-center leading-[0] left-[1233px] text-[40px] text-white top-[326.25px] tracking-[-0.48px] w-[587.768px]">
-        <p className="leading-[43.2px]">{`BMW X3 xDrive30i d'occasion`}</p>
-      </div>
-      <Section />
-      <Section1 isPriceHistoryOpen={isPriceHistoryOpen} onTogglePriceHistory={() => setIsPriceHistoryOpen((current) => !current)} />
-      <Section3 />
-      <Section4 />
-      <Section5 onToggleSellerNotes={() => setSellerNotesExpanded((current) => !current)} sellerNotesExpanded={sellerNotesExpanded} />
-      <Section6 />
-      <div className="absolute h-[768px] left-[106px] top-[371px] w-[1024px]" data-name="8301">
-        <img alt="BMW X3 xDrive30i" className="absolute inset-0 max-w-none object-cover size-full" src={selectedImage} />
-      </div>
-      <button className="absolute bg-white left-[125px] size-[34px] top-[753px] cursor-pointer" data-name="Button - Previous slide" onClick={goToPreviousImage} type="button">
-        <Svg />
-      </button>
-      <button className="absolute bg-white h-[35px] right-[815px] top-[755px] w-[34px] cursor-pointer" data-name="Button - Next slide" onClick={goToNextImage} type="button">
-        <Svg1 />
-      </button>
-      <button className="absolute bg-white border border-[#f2f5fc] border-solid left-[1074px] rounded-[2px] size-[28px] top-[1079px] cursor-pointer" data-name="Button" onClick={() => window.open(selectedImage, "_blank", "noopener,noreferrer")} type="button">
-        <Svg2 />
-      </button>
-      <Group3 />
-      <div className="absolute bg-[#626366] bottom-[1608px] h-[22px] left-[134px] rounded-[16px] w-[33px]" data-name="Background">
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[15px] justify-center leading-[0] left-[calc(50%+0.59px)] not-italic text-[9.6px] text-center text-white top-[calc(50%-0.5px)] uppercase w-[22px]">
-          <p className="leading-[12px]">{selectedImageIndex + 1} / 7</p>
+        <button className="absolute h-[78px] left-[110px] top-[225px] w-[220px] cursor-pointer text-left" onClick={handleBack} type="button">
+          <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[78px] justify-center leading-[0] left-[48px] not-italic text-[33.9px] text-white top-[39px] w-[150px]">
+            <p className="leading-[62.88px]">Retour</p>
+          </div>
+          <div className="-translate-y-1/2 absolute flex items-center justify-center left-[15px] size-[21.31px] top-[39px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "0" } as React.CSSProperties}>
+            <div className="-rotate-130 flex-none">
+              <div className="border-r-2 border-solid border-t-2 border-white size-[15.126px]" data-name="Border" />
+            </div>
+          </div>
+        </button>
+        <Container onSelect={setSelectedImageIndex} selectedIndex={selectedImageIndex} />
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[46.5px] justify-center leading-[0] left-[1233px] text-[40px] text-white top-[326.25px] tracking-[-0.48px] w-[587.768px]">
+          <p className="leading-[43.2px]">{`BMW X3 xDrive30i d'occasion`}</p>
         </div>
+        <Section />
+        <Section1 isPriceHistoryOpen={isPriceHistoryOpen} onTogglePriceHistory={() => setIsPriceHistoryOpen((current) => !current)} />
+        <Section3 />
+        <Section4 />
+        <Section5 onToggleSellerNotes={() => setSellerNotesExpanded((current) => !current)} sellerNotesExpanded={sellerNotesExpanded} />
+        <Section6 />
+        <div className="absolute h-[768px] left-[106px] top-[371px] w-[1024px]" data-name="8301">
+          <img alt="BMW X3 xDrive30i" className="absolute inset-0 max-w-none object-cover size-full" src={selectedImage} />
+        </div>
+        <button className="absolute bg-white left-[125px] size-[34px] top-[753px] cursor-pointer" data-name="Button - Previous slide" onClick={goToPreviousImage} type="button">
+          <Svg />
+        </button>
+        <button className="absolute bg-white h-[35px] right-[815px] top-[755px] w-[34px] cursor-pointer" data-name="Button - Next slide" onClick={goToNextImage} type="button">
+          <Svg1 />
+        </button>
+        <button className="absolute bg-white border border-[#f2f5fc] border-solid left-[1074px] rounded-[2px] size-[28px] top-[1079px] cursor-pointer" data-name="Button" onClick={() => window.open(selectedImage, "_blank", "noopener,noreferrer")} type="button">
+          <Svg2 />
+        </button>
+        <Group3 />
+        <div className="absolute bg-[#626366] bottom-[1608px] h-[22px] left-[134px] rounded-[16px] w-[33px]" data-name="Background">
+          <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[15px] justify-center leading-[0] left-[calc(50%+0.59px)] not-italic text-[9.6px] text-center text-white top-[calc(50%-0.5px)] uppercase w-[22px]">
+            <p className="leading-[12px]">{selectedImageIndex + 1} / 7</p>
+          </div>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

@@ -38,7 +38,7 @@ const NAV_LINKS = [
 ];
 
 const PAGE_SIZES: Record<string, { width: number; height: number }> = {
-  "/": { width: 1440, height: 7468 },
+  "/": { width: 1440, height: 7761 },
   "/a-propos": { width: 1440, height: 4347 },
   "/conseils": { width: 1440, height: 4379 },
   "/conseils/formulaire": { width: 1440, height: 2404 },
@@ -54,8 +54,18 @@ const PAGE_SIZES: Record<string, { width: number; height: number }> = {
 function PageWrapper({ path, children }: { path: string; children: React.ReactNode }) {
   const { width, height } = PAGE_SIZES[path] ?? { width: 1440, height: 900 };
 
-  if (path === "/showroom/produit") {
-    return <ResponsivePageWrapper height={height} width={width}>{children}</ResponsivePageWrapper>;
+  if (
+    path === "/a-propos" ||
+    path === "/conseils" ||
+    path === "/conseils/formulaire" ||
+    path === "/conseils/formulaire/etape-2" ||
+    path === "/vendre-votre-vehicule" ||
+    path === "/vendre-votre-vehicule/formulaire" ||
+    path === "/acheter-votre-vehicule" ||
+    path === "/acheter-votre-vehicule/etape-2" ||
+    path === "/showroom/produit"
+  ) {
+    return <div className="relative w-full">{children}</div>;
   }
 
   const wrapperClassName = "relative mx-auto";
@@ -99,6 +109,8 @@ function ResponsivePageWrapper({
       <div
         className="absolute left-1/2 top-0 origin-top"
         style={{
+          ["--page-scale" as string]: String(scale),
+          ["--page-width" as string]: `${width}px`,
           width,
           height,
           transform: `translateX(-50%) scale(${scale})`,

@@ -949,17 +949,233 @@ function Footer() {
   );
 }
 
-export default function Etape2FormulaireConseil() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const bookingDate = formatBookingDate(searchParams.get("date"));
-  const bookingTime = formatBookingTime(searchParams.get("slot"), searchParams.get("duration"));
-  const bookingFormat = formatBookingFormat(searchParams.get("format"));
-  const fullName = formatFullName(searchParams.get("firstName"), searchParams.get("lastName"));
-  const email = searchParams.get("email") || "jean.dupont@email.com";
-
+function MobileConfirmationCard({
+  fullName,
+  email,
+  bookingDate,
+  bookingTime,
+  bookingFormat,
+  onEdit,
+  onCancel,
+  onHome,
+}: {
+  fullName: string;
+  email: string;
+  bookingDate: string;
+  bookingTime: string;
+  bookingFormat: string;
+  onEdit: () => void;
+  onCancel: () => void;
+  onHome: () => void;
+}) {
   return (
-    <div className="bg-[#181818] relative size-full" data-name="etape 2 formulaire conseil">
+    <div className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+      <div className="border-b border-[rgba(255,255,255,0.08)] p-5 sm:p-6">
+        <div className="flex items-start gap-4">
+          <div className="relative flex size-[40px] shrink-0 items-center justify-center rounded-[10px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)]">
+            <Svg />
+          </div>
+          <div className="min-w-0">
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold text-white">VroomAdvisor · Réservation</p>
+            <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.4)]">Étape 3 sur 3 — Confirmation</p>
+          </div>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-3 text-[11px]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.15)] px-3 py-2 text-[#bcff3d]">
+            <span className="inline-flex size-[22px] items-center justify-center rounded-[11px] border border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.15)]">•</span>
+            Créneau
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.15)] px-3 py-2 text-[#bcff3d]">
+            <span className="inline-flex size-[22px] items-center justify-center rounded-[11px] border border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.15)]">•</span>
+            Infos
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#bcff3d] px-3 py-2 font-semibold text-[#0c0d0c]">
+            <span className="inline-flex size-[22px] items-center justify-center rounded-[11px] bg-[#bcff3d]">•</span>
+            Confirmation
+          </span>
+        </div>
+      </div>
+
+      <div className="p-5 sm:p-6">
+        <div className="flex justify-center">
+          <div className="relative flex size-[92px] items-center justify-center rounded-[32px] border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.12)]">
+            <div className="relative flex size-[72px] items-center justify-center rounded-[28px] border border-[rgba(188,255,61,0.18)]">
+              <Svg4 />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <h2 className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] text-[28px] font-extrabold text-white">
+            Rendez-vous <span className="text-[#bcff3d]">confirmé !</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-[36rem] text-[14px] leading-7 text-[rgba(255,255,255,0.55)]">
+            Votre consultation est réservée, <span className="font-medium text-[rgba(255,255,255,0.9)]">{fullName}</span>. Un email de confirmation
+            a été envoyé à <span className="font-medium text-[rgba(255,255,255,0.9)] break-all">{email}</span>. Votre conseiller vous contactera à l&apos;heure choisie.
+          </p>
+        </div>
+
+        <div className="mt-8 space-y-4">
+          <div className="rounded-[16px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.06)] p-4">
+            <div className="text-[10px] uppercase tracking-[1px] text-[rgba(188,255,61,0.55)]">Créneau confirmé</div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="inline-flex rounded-full border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)] px-3 py-2 text-[12px] text-[#bcff3d]">{bookingDate}</span>
+              <span className="inline-flex rounded-full border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)] px-3 py-2 text-[12px] text-[#bcff3d]">{bookingTime}</span>
+            </div>
+          </div>
+
+          <div className="rounded-[16px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-4">
+            <div className="text-[10px] uppercase tracking-[1px] text-[rgba(255,255,255,0.3)]">Format</div>
+            <div className="mt-2 text-[14px] text-white">{bookingFormat}</div>
+          </div>
+        </div>
+
+        <div className="mt-8 space-y-3">
+          <button
+            type="button"
+            onClick={onHome}
+            className="w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+          >
+            Retour à l&apos;accueil
+          </button>
+          <button
+            type="button"
+            onClick={onEdit}
+            className="w-full rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-4 text-[14px] text-white"
+          >
+            Modifier mes informations
+          </button>
+          <button
+            type="button"
+            onClick={onCancel}
+            className="w-full rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-transparent px-4 py-4 text-[14px] text-[rgba(255,255,255,0.65)]"
+          >
+            Annuler ce rendez-vous
+          </button>
+        </div>
+
+        <div className="mt-6 flex flex-wrap justify-center gap-4 text-[11px] text-[rgba(255,255,255,0.28)]">
+          <span>Confirmation par email</span>
+          <span>Annulation gratuite 24h avant</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileFooterConfirmation() {
+  return (
+    <footer className="mt-24 rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-6 sm:p-8">
+      <div className="grid gap-8">
+        <div>
+          <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[22px] text-white">Qu&apos;attendez-vous ?</div>
+          <a href="tel:+33670760719" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-5 py-3 text-[16px] text-black">06 70 76 07 19</a>
+          <div className="mt-5 space-y-3 text-[15px] text-white">
+            <a href="mailto:contact@vroomparis.fr" className="block break-all">contact@vroomparis.fr</a>
+            <span className="block text-[rgba(255,255,255,0.72)]">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</span>
+          </div>
+        </div>
+        <div className="grid gap-8 sm:grid-cols-2">
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+            <div className="mt-4 space-y-3 text-[15px] text-white">
+              <a href="/showroom" className="block">Showroom</a>
+              <a href="/acheter-votre-vehicule" className="block">Acheter un véhicule</a>
+              <a href="/vendre-votre-vehicule" className="block">Vendre votre véhicule</a>
+              <a href="/conseils" className="block">Consultation automobile</a>
+              <a href="/a-propos" className="block">À propos</a>
+            </div>
+          </div>
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+            <div className="mt-4 space-y-3 text-[15px] text-white">
+              <div>Politique de confidentialité</div>
+              <div>Conditions générales</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-8 border-t border-[#1f2937] pt-5 text-center text-[14px] text-[#9ca3af]">© 2026 Vroom Paris. Tous droits réservés.</div>
+    </footer>
+  );
+}
+
+function MobileEtape2FormulaireConseil({
+  fullName,
+  email,
+  bookingDate,
+  bookingTime,
+  bookingFormat,
+  onEdit,
+  onCancel,
+  onHome,
+}: {
+  fullName: string;
+  email: string;
+  bookingDate: string;
+  bookingTime: string;
+  bookingFormat: string;
+  onEdit: () => void;
+  onCancel: () => void;
+  onHome: () => void;
+}) {
+  return (
+    <div className="relative overflow-x-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-140px] h-[440px] w-[760px] -translate-x-1/2 opacity-80 blur-[90px]">
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_rgba(200,236,102,0.35),_rgba(114,249,216,0.08)_45%,_rgba(24,24,24,0)_75%)]" />
+      </div>
+      <div className="relative mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
+        <section className="text-center">
+          <h1 className="font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
+            Réservez votre
+            <span className="block text-[#bcff3d]">consultation automobile</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-[34rem] font-['DM_Sans:Regular',sans-serif] text-[16px] leading-7 text-[rgba(255,255,255,0.56)]">
+            Choisissez votre créneau. Un expert VroomAdvisor vous rappelle à l&apos;heure choisie.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <MobileConfirmationCard
+            fullName={fullName}
+            email={email}
+            bookingDate={bookingDate}
+            bookingTime={bookingTime}
+            bookingFormat={bookingFormat}
+            onEdit={onEdit}
+            onCancel={onCancel}
+            onHome={onHome}
+          />
+        </section>
+
+        <MobileFooterConfirmation />
+      </div>
+    </div>
+  );
+}
+
+function DesktopEtape2FormulaireConseil({
+  fullName,
+  email,
+  bookingDate,
+  bookingTime,
+  bookingFormat,
+  onEdit,
+  onCancel,
+  onHome,
+}: {
+  fullName: string;
+  email: string;
+  bookingDate: string;
+  bookingTime: string;
+  bookingFormat: string;
+  onEdit: () => void;
+  onCancel: () => void;
+  onHome: () => void;
+}) {
+  return (
+    <div className="relative mx-auto hidden h-[2219px] w-[1440px] bg-[#181818] xl:block" data-name="etape 2 formulaire conseil">
       <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.781px]" data-name="Union">
         <div className="absolute inset-[-26.92%_-7.51%]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -989,7 +1205,24 @@ export default function Etape2FormulaireConseil() {
         <p className="leading-[26.35px] mb-0">Choisissez votre créneau. Un expert VroomAdvisor vous</p>
         <p className="leading-[26.35px]">{`rappelle à l'heure choisie.`}</p>
       </div>
-      <OverlayBorder
+      <OverlayBorder fullName={fullName} email={email} bookingDate={bookingDate} bookingTime={bookingTime} bookingFormat={bookingFormat} onEdit={onEdit} onCancel={onCancel} onHome={onHome} />
+      <Footer />
+    </div>
+  );
+}
+
+export default function Etape2FormulaireConseil() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const bookingDate = formatBookingDate(searchParams.get("date"));
+  const bookingTime = formatBookingTime(searchParams.get("slot"), searchParams.get("duration"));
+  const bookingFormat = formatBookingFormat(searchParams.get("format"));
+  const fullName = formatFullName(searchParams.get("firstName"), searchParams.get("lastName"));
+  const email = searchParams.get("email") || "jean.dupont@email.com";
+
+  return (
+    <div className="w-full bg-[#181818]">
+      <MobileEtape2FormulaireConseil
         fullName={fullName}
         email={email}
         bookingDate={bookingDate}
@@ -999,7 +1232,16 @@ export default function Etape2FormulaireConseil() {
         onCancel={() => navigate(`/conseils?${searchParams.toString()}`)}
         onHome={() => navigate("/")}
       />
-      <Footer />
+      <DesktopEtape2FormulaireConseil
+        fullName={fullName}
+        email={email}
+        bookingDate={bookingDate}
+        bookingTime={bookingTime}
+        bookingFormat={bookingFormat}
+        onEdit={() => navigate(`/conseils/formulaire?${searchParams.toString()}`)}
+        onCancel={() => navigate(`/conseils?${searchParams.toString()}`)}
+        onHome={() => navigate("/")}
+      />
     </div>
   );
 }

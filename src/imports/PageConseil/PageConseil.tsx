@@ -2233,9 +2233,442 @@ function Footer() {
   );
 }
 
-export default function PageConseil() {
+const SERVICE_ITEMS = [
+  { title: "Consultation en ligne", description: "Visio, téléphone ou WhatsApp", icon: <Svg5 /> },
+  { title: "Analyse de profil", description: "Budget, usage, fiabilité", icon: <Svg6 /> },
+  { title: "Sélection ciblée", description: "Comparatif objectif", icon: <Svg7 /> },
+  { title: "Négociation", description: "Prix, reprise, financement", icon: <MaterialSymbolsEuroRounded /> },
+  { title: "Livraison à domicile", description: "Clé en main, si souhaité", icon: <Svg8 /> },
+  { title: "Achat sécurisé", description: "Zéro mauvaise surprise", icon: <Svg9 /> },
+] as const;
+
+const PROCESS_ITEMS = [
+  {
+    id: "01",
+    title: "Vous réservez un créneau",
+    description: "Choisissez votre format, votre créneau et la durée adaptée à votre projet. Confirmation immédiate par email.",
+    badge: "Confirmation immédiate par email",
+  },
+  {
+    id: "02",
+    title: "On analyse votre besoin",
+    description: "Budget, usage quotidien, fiabilité, entretien, financement: votre conseiller établit un profil précis et personnalisé.",
+    badge: "Analyse 100% personnalisée",
+  },
+  {
+    id: "03",
+    title: "On propose les meilleures options",
+    description: "Sélection ciblée de véhicules, comparatif clair et objectif, conseils sur la négociation et la valeur de reprise.",
+    badge: "Accès à tout le marché auto",
+  },
+  {
+    id: "04",
+    title: "On finalise ensemble",
+    description: "Aide à l'immatriculation, au financement et à la livraison clé en main. Votre conseiller reste disponible jusqu'à la remise des clés.",
+    badge: "Accompagnement jusqu'au bout",
+  },
+] as const;
+
+const PROMISE_ITEMS = [
+  "Gain de temps garanti",
+  "Zéro mauvaise surprise",
+  "Conseiller dédié du début à la fin",
+  "Sécurité d'achat totale",
+] as const;
+
+function MobileSectionTitle({
+  eyebrow,
+  title,
+  accent,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  accent: string;
+  description?: string;
+}) {
   return (
-    <div className="bg-[#181818] relative size-full" data-name="page conseil">
+    <div className="space-y-4">
+      <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[11px] font-medium uppercase tracking-[1.32px] text-[#bcff3d]">
+        <span className="size-[6px] rounded-full bg-[#bcff3d]" />
+        {eyebrow}
+      </div>
+      <div className="space-y-3">
+        <h2 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px]">
+          {title}
+          <span className="block text-[#bcff3d]">{accent}</span>
+        </h2>
+        {description ? (
+          <p className="max-w-[40rem] font-['DM_Sans:Regular',sans-serif] text-[15px] leading-7 text-[rgba(255,255,255,0.56)]">
+            {description}
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function MobileBookingCard() {
+  const [searchParams] = useSearchParams();
+  const requestedDate = searchParams.get("date");
+  const requestedMonthId = requestedDate?.slice(0, 7);
+  const requestedDay = Number(requestedDate?.slice(8, 10));
+  const requestedDurationLabel = searchParams.get("duration");
+  const requestedSlot = searchParams.get("slot");
+  const requestedFormat = searchParams.get("format");
+
+  const initialMonthIndex = Math.max(0, BOOKING_MONTHS.findIndex((month) => month.id === requestedMonthId));
+  const initialMonth = BOOKING_MONTHS[initialMonthIndex] ?? BOOKING_MONTHS[0];
+  const initialDate =
+    initialMonth.dates.find((date) => date.day === requestedDay && date.available)?.day ??
+    initialMonth.dates.find((date) => date.available)?.day ??
+    initialMonth.dates[0].day;
+  const initialDuration = BOOKING_DURATIONS.find((duration) => duration.label === requestedDurationLabel)?.id ?? "30";
+  const initialSlot = BOOKING_SLOTS.find((slot) => slot.time === requestedSlot && slot.available)?.time ?? "10:30";
+  const initialFormat = BOOKING_FORMATS.find((format) => format.id === requestedFormat)?.id ?? "visio";
+
+  const [activeMonthIndex, setActiveMonthIndex] = useState(initialMonthIndex);
+  const [selectedDate, setSelectedDate] = useState(initialDate);
+  const [selectedDuration, setSelectedDuration] = useState(initialDuration);
+  const [selectedSlot, setSelectedSlot] = useState(initialSlot);
+  const [selectedFormat, setSelectedFormat] = useState(initialFormat);
+
+  const activeMonth = BOOKING_MONTHS[activeMonthIndex];
+  const selectedDateItem = activeMonth.dates.find((date) => date.day === selectedDate) ?? activeMonth.dates[0];
+  const selectedDurationItem = BOOKING_DURATIONS.find((duration) => duration.id === selectedDuration) ?? BOOKING_DURATIONS[0];
+
+  return (
+    <div className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+      <div className="border-b border-[rgba(255,255,255,0.08)] p-5 sm:p-6">
+        <div className="flex items-start gap-4">
+          <div className="relative flex size-[42px] shrink-0 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)]">
+            <Svg />
+          </div>
+          <div className="min-w-0">
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold text-white">Prise de rendez-vous VroomAdvisor</p>
+            <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">Sélectionnez une date, une durée et un créneau.</p>
+          </div>
+        </div>
+        <div className="mt-4 inline-flex rounded-full bg-[#bcff3d] px-4 py-2 text-[11px] font-bold tracking-[0.44px] text-[#0c0d0c]">
+          Prochain dispo : demain
+        </div>
+      </div>
+
+      <div className="p-5 sm:p-6">
+        <div className="flex items-center justify-between">
+          <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[22px] font-bold text-white">{activeMonth.label}</p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              className="flex size-9 items-center justify-center rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.5)]"
+              onClick={() =>
+                setActiveMonthIndex((current) => {
+                  const nextIndex = Math.max(0, current - 1);
+                  setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
+                  return nextIndex;
+                })
+              }
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              className="flex size-9 items-center justify-center rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.5)]"
+              onClick={() =>
+                setActiveMonthIndex((current) => {
+                  const nextIndex = Math.min(BOOKING_MONTHS.length - 1, current + 1);
+                  setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
+                  return nextIndex;
+                })
+              }
+            >
+              ›
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-7 gap-2">
+          {CALENDAR_WEEKDAYS.map((weekday) => (
+            <div key={weekday} className="text-center text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">
+              {weekday}
+            </div>
+          ))}
+          {activeMonth.leadingPreview.map((day, index) => (
+            <div key={`leading-${activeMonth.id}-${index}`} className="flex aspect-square items-center justify-center text-[14px] text-[rgba(255,255,255,0.08)]">
+              {day}
+            </div>
+          ))}
+          {activeMonth.dates.map((date) => {
+            const isSelected = date.day === selectedDate;
+            const isDisabled = !date.available;
+            return (
+              <button
+                key={`${activeMonth.id}-${date.day}`}
+                type="button"
+                disabled={isDisabled}
+                onClick={() => setSelectedDate(date.day)}
+                className={[
+                  "relative aspect-square rounded-[12px] border text-[14px] transition-colors",
+                  isSelected
+                    ? "border-[#bcff3d] bg-[#bcff3d] font-bold text-[#0c0d0c]"
+                    : date.isToday
+                      ? "border-[rgba(188,255,61,0.38)] bg-[rgba(255,255,255,0.04)] text-[#bcff3d]"
+                      : isDisabled
+                        ? "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.2)] opacity-30"
+                        : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.72)]",
+                ].join(" ")}
+              >
+                {date.day}
+                {!isSelected && !isDisabled ? <span className="absolute bottom-[6px] left-1/2 size-[4px] -translate-x-1/2 rounded-full bg-[#bcff3d] opacity-55" /> : null}
+              </button>
+            );
+          })}
+          {activeMonth.trailingPreview.map((day, index) => (
+            <div key={`trailing-${activeMonth.id}-${index}`} className="flex aspect-square items-center justify-center text-[14px] text-[rgba(255,255,255,0.12)]">
+              {day}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 flex flex-wrap gap-4 text-[11px] text-[rgba(255,255,255,0.4)]">
+          <div className="flex items-center gap-2"><span className="size-[8px] rounded-[4px] bg-[#bcff3d] opacity-55" />Disponible</div>
+          <div className="flex items-center gap-2"><span className="size-[8px] rounded-[4px] bg-[#bcff3d]" />Sélectionné</div>
+          <div className="flex items-center gap-2"><span className="size-[8px] rounded-[4px] border border-[rgba(188,255,61,0.5)]" />Aujourd&apos;hui</div>
+        </div>
+
+        <div className="mt-6 rounded-[16px] border border-[rgba(188,255,61,0.16)] bg-[rgba(188,255,61,0.06)] p-4">
+          <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold text-white">
+            {selectedDateItem.weekday} {selectedDate} {activeMonth.label}
+          </p>
+          <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">
+            Créneau choisi : {selectedSlot} · Format : {BOOKING_FORMATS.find((item) => item.id === selectedFormat)?.label}
+          </p>
+        </div>
+
+        <div className="mt-6">
+          <p className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Durée de la consultation</p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            {BOOKING_DURATIONS.map((duration) => {
+              const isSelected = duration.id === selectedDuration;
+              return (
+                <button
+                  key={duration.id}
+                  type="button"
+                  onClick={() => setSelectedDuration(duration.id)}
+                  className={`relative rounded-[14px] border px-4 py-5 text-left transition-colors ${
+                    isSelected ? "border-[#bcff3d] bg-[rgba(188,255,61,0.07)]" : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)]"
+                  }`}
+                >
+                  <p className={`font-['Syne:ExtraBold',sans-serif] text-[22px] ${isSelected ? "text-[#bcff3d]" : "text-white"}`}>{duration.label}</p>
+                  <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">{duration.description}</p>
+                  {duration.recommended ? <span className="mt-3 inline-flex rounded-full bg-[rgba(188,255,61,0.14)] px-3 py-1 text-[9px] uppercase tracking-[0.9px] text-[#bcff3d]">Recommandé</span> : null}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <p className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Créneaux disponibles</p>
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            {BOOKING_SLOTS.map((slot) => {
+              const isSelected = slot.time === selectedSlot;
+              return (
+                <button
+                  key={slot.time}
+                  type="button"
+                  disabled={!slot.available}
+                  onClick={() => setSelectedSlot(slot.time)}
+                  className={`h-[46px] rounded-[11px] border text-[14px] transition-colors ${
+                    isSelected
+                      ? "border-[#bcff3d] bg-[rgba(188,255,61,0.1)] text-[#bcff3d]"
+                      : slot.available
+                        ? "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.65)]"
+                        : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.2)] opacity-30 line-through"
+                  }`}
+                >
+                  {slot.time}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <p className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Format du rendez-vous</p>
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            {BOOKING_FORMATS.map((format) => {
+              const isSelected = format.id === selectedFormat;
+              return (
+                <button
+                  key={format.id}
+                  type="button"
+                  onClick={() => setSelectedFormat(format.id)}
+                  className={`rounded-[12px] border px-3 py-4 text-center text-[13px] transition-colors ${
+                    isSelected ? "border-[#bcff3d] bg-[rgba(188,255,61,0.07)] text-[#bcff3d]" : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.55)]"
+                  }`}
+                >
+                  {format.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <a
+          href={`/conseils/formulaire?date=${activeMonth.id}-${String(selectedDate).padStart(2, "0")}&duration=${selectedDurationItem.label}&slot=${selectedSlot}&format=${selectedFormat}`}
+          className="mt-7 block rounded-[14px] bg-[#bcff3d] px-4 py-4 text-center font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+        >
+          Confirmer ma réservation →
+        </a>
+        <p className="mt-4 text-center text-[11px] text-[rgba(255,255,255,0.28)]">
+          Confirmation par email · Annulation gratuite jusqu&apos;à 24h avant
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function MobileConseilsPage() {
+  const [openIndex, setOpenIndex] = useState(0);
+
+  return (
+    <div className="relative overflow-x-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-140px] h-[440px] w-[760px] -translate-x-1/2 opacity-80 blur-[90px]">
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_rgba(200,236,102,0.35),_rgba(114,249,216,0.08)_45%,_rgba(24,24,24,0)_75%)]" />
+      </div>
+
+      <div className="relative mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
+        <section className="text-center">
+          <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.09)] px-4 py-2 text-[11px] font-medium uppercase tracking-[1.32px] text-[#bcff3d]">
+            <span className="size-[6px] rounded-full bg-[#bcff3d]" />
+            Un conseiller · Disponible demain
+          </div>
+          <h1 className="mt-6 font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
+            Réservez votre consultation
+            <span className="block text-[#bcff3d]">automobile personnalisée</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-[34rem] font-['DM_Sans:Regular',sans-serif] text-[16px] leading-7 text-[rgba(255,255,255,0.56)]">
+            Choisissez votre créneau. Un expert VroomAdvisor vous rappelle à l&apos;heure choisie.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <MobileBookingCard />
+        </section>
+
+        <section className="mt-24">
+          <MobileSectionTitle eyebrow="Le service" title="Ce qui est" accent="inclus" description="Un accompagnement complet, de la définition de vos besoins jusqu'à la remise des clés, par un expert dédié." />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICE_ITEMS.map((item) => (
+              <div key={item.title} className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-6">
+                <div className="relative flex size-12 items-center justify-center rounded-[14px] border border-[rgba(188,255,61,0.16)] bg-[rgba(188,255,61,0.09)]">
+                  {item.icon}
+                </div>
+                <h3 className="mt-5 font-['Syne:Bold',sans-serif] text-[18px] font-bold text-white">{item.title}</h3>
+                <p className="mt-2 text-[14px] leading-6 text-[rgba(255,255,255,0.45)]">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-24">
+          <MobileSectionTitle eyebrow="Le processus" title="Comment ça" accent="marche ?" description="En quatre étapes simples, votre conseiller VroomAdvisor vous guide de la réservation jusqu'à la remise des clés." />
+          <div className="mt-8 grid gap-4">
+            {PROCESS_ITEMS.map((item) => (
+              <div key={item.id} className="rounded-[22px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-6">
+                <div className="text-[42px] font-['Syne:ExtraBold',sans-serif] font-extrabold text-[rgba(188,255,61,0.12)]">{item.id}</div>
+                <h3 className="mt-2 font-['Syne:Bold',sans-serif] text-[20px] font-bold text-white">{item.title}</h3>
+                <p className="mt-3 text-[14px] leading-7 text-[rgba(255,255,255,0.45)]">{item.description}</p>
+                <div className="mt-4 inline-flex rounded-full border border-[rgba(188,255,61,0.14)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[11px] text-[#bcff3d]">
+                  {item.badge}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-24 overflow-hidden rounded-[24px] border border-[rgba(188,255,61,0.13)] p-6 sm:p-8" style={{ backgroundImage: "linear-gradient(134.892deg, rgba(188, 255, 61, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%)" }}>
+          <h2 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.04] tracking-[-0.04em] text-white">
+            Une seule consultation suffit
+            <span className="block text-[#bcff3d]">pour faire le bon choix</span>
+          </h2>
+          <p className="mt-5 max-w-[40rem] text-[15px] leading-7 text-[rgba(255,255,255,0.56)]">
+            Bénéficiez de l&apos;expertise VroomAdvisor pour trouver, négocier et sécuriser votre prochain véhicule. En 30 à 45 minutes, nos conseillers vous accompagnent pas à pas jusqu&apos;à la signature finale.
+          </p>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {PROMISE_ITEMS.map((item) => (
+              <div key={item} className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-[14px] text-[rgba(255,255,255,0.72)]">
+                <span className="mr-3 inline-block size-[8px] rounded-full bg-[#bcff3d]" />
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-24">
+          <MobileSectionTitle eyebrow="Questions fréquentes" title="Tout ce que" accent="vous voulez savoir" />
+          <div className="mt-8 space-y-3">
+            {FAQ_ITEMS.map((item, index) => {
+              const isOpen = index === openIndex;
+              return (
+                <button
+                  key={item.question}
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                  className={`w-full rounded-[16px] border bg-[#111411] px-5 py-5 text-left transition-colors ${isOpen ? "border-[rgba(188,255,61,0.32)]" : "border-[rgba(255,255,255,0.08)]"}`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <p className="font-['Syne:SemiBold',sans-serif] text-[15px] leading-6 text-white">{item.question}</p>
+                    <span className={`mt-1 text-[18px] text-[#bcff3d] transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
+                  </div>
+                  {isOpen ? <p className="mt-4 text-[14px] leading-7 text-[rgba(255,255,255,0.45)]">{item.answer}</p> : null}
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        <footer className="mt-24 rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-6 sm:p-8">
+          <div className="grid gap-8">
+            <div>
+              <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[22px] text-white">Qu&apos;attendez-vous ?</div>
+              <a href="tel:+33670760719" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-5 py-3 text-[16px] text-black">06 70 76 07 19</a>
+              <div className="mt-5 space-y-3 text-[15px] text-white">
+                <a href="mailto:contact@vroomparis.fr" className="block break-all">contact@vroomparis.fr</a>
+                <span className="block text-[rgba(255,255,255,0.72)]">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</span>
+              </div>
+            </div>
+            <div className="grid gap-8 sm:grid-cols-2">
+              <div>
+                <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+                <div className="mt-4 space-y-3 text-[15px] text-white">
+                  <a href="/showroom" className="block">Showroom</a>
+                  <a href="/acheter-votre-vehicule" className="block">Acheter un véhicule</a>
+                  <a href="/vendre-votre-vehicule" className="block">Vendre votre véhicule</a>
+                  <a href="/conseils" className="block">Consultation automobile</a>
+                  <a href="/a-propos" className="block">À propos</a>
+                </div>
+              </div>
+              <div>
+                <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+                <div className="mt-4 space-y-3 text-[15px] text-white">
+                  <div>Politique de confidentialité</div>
+                  <div>Conditions générales</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 border-t border-[#1f2937] pt-5 text-center text-[14px] text-[#9ca3af]">© 2026 Vroom Paris. Tous droits réservés.</div>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+function DesktopPageConseil() {
+  return (
+    <div className="relative mx-auto hidden h-[4379px] w-[1440px] bg-[#181818] xl:block" data-name="page conseil">
       <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">
         <div className="absolute inset-[-26.92%_-7.51%]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -2270,6 +2703,15 @@ export default function PageConseil() {
         <p className="leading-[26.35px]">{`rappelle à l'heure choisie.`}</p>
       </div>
       <Footer />
+    </div>
+  );
+}
+
+export default function PageConseil() {
+  return (
+    <div className="w-full bg-[#181818]">
+      <MobileConseilsPage />
+      <DesktopPageConseil />
     </div>
   );
 }

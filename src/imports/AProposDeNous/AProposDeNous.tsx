@@ -1616,9 +1616,456 @@ function Footer() {
   );
 }
 
-export default function AProposDeNous() {
+function MobileSectionHeader({
+  eyebrow,
+  title,
+  accent,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  accent: string;
+  description?: string;
+}) {
   return (
-    <div className="bg-[#181818] relative size-full" data-name="A propos de nous">
+    <div className="space-y-4">
+      <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[11px] font-medium uppercase tracking-[1.32px] text-[#bcff3d]">
+        <span className="size-[6px] rounded-full bg-[#bcff3d]" />
+        {eyebrow}
+      </div>
+      <div className="space-y-3">
+        <h2 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px]">
+          {title}
+          <span className="block text-[#bcff3d]">{accent}</span>
+        </h2>
+        {description ? (
+          <p className="max-w-[38rem] font-['DM_Sans:Light',sans-serif] text-[15px] leading-7 text-[rgba(255,255,255,0.58)]">
+            {description}
+          </p>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function MobileValueCard({
+  title,
+  description,
+  icon,
+  badge,
+  accent = false,
+}: {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  badge?: string | null;
+  accent?: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-[22px] border p-6",
+        accent
+          ? "border-[rgba(188,255,61,0.24)] bg-[rgba(188,255,61,0.07)]"
+          : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]",
+      )}
+    >
+      <div
+        className={cn(
+          "relative mb-5 flex size-12 items-center justify-center rounded-[14px] border",
+          accent
+            ? "border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.12)]"
+            : "border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.09)]",
+        )}
+      >
+        {icon}
+      </div>
+      <h3 className="font-['Syne:ExtraBold',sans-serif] text-[20px] font-extrabold text-white">{title}</h3>
+      <p className="mt-3 font-['DM_Sans:Light',sans-serif] text-[14px] leading-7 text-[rgba(255,255,255,0.5)]">{description}</p>
+      {badge ? (
+        <div className="mt-5 inline-flex rounded-full border border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.12)] px-3 py-[6px] text-[11px] font-semibold tracking-[0.66px] text-[#bcff3d]">
+          {badge}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function MobileContactForm() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [status, setStatus] = useState<"idle" | "success">("idle");
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const nextErrors: Record<string, string> = {};
+
+    if (!form.firstName.trim()) nextErrors.firstName = "Le prénom est requis.";
+    if (!form.lastName.trim()) nextErrors.lastName = "Le nom est requis.";
+    if (!form.email.trim()) nextErrors.email = "L'email est requis.";
+    if (!form.message.trim()) nextErrors.message = "Le message est requis.";
+
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      setStatus("idle");
+      return;
+    }
+
+    setErrors({});
+    setStatus("success");
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] p-5 sm:p-6"
+    >
+      <div className="mb-6 flex items-start gap-4 rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-4">
+        <div className="relative flex size-[42px] shrink-0 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)]">
+          <Svg12 />
+        </div>
+        <div>
+          <div className="font-['Syne:Bold',sans-serif] text-[16px] font-bold text-white">Envoyez-nous un message</div>
+          <div className="mt-1 font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.45)]">
+            Nous vous répondons sous 24h.
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div className="space-y-2">
+          <label className="text-[11px] font-medium uppercase tracking-[0.88px] text-[rgba(255,255,255,0.35)]">
+            Prénom <span className="text-[#bcff3d]">*</span>
+          </label>
+          <UITextInput
+            value={form.firstName}
+            onChange={(event) => setForm((current) => ({ ...current, firstName: event.target.value }))}
+            placeholder="Jean"
+            aria-invalid={Boolean(errors.firstName)}
+            className="h-12 rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-[11px] font-medium uppercase tracking-[0.88px] text-[rgba(255,255,255,0.35)]">
+            Nom <span className="text-[#bcff3d]">*</span>
+          </label>
+          <UITextInput
+            value={form.lastName}
+            onChange={(event) => setForm((current) => ({ ...current, lastName: event.target.value }))}
+            placeholder="Dupont"
+            aria-invalid={Boolean(errors.lastName)}
+            className="h-12 rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+          />
+        </div>
+      </div>
+
+      <div className="mt-5 space-y-2">
+        <label className="text-[11px] font-medium uppercase tracking-[0.88px] text-[rgba(255,255,255,0.35)]">
+          Email <span className="text-[#bcff3d]">*</span>
+        </label>
+        <UITextInput
+          type="email"
+          value={form.email}
+          onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+          placeholder="jean@email.com"
+          aria-invalid={Boolean(errors.email)}
+          className="h-12 rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+        />
+      </div>
+
+      <div className="mt-5 space-y-2">
+        <label className="text-[11px] font-medium uppercase tracking-[0.88px] text-[rgba(255,255,255,0.35)]">Sujet</label>
+        <Select value={form.subject} onValueChange={(value) => setForm((current) => ({ ...current, subject: value }))}>
+          <SelectTrigger className="h-12 rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-white data-[placeholder]:text-[rgba(255,255,255,0.6)]">
+            <SelectValue placeholder="Sélectionner..." />
+          </SelectTrigger>
+          <SelectContent className="border-[rgba(255,255,255,0.08)] bg-[#181818] text-white">
+            {contactSubjects.map((subject) => (
+              <SelectItem key={subject} value={subject}>
+                {subject}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="mt-5 space-y-2">
+        <label className="text-[11px] font-medium uppercase tracking-[0.88px] text-[rgba(255,255,255,0.35)]">
+          Message <span className="text-[#bcff3d]">*</span>
+        </label>
+        <UITextarea
+          value={form.message}
+          onChange={(event) => setForm((current) => ({ ...current, message: event.target.value.slice(0, 500) }))}
+          placeholder="Votre message…"
+          aria-invalid={Boolean(errors.message)}
+          className="min-h-[120px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-white placeholder:text-[rgba(255,255,255,0.25)]"
+        />
+        <div className="flex items-center justify-between text-[11px]">
+          <span className="text-[#ff8e8e]">{errors.firstName || errors.lastName || errors.email || errors.message || ""}</span>
+          <span className="text-[rgba(255,255,255,0.3)]">{form.message.length}/500</span>
+        </div>
+      </div>
+
+      <div className="mt-6 border-t border-[rgba(255,255,255,0.08)] pt-5">
+        <button
+          type="submit"
+          className="relative h-[52px] w-full rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01]"
+        >
+          <span className="font-['Syne:Bold',sans-serif] text-[14px] font-bold text-[#0c0d0c]">Envoyer le message</span>
+        </button>
+        <div className="mt-4 text-center font-['DM_Sans:Regular',sans-serif] text-[11px] text-[rgba(255,255,255,0.28)]">
+          {status === "success" ? "Message prêt à être envoyé · Vérifiez vos informations" : "Données confidentielles · Réponse sous 24h"}
+        </div>
+      </div>
+    </form>
+  );
+}
+
+function MobileAboutPage() {
+  const [openItem, setOpenItem] = useState<string | undefined>("faq-1");
+
+  return (
+    <div className="relative overflow-x-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-120px] h-[420px] w-[760px] -translate-x-1/2 opacity-80 blur-[90px]">
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_rgba(200,236,102,0.35),_rgba(114,249,216,0.08)_45%,_rgba(24,24,24,0)_75%)]" />
+      </div>
+
+      <div className="relative mx-auto max-w-[720px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
+        <section className="space-y-8">
+          <div className="space-y-5">
+            <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[11px] font-medium uppercase tracking-[1.32px] text-[#bcff3d]">
+              <span className="size-[6px] rounded-full bg-[#bcff3d]" />
+              Vroom Advisor · Agence automobile
+            </div>
+            <h1 className="font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[52px]">
+              L&apos;automobile
+              <span className="block">autrement,</span>
+              <span className="block text-[#bcff3d]">avec vous.</span>
+            </h1>
+            <p className="max-w-[34rem] font-['DM_Sans:Light',sans-serif] text-[15px] leading-7 text-[rgba(255,255,255,0.58)]">
+              Chez Vroom Advisor, nous avons réinventé l&apos;expérience d&apos;achat et de vente automobile. Plus de stress,
+              plus de mauvaises surprises, juste un conseiller dédié, une sélection rigoureuse et un accompagnement de A à Z.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 gap-3 sm:max-w-[420px]">
+            {[
+              ["500+", "véhicules vendus"],
+              ["98%", "clients satisfaits"],
+              ["3 ans", "d'expertise"],
+            ].map(([value, label]) => (
+              <div key={value} className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] px-4 py-4 text-center">
+                <div className="font-['Syne:ExtraBold',sans-serif] text-[28px] font-extrabold text-[#bcff3d]">{value}</div>
+                <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">{label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative pt-2">
+            <div className="overflow-hidden rounded-[26px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]">
+              <img alt="Agence Vroom Advisor" className="h-[320px] w-full object-cover sm:h-[380px]" src={imgBorder} />
+            </div>
+            <div className="absolute bottom-[-24px] left-5 w-[42%] overflow-hidden rounded-[18px] border-2 border-[#0c0d0c] shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+              <img alt="Intérieur de l'agence Vroom Advisor" className="h-[150px] w-full object-cover sm:h-[180px]" src={imgOverlayBorderShadow} />
+            </div>
+            <div className="absolute right-0 top-5 rounded-[16px] border border-[rgba(188,255,61,0.25)] bg-[rgba(188,255,61,0.1)] px-5 py-4 text-center backdrop-blur-[10px]">
+              <div className="font-['Syne:ExtraBold',sans-serif] text-[26px] font-extrabold text-[#bcff3d]">⭐ 5,0</div>
+              <div className="text-[11px] text-[rgba(255,255,255,0.55)]">sur Google</div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-24">
+          <MobileSectionHeader
+            eyebrow="Notre histoire"
+            title="Nés de la passion"
+            accent="de l'automobile"
+            description="Une agence créée pour rendre l'achat et la vente d'un véhicule plus clairs, plus justes et beaucoup plus sereins."
+          />
+          <div className="mt-8 grid gap-8">
+            <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)]">
+              <img alt="Bureaux Vroom Advisor" className="h-[280px] w-full object-cover sm:h-[360px]" src={imgBorder1} />
+            </div>
+            <div className="space-y-5 font-['DM_Sans:Light',sans-serif] text-[15px] leading-7 text-[rgba(255,255,255,0.58)]">
+              <p>
+                Vroom Paris est née d&apos;un constat simple :
+                <span className="font-['DM_Sans:Bold',sans-serif] font-bold text-white"> acheter ou vendre une voiture ne devrait pas être une épreuve.</span>
+                {" "}Trop souvent, les clients se retrouvent seuls face à des offres opaques, des prix injustes et un manque d&apos;accompagnement.
+              </p>
+              <p>
+                Nous avons créé Vroom pour changer ça. Notre agence, installée à
+                <span className="font-['DM_Sans:Bold',sans-serif] font-bold text-white"> Soisy-sous-Montmorency</span>,
+                {" "}réunit une équipe de passionnés avec une mission claire :
+                <span className="font-['DM_Sans:Bold',sans-serif] font-bold text-white"> vous trouver le bon véhicule, au bon prix, sans effort de votre côté.</span>
+              </p>
+            </div>
+            <div className="grid gap-4">
+              {valueCards.slice(0, 3).map((card) => (
+                <div key={card.id} className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-4">
+                  <div className="relative mb-3 flex size-10 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.09)]">
+                    {card.icon}
+                  </div>
+                  <div className="font-['Syne:Bold',sans-serif] text-[16px] font-bold text-white">{card.title}</div>
+                  <div className="mt-2 text-[13px] leading-6 text-[rgba(255,255,255,0.45)]">{card.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-24">
+          <MobileSectionHeader
+            eyebrow="Ce qui nous définit"
+            title="Nos valeurs,"
+            accent="votre confiance"
+            description="Un accompagnement pensé pour simplifier chaque étape et sécuriser chaque décision."
+          />
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {valueCards.map((card) => (
+              <MobileValueCard
+                key={card.id}
+                title={card.title}
+                description={card.description}
+                icon={card.icon}
+                badge={card.badge}
+                accent={card.accent}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-24">
+          <MobileSectionHeader
+            eyebrow="Nous contacter"
+            title="Une question ?"
+            accent="Écrivez-nous."
+            description="Notre équipe est disponible du lundi au samedi pour répondre à toutes vos questions."
+          />
+          <div className="mt-8 grid gap-4">
+            <a
+              href="tel:+33670760719"
+              className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-5 transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
+            >
+              <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.3)]">Téléphone</div>
+              <div className="mt-2 font-['Syne:Bold',sans-serif] text-[20px] font-bold text-white">06 70 76 07 19</div>
+            </a>
+            <a
+              href="mailto:contact@vroomparis.fr"
+              className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-5 transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
+            >
+              <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.3)]">Email</div>
+              <div className="mt-2 break-all font-['Syne:Bold',sans-serif] text-[20px] font-bold text-white">contact@vroomparis.fr</div>
+            </a>
+            <a
+              href="https://maps.google.com/?q=4+bis+Av.+Alexandre+Dumas,+95230+Soisy-sous-Montmorency"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-5 transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
+            >
+              <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.3)]">Adresse</div>
+              <div className="mt-2 font-['Syne:Bold',sans-serif] text-[18px] font-bold leading-7 text-white">
+                4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency
+              </div>
+            </a>
+          </div>
+          <div className="mt-8">
+            <MobileContactForm />
+          </div>
+        </section>
+
+        <section className="mt-24">
+          <MobileSectionHeader
+            eyebrow="Questions fréquentes"
+            title="Tout ce que vous"
+            accent="voulez savoir"
+          />
+          <Accordion type="single" collapsible value={openItem} onValueChange={setOpenItem} className="mt-8 space-y-3">
+            {faqItems.map((item) => (
+              <AccordionItem
+                key={item.id}
+                value={item.id}
+                className={cn(
+                  "rounded-[16px] border px-5 transition-all duration-200",
+                  openItem === item.id
+                    ? "border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.06)]"
+                    : "border-[rgba(255,255,255,0.08)] bg-[#111411]",
+                )}
+              >
+                <AccordionTrigger className="py-5 text-left font-['Syne:SemiBold',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="pb-5 font-['DM_Sans:Regular',sans-serif] text-[14px] leading-7 text-[rgba(255,255,255,0.55)]">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+
+        <footer className="mt-24 rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-6 sm:p-8">
+          <div className="grid gap-8">
+            <div>
+              <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[22px] text-white">Qu&apos;attendez-vous ?</div>
+              <a
+                href="tel:+33670760719"
+                className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-5 py-3 font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-black"
+              >
+                06 70 76 07 19
+              </a>
+              <div className="mt-5 space-y-3 text-[15px] text-white">
+                <a href="mailto:contact@vroomparis.fr" className="block break-all">contact@vroomparis.fr</a>
+                <a
+                  href="https://maps.google.com/?q=4+bis+Av.+Alexandre+Dumas,+95230+Soisy-sous-Montmorency"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block text-[rgba(255,255,255,0.72)]"
+                >
+                  4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency
+                </a>
+              </div>
+            </div>
+
+            <div className="grid gap-8 sm:grid-cols-2">
+              <div>
+                <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+                <div className="mt-4 space-y-3 text-[15px] text-white">
+                  <a href="/showroom" className="block">Showroom</a>
+                  <a href="/acheter-votre-vehicule" className="block">Acheter un véhicule</a>
+                  <a href="/vendre-votre-vehicule" className="block">Vendre votre véhicule</a>
+                  <a href="/conseils" className="block">Consultation automobile</a>
+                  <a href="/a-propos" className="block">À propos</a>
+                </div>
+              </div>
+
+              <div>
+                <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+                <div className="mt-4 space-y-3 text-[15px] text-white">
+                  <div>Politique de confidentialité</div>
+                  <div>Conditions générales</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 border-t border-[#1f2937] pt-5 text-center font-['Helvetica_Neue:Regular',sans-serif] text-[14px] text-[#9ca3af]">
+            © 2026 Vroom Paris. Tous droits réservés.
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+function DesktopAPropos() {
+  return (
+    <div className="relative mx-auto hidden h-[4347px] w-[1440px] bg-[#181818] xl:block" data-name="A propos de nous">
       <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">
         <div className="absolute inset-[-26.92%_-7.51%]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -1649,6 +2096,15 @@ export default function AProposDeNous() {
       <SectionFaq />
       <Group />
       <Footer />
+    </div>
+  );
+}
+
+export default function AProposDeNous() {
+  return (
+    <div className="w-full bg-[#181818]">
+      <MobileAboutPage />
+      <DesktopAPropos />
     </div>
   );
 }

@@ -832,6 +832,27 @@ function Svg6() {
   );
 }
 
+function MobilePhotoIcon() {
+  return (
+    <svg className="block size-[22px]" fill="none" viewBox="0 0 22 22">
+      <path d={svgPaths.p38ef1ce0} stroke="#BCFF3D" strokeWidth="1.65" />
+      <path d={svgPaths.p13ced000} stroke="#BCFF3D" strokeWidth="1.65" />
+      <path d={svgPaths.p7969e40} stroke="#BCFF3D" strokeWidth="1.65" />
+    </svg>
+  );
+}
+
+function MobilePlusIcon() {
+  return (
+    <svg className="block size-[18px]" fill="none" viewBox="0 0 18 18">
+      <g opacity="0.4">
+        <path d="M9 3.75V14.25" stroke="#BCFF3D" strokeWidth="1.125" />
+        <path d="M3.75 9H14.25" stroke="#BCFF3D" strokeWidth="1.125" />
+      </g>
+    </svg>
+  );
+}
+
 function OverlayBorder19() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid inset-[309px_0_0_475.5px] overflow-clip rounded-[10px]" data-name="Overlay+Border">
@@ -1868,9 +1889,380 @@ function Footer() {
   );
 }
 
-export default function PageCmsVendreVotreVehicule() {
+function MobileFooterSell() {
   return (
-    <div className="bg-[#181818] relative size-full" data-name="page cms vendre votre vehicule">
+    <footer className="mt-24 rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-6 sm:p-8">
+      <div className="grid gap-8">
+        <div>
+          <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[22px] text-white">Qu&apos;attendez-vous ?</div>
+          <a href="tel:+33670760719" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-5 py-3 text-[16px] text-black">06 70 76 07 19</a>
+          <div className="mt-5 space-y-3 text-[15px] text-white">
+            <a href="mailto:contact@vroomparis.fr" className="block break-all">contact@vroomparis.fr</a>
+            <span className="block text-[rgba(255,255,255,0.72)]">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</span>
+          </div>
+        </div>
+        <div className="grid gap-8 sm:grid-cols-2">
+          <div>
+            <div className="text-[20px] text-white">Informations générales</div>
+            <div className="mt-4 space-y-3 text-[15px] text-white">
+              <a href="/showroom" className="block">Showroom</a>
+              <a href="/acheter-votre-vehicule" className="block">Acheter un véhicule</a>
+              <a href="/vendre-votre-vehicule" className="block">Vendre votre véhicule</a>
+              <a href="/conseils" className="block">Consultation automobile</a>
+              <a href="/a-propos" className="block">À propos</a>
+            </div>
+          </div>
+          <div>
+            <div className="text-[20px] text-white">Mentions légales</div>
+            <div className="mt-4 space-y-3 text-[15px] text-white">
+              <div>Politique de confidentialité</div>
+              <div>Conditions générales</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-8 border-t border-[#1f2937] pt-5 text-center text-[14px] text-[#9ca3af]">© 2026 Vroom Paris. Tous droits réservés.</div>
+    </footer>
+  );
+}
+
+function MobilePageCmsVendreVotreVehicule() {
+  const navigate = useNavigate();
+  const [photos, setPhotos] = useState<{ avant?: string; arriere?: string; coteGauche?: string; autre?: string }>({});
+
+  const handlePhoto = (slot: keyof typeof photos) => (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) setPhotos((prev) => ({ ...prev, [slot]: URL.createObjectURL(file) }));
+  };
+
+  return (
+    <div className="relative overflow-x-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-140px] h-[440px] w-[760px] -translate-x-1/2 opacity-80 blur-[90px]">
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_rgba(200,236,102,0.35),_rgba(114,249,216,0.08)_45%,_rgba(24,24,24,0)_75%)]" />
+      </div>
+      <div className="relative mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
+        <section>
+          <div className="inline-flex items-center gap-3 rounded-full border border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.09)] px-4 py-2 text-[11px] uppercase tracking-[1.32px] text-[#bcff3d]">
+            <span className="size-[6px] rounded-full bg-[#bcff3d]" />
+            Service personnalisé · Réponse sous 24h
+          </div>
+          <h1 className="mt-6 font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
+            Vendez votre
+            <span className="block text-[#bcff3d]">véhicule simplement</span>
+          </h1>
+          <p className="mt-5 max-w-[34rem] text-[16px] leading-7 text-[rgba(255,255,255,0.56)]">
+            Remplissez le formulaire avec les informations de votre véhicule. Notre équipe l&apos;étudie et vous recontacte rapidement pour vous faire une estimation personnalisée.
+          </p>
+
+          <div className="mt-8 grid grid-cols-3 gap-3">
+            <div className="rounded-[18px] bg-[#111411] px-4 py-4 text-center">
+              <div className="font-['Syne:ExtraBold',sans-serif] text-[28px] font-extrabold text-[#bcff3d]">24h</div>
+              <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">délai de réponse</div>
+            </div>
+            <div className="rounded-[18px] bg-[#111411] px-4 py-4 text-center">
+              <div className="font-['Syne:ExtraBold',sans-serif] text-[28px] font-extrabold text-[#bcff3d]">100%</div>
+              <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">gratuit</div>
+            </div>
+            <div className="rounded-[18px] bg-[#111411] px-4 py-4 text-center">
+              <div className="font-['Syne:ExtraBold',sans-serif] text-[28px] font-extrabold text-[#bcff3d]">+500</div>
+              <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">véhicules repris</div>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-[24px] border border-[rgba(188,255,61,0.13)] p-6" style={{ backgroundImage: "linear-gradient(133.956deg, rgba(188, 255, 61, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%)" }}>
+            <div className="text-[10px] uppercase tracking-[1.4px] text-[#bcff3d]">Vroom advisor · Reprise véhicule</div>
+            <h2 className="mt-3 font-['Syne:Bold',sans-serif] text-[24px] font-bold text-white">
+              Un processus
+              <span className="block text-[#bcff3d]">rapide et transparent</span>
+            </h2>
+            <div className="mt-6 space-y-3">
+              {[
+                "Estimation personnalisée",
+                "Zéro engagement",
+                "Réponse sous 24h",
+              ].map((item) => (
+                <div key={item} className="rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-[13px] text-[rgba(255,255,255,0.65)]">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-10 space-y-4">
+            {[
+              "Remplissez le formulaire avec les infos du véhicule",
+              "Notre équipe analyse votre dossier",
+              "Vous recevez une estimation sous 24h",
+              "Après validation vous déposez le véhicule pour finaliser la reprise",
+            ].map((item, index) => (
+              <div key={item} className="flex items-start gap-4">
+                <div className="flex size-7 shrink-0 items-center justify-center rounded-[14px] border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.09)] text-[11px] font-bold text-[#bcff3d]">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <div className="pt-1 text-[14px] leading-6 text-[rgba(255,255,255,0.6)]">{item}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-14 border-t border-[rgba(255,255,255,0.08)] pt-10">
+            <div className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] p-5 sm:p-6">
+              <div className="border-b border-[rgba(255,255,255,0.08)] pb-5">
+                <div className="flex items-start gap-4">
+                  <div className="relative flex size-[38px] shrink-0 items-center justify-center rounded-[10px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)]">
+                    <Group6 />
+                  </div>
+                  <div>
+                    <div className="font-['Syne:Bold',sans-serif] text-[18px] font-bold text-white">Formulaire de reprise véhicule</div>
+                    <div className="mt-1 text-[13px] text-[rgba(255,255,255,0.45)]">
+                      Renseignez les informations de votre véhicule pour recevoir une estimation.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 space-y-8">
+                <section>
+                  <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+                    <div className="relative flex size-[12px] items-center justify-center">
+                      <Group5 />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Informations du véhicule</span>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Marque <span className="text-[#bcff3d]">*</span></label>
+                      <select className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none">
+                        <option value="">Sélectionner...</option>
+                        <option>Audi</option>
+                        <option>BMW</option>
+                        <option>Citroën</option>
+                        <option>Renault</option>
+                        <option>Toyota</option>
+                        <option>Volkswagen</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Modèle <span className="text-[#bcff3d]">*</span></label>
+                      <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 308…" />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Finition</label>
+                      <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Sport, Prestige, GT Line…" />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Année <span className="text-[#bcff3d]">*</span></label>
+                      <select className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none">
+                        <option value="">Sélectionner...</option>
+                        {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
+                          <option key={y}>{y}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Kilométrage <span className="text-[#bcff3d]">*</span></label>
+                    <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : 45 000 km" type="number" min="0" />
+                    <p className="mt-2 text-[11px] text-[rgba(255,255,255,0.25)]">Indiquez le kilométrage actuel affiché au compteur.</p>
+                  </div>
+                </section>
+
+                <section>
+                  <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+                    <Svg3 />
+                    <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Caractéristiques</span>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Type de boîte <span className="text-[#bcff3d]">*</span></label>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-[11px] border border-[#bcff3d] bg-[rgba(188,255,61,0.08)] px-4 py-3 text-center text-[14px] font-semibold text-[#bcff3d]">Manuelle</div>
+                        <div className="rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-center text-[14px] text-[rgba(255,255,255,0.4)]">Automatique</div>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Nombre de portes <span className="text-[#bcff3d]">*</span></label>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-[11px] border border-[#bcff3d] bg-[rgba(188,255,61,0.08)] px-4 py-3 text-center text-[14px] font-semibold text-[#bcff3d]">3 portes</div>
+                        <div className="rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-center text-[14px] text-[rgba(255,255,255,0.4)]">5 portes</div>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Carburant <span className="text-[#bcff3d]">*</span></label>
+                      <select className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none">
+                        <option value="">Sélectionner...</option>
+                        <option>Essence</option>
+                        <option>Diesel</option>
+                        <option>Hybride</option>
+                        <option>Électrique</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Couleur <span className="text-[#bcff3d]">*</span></label>
+                      <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Noir, Blanc, Gris…" />
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+                    <Svg5 />
+                    <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Photos du véhicule</span>
+                  </div>
+                  <div className="rounded-[18px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.05)] p-6 text-center">
+                    <div className="mx-auto flex size-[64px] items-center justify-center rounded-[18px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)]">
+                      <MobilePhotoIcon />
+                    </div>
+                    <div className="mt-4 font-['Syne:Bold',sans-serif] text-[16px] font-bold text-white">Ajoutez vos photos</div>
+                    <p className="mx-auto mt-3 max-w-[30rem] text-[13px] leading-6 text-[rgba(255,255,255,0.45)]">
+                      Glissez-déposez vos photos ici ou cliquez pour les sélectionner. Pensez à couvrir : face avant, arrière, côtés, intérieur, compteur.
+                    </p>
+                    <div className="mx-auto mt-4 inline-flex rounded-full bg-[rgba(255,255,255,0.08)] px-4 py-2 text-[12px] text-[rgba(255,255,255,0.35)]">
+                      JPG, PNG, HEIC · Max 10 Mo par photo · Jusqu&apos;à 10 photos
+                    </div>
+                  </div>
+                  <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    {[
+                      ["avant", "Avant"],
+                      ["arriere", "Arrière"],
+                      ["coteGauche", "Côté gauche"],
+                      ["autre", "+1 photo"],
+                    ].map(([slot, label]) => (
+                      <label key={slot} className={`relative min-h-[120px] overflow-hidden rounded-[10px] border ${slot === "autre" ? "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)]" : "border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.05)]"} cursor-pointer`}>
+                        <input type="file" accept="image/*" className="hidden" onChange={handlePhoto(slot as keyof typeof photos)} />
+                        {photos[slot as keyof typeof photos] ? (
+                          <img src={photos[slot as keyof typeof photos]} className="absolute inset-0 h-full w-full object-cover" alt={label} />
+                        ) : slot === "autre" ? (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <MobilePlusIcon />
+                          </div>
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <MobilePhotoIcon />
+                          </div>
+                        )}
+                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-[rgba(0,0,0,0.35)] px-3 py-1 text-[10px] font-semibold text-[#bcff3d]">
+                          {label}
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                </section>
+
+                <section>
+                  <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+                    <Svg7 />
+                    <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Remarques & observations</span>
+                  </div>
+                  <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Informations complémentaires <span className="normal-case tracking-normal text-[10px]">(optionnel)</span></label>
+                  <textarea className="min-h-[120px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Indiquez ici tout élément utile à signaler : dommages carrosserie, véhicule accidenté, problème moteur ou mécanique, historique d'entretien, équipements optionnels…" />
+                </section>
+
+                <section>
+                  <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+                    <Svg8 />
+                    <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Vos coordonnées</span>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Prénom <span className="text-[#bcff3d]">*</span></label>
+                      <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Nom <span className="text-[#bcff3d]">*</span></label>
+                      <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" />
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Email <span className="text-[#bcff3d]">*</span></label>
+                      <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" />
+                      <p className="mt-2 text-[11px] text-[rgba(255,255,255,0.25)]">L&apos;estimation vous sera envoyée à cette adresse.</p>
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Téléphone <span className="text-[#bcff3d]">*</span></label>
+                      <input className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="+33 6 00 00 00 00" type="tel" />
+                      <p className="mt-2 text-[11px] text-[rgba(255,255,255,0.25)]">Pour vous recontacter rapidement.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="border-t border-[rgba(255,255,255,0.08)] pt-6">
+                  <p className="max-w-[36rem] text-[12px] leading-6 text-[rgba(255,255,255,0.4)]">
+                    Vos données sont strictement confidentielles et utilisées uniquement pour vous contacter au sujet de la reprise de votre véhicule.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/vendre-votre-vehicule/formulaire")}
+                    className="mt-6 w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+                  >
+                    Envoyer ma demande de reprise
+                  </button>
+                  <div className="mt-4 flex flex-wrap justify-center gap-4 text-[11px] text-[rgba(255,255,255,0.25)]">
+                    <span>Sans engagement</span>
+                    <span>Estimation sous 24h</span>
+                    <span>Réponse par email et téléphone</span>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-5">
+              <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+                <div className="text-[14px] font-bold text-white">Prochaines étapes</div>
+                <div className="mt-5 space-y-4">
+                  {[
+                    "Formulaire soumis",
+                    "Analyse par notre équipe",
+                    "Estimation reçue",
+                    "Dépôt & finalisation",
+                  ].map((item, index) => (
+                    <div key={item} className="flex items-start gap-4">
+                      <div className={`mt-1 flex size-7 shrink-0 items-center justify-center rounded-[13px] ${index === 0 ? "bg-[#bcff3d] text-[#0c0d0c]" : "bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.35)]"} text-[10px] font-bold`}>
+                        {index + 1}
+                      </div>
+                      <div>
+                        <div className={`text-[13px] font-semibold ${index < 2 ? "text-[rgba(255,255,255,0.85)]" : "text-[rgba(255,255,255,0.4)]"}`}>{item}</div>
+                        <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">
+                          {index === 0 && "Dossier reçu · Aujourd'hui"}
+                          {index === 1 && "Étude des informations et photos · En cours"}
+                          {index === 2 && "Par email et téléphone · Sous 24h"}
+                          {index === 3 && "Si l'offre vous convient, dépôt en showroom"}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+                <div className="text-[14px] font-bold text-white">À savoir</div>
+                <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.6)]">
+                  <div>Gratuit et sans engagement</div>
+                  <div>Estimation personnalisée sous 24h</div>
+                  <div>Vous restez libre d&apos;accepter ou refuser</div>
+                  <div>Paiement rapide à la finalisation</div>
+                </div>
+              </div>
+
+              <div className="rounded-[20px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.05)] p-5">
+                <div className="text-[14px] font-bold text-[#bcff3d]">Une question ?</div>
+                <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.65)]">
+                  <div>06 19 93 37 65</div>
+                  <div>contact@vroomparis.fr</div>
+                  <div>Lun – Sam · 9h à 19h</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <MobileFooterSell />
+      </div>
+    </div>
+  );
+}
+
+function DesktopPageCmsVendreVotreVehicule() {
+  return (
+    <div className="relative mx-auto hidden h-[3293px] w-[1440px] bg-[#181818] xl:block" data-name="page cms vendre votre vehicule">
       <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.781px]" data-name="Union">
         <div className="absolute inset-[-26.92%_-7.51%]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -1899,6 +2291,15 @@ export default function PageCmsVendreVotreVehicule() {
       <Group1 />
       <Group3 />
       <Footer />
+    </div>
+  );
+}
+
+export default function PageCmsVendreVotreVehicule() {
+  return (
+    <div className="w-full bg-[#181818]">
+      <MobilePageCmsVendreVotreVehicule />
+      <DesktopPageCmsVendreVotreVehicule />
     </div>
   );
 }

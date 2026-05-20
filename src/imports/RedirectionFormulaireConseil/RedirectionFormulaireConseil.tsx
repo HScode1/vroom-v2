@@ -610,29 +610,314 @@ function Footer1() {
   );
 }
 
-export default function RedirectionFormulaireConseil() {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const [form, setForm] = useState(DEFAULT_FORM);
-
-  const dateText = formatBookingDate(searchParams.get("date"));
-  const slotText = `${searchParams.get("slot") || "10:30"} · ${searchParams.get("duration") || "30 min"}`;
-  const formatText = formatBookingMode(searchParams.get("format"));
-
-  const handleSubmit = () => {
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.set("firstName", form.firstName);
-    nextParams.set("lastName", form.lastName);
-    nextParams.set("email", form.email);
-    nextParams.set("phone", form.phone);
-    nextParams.set("budget", form.budget);
-    nextParams.set("vehicleType", form.vehicleType);
-    nextParams.set("project", form.project);
-    navigate(`/conseils/formulaire/etape-2?${nextParams.toString()}`);
-  };
-
+function MobileInfoForm({
+  form,
+  setForm,
+  dateText,
+  slotText,
+  formatText,
+  onBack,
+  onSubmit,
+}: {
+  form: FormState;
+  setForm: Dispatch<SetStateAction<FormState>>;
+  dateText: string;
+  slotText: string;
+  formatText: string;
+  onBack: () => void;
+  onSubmit: () => void;
+}) {
   return (
-    <div className="bg-[#181818] relative size-full">
+    <div className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+      <div className="border-b border-[rgba(255,255,255,0.08)] p-5 sm:p-6">
+        <div className="flex items-start gap-4">
+          <div className="relative flex size-[40px] shrink-0 items-center justify-center rounded-[10px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)]">
+            <Svg />
+          </div>
+          <div className="min-w-0">
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold text-white">VroomAdvisor · Réservation</p>
+            <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.4)]">Étape 2 sur 3 — Vos informations</p>
+          </div>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-3 text-[11px]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.15)] px-3 py-2 text-[#bcff3d]">
+            <span className="relative flex size-[22px] items-center justify-center rounded-[11px] border border-[rgba(188,255,61,0.3)] bg-[rgba(188,255,61,0.15)]">
+              <Svg1 />
+            </span>
+            Créneau
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#bcff3d] px-3 py-2 font-semibold text-[#0c0d0c]">
+            <span className="inline-flex size-[22px] items-center justify-center rounded-[11px] bg-[#bcff3d] text-[10px]">2</span>
+            Infos
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-3 py-2 text-[rgba(255,255,255,0.35)]">
+            <span className="inline-flex size-[22px] items-center justify-center rounded-[11px] bg-[rgba(255,255,255,0.04)] text-[10px]">3</span>
+            Confirmation
+          </span>
+        </div>
+      </div>
+
+      <div className="p-5 sm:p-6">
+        <div className="rounded-[16px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.06)] p-4">
+          <div className="text-[10px] uppercase tracking-[1px] text-[rgba(188,255,61,0.55)]">Votre créneau</div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="inline-flex rounded-full border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)] px-3 py-2 text-[12px] text-[#bcff3d]">{dateText}</span>
+            <span className="inline-flex rounded-full border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)] px-3 py-2 text-[12px] text-[#bcff3d]">{slotText}</span>
+            <span className="inline-flex rounded-full border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)] px-3 py-2 text-[12px] text-[#bcff3d]">{formatText}</span>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <h2 className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] text-[28px] font-extrabold text-white">
+            Vos <span className="text-[#bcff3d]">informations</span>
+          </h2>
+          <p className="mt-3 max-w-[42rem] text-[14px] leading-7 text-[rgba(255,255,255,0.45)]">
+            Renseignez vos coordonnées pour finaliser la réservation. Votre conseiller vous contactera à l&apos;heure choisie.
+          </p>
+        </div>
+
+        <div className="mt-8 space-y-8">
+          <section>
+            <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+              <span className="relative flex size-[12px] items-center justify-center">
+                <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12 12">
+                  <path d={svgPaths.p1abc700} stroke="#BCFF3D" />
+                  <path d={svgPaths.p20933800} stroke="#BCFF3D" />
+                </svg>
+              </span>
+              <span className="text-[10px] uppercase tracking-[1.3px] text-[rgba(255,255,255,0.25)]">Identité</span>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Prénom <span className="text-[#bcff3d]">*</span></label>
+                <input
+                  value={form.firstName}
+                  onChange={(event) => setForm((current) => ({ ...current, firstName: event.target.value }))}
+                  className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none"
+                />
+              </div>
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Nom <span className="text-[#bcff3d]">*</span></label>
+                <input
+                  value={form.lastName}
+                  onChange={(event) => setForm((current) => ({ ...current, lastName: event.target.value }))}
+                  className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none"
+                />
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+              <span className="relative flex size-[12px] items-center justify-center">
+                <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 12 12">
+                  <path d={svgPaths.p13de1180} stroke="#BCFF3D" />
+                  <path d="M11 3L6 6.5L1 3" stroke="#BCFF3D" />
+                </svg>
+              </span>
+              <span className="text-[10px] uppercase tracking-[1.3px] text-[rgba(255,255,255,0.25)]">Coordonnées</span>
+            </div>
+            <div className="space-y-4">
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Adresse email <span className="text-[#bcff3d]">*</span></label>
+                <input
+                  value={form.email}
+                  onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                  className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none"
+                />
+                <p className="mt-2 text-[11px] text-[rgba(255,255,255,0.25)]">La confirmation de réservation sera envoyée à cette adresse.</p>
+              </div>
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Numéro de téléphone <span className="text-[#bcff3d]">*</span></label>
+                <div className="flex">
+                  <div className="flex h-[46px] w-[74px] items-center justify-center rounded-l-[11px] border border-r-0 border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[14px] text-[rgba(255,255,255,0.55)]">
+                    🇫🇷 +33
+                  </div>
+                  <input
+                    value={form.phone}
+                    onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))}
+                    className="h-[46px] flex-1 rounded-r-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none"
+                  />
+                </div>
+                <p className="mt-2 text-[11px] text-[rgba(255,255,255,0.25)]">Votre conseiller vous appellera à ce numéro à l&apos;heure du rendez-vous.</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
+              <span className="relative flex size-[12px] items-center justify-center">
+                <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9 8.39401">
+                  <path d={svgPaths.p1be12b80} fill="#BCFF3D" />
+                </svg>
+              </span>
+              <span className="text-[10px] uppercase tracking-[1.3px] text-[rgba(255,255,255,0.25)]">Votre projet automobile</span>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Budget estimé</label>
+                <select
+                  value={form.budget}
+                  onChange={(event) => setForm((current) => ({ ...current, budget: event.target.value }))}
+                  className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none"
+                >
+                  {BUDGET_OPTIONS.map((option) => (
+                    <option key={option.value || "empty"} value={option.value} className="text-black">
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Type de véhicule recherché</label>
+                <select
+                  value={form.vehicleType}
+                  onChange={(event) => setForm((current) => ({ ...current, vehicleType: event.target.value }))}
+                  className="h-[46px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none"
+                >
+                  {VEHICLE_OPTIONS.map((option) => (
+                    <option key={option.value || "empty"} value={option.value} className="text-black">
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="mt-4">
+              <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Décrivez votre projet <span className="normal-case tracking-normal text-[10px]">(optionnel)</span></label>
+              <textarea
+                value={form.project}
+                onChange={(event) => setForm((current) => ({ ...current, project: event.target.value }))}
+                className="min-h-[120px] w-full rounded-[11px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-[14px] text-white outline-none"
+              />
+            </div>
+          </section>
+        </div>
+
+        <div className="mt-8 border-t border-[rgba(255,255,255,0.08)] pt-6">
+          <button type="button" onClick={onBack} className="text-[12px] text-[rgba(255,255,255,0.4)]">
+            ← Modifier mon créneau
+          </button>
+          <div className="mt-5 space-y-3 text-[12px] text-[rgba(255,255,255,0.35)]">
+            <p>Vos données sont strictement confidentielles et ne seront jamais partagées avec des tiers.</p>
+            <div className="flex flex-wrap gap-4 text-[11px] text-[rgba(255,255,255,0.25)]">
+              <span>Confirmation par email</span>
+              <span>Annulation gratuite 24h avant</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={onSubmit}
+            className="mt-6 w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+          >
+            Finaliser ma réservation
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileFooterReservation() {
+  return (
+    <footer className="mt-24 rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-6 sm:p-8">
+      <div className="grid gap-8">
+        <div>
+          <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[22px] text-white">Qu&apos;attendez-vous ?</div>
+          <a href="tel:+33670760719" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-5 py-3 text-[16px] text-black">06 70 76 07 19</a>
+          <div className="mt-5 space-y-3 text-[15px] text-white">
+            <a href="mailto:contact@vroomparis.fr" className="block break-all">contact@vroomparis.fr</a>
+            <span className="block text-[rgba(255,255,255,0.72)]">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</span>
+          </div>
+        </div>
+        <div className="grid gap-8 sm:grid-cols-2">
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+            <div className="mt-4 space-y-3 text-[15px] text-white">
+              <a href="/showroom" className="block">Showroom</a>
+              <a href="/acheter-votre-vehicule" className="block">Acheter un véhicule</a>
+              <a href="/vendre-votre-vehicule" className="block">Vendre votre véhicule</a>
+              <a href="/conseils" className="block">Consultation automobile</a>
+              <a href="/a-propos" className="block">À propos</a>
+            </div>
+          </div>
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+            <div className="mt-4 space-y-3 text-[15px] text-white">
+              <div>Politique de confidentialité</div>
+              <div>Conditions générales</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-8 border-t border-[#1f2937] pt-5 text-center text-[14px] text-[#9ca3af]">© 2026 Vroom Paris. Tous droits réservés.</div>
+    </footer>
+  );
+}
+
+function MobileRedirectionFormulaireConseil({
+  form,
+  setForm,
+  dateText,
+  slotText,
+  formatText,
+  onBack,
+  onSubmit,
+}: {
+  form: FormState;
+  setForm: Dispatch<SetStateAction<FormState>>;
+  dateText: string;
+  slotText: string;
+  formatText: string;
+  onBack: () => void;
+  onSubmit: () => void;
+}) {
+  return (
+    <div className="relative overflow-x-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-140px] h-[440px] w-[760px] -translate-x-1/2 opacity-80 blur-[90px]">
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_rgba(200,236,102,0.35),_rgba(114,249,216,0.08)_45%,_rgba(24,24,24,0)_75%)]" />
+      </div>
+      <div className="relative mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
+        <section className="text-center">
+          <h1 className="font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
+            Réservez votre
+            <span className="block text-[#bcff3d]">consultation automobile</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-[34rem] font-['DM_Sans:Regular',sans-serif] text-[16px] leading-7 text-[rgba(255,255,255,0.56)]">
+            Choisissez votre créneau. Un expert VroomAdvisor vous rappelle à l&apos;heure choisie.
+          </p>
+        </section>
+
+        <section className="mt-10">
+          <MobileInfoForm form={form} setForm={setForm} dateText={dateText} slotText={slotText} formatText={formatText} onBack={onBack} onSubmit={onSubmit} />
+        </section>
+
+        <MobileFooterReservation />
+      </div>
+    </div>
+  );
+}
+
+function DesktopRedirectionFormulaireConseil({
+  form,
+  setForm,
+  dateText,
+  slotText,
+  formatText,
+  onBack,
+  onSubmit,
+}: {
+  form: FormState;
+  setForm: Dispatch<SetStateAction<FormState>>;
+  dateText: string;
+  slotText: string;
+  formatText: string;
+  onBack: () => void;
+  onSubmit: () => void;
+}) {
+  return (
+    <div className="relative mx-auto hidden h-[2404px] w-[1440px] bg-[#181818] xl:block">
       <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.781px]">
         <div className="absolute inset-[-26.92%_-7.51%]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -662,7 +947,36 @@ export default function RedirectionFormulaireConseil() {
         <p className="leading-[26.35px] mb-0">Choisissez votre créneau. Un expert VroomAdvisor vous</p>
         <p className="leading-[26.35px]">{`rappelle à l'heure choisie.`}</p>
       </div>
-      <OverlayBorder
+      <OverlayBorder form={form} setForm={setForm} dateText={dateText} slotText={slotText} formatText={formatText} onBack={onBack} onSubmit={onSubmit} />
+      <Footer1 />
+    </div>
+  );
+}
+
+export default function RedirectionFormulaireConseil() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [form, setForm] = useState(DEFAULT_FORM);
+
+  const dateText = formatBookingDate(searchParams.get("date"));
+  const slotText = `${searchParams.get("slot") || "10:30"} · ${searchParams.get("duration") || "30 min"}`;
+  const formatText = formatBookingMode(searchParams.get("format"));
+
+  const handleSubmit = () => {
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.set("firstName", form.firstName);
+    nextParams.set("lastName", form.lastName);
+    nextParams.set("email", form.email);
+    nextParams.set("phone", form.phone);
+    nextParams.set("budget", form.budget);
+    nextParams.set("vehicleType", form.vehicleType);
+    nextParams.set("project", form.project);
+    navigate(`/conseils/formulaire/etape-2?${nextParams.toString()}`);
+  };
+
+  return (
+    <div className="w-full bg-[#181818]">
+      <MobileRedirectionFormulaireConseil
         form={form}
         setForm={setForm}
         dateText={dateText}
@@ -671,7 +985,15 @@ export default function RedirectionFormulaireConseil() {
         onBack={() => navigate(`/conseils?${searchParams.toString()}`)}
         onSubmit={handleSubmit}
       />
-      <Footer1 />
+      <DesktopRedirectionFormulaireConseil
+        form={form}
+        setForm={setForm}
+        dateText={dateText}
+        slotText={slotText}
+        formatText={formatText}
+        onBack={() => navigate(`/conseils?${searchParams.toString()}`)}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }

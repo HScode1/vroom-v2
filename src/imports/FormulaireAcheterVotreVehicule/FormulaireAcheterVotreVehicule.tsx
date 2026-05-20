@@ -1853,6 +1853,457 @@ function Footer() {
   );
 }
 
+const mobileStepLabels = [
+  "Votre véhicule idéal",
+  "Budget & préférences",
+  "Vos coordonnées",
+];
+
+function MobileHero() {
+  return (
+    <section className="mx-auto max-w-[760px] px-5 pt-24 sm:px-8 sm:pt-28">
+      <div className="rounded-[24px] border border-[rgba(188,255,61,0.16)] bg-[linear-gradient(145deg,rgba(188,255,61,0.1),rgba(255,255,255,0.02))] p-5 sm:p-6">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.09)] px-3 py-2 text-[10px] font-semibold uppercase tracking-[1.2px] text-[#bcff3d]">
+          <span className="size-1.5 rounded-full bg-[#bcff3d]" />
+          Service personnalisé · Réponse sous 24h
+        </div>
+        <h1 className="font-['Syne:ExtraBold',sans-serif] text-[34px] leading-[1.02] tracking-[-1.2px] text-white">
+          Décrivez le véhicule
+          <br />
+          de vos <span className="text-[#bcff3d]">rêves</span>
+        </h1>
+        <p className="mt-4 text-[14px] leading-6 text-[rgba(255,255,255,0.62)]">
+          Remplissez le formulaire ci-dessous. Notre équipe analyse votre demande et vous contacte sous 24h avec une sélection personnalisée de véhicules.
+        </p>
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          {[
+            ["500+", "véhicules en stock"],
+            ["24h", "délai de réponse"],
+            ["100%", "gratuit"],
+            ["12m", "garantie incluse"],
+          ].map(([value, label]) => (
+            <div key={label} className="rounded-[16px] bg-[#111411] px-4 py-4">
+              <div className="font-['Syne:ExtraBold',sans-serif] text-[26px] text-[#bcff3d]">{value}</div>
+              <div className="mt-1 text-[11px] text-[rgba(255,255,255,0.42)]">{label}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 space-y-4">
+          {[
+            ["01", "Vous décrivez votre projet", "Marque, modèle, budget, préférences."],
+            ["02", "Notre équipe sélectionne pour vous", "Nous analysons tout le marché auto."],
+            ["03", "On vous rappelle sous 24h", "Avec des propositions concrètes et négociées."],
+          ].map(([index, title, desc]) => (
+            <div key={index} className="flex gap-3 border-b border-[rgba(255,255,255,0.08)] pb-4 last:border-b-0 last:pb-0">
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.09)] text-[11px] font-bold text-[#bcff3d]">
+                {index}
+              </div>
+              <div>
+                <div className="text-[14px] font-semibold text-[rgba(255,255,255,0.88)]">{title}</div>
+                <div className="mt-1 text-[12px] leading-5 text-[rgba(255,255,255,0.42)]">{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileSidebarCards() {
+  return (
+    <div className="space-y-3">
+      <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Ce qui se passe ensuite</div>
+        <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
+          <div>Votre demande est transmise à notre équipe</div>
+          <div>Analyse de tout le marché auto</div>
+          <div>Sélection personnalisée sous 24h</div>
+          <div>On vous rappelle avec nos propositions</div>
+        </div>
+      </div>
+      <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Nos garanties</div>
+        <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
+          <div>100% gratuit, sans engagement</div>
+          <div>Garantie 12 mois sur chaque véhicule</div>
+          <div>Contrôle 100 points avant livraison</div>
+          <div>Livraison à domicile disponible</div>
+        </div>
+      </div>
+      <div className="rounded-[20px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.05)] p-5">
+        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-[#bcff3d]">Une question ?</div>
+        <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.66)]">
+          <div>06 19 93 37 65</div>
+          <div>contact@vroomparis.fr</div>
+          <div>Lun – Sam · 9h à 19h</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileFormSection() {
+  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [boite, setBoite] = useState<'automatique' | 'manuelle' | 'peuImporte'>('automatique');
+  const [budget, setBudget] = useState(20000);
+  const [horizon, setHorizon] = useState<'immediat' | '1-3mois' | '3-6mois' | '6plus'>('immediat');
+  const min = 5000;
+  const max = 100000;
+  const pct = ((budget - min) / (max - min)) * 100;
+
+  return (
+    <section className="px-4 py-8">
+      <div className="mx-auto max-w-[760px] border-t border-[rgba(255,255,255,0.08)] px-5 pt-6 sm:px-8">
+        <div className="mb-4 grid gap-3 sm:grid-cols-3">
+          {mobileStepLabels.map((label, index) => {
+            const step = index + 1;
+            const active = currentStep === step;
+            const done = currentStep > step;
+            return (
+              <div
+                key={label}
+                className={`min-w-0 rounded-[18px] border px-4 py-3 text-left transition-colors ${
+                  active
+                    ? "border-[rgba(188,255,61,0.24)] bg-[rgba(188,255,61,0.1)]"
+                    : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)]"
+                }`}
+              >
+                <div className={`text-[11px] font-semibold uppercase tracking-[1.1px] ${active || done ? "text-[#bcff3d]" : "text-[rgba(255,255,255,0.3)]"}`}>
+                  Étape {step}
+                </div>
+                <div className={`mt-1 break-words text-[13px] font-semibold leading-5 ${active ? "text-white" : "text-[rgba(255,255,255,0.58)]"}`}>{label}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+          <div className="border-b border-[rgba(255,255,255,0.08)] px-5 py-5">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex min-w-0 items-start gap-3">
+                <div className="flex size-[42px] shrink-0 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)]">
+                  <div className="text-[18px]">🚚</div>
+                </div>
+                <div className="min-w-0">
+                  <div className="font-['Syne:Bold',sans-serif] text-[18px] text-white">Formulaire de recherche véhicule</div>
+                  <div className="mt-2 text-[13px] leading-5 text-[rgba(255,255,255,0.45)]">
+                    Décrivez le véhicule que vous recherchez, notre équipe s&apos;occupe du reste.
+                  </div>
+                </div>
+              </div>
+              <div className="shrink-0 rounded-full border border-[rgba(188,255,61,0.16)] bg-[rgba(188,255,61,0.08)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[1.1px] text-[#bcff3d]">
+                <span className="mr-2 inline-block size-2 rounded-full bg-[#bcff3d]" />
+                24h
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-6 px-5 py-6">
+            {currentStep === 1 && (
+              <>
+                <div>
+                  <div className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[1.4px] text-[rgba(255,255,255,0.28)]">
+                    <span className="text-[#bcff3d]">🚘</span>
+                    <span>Le véhicule recherché</span>
+                  </div>
+                  <div className="grid gap-4">
+                    <label className="grid gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Marque *</span>
+                      <select className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                        <option value="">Sélectionner...</option>
+                        <option>Audi</option>
+                        <option>BMW</option>
+                        <option>Citroën</option>
+                        <option>Dacia</option>
+                        <option>Ford</option>
+                        <option>Mercedes</option>
+                        <option>Peugeot</option>
+                        <option>Renault</option>
+                        <option>Toyota</option>
+                        <option>Volkswagen</option>
+                        <option>Autre</option>
+                      </select>
+                    </label>
+                    <label className="grid gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Modèle</span>
+                      <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
+                    </label>
+                    <label className="grid gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Année souhaitée</span>
+                      <select className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                        <option value="">Peu importe</option>
+                        {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
+                          <option key={y}>{y}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <div className="grid gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Type de boîte *</span>
+                      <div className="grid gap-2 min-[420px]:grid-cols-3">
+                        {[
+                          ["automatique", "Automatique"],
+                          ["manuelle", "Manuelle"],
+                          ["peuImporte", "Peu importe"],
+                        ].map(([value, label]) => {
+                          const active = boite === value;
+                          return (
+                            <button
+                              key={value}
+                              type="button"
+                              onClick={() => setBoite(value as typeof boite)}
+                              className={`h-12 rounded-[12px] border text-[13px] transition-colors ${
+                                active
+                                  ? "border-[#bcff3d] bg-[rgba(188,255,61,0.08)] font-semibold text-[#bcff3d]"
+                                  : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.45)]"
+                              }`}
+                            >
+                              {label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    <label className="grid gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Carburant</span>
+                      <select className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                        <option value="">Peu importe</option>
+                        <option>Essence</option>
+                        <option>Diesel</option>
+                        <option>Hybride</option>
+                        <option>Hybride rechargeable</option>
+                        <option>Électrique</option>
+                        <option>GPL</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(2)}
+                  className="h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
+                >
+                  Suivant →
+                </button>
+              </>
+            )}
+
+            {currentStep === 2 && (
+              <>
+                <div>
+                  <div className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[1.4px] text-[rgba(255,255,255,0.28)]">
+                    <span className="text-[#bcff3d]">💶</span>
+                    <span>Votre budget maximum</span>
+                  </div>
+                  <div className="font-['Syne:ExtraBold',sans-serif] text-[34px] text-[#bcff3d]">{budget.toLocaleString("fr-FR")} <span className="text-[18px] text-[rgba(255,255,255,0.4)]">€</span></div>
+                  <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.4)]">budget maximum TTC</div>
+                  <div className="relative mt-6 h-7">
+                    <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[rgba(255,255,255,0.08)]" />
+                    <div className="absolute left-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#bcff3d]" style={{ width: `${pct}%` }} />
+                    <div className="absolute top-1/2 size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#bcff3d] shadow-[0px_0px_0px_4px_rgba(188,255,61,0.15)]" style={{ left: `${pct}%` }} />
+                    <input
+                      type="range"
+                      min={min}
+                      max={max}
+                      step={1000}
+                      value={budget}
+                      onChange={(e) => setBudget(Number(e.target.value))}
+                      className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                    />
+                  </div>
+                  <div className="mt-3 flex justify-between text-[10px] text-[rgba(255,255,255,0.25)]">
+                    <span>5 000 €</span>
+                    <span>25 000 €</span>
+                    <span>50 000 €</span>
+                    <span>100 000 €</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[1.4px] text-[rgba(255,255,255,0.28)]">
+                    <span className="text-[#bcff3d]">⏱️</span>
+                    <span>Quand souhaitez-vous acheter ?</span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      ["immediat", "⚡", "Immédiatement", "Dès que possible"],
+                      ["1-3mois", "📅", "Dans 1 à 3 mois", "Je prépare mon projet"],
+                      ["3-6mois", "🗓️", "Dans 3 à 6 mois", "Je me renseigne"],
+                      ["6plus", "🔭", "+ de 6 mois", "Pas pressé"],
+                    ].map(([value, icon, title, subtitle]) => {
+                      const active = horizon === value;
+                      return (
+                        <button
+                          key={value}
+                          type="button"
+                          onClick={() => setHorizon(value as typeof horizon)}
+                          className={`rounded-[14px] border px-3 py-4 text-center transition-colors ${
+                            active
+                              ? "border-[#bcff3d] bg-[rgba(188,255,61,0.08)] text-[#bcff3d]"
+                              : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.45)]"
+                          }`}
+                        >
+                          <div className="text-[18px]">{icon}</div>
+                          <div className="mt-2 text-[13px] font-bold">{title}</div>
+                          <div className="mt-1 text-[11px] opacity-70">{subtitle}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <label className="grid gap-2">
+                  <span className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[1.4px] text-[rgba(255,255,255,0.28)]">
+                    <span className="text-[#bcff3d]">📝</span>
+                    <span>Précisions sur votre recherche</span>
+                  </span>
+                  <textarea
+                    className="min-h-[120px] rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]"
+                    placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…"
+                  />
+                </label>
+
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(1)}
+                    className="h-[54px] flex-1 rounded-[14px] border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-white"
+                  >
+                    ← Précédent
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(3)}
+                    className="h-[54px] flex-1 rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
+                  >
+                    Suivant →
+                  </button>
+                </div>
+              </>
+            )}
+
+            {currentStep === 3 && (
+              <>
+                <div className="grid gap-4">
+                  <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[1.4px] text-[rgba(255,255,255,0.28)]">
+                    <span className="text-[#bcff3d]">📇</span>
+                    <span>Vos coordonnées</span>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <label className="grid gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Prénom *</span>
+                      <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" autoComplete="given-name" />
+                    </label>
+                    <label className="grid gap-2">
+                      <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Nom *</span>
+                      <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" autoComplete="family-name" />
+                    </label>
+                  </div>
+                  <label className="grid gap-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Email *</span>
+                    <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
+                    <span className="text-[11px] leading-[15.4px] text-[rgba(255,255,255,0.25)]">Notre équipe vous enverra la sélection de véhicules à cette adresse.</span>
+                  </label>
+                  <label className="grid gap-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Téléphone *</span>
+                    <div className="flex overflow-hidden rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)]">
+                      <div className="flex items-center border-r border-[rgba(255,255,255,0.08)] px-4 text-[14px] text-[rgba(255,255,255,0.55)]">🇫🇷 +33</div>
+                      <input className="h-12 flex-1 bg-transparent px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
+                    </div>
+                    <span className="text-[11px] leading-[15.4px] text-[rgba(255,255,255,0.25)]">Pour vous rappeler directement avec nos propositions.</span>
+                  </label>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(2)}
+                  className="h-[48px] w-full rounded-[14px] border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-white"
+                >
+                  ← Précédent
+                </button>
+
+                <div className="border-t border-[rgba(255,255,255,0.08)] pt-5">
+                  <p className="text-[12px] leading-[19.2px] text-[rgba(255,255,255,0.4)]">
+                    Vos données sont strictement confidentielles et utilisées uniquement pour répondre à votre demande de véhicule.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/acheter-votre-vehicule/etape-2")}
+                    className="mt-5 h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
+                  >
+                    Envoyer ma demande
+                  </button>
+                  <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-center text-[11px] text-[rgba(255,255,255,0.25)]">
+                    <span>Sans engagement</span>
+                    <span>Réponse sous 24h</span>
+                    <span>Confirmation par email</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-4">
+          <MobileSidebarCards />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileFooter() {
+  return (
+    <footer className="mt-8 border-t border-[rgba(255,255,255,0.08)] py-8">
+      <div className="mx-auto max-w-[760px] px-5 sm:px-8">
+        <div className="space-y-8 rounded-[24px] bg-[#111411] p-5 sm:p-6">
+        <div>
+          <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Qu’attendez-vous ?</div>
+          <a href="tel:0619933765" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-4 py-3 text-[15px] text-black">
+            06 19 93 37 65
+          </a>
+          <div className="mt-4 text-[15px] text-white">contact@vroomparis.fr</div>
+          <div className="mt-4 text-[15px] leading-6 text-white">75 Avenue des Champs-Élysées, 75008 Paris</div>
+        </div>
+        <div>
+          <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+          <div className="mt-3 text-[15px] leading-6 text-[#9ca3af]">Bienvenue chez Vroom Paris, la concession automobile.</div>
+          <div className="mt-4 space-y-2 text-[15px] text-white">
+            <div>À propos de nous</div>
+            <div>Nos services</div>
+            <div>Nos emplacements</div>
+            <div>FAQ</div>
+          </div>
+        </div>
+        <div>
+          <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+          <div className="mt-4 space-y-2 text-[15px] text-white">
+            <div>Politique de confidentialité</div>
+            <div>Conditions générales</div>
+            <div>Politique des cookies</div>
+          </div>
+        </div>
+          <div className="border-t border-[#1f2937] pt-4 text-center text-[14px] text-[#9ca3af]">
+            © 2025 Vroom Paris. Tous droits réservés.
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function MobilePage() {
+  return (
+    <div className="relative overflow-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-120px] h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(188,255,61,0.18)_0%,rgba(188,255,61,0)_68%)]" />
+      <MobileHero />
+      <MobileFormSection />
+      <MobileFooter />
+    </div>
+  );
+}
+
 function Group() {
   return (
     <div className="absolute inset-[1.24%_46.71%_96.65%_46.74%]">
@@ -1874,34 +2325,37 @@ function Group() {
 
 export default function FormulaireAcheterVotreVehicule() {
   return (
-    <div className="bg-[#181818] relative size-full" data-name="Formulaire acheter votre véhicule">
-      <div className="absolute h-[742.87px] left-[-464px] top-[-197px] w-[2664.781px]" data-name="Union">
-        <div className="absolute inset-[-26.92%_-7.51%]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
-            <g filter="url(#filter0_f_6_2326)" id="Union">
-              <path d={svgPaths.p3dd141f0} fill="url(#paint0_linear_6_2326)" />
-            </g>
-            <defs>
-              <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_2326" width="3064.78" x="-7.33021e-06" y="3.20925e-06">
-                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
-                <feGaussianBlur result="effect1_foregroundBlur_6_2326" stdDeviation="100" />
-              </filter>
-              <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_2326" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
-                <stop stopColor="#C8EC66" />
-                <stop offset="0.25" stopColor="#D4FF60" />
-                <stop offset="0.5" stopColor="#72F9D8" />
-                <stop offset="0.75" stopColor="#FCFFB4" />
-                <stop offset="1" stopColor="white" />
-              </linearGradient>
-            </defs>
-          </svg>
+    <div className="bg-[#181818] relative min-h-screen size-full" data-name="Formulaire acheter votre véhicule">
+      <MobilePage />
+      <div className="relative mx-auto hidden min-h-[2933px] w-[1440px] xl:block">
+        <div className="absolute h-[742.87px] left-[-464px] top-[-197px] w-[2664.781px]" data-name="Union">
+          <div className="absolute inset-[-26.92%_-7.51%]">
+            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
+              <g filter="url(#filter0_f_6_2326)" id="Union">
+                <path d={svgPaths.p3dd141f0} fill="url(#paint0_linear_6_2326)" />
+              </g>
+              <defs>
+                <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_2326" width="3064.78" x="-7.33021e-06" y="3.20925e-06">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                  <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                  <feGaussianBlur result="effect1_foregroundBlur_6_2326" stdDeviation="100" />
+                </filter>
+                <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_2326" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
+                  <stop stopColor="#C8EC66" />
+                  <stop offset="0.25" stopColor="#D4FF60" />
+                  <stop offset="0.5" stopColor="#72F9D8" />
+                  <stop offset="0.75" stopColor="#FCFFB4" />
+                  <stop offset="1" stopColor="white" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
         </div>
+        <SectionHero />
+        <FormSection />
+        <Footer />
+        <Group />
       </div>
-      <SectionHero />
-      <FormSection />
-      <Footer />
-      <Group />
     </div>
   );
 }

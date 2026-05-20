@@ -1120,9 +1120,116 @@ function Footer() {
   );
 }
 
-export default function Etape2FormulaireVendreVotreVehicule() {
+function MobileFooterSellConfirmation() {
   return (
-    <div className="bg-[#181818] relative size-full" data-name="etape 2 formulaire vendre votre véhicule">
+    <footer className="mt-24 rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-6 sm:p-8">
+      <div className="grid gap-8">
+        <div>
+          <div className="text-[22px] text-white">Qu&apos;attendez-vous ?</div>
+          <a href="tel:+33670760719" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-5 py-3 text-[16px] text-black">06 70 76 07 19</a>
+          <div className="mt-5 space-y-3 text-[15px] text-white">
+            <a href="mailto:contact@vroomparis.fr" className="block break-all">contact@vroomparis.fr</a>
+            <span className="block text-[rgba(255,255,255,0.72)]">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</span>
+          </div>
+        </div>
+      </div>
+      <div className="mt-8 border-t border-[#1f2937] pt-5 text-center text-[14px] text-[#9ca3af]">© 2026 Vroom Paris. Tous droits réservés.</div>
+    </footer>
+  );
+}
+
+function MobileEtape2FormulaireVendreVotreVehicule() {
+  return (
+    <div className="relative overflow-x-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-140px] h-[440px] w-[760px] -translate-x-1/2 opacity-80 blur-[90px]">
+        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,_rgba(200,236,102,0.35),_rgba(114,249,216,0.08)_45%,_rgba(24,24,24,0)_75%)]" />
+      </div>
+      <div className="relative mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
+        <section className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] p-5 sm:p-6">
+          <div className="flex items-start gap-4 border-b border-[rgba(255,255,255,0.08)] pb-5">
+            <div className="relative flex size-[40px] shrink-0 items-center justify-center rounded-[10px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)]">
+              <Svg />
+            </div>
+            <p className="pt-2 text-[12px] text-[rgba(255,255,255,0.45)]">Votre dossier a bien été transmis à notre équipe.</p>
+          </div>
+
+          <div className="mt-8">
+            <h1 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white">
+              Demande de reprise
+              <span className="block text-[#bcff3d]">bien reçue</span>
+            </h1>
+            <p className="mt-4 text-[15px] leading-7 text-[rgba(255,255,255,0.55)]">
+              Notre équipe analyse maintenant les informations et les photos de votre véhicule. Vous recevrez une estimation personnalisée sous 24h.
+            </p>
+          </div>
+
+          <div className="mt-8 rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+            <div className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Véhicule soumis à la reprise</div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {[
+                ["Marque", "Renault"],
+                ["Modèle", "Clio V"],
+                ["Finition", "Intens"],
+                ["Année", "2021"],
+                ["Kilométrage", "42 000 km"],
+                ["Boîte", "Manuelle"],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-[14px] bg-[#1d1d1d] p-4">
+                  <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">{label}</div>
+                  <div className="mt-2 text-[14px] font-semibold text-[rgba(255,255,255,0.85)]">{value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+            <div className="text-[14px] font-bold text-white">Prochaines étapes</div>
+            <div className="mt-5 space-y-4">
+              {[
+                "Formulaire soumis · Dossier reçu aujourd'hui",
+                "Analyse par notre équipe · Étude des informations et photos en cours",
+                "Estimation reçue · Par email et téléphone sous 24h",
+                "Dépôt & finalisation · Si l'offre vous convient, dépôt en showroom",
+              ].map((item, index) => (
+                <div key={item} className="flex items-start gap-4">
+                  <div className={`mt-1 flex size-7 shrink-0 items-center justify-center rounded-[13px] ${index === 0 ? "bg-[#bcff3d] text-[#0c0d0c]" : "bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.35)]"} text-[10px] font-bold`}>
+                    {index + 1}
+                  </div>
+                  <div className="text-[13px] leading-6 text-[rgba(255,255,255,0.6)]">{item}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+            <div className="text-[14px] font-bold text-[#bcff3d]">À savoir</div>
+            <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.6)]">
+              <div>Gratuit et sans engagement</div>
+              <div>Estimation personnalisée sous 24h</div>
+              <div>Vous restez libre d&apos;accepter ou refuser</div>
+              <div>Paiement rapide à la finalisation</div>
+            </div>
+          </div>
+
+          <div className="mt-8 rounded-[20px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.05)] p-5">
+            <div className="text-[14px] font-bold text-[#bcff3d]">Une question ?</div>
+            <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.65)]">
+              <div>06 19 93 37 65</div>
+              <div>contact@vroomparis.fr</div>
+              <div>Lun – Sam · 9h à 19h</div>
+            </div>
+          </div>
+        </section>
+
+        <MobileFooterSellConfirmation />
+      </div>
+    </div>
+  );
+}
+
+function DesktopEtape2FormulaireVendreVotreVehicule() {
+  return (
+    <div className="relative mx-auto hidden h-[1833px] w-[1440px] bg-[#181818] xl:block" data-name="etape 2 formulaire vendre votre véhicule">
       <div className="absolute h-[742.871px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">
         <div className="absolute inset-[-26.92%_-7.51%]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -1152,6 +1259,15 @@ export default function Etape2FormulaireVendreVotreVehicule() {
       </div>
       <Group />
       <Footer />
+    </div>
+  );
+}
+
+export default function Etape2FormulaireVendreVotreVehicule() {
+  return (
+    <div className="w-full bg-[#181818]">
+      <MobileEtape2FormulaireVendreVotreVehicule />
+      <DesktopEtape2FormulaireVendreVotreVehicule />
     </div>
   );
 }

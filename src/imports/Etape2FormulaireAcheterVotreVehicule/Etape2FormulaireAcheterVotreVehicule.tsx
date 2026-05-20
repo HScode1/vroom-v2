@@ -1327,6 +1327,257 @@ function Footer() {
   );
 }
 
+function MobileHero() {
+  return (
+    <section className="mx-auto max-w-[760px] px-5 pt-24 sm:px-8 sm:pt-28">
+      <div className="rounded-[24px] border border-[rgba(188,255,61,0.16)] bg-[linear-gradient(145deg,rgba(188,255,61,0.1),rgba(255,255,255,0.02))] p-5 sm:p-6">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.09)] px-3 py-2 text-[10px] font-semibold uppercase tracking-[1.2px] text-[#bcff3d]">
+          <span className="size-1.5 rounded-full bg-[#bcff3d]" />
+          Service personnalisé · Réponse sous 24h
+        </div>
+        <h1 className="font-['Syne:ExtraBold',sans-serif] text-[34px] leading-[1.02] tracking-[-1.2px] text-white">
+          Décrivez le véhicule
+          <br />
+          de vos <span className="text-[#bcff3d]">rêves</span>
+        </h1>
+        <p className="mt-4 text-[14px] leading-6 text-[rgba(255,255,255,0.62)]">
+          Remplissez le formulaire ci-dessous. Notre équipe analyse votre demande et vous contacte sous 24h avec une sélection personnalisée de véhicules.
+        </p>
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          {[
+            ["500+", "véhicules en stock"],
+            ["24h", "délai de réponse"],
+            ["100%", "gratuit"],
+            ["12m", "garantie incluse"],
+          ].map(([value, label]) => (
+            <div key={label} className="rounded-[16px] bg-[#111411] px-4 py-4">
+              <div className="font-['Syne:ExtraBold',sans-serif] text-[26px] text-[#bcff3d]">{value}</div>
+              <div className="mt-1 text-[11px] text-[rgba(255,255,255,0.42)]">{label}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 space-y-4">
+          {[
+            ["01", "Vous décrivez votre projet", "Marque, modèle, budget, préférences."],
+            ["02", "Notre équipe sélectionne pour vous", "Nous analysons tout le marché auto."],
+            ["03", "On vous rappelle sous 24h", "Avec des propositions concrètes et négociées."],
+          ].map(([index, title, desc]) => (
+            <div key={index} className="flex gap-3 border-b border-[rgba(255,255,255,0.08)] pb-4 last:border-b-0 last:pb-0">
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.09)] text-[11px] font-bold text-[#bcff3d]">
+                {index}
+              </div>
+              <div>
+                <div className="text-[14px] font-semibold text-[rgba(255,255,255,0.88)]">{title}</div>
+                <div className="mt-1 text-[12px] leading-5 text-[rgba(255,255,255,0.42)]">{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileSidebarCards() {
+  return (
+    <div className="space-y-3">
+      <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Ce qui se passe ensuite</div>
+        <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
+          <div>Votre demande est transmise à notre équipe</div>
+          <div>Analyse de tout le marché auto</div>
+          <div>Sélection personnalisée sous 24h</div>
+          <div>On vous rappelle avec nos propositions</div>
+        </div>
+      </div>
+      <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
+        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Nos garanties</div>
+        <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
+          <div>100% gratuit, sans engagement</div>
+          <div>Garantie 12 mois sur chaque véhicule</div>
+          <div>Contrôle 100 points avant livraison</div>
+          <div>Livraison à domicile disponible</div>
+        </div>
+      </div>
+      <div className="rounded-[20px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.05)] p-5">
+        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-[#bcff3d]">Une question ?</div>
+        <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.66)]">
+          <div>06 19 93 37 65</div>
+          <div>contact@vroomparis.fr</div>
+          <div>Lun – Sam · 9h à 19h</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileConfirmationSection() {
+  const navigate = useNavigate();
+
+  return (
+    <section className="px-4 py-8">
+      <div className="mx-auto max-w-[760px] border-t border-[rgba(255,255,255,0.08)] px-5 pt-6 sm:px-8">
+        <div className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)] overflow-hidden">
+          <div className="border-b border-[rgba(255,255,255,0.08)] px-5 py-5">
+            <div className="flex items-start gap-3">
+              <div className="flex size-[42px] shrink-0 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)]">
+                <div className="text-[18px]">🚚</div>
+              </div>
+              <div>
+                <div className="font-['Syne:Bold',sans-serif] text-[18px] text-white">Demande reçue · Vroom Advisor</div>
+                <div className="mt-2 text-[13px] leading-5 text-[rgba(255,255,255,0.45)]">
+                  Notre équipe va analyser votre demande et vous contacter sous 24h.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-b border-[rgba(255,255,255,0.08)] px-5 py-8 text-center">
+            <div className="mx-auto flex size-[68px] items-center justify-center rounded-full border border-[rgba(188,255,61,0.28)] bg-[rgba(188,255,61,0.12)] text-[28px]">
+              ✓
+            </div>
+            <h2 className="mt-6 font-['Syne:ExtraBold',sans-serif] text-[28px] leading-[1.15] text-white">
+              Demande <span className="text-[#bcff3d]">bien reçue !</span>
+            </h2>
+            <p className="mt-4 text-[15px] leading-[24px] text-[rgba(255,255,255,0.55)]">
+              Merci <span className="font-medium text-[rgba(255,255,255,0.85)]">Jean Dupont</span>. Votre recherche de véhicule a bien été transmise à notre équipe. Un email de confirmation a été envoyé à <span className="font-medium text-[rgba(255,255,255,0.85)]">jean.dupont@email.com</span>.
+            </p>
+            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[12px] font-medium text-[#bcff3d]">
+              <span>⏱️</span>
+              Notre équipe vous contacte sous 24h avec une sélection personnalisée
+            </div>
+          </div>
+
+          <div className="space-y-6 px-5 py-6">
+            <div>
+              <div className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[1.4px] text-[rgba(255,255,255,0.28)]">
+                <span className="text-[#bcff3d]">🚘</span>
+                <span>Véhicule recherché</span>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  ["Marque", "Volkswagen"],
+                  ["Modèle", "Golf"],
+                  ["Année", "2022 – 2023"],
+                  ["Boîte", "Automatique"],
+                  ["Carburant", "Essence"],
+                  ["Kilométrage", "< 60 000 km"],
+                ].map(([label, value]) => (
+                  <div key={label} className="rounded-[14px] bg-[#111411] px-4 py-4">
+                    <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">{label}</div>
+                    <div className="mt-2 text-[14px] font-semibold text-[rgba(255,255,255,0.85)]">{value}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 rounded-[14px] border border-[rgba(188,255,61,0.14)] bg-[rgba(188,255,61,0.05)] p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex size-10 items-center justify-center rounded-[10px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)] text-[#bcff3d]">💶</div>
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.4)]">Budget maximum</div>
+                    <div className="mt-1 font-['Syne:ExtraBold',sans-serif] text-[22px] text-[#bcff3d]">20 000 €</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-4 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[1.4px] text-[rgba(255,255,255,0.28)]">
+                <span className="text-[#bcff3d]">📇</span>
+                <span>Coordonnées de contact</span>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4">
+                  <div className="text-[11px] uppercase tracking-[0.8px] text-[rgba(255,255,255,0.25)]">Email</div>
+                  <div className="mt-2 text-[13px] font-medium text-[rgba(255,255,255,0.8)]">jean.dupont@email.com</div>
+                </div>
+                <div className="rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] p-4">
+                  <div className="text-[11px] uppercase tracking-[0.8px] text-[rgba(255,255,255,0.25)]">Téléphone</div>
+                  <div className="mt-2 text-[13px] font-medium text-[rgba(255,255,255,0.8)]">+33 6 12 34 56 78</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3 border-t border-[rgba(255,255,255,0.08)] pt-5">
+              <button className="h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]">
+                Renvoyer la confirmation
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate("/acheter-votre-vehicule")}
+                className="h-[54px] w-full rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[14px] text-[rgba(255,255,255,0.6)]"
+              >
+                Nouvelle recherche
+              </button>
+              <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 text-center text-[11px] text-[#bcff3d]">
+                <button type="button" onClick={() => navigate("/acheter-votre-vehicule")}>Modifier ma demande</button>
+                <span className="text-[rgba(255,255,255,0.25)]">·</span>
+                <button type="button">Annuler ma demande</button>
+                <span className="text-[rgba(255,255,255,0.25)]">·</span>
+                <button type="button" onClick={() => navigate("/")}>Retour à l&apos;accueil</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4">
+          <MobileSidebarCards />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileFooter() {
+  return (
+    <footer className="mt-8 border-t border-[rgba(255,255,255,0.08)] py-8">
+      <div className="mx-auto max-w-[760px] px-5 sm:px-8">
+        <div className="space-y-8 rounded-[24px] bg-[#111411] p-5 sm:p-6">
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Qu’attendez-vous ?</div>
+            <a href="tel:0619933765" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-4 py-3 text-[15px] text-black">
+              06 19 93 37 65
+            </a>
+            <div className="mt-4 text-[15px] text-white">contact@vroomparis.fr</div>
+            <div className="mt-4 text-[15px] leading-6 text-white">75 Avenue des Champs-Élysées, 75008 Paris</div>
+          </div>
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+            <div className="mt-3 text-[15px] leading-6 text-[#9ca3af]">Bienvenue chez Vroom Paris, la concession automobile.</div>
+            <div className="mt-4 space-y-2 text-[15px] text-white">
+              <div>À propos de nous</div>
+              <div>Nos services</div>
+              <div>Nos emplacements</div>
+              <div>FAQ</div>
+            </div>
+          </div>
+          <div>
+            <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+            <div className="mt-4 space-y-2 text-[15px] text-white">
+              <div>Politique de confidentialité</div>
+              <div>Conditions générales</div>
+              <div>Politique des cookies</div>
+            </div>
+          </div>
+          <div className="border-t border-[#1f2937] pt-4 text-center text-[14px] text-[#9ca3af]">
+            © 2025 Vroom Paris. Tous droits réservés.
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function MobilePage() {
+  return (
+    <div className="relative overflow-hidden xl:hidden">
+      <div className="pointer-events-none absolute left-1/2 top-[-120px] h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(188,255,61,0.18)_0%,rgba(188,255,61,0)_68%)]" />
+      <MobileHero />
+      <MobileConfirmationSection />
+      <MobileFooter />
+    </div>
+  );
+}
+
 function Group() {
   return (
     <div className="absolute inset-[1.35%_46.71%_96.34%_46.74%]">
@@ -1363,35 +1614,38 @@ function Group1() {
 
 export default function Etape2FormulaireAcheterVotreVehicule() {
   return (
-    <div className="bg-[#181818] relative size-full" data-name="Etape 2 formulaire acheter votre vehicule">
-      <div className="absolute h-[742.87px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">
-        <div className="absolute inset-[-26.92%_-7.51%]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
-            <g filter="url(#filter0_f_6_2618)" id="Union">
-              <path d={svgPaths.p368f3900} fill="url(#paint0_linear_6_2618)" />
-            </g>
-            <defs>
-              <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_2618" width="3064.78" x="-7.48091e-06" y="3.20925e-06">
-                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
-                <feGaussianBlur result="effect1_foregroundBlur_6_2618" stdDeviation="100" />
-              </filter>
-              <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_2618" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
-                <stop stopColor="#C8EC66" />
-                <stop offset="0.25" stopColor="#D4FF60" />
-                <stop offset="0.5" stopColor="#72F9D8" />
-                <stop offset="0.75" stopColor="#FCFFB4" />
-                <stop offset="1" stopColor="white" />
-              </linearGradient>
-            </defs>
-          </svg>
+    <div className="bg-[#181818] relative min-h-screen size-full" data-name="Etape 2 formulaire acheter votre vehicule">
+      <MobilePage />
+      <div className="relative mx-auto hidden min-h-[2584px] w-[1440px] xl:block">
+        <div className="absolute h-[742.87px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">
+          <div className="absolute inset-[-26.92%_-7.51%]">
+            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
+              <g filter="url(#filter0_f_6_2618)" id="Union">
+                <path d={svgPaths.p368f3900} fill="url(#paint0_linear_6_2618)" />
+              </g>
+              <defs>
+                <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_2618" width="3064.78" x="-7.48091e-06" y="3.20925e-06">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                  <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                  <feGaussianBlur result="effect1_foregroundBlur_6_2618" stdDeviation="100" />
+                </filter>
+                <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_2618" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
+                  <stop stopColor="#C8EC66" />
+                  <stop offset="0.25" stopColor="#D4FF60" />
+                  <stop offset="0.5" stopColor="#72F9D8" />
+                  <stop offset="0.75" stopColor="#FCFFB4" />
+                  <stop offset="1" stopColor="white" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
         </div>
+        <SectionHero />
+        <FormSection />
+        <Footer />
+        <Group />
+        <Group1 />
       </div>
-      <SectionHero />
-      <FormSection />
-      <Footer />
-      <Group />
-      <Group1 />
     </div>
   );
 }
