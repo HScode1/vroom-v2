@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import svgPaths from "./svg-wzz9z1ej01";
 import imgCaptureDecran20251209A1739081 from "./c8e73a968bf4d279e3e7f298702c6d9e2caeab3d.png";
 
@@ -18,6 +19,139 @@ const FILTER_SECTIONS = [
   "Kilométrage",
   "Années",
   "Prix",
+] as const;
+
+const MOBILE_FUEL_OPTIONS = ["Essence", "Diesel", "Électrique"] as const;
+const MOBILE_GEARBOX_OPTIONS = ["Manuelle", "Automatique"] as const;
+const MOBILE_MILEAGE_OPTIONS = [
+  { id: "under-50000", label: "< 50 000 km" },
+  { id: "50000-80000", label: "50 000 - 80 000 km" },
+  { id: "over-80000", label: "> 80 000 km" },
+] as const;
+const MOBILE_YEAR_OPTIONS = [
+  { id: "2024-plus", label: "2024 et +" },
+  { id: "2022-2023", label: "2022 - 2023" },
+  { id: "2021-and-before", label: "2021 et avant" },
+] as const;
+const MOBILE_PRICE_OPTIONS = [
+  { id: "under-20000", label: "< 20 000 €" },
+  { id: "20000-28000", label: "20 000 - 28 000 €" },
+  { id: "over-28000", label: "> 28 000 €" },
+] as const;
+
+const MOBILE_SHOWROOM_VEHICLES = [
+  {
+    id: 1,
+    brandId: "mercedes-benz",
+    category: "premium" as const,
+    title: "Mercedes-Benz Classe C",
+    subtitle: "220 d AMG Line",
+    price: "25 799 €",
+    priceValue: 25799,
+    fuel: "Diesel" as const,
+    gearbox: "Automatique" as const,
+    mileageValue: 91000,
+    yearValue: 2024,
+    specs: ["Diesel", "Automatique", "91 000 km", "2024"],
+  },
+  {
+    id: 2,
+    brandId: "bmw",
+    category: "premium" as const,
+    title: "BMW Série 3",
+    subtitle: "318d Business Design",
+    price: "27 490 €",
+    priceValue: 27490,
+    fuel: "Diesel" as const,
+    gearbox: "Automatique" as const,
+    mileageValue: 84500,
+    yearValue: 2023,
+    specs: ["Diesel", "Automatique", "84 500 km", "2023"],
+  },
+  {
+    id: 3,
+    brandId: "audi",
+    category: "premium" as const,
+    title: "Audi A4",
+    subtitle: "35 TDI S tronic",
+    price: "29 990 €",
+    priceValue: 29990,
+    fuel: "Diesel" as const,
+    gearbox: "Automatique" as const,
+    mileageValue: 72300,
+    yearValue: 2024,
+    specs: ["Diesel", "Automatique", "72 300 km", "2024"],
+  },
+  {
+    id: 4,
+    brandId: "tesla",
+    category: "premium" as const,
+    title: "Tesla Model 3",
+    subtitle: "Propulsion",
+    price: "31 900 €",
+    priceValue: 31900,
+    fuel: "Électrique" as const,
+    gearbox: "Automatique" as const,
+    mileageValue: 58100,
+    yearValue: 2023,
+    specs: ["Électrique", "Automatique", "58 100 km", "2023"],
+  },
+  {
+    id: 5,
+    brandId: "mercedes-benz",
+    category: "citadine" as const,
+    title: "Mercedes-Benz Classe A",
+    subtitle: "180 Progressive Line",
+    price: "17 490 €",
+    priceValue: 17490,
+    fuel: "Essence" as const,
+    gearbox: "Manuelle" as const,
+    mileageValue: 49800,
+    yearValue: 2022,
+    specs: ["Essence", "Manuelle", "49 800 km", "2022"],
+  },
+  {
+    id: 6,
+    brandId: "bmw",
+    category: "citadine" as const,
+    title: "BMW Série 1",
+    subtitle: "114i Lounge",
+    price: "16 990 €",
+    priceValue: 16990,
+    fuel: "Essence" as const,
+    gearbox: "Manuelle" as const,
+    mileageValue: 38400,
+    yearValue: 2023,
+    specs: ["Essence", "Manuelle", "38 400 km", "2023"],
+  },
+  {
+    id: 7,
+    brandId: "audi",
+    category: "citadine" as const,
+    title: "Audi A1 Sportback",
+    subtitle: "25 TFSI Advanced",
+    price: "22 490 €",
+    priceValue: 22490,
+    fuel: "Essence" as const,
+    gearbox: "Automatique" as const,
+    mileageValue: 44200,
+    yearValue: 2022,
+    specs: ["Essence", "Automatique", "44 200 km", "2022"],
+  },
+  {
+    id: 8,
+    brandId: "bmw",
+    category: "citadine" as const,
+    title: "BMW Série 1",
+    subtitle: "116i Lounge",
+    price: "21 900 €",
+    priceValue: 21900,
+    fuel: "Essence" as const,
+    gearbox: "Automatique" as const,
+    mileageValue: 63900,
+    yearValue: 2021,
+    specs: ["Essence", "Automatique", "63 900 km", "2021"],
+  },
 ] as const;
 
 function FilterRadio({
@@ -2185,6 +2319,418 @@ function Footer() {
   );
 }
 
+function MobileFilterChip({
+  active,
+  children,
+  onClick,
+}: {
+  active: boolean;
+  children: React.ReactNode;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-colors ${
+        active ? "border-[#c8ec66] bg-[#c8ec66] text-[#010205]" : "border-white/12 bg-white/5 text-white"
+      }`}
+      onClick={onClick}
+      type="button"
+    >
+      {children}
+    </button>
+  );
+}
+
+function MobileFilterSection({
+  children,
+  isOpen,
+  title,
+  onToggle,
+}: {
+  children?: React.ReactNode;
+  isOpen: boolean;
+  title: string;
+  onToggle: () => void;
+}) {
+  return (
+    <div className="border-b border-white/10 pb-3">
+      <button
+        className="flex w-full items-center justify-between text-left font-['Helvetica_Neue:Bold',sans-serif] text-sm"
+        onClick={onToggle}
+        type="button"
+      >
+        <span>{title}</span>
+        <span className={`text-white/60 transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
+      </button>
+      {isOpen ? <div className="flex flex-wrap gap-2 pt-3">{children}</div> : null}
+    </div>
+  );
+}
+
+function MobileVehicleCard({
+  title,
+  subtitle,
+  price,
+  specs,
+}: {
+  title: string;
+  subtitle: string;
+  price: string;
+  specs: readonly string[];
+}) {
+  return (
+    <article className="overflow-hidden rounded-[24px] border border-white/10 bg-white text-[#010205] shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+      <img alt={title} className="h-52 w-full object-cover" src={imgCaptureDecran20251209A1739081} />
+      <div className="space-y-5 p-5">
+        <div className="space-y-2">
+          <p className="font-['Helvetica_Neue:Bold',sans-serif] text-[30px] leading-none">{price}</p>
+          <div>
+            <p className="font-['Helvetica_Neue:Bold',sans-serif] text-xl leading-tight">{title}</p>
+            <p className="mt-1 font-['Helvetica_Neue:Regular',sans-serif] text-sm text-[#535457]">{subtitle}</p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {specs.map((spec) => (
+            <span
+              className="rounded-md bg-[#eeeff2] px-2.5 py-1 font-['Helvetica_Neue:Regular',sans-serif] text-xs text-[#010205]"
+              key={spec}
+            >
+              {spec}
+            </span>
+          ))}
+        </div>
+        <a
+          className="block rounded-[10px] bg-[#010205] px-4 py-3 text-center font-['Helvetica_Neue:Regular',sans-serif] text-sm text-white"
+          href="/showroom/produit"
+        >
+          Voir les détails
+        </a>
+      </div>
+    </article>
+  );
+}
+
+function MobileFooter() {
+  return (
+    <footer className="border-t border-white/10 px-5 py-8 text-white">
+      <div className="mx-auto max-w-md space-y-6">
+        <div className="space-y-3">
+          <p className="font-['Wix_Madefor_Display:Regular',sans-serif] text-xl">Qu’attendez-vous ?</p>
+          <a className="inline-flex rounded-[10px] bg-[#c8ec66] px-4 py-3 text-sm text-[#010205]" href="tel:+33670760719">
+            06 70 76 07 19
+          </a>
+          <div className="space-y-2 font-['Helvetica_Neue:Regular',sans-serif] text-sm text-white/75">
+            <a className="block" href="mailto:contact@vroomparis.fr">contact@vroomparis.fr</a>
+            <p>4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-2 font-['Helvetica_Neue:Regular',sans-serif] text-sm text-white/75">
+          <a href="/showroom">Showroom</a>
+          <a href="/acheter-votre-vehicule">Acheter un véhicule</a>
+          <a href="/vendre-votre-vehicule">Vendre votre véhicule</a>
+          <a href="/conseils">Consultation automobile</a>
+          <a href="/a-propos">À propos</a>
+        </div>
+        <p className="border-t border-white/10 pt-4 font-['Helvetica_Neue:Regular',sans-serif] text-xs text-white/50">
+          © 2026 Vroom Paris. Tous droits réservés.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+function MobilePremiumView({
+  openSection,
+  onReset,
+  onSelectBrand,
+  onToggleSection,
+  selectedBrand,
+  selectedCategory,
+  setSelectedCategory,
+}: {
+  openSection: (typeof FILTER_SECTIONS)[number] | null;
+  onReset: () => void;
+  onSelectBrand: (brand: (typeof BRAND_OPTIONS)[number]["id"]) => void;
+  onToggleSection: (section: (typeof FILTER_SECTIONS)[number]) => void;
+  selectedBrand: (typeof BRAND_OPTIONS)[number]["id"];
+  selectedCategory: "premium" | "citadine";
+  setSelectedCategory: (category: "premium" | "citadine") => void;
+}) {
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [selectedFuel, setSelectedFuel] = useState<(typeof MOBILE_FUEL_OPTIONS)[number] | null>(null);
+  const [selectedGearbox, setSelectedGearbox] = useState<(typeof MOBILE_GEARBOX_OPTIONS)[number] | null>(null);
+  const [selectedMileage, setSelectedMileage] = useState<(typeof MOBILE_MILEAGE_OPTIONS)[number]["id"] | null>(null);
+  const [selectedYear, setSelectedYear] = useState<(typeof MOBILE_YEAR_OPTIONS)[number]["id"] | null>(null);
+  const [selectedPrice, setSelectedPrice] = useState<(typeof MOBILE_PRICE_OPTIONS)[number]["id"] | null>(null);
+
+  const matchesMileage = (
+    mileageValue: number,
+    option: (typeof MOBILE_MILEAGE_OPTIONS)[number]["id"] | null,
+  ) => {
+    if (!option) return true;
+    if (option === "under-50000") return mileageValue < 50000;
+    if (option === "50000-80000") return mileageValue >= 50000 && mileageValue <= 80000;
+    return mileageValue > 80000;
+  };
+
+  const matchesYear = (
+    yearValue: number,
+    option: (typeof MOBILE_YEAR_OPTIONS)[number]["id"] | null,
+  ) => {
+    if (!option) return true;
+    if (option === "2024-plus") return yearValue >= 2024;
+    if (option === "2022-2023") return yearValue >= 2022 && yearValue <= 2023;
+    return yearValue <= 2021;
+  };
+
+  const matchesPrice = (
+    priceValue: number,
+    option: (typeof MOBILE_PRICE_OPTIONS)[number]["id"] | null,
+  ) => {
+    if (!option) return true;
+    if (option === "under-20000") return priceValue < 20000;
+    if (option === "20000-28000") return priceValue >= 20000 && priceValue <= 28000;
+    return priceValue > 28000;
+  };
+
+  const visibleVehicles = MOBILE_SHOWROOM_VEHICLES.filter((vehicle) => {
+    const matchesBrand = selectedBrand === "all" || vehicle.brandId === selectedBrand;
+    const matchesFuel = selectedFuel === null || vehicle.fuel === selectedFuel;
+    const matchesGearbox = selectedGearbox === null || vehicle.gearbox === selectedGearbox;
+
+    return (
+      matchesBrand &&
+      vehicle.category === selectedCategory &&
+      matchesFuel &&
+      matchesGearbox &&
+      matchesMileage(vehicle.mileageValue, selectedMileage) &&
+      matchesYear(vehicle.yearValue, selectedYear) &&
+      matchesPrice(vehicle.priceValue, selectedPrice)
+    );
+  });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", containScroll: "trimSnaps" });
+  const [selectedSlide, setSelectedSlide] = useState(0);
+
+  const resetMobileFilters = () => {
+    onReset();
+    setSelectedFuel(null);
+    setSelectedGearbox(null);
+    setSelectedMileage(null);
+    setSelectedYear(null);
+    setSelectedPrice(null);
+  };
+
+  useEffect(() => {
+    if (!emblaApi) {
+      return;
+    }
+
+    const onSelect = () => setSelectedSlide(emblaApi.selectedScrollSnap());
+
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) {
+      return;
+    }
+
+    emblaApi.reInit();
+    emblaApi.scrollTo(0);
+    setSelectedSlide(0);
+  }, [emblaApi, selectedBrand, selectedCategory, selectedFuel, selectedGearbox, selectedMileage, selectedPrice, selectedYear]);
+
+  return (
+    <div className="min-h-screen bg-[#181818] text-white md:hidden">
+      <div className="relative overflow-hidden px-5 pb-8 pt-6">
+        <div className="pointer-events-none absolute inset-x-[-25%] top-[-140px] h-[320px] rounded-full bg-[radial-gradient(circle_at_center,rgba(200,236,102,0.3),rgba(114,249,216,0.12),transparent_70%)] blur-3xl" />
+        <div className="relative mx-auto max-w-md space-y-6">
+          <div className="flex items-start justify-between gap-4">
+            <div className="space-y-2">
+              <p className="font-['Helvetica_Neue:Regular',sans-serif] text-sm uppercase tracking-[0.18em] text-white/45">
+                Showroom
+              </p>
+              <h1 className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[34px] leading-none">
+                Aperçu du modèle
+              </h1>
+            </div>
+            <a className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80" href="/">
+              Accueil
+            </a>
+          </div>
+
+          <div className="flex gap-3">
+            <MobileFilterChip active={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")}>
+              Premium
+            </MobileFilterChip>
+            <MobileFilterChip active={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")}>
+              Citadine
+            </MobileFilterChip>
+            <button
+              className="ml-auto rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm text-white"
+              onClick={() => setFiltersOpen((current) => !current)}
+              type="button"
+            >
+              Filtres
+            </button>
+          </div>
+
+          {filtersOpen ? (
+            <div className="space-y-5 rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+              <div className="flex flex-wrap gap-2">
+                {BRAND_OPTIONS.map((option) => (
+                  <MobileFilterChip
+                    active={selectedBrand === option.id}
+                    key={option.id}
+                    onClick={() => onSelectBrand(option.id)}
+                  >
+                    {option.label}
+                  </MobileFilterChip>
+                ))}
+              </div>
+
+              <div className="space-y-3">
+                <MobileFilterSection
+                  isOpen={openSection === "Type de carburant"}
+                  onToggle={() => onToggleSection("Type de carburant")}
+                  title="Type de carburant"
+                >
+                  {MOBILE_FUEL_OPTIONS.map((option) => (
+                    <MobileFilterChip
+                      active={selectedFuel === option}
+                      key={option}
+                      onClick={() => setSelectedFuel((current) => current === option ? null : option)}
+                    >
+                      {option}
+                    </MobileFilterChip>
+                  ))}
+                </MobileFilterSection>
+                <MobileFilterSection
+                  isOpen={openSection === "Boîtes de vitesse"}
+                  onToggle={() => onToggleSection("Boîtes de vitesse")}
+                  title="Boîtes de vitesse"
+                >
+                  {MOBILE_GEARBOX_OPTIONS.map((option) => (
+                    <MobileFilterChip
+                      active={selectedGearbox === option}
+                      key={option}
+                      onClick={() => setSelectedGearbox((current) => current === option ? null : option)}
+                    >
+                      {option}
+                    </MobileFilterChip>
+                  ))}
+                </MobileFilterSection>
+                <MobileFilterSection
+                  isOpen={openSection === "Kilométrage"}
+                  onToggle={() => onToggleSection("Kilométrage")}
+                  title="Kilométrage"
+                >
+                  {MOBILE_MILEAGE_OPTIONS.map((option) => (
+                    <MobileFilterChip
+                      active={selectedMileage === option.id}
+                      key={option.id}
+                      onClick={() => setSelectedMileage((current) => current === option.id ? null : option.id)}
+                    >
+                      {option.label}
+                    </MobileFilterChip>
+                  ))}
+                </MobileFilterSection>
+                <MobileFilterSection
+                  isOpen={openSection === "Années"}
+                  onToggle={() => onToggleSection("Années")}
+                  title="Années"
+                >
+                  {MOBILE_YEAR_OPTIONS.map((option) => (
+                    <MobileFilterChip
+                      active={selectedYear === option.id}
+                      key={option.id}
+                      onClick={() => setSelectedYear((current) => current === option.id ? null : option.id)}
+                    >
+                      {option.label}
+                    </MobileFilterChip>
+                  ))}
+                </MobileFilterSection>
+                <MobileFilterSection
+                  isOpen={openSection === "Prix"}
+                  onToggle={() => onToggleSection("Prix")}
+                  title="Prix"
+                >
+                  {MOBILE_PRICE_OPTIONS.map((option) => (
+                    <MobileFilterChip
+                      active={selectedPrice === option.id}
+                      key={option.id}
+                      onClick={() => setSelectedPrice((current) => current === option.id ? null : option.id)}
+                    >
+                      {option.label}
+                    </MobileFilterChip>
+                  ))}
+                </MobileFilterSection>
+              </div>
+
+              <button
+                className="w-full rounded-[10px] border border-white/20 px-4 py-3 font-['Helvetica_Neue:Regular',sans-serif] text-sm"
+                onClick={resetMobileFilters}
+                type="button"
+              >
+                Réinitialiser les filtres
+              </button>
+            </div>
+          ) : null}
+
+          <div className="space-y-4">
+            {visibleVehicles.length > 0 ? (
+              <>
+                <div className="overflow-hidden" ref={emblaRef}>
+                  <div className="-ml-4 flex">
+                    {visibleVehicles.map((vehicle) => (
+                      <div className="min-w-0 flex-[0_0_100%] pl-4" key={vehicle.id}>
+                        <MobileVehicleCard
+                          price={vehicle.price}
+                          specs={vehicle.specs}
+                          subtitle={vehicle.subtitle}
+                          title={vehicle.title}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {visibleVehicles.length > 1 ? (
+                  <div className="flex items-center justify-center gap-2">
+                    {visibleVehicles.map((vehicle, index) => (
+                      <button
+                        aria-label={`Aller au véhicule ${index + 1}`}
+                        aria-pressed={selectedSlide === index}
+                        className={`h-2.5 rounded-full transition-all ${
+                          selectedSlide === index ? "w-6 bg-[#c8ec66]" : "w-2.5 bg-white/25"
+                        }`}
+                        key={vehicle.id}
+                        onClick={() => emblaApi?.scrollTo(index)}
+                        type="button"
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </>
+            ) : (
+              <div className="rounded-[24px] border border-white/10 bg-white/5 p-6 text-center font-['Helvetica_Neue:Regular',sans-serif] text-sm text-white/70">
+                Aucun véhicule ne correspond à ces filtres.
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <MobileFooter />
+    </div>
+  );
+}
+
 export default function Premium() {
   const [selectedBrand, setSelectedBrand] = useState<(typeof BRAND_OPTIONS)[number]["id"]>("mercedes-benz");
   const [selectedCategory, setSelectedCategory] = useState<"premium" | "citadine">("citadine");
@@ -2199,60 +2745,71 @@ export default function Premium() {
   const selectedBrandLabel = BRAND_OPTIONS.find((option) => option.id === selectedBrand)?.label ?? "Tous";
 
   return (
-    <div className="bg-[#181818] relative size-full" data-name="premium">
-      <div className="absolute h-[742.872px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
-        <div className="absolute inset-[-26.92%_-7.51%]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
-            <g filter="url(#filter0_f_6_3027)" id="Union">
-              <path d={svgPaths.p321ebd00} fill="url(#paint0_linear_6_3027)" />
-            </g>
-            <defs>
-              <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_3027" width="3064.78" x="-3.22549e-06" y="3.20925e-06">
-                <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
-                <feGaussianBlur result="effect1_foregroundBlur_6_3027" stdDeviation="100" />
-              </filter>
-              <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_3027" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
-                <stop stopColor="#C8EC66" />
-                <stop offset="0.25" stopColor="#D4FF60" />
-                <stop offset="0.5" stopColor="#72F9D8" />
-                <stop offset="0.75" stopColor="#FCFFB4" />
-                <stop offset="1" stopColor="white" />
-              </linearGradient>
-            </defs>
-          </svg>
+    <>
+      <MobilePremiumView
+        onReset={resetFilters}
+        onSelectBrand={setSelectedBrand}
+        onToggleSection={(section) => setOpenSection((current) => current === section ? null : section)}
+        openSection={openSection}
+        selectedBrand={selectedBrand}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+      <div className="relative hidden size-full bg-[#181818] md:block" data-name="premium">
+        <div className="absolute h-[742.872px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
+          <div className="absolute inset-[-26.92%_-7.51%]">
+            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
+              <g filter="url(#filter0_f_6_3027)" id="Union">
+                <path d={svgPaths.p321ebd00} fill="url(#paint0_linear_6_3027)" />
+              </g>
+              <defs>
+                <filter colorInterpolationFilters="sRGB" filterUnits="userSpaceOnUse" height="1142.87" id="filter0_f_6_3027" width="3064.78" x="-3.22549e-06" y="3.20925e-06">
+                  <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                  <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                  <feGaussianBlur result="effect1_foregroundBlur_6_3027" stdDeviation="100" />
+                </filter>
+                <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_6_3027" x1="35.5207" x2="1147.95" y1="742.236" y2="-1039.64">
+                  <stop stopColor="#C8EC66" />
+                  <stop offset="0.25" stopColor="#D4FF60" />
+                  <stop offset="0.5" stopColor="#72F9D8" />
+                  <stop offset="0.75" stopColor="#FCFFB4" />
+                  <stop offset="1" stopColor="white" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
         </div>
+        <Section selectedBrand={selectedBrand} onSelectBrand={(brand) => setSelectedBrand(brand)} />
+        <PAccordion1 isOpen={openSection === "Type de carburant"} onToggle={() => setOpenSection((current) => current === "Type de carburant" ? null : "Type de carburant")} />
+        <PAccordion2 isOpen={openSection === "Boîtes de vitesse"} onToggle={() => setOpenSection((current) => current === "Boîtes de vitesse" ? null : "Boîtes de vitesse")} />
+        <PAccordion3 isOpen={openSection === "Kilométrage"} onToggle={() => setOpenSection((current) => current === "Kilométrage" ? null : "Kilométrage")} />
+        <PAccordion4 isOpen={openSection === "Années"} onToggle={() => setOpenSection((current) => current === "Années" ? null : "Années")} />
+        <PAccordion5 isOpen={openSection === "Prix"} onToggle={() => setOpenSection((current) => current === "Prix" ? null : "Prix")} />
+        <PButtonButton onReset={resetFilters} />
+        <Group2 />
+        <Group3 />
+        <Group9 />
+        <Group6 />
+        <Group1 />
+        <Group4 />
+        <Group10 />
+        <Group7 />
+        <Group />
+        <Group5 />
+        <Group11 />
+        <Group8 />
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-[517px] not-italic text-[24.8px] text-[transparent] top-[373px] w-[118px]">
+          <p className="leading-[37.89px]">{selectedBrandLabel}</p>
+        </div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[78px] justify-center leading-[0] left-[68px] text-[43.9px] text-white top-[194px] w-[472px]">
+          <p className="leading-[62.88px]">Aperçu du modèle</p>
+        </div>
+        <Link isActive={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} />
+        <Link1 isActive={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} />
+        <Group12 />
+        <Group13 />
+        <Footer />
       </div>
-      <Section selectedBrand={selectedBrand} onSelectBrand={(brand) => setSelectedBrand(brand)} />
-      <PAccordion1 isOpen={openSection === "Type de carburant"} onToggle={() => setOpenSection((current) => current === "Type de carburant" ? null : "Type de carburant")} />
-      <PAccordion2 isOpen={openSection === "Boîtes de vitesse"} onToggle={() => setOpenSection((current) => current === "Boîtes de vitesse" ? null : "Boîtes de vitesse")} />
-      <PAccordion3 isOpen={openSection === "Kilométrage"} onToggle={() => setOpenSection((current) => current === "Kilométrage" ? null : "Kilométrage")} />
-      <PAccordion4 isOpen={openSection === "Années"} onToggle={() => setOpenSection((current) => current === "Années" ? null : "Années")} />
-      <PAccordion5 isOpen={openSection === "Prix"} onToggle={() => setOpenSection((current) => current === "Prix" ? null : "Prix")} />
-      <PButtonButton onReset={resetFilters} />
-      <Group2 />
-      <Group3 />
-      <Group9 />
-      <Group6 />
-      <Group1 />
-      <Group4 />
-      <Group10 />
-      <Group7 />
-      <Group />
-      <Group5 />
-      <Group11 />
-      <Group8 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-[517px] not-italic text-[24.8px] text-[transparent] top-[373px] w-[118px]">
-        <p className="leading-[37.89px]">{selectedBrandLabel}</p>
-      </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[78px] justify-center leading-[0] left-[68px] text-[43.9px] text-white top-[194px] w-[472px]">
-        <p className="leading-[62.88px]">Aperçu du modèle</p>
-      </div>
-      <Link isActive={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} />
-      <Link1 isActive={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} />
-      <Group12 />
-      <Group13 />
-      <Footer />
-    </div>
+    </>
   );
 }

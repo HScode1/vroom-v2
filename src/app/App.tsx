@@ -38,7 +38,7 @@ const NAV_LINKS = [
 ];
 
 const PAGE_SIZES: Record<string, { width: number; height: number }> = {
-  "/": { width: 1440, height: 7761 },
+  "/": { width: 1440, height: 7448 },
   "/a-propos": { width: 1440, height: 4347 },
   "/conseils": { width: 1440, height: 4379 },
   "/conseils/formulaire": { width: 1440, height: 2404 },
@@ -53,6 +53,29 @@ const PAGE_SIZES: Record<string, { width: number; height: number }> = {
 
 function PageWrapper({ path, children }: { path: string; children: React.ReactNode }) {
   const { width, height } = PAGE_SIZES[path] ?? { width: 1440, height: 900 };
+  const [viewportWidth, setViewportWidth] = useState(() =>
+    typeof window === "undefined" ? width : window.innerWidth,
+  );
+
+  useEffect(() => {
+    const handleResize = () => setViewportWidth(window.innerWidth);
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  if (path === "/showroom") {
+    if (viewportWidth < 768) {
+      return <div className="relative w-full">{children}</div>;
+    }
+
+    return (
+      <ResponsivePageWrapper height={height} width={width}>
+        {children}
+      </ResponsivePageWrapper>
+    );
+  }
 
   if (
     path === "/a-propos" ||
@@ -91,7 +114,7 @@ function ResponsivePageWrapper({
     }
 
     const horizontalPadding = 32;
-    return Math.min(1, Math.max(0.5, (window.innerWidth - horizontalPadding) / width));
+    return Math.min(1, Math.max(0.2, (window.innerWidth - horizontalPadding) / width));
   };
 
   const [scale, setScale] = useState(getScale);

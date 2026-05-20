@@ -255,7 +255,7 @@ function Container1() {
 
 export default function Footer() {
   return (
-    <div className="absolute bg-[#181818] h-[385px] left-0 right-0 top-[7083px]" data-name="Footer">
+    <div className="absolute bg-[#181818] h-[365px] left-0 right-0 top-[7083px]" data-name="Footer">
       <Container1 />
     </div>
   );
