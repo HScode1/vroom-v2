@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import svgPaths from "../svg-gblhduksgt";
 import imgImage6 from "../18bcc12168a0b83331f4e8f2123cf6e5d012abb2.png";
 import imgImageRemovebg1 from "../68297c37c62088e6f25beeb99b890264d41ec9fd.png";
+import imgHeroBackgroundMobile from "../sans_voiture.png";
 
 function BrandBar() {
   return (
@@ -16,6 +17,84 @@ function BrandBar() {
             </g>
           </g>
         </svg>
+      </div>
+    </div>
+  );
+}
+
+function MobileBrandMark() {
+  return (
+    <div className="absolute left-6 top-6 z-20 h-[22px] w-[72px] overflow-hidden">
+      <svg className="h-full w-[946px] max-w-none" fill="none" preserveAspectRatio="xMinYMid meet" viewBox="0 0 1289.75 31">
+        <g>
+          <g>
+            <path d={svgPaths.p20d54300} fill="var(--fill-0, #C8C8C8)" />
+            <path d={svgPaths.p3554500} fill="var(--fill-0, #C8C8C8)" />
+            <path d={svgPaths.p40a2e00} fill="var(--fill-0, #C8C8C8)" />
+          </g>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function MobileHeroSection() {
+  return (
+    <div className="relative h-[100dvh] min-h-[700px] w-screen overflow-hidden bg-[#050808] lg:hidden">
+      <img
+        alt=""
+        className="absolute inset-0 size-full object-cover object-center opacity-95"
+        src={imgHeroBackgroundMobile}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,8,0.12)_0%,rgba(5,8,8,0)_42%,rgba(5,8,8,0.74)_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-[150px] bg-[linear-gradient(180deg,rgba(5,8,8,0.72),rgba(5,8,8,0))]" />
+
+      <MobileBrandMark />
+
+      <div
+        className="pointer-events-none absolute right-0 top-0 z-10 h-[104px] w-[118px]"
+        style={{ background: "radial-gradient(circle at top right, rgba(5,8,12,0.98) 0%, rgba(5,8,12,0.9) 42%, rgba(5,8,12,0) 100%)" }}
+      />
+
+      <div className="absolute inset-x-5 top-[47dvh] z-10 text-center font-['Syne:ExtraBold',sans-serif] font-extrabold leading-none tracking-[0px] text-white sm:top-[44dvh]">
+        <p className="text-[76px] leading-[0.82] sm:text-[96px]">Acheter</p>
+        <p className="mt-1 text-[70px] leading-[0.82] text-[#bcff3d] sm:text-[88px]">simplement.</p>
+      </div>
+
+      <div className="absolute inset-x-[-42vw] bottom-[156px] z-20 sm:inset-x-[-28vw]">
+        <img
+          alt=""
+          className="h-auto w-full max-w-none"
+          src={imgImageRemovebg1}
+        />
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 z-30 h-[210px] bg-[linear-gradient(180deg,rgba(5,8,8,0)_0%,rgba(24,24,24,0.68)_42%,#181818_100%)]" />
+
+      <div className="absolute bottom-[76px] left-5 right-5 z-40">
+        <a
+          className="flex h-[54px] w-full items-center justify-center gap-3 rounded-[100px] bg-[#bcff3d] font-['Syne:ExtraBold',sans-serif] text-[14px] font-extrabold tracking-[0.52px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
+          href="/acheter-votre-vehicule"
+        >
+          <span>Acheter votre véhicule</span>
+          <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+            <path d={svgPaths.p3d0c5000} stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.35417" />
+          </svg>
+        </a>
+      </div>
+
+      <div className="absolute bottom-6 left-5 z-40 space-y-2">
+        <div className="flex items-center gap-2">
+          <svg className="size-[12px]" fill="none" preserveAspectRatio="none" viewBox="0 0 12 12">
+            <path d={svgPaths.p8610900} stroke="var(--stroke-0, #BCFF3D)" />
+          </svg>
+          <p className="font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.45)]" style={{ fontVariationSettings: "'opsz' 14" }}>
+            Garantie 12 mois incluse
+          </p>
+        </div>
+        <p className="font-['DM_Sans:Light',sans-serif] text-[12px] font-light text-[rgba(255,255,255,0.36)]" style={{ fontVariationSettings: "'opsz' 14" }}>
+          Contrôlés · Garantis · Livrés à domicile
+        </p>
       </div>
     </div>
   );
@@ -39,11 +118,12 @@ export default function HeroSection() {
 
   return (
     <section
-      className="absolute top-0 z-20 h-[100dvh] overflow-hidden"
+      className="absolute left-0 top-0 z-20 h-[100dvh] w-screen overflow-hidden lg:left-[calc((1440px-100vw)/2)]"
       data-name="fullscreen hero"
-      style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw" }}
     >
-      <div className="relative h-[100dvh] w-screen overflow-hidden">
+      <MobileHeroSection />
+
+      <div className="relative hidden h-[100dvh] w-screen overflow-hidden lg:block">
         <div
           className="absolute left-0 top-0 origin-top-left overflow-hidden bg-[#181818]"
           style={{ width: "1440px", height: "860px", transform: `scale(${scale})` }}
