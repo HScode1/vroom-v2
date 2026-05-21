@@ -223,11 +223,119 @@ function PartnerLogos() {
   );
 }
 
+function MobileFeatureItem({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <div className="flex items-center gap-3 rounded-[18px] border border-[rgba(200,236,102,0.16)] bg-[rgba(255,255,255,0.06)] px-4 py-3 backdrop-blur-sm">
+      <div className="relative flex size-10 shrink-0 items-center justify-center rounded-full border border-[rgba(200,236,102,0.22)] bg-[rgba(200,236,102,0.15)]">
+        {icon}
+      </div>
+      <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[14px] leading-[20px] text-white sm:text-[15px] sm:leading-[22px]">
+        {text}
+      </p>
+    </div>
+  );
+}
+
+function MobilePartnerLogos() {
+  return (
+    <div className="grid grid-cols-3 items-center gap-4">
+      <div className="flex h-[56px] items-center justify-center rounded-[18px] bg-[rgba(255,255,255,0.08)] px-4">
+        <img alt="CER" className="max-h-[32px] w-auto opacity-80" src={imgCerLogo} />
+      </div>
+      <div className="flex h-[56px] items-center justify-center rounded-[18px] bg-[rgba(255,255,255,0.08)] px-4">
+        <svg className="h-[30px] w-auto opacity-90" fill="none" preserveAspectRatio="xMidYMid meet" viewBox="0 0 71 62">
+          <g clipPath="url(#mobile-renault-logo)">
+            <path d={svgPaths.pd950980} fill="var(--fill-0, white)" />
+            <path clipRule="evenodd" d={svgPaths.p3d22ab00} fill="var(--fill-0, white)" fillRule="evenodd" />
+            <path clipRule="evenodd" d={svgPaths.p54d7200} fill="var(--fill-0, white)" fillRule="evenodd" />
+            <path d={svgPaths.p37bc6400} fill="var(--fill-0, white)" />
+            <path d={svgPaths.p26420110} fill="var(--fill-0, white)" />
+            <path d={svgPaths.pb398400} fill="var(--fill-0, white)" />
+            <path d={svgPaths.p28afc700} fill="var(--fill-0, white)" />
+            <path d={svgPaths.p1298c780} fill="var(--fill-0, white)" />
+          </g>
+          <defs>
+            <clipPath id="mobile-renault-logo">
+              <rect fill="white" height="62" width="71" />
+            </clipPath>
+          </defs>
+        </svg>
+      </div>
+      <div className="flex h-[56px] items-center justify-center rounded-[18px] bg-[rgba(255,255,255,0.08)] px-4">
+        <img alt="Mercedes-Benz" className="max-h-[34px] w-auto opacity-80" src={imgMercedesBenzLogo} />
+      </div>
+      <div className="col-span-3 grid grid-cols-2 gap-4">
+        <div className="flex h-[56px] items-center justify-center rounded-[18px] bg-[rgba(255,255,255,0.08)] px-4">
+          <img alt="Volkswagen" className="max-h-[34px] w-auto opacity-80" src={imgImage7} />
+        </div>
+        <div className="flex h-[56px] items-center justify-center rounded-[18px] bg-[rgba(255,255,255,0.08)] px-4">
+          <img alt="BMW" className="max-h-[34px] w-auto opacity-80" src={imgImage8} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileVroomForBusiness() {
+  return (
+    <div className="flex h-full flex-col px-5 py-8 sm:px-8 lg:hidden">
+      <div>
+        <div className="mb-1 h-1 w-20 rounded-full bg-[#c8ec66]" />
+        <p className="font-['Wix_Madefor_Display:Bold',sans-serif] text-[42px] font-bold leading-[42px] tracking-[-1.2px] text-white sm:text-[52px] sm:leading-[52px]">
+          vroom
+        </p>
+        <p className="mt-2 font-['Helvetica_Neue:Medium',sans-serif] text-[18px] leading-[24px] tracking-[0.4px] text-[#c8ec66] sm:text-[20px]">
+          for Business
+        </p>
+      </div>
+
+      <div className="mt-6 space-y-3">
+        <MobileFeatureItem icon={<FeatureIcon1 />} text="Gestion complète de votre flotte automobile" />
+        <MobileFeatureItem icon={<FeatureIcon2 />} text="Solutions adaptées aux entreprises de toutes tailles" />
+        <MobileFeatureItem icon={<FeatureIcon3 />} text="Optimisation des coûts et processus simplifiés" />
+      </div>
+
+      <p className="mt-6 font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[15px] leading-[24px] text-white/90 sm:text-[16px] sm:leading-[26px]">
+        Vroom for Business facilite l&apos;achat et la revente de véhicules pour votre entreprise, avec une plateforme dédiée pour piloter votre flotte et des financements flexibles.
+      </p>
+
+      <div className="mt-6 rounded-[28px] border border-white/10 bg-gradient-to-b from-[rgba(0,187,255,0.12)] to-[rgba(196,77,255,0.12)] p-3 shadow-[0px_20px_40px_0px_rgba(0,0,0,0.15)]">
+        <div className="relative rounded-[22px] bg-gradient-to-b from-[rgba(255,255,255,0.8)] to-white px-4 py-4">
+          <div className="flex items-center gap-3">
+            <div className="relative flex size-12 shrink-0 items-center justify-center rounded-[14px] bg-gradient-to-l from-[rgba(122,185,61,0.2)] to-[rgba(200,236,102,0.2)]">
+              <CarKeyProIcon />
+            </div>
+            <p className="font-['Plus_Jakarta_Sans:Medium',sans-serif] text-[20px] leading-[24px] text-[#7ab93d] sm:text-[24px]">
+              Découvrez la <span className="font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold">solution Pro</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 flex items-center justify-center">
+        <div className="rounded-[20px] bg-[rgba(255,255,255,0.08)] px-5 py-3 text-center">
+          <p className="font-['Helvetica_Neue:Regular',sans-serif] text-[34px] leading-[34px] tracking-[-0.4px] text-white">+ 15</p>
+          <p className="mt-1 font-['Helvetica_Neue:Regular',sans-serif] text-[16px] leading-[22px] tracking-[-0.2px] text-white/90">
+            Partenaires
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <MobilePartnerLogos />
+      </div>
+
+      <p className="mt-auto pt-5 text-center font-['Helvetica_Neue:Thin',sans-serif] text-[16px] leading-[24px] tracking-[-0.2px] text-white/90">
+        Devenir partenaire Vroom Advisor
+      </p>
+    </div>
+  );
+}
+
 export default function VroomForBusiness() {
   return (
     <div
-      className="absolute bg-gradient-to-r from-[rgba(0,153,255,0.5)] h-[787px] overflow-clip to-[rgba(200,236,102,0.5)] top-[6296px]"
-      style={{ width: "100vw", left: "calc((1440px - 100vw) / 2)" }}
+      className="absolute left-0 top-[6700px] h-[787px] w-screen overflow-clip bg-gradient-to-r from-[rgba(0,153,255,0.5)] to-[rgba(200,236,102,0.5)] lg:left-[calc((1440px-100vw)/2)] lg:top-[6296px]"
       data-name="Section"
     >
       {/* Background fade */}
@@ -244,8 +352,10 @@ export default function VroomForBusiness() {
         </svg>
       </div>
 
+      <MobileVroomForBusiness />
+
       {/* Content */}
-      <div className="absolute top-0 bottom-0" style={{ left: "calc((100vw - 1440px) / 2)", width: "1440px" }}>
+      <div className="absolute bottom-0 top-0 hidden lg:block lg:left-[calc((100vw-1440px)/2)] lg:w-[1440px]">
         <VroomLogo />
 
         <FeatureBullet1 />

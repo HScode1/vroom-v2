@@ -1,6 +1,11 @@
 import { useState } from "react";
 import svgPaths from "../svg-gblhduksgt";
 
+function scrollToConsultationCalendar() {
+  const calendarId = window.innerWidth < 1024 ? "home-consultation-calendar-mobile" : "home-consultation-calendar";
+  document.getElementById(calendarId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
 function Svg26() {
   return (
     <div className="-translate-y-1/2 absolute left-[12px] size-[13px] top-1/2" data-name="SVG">
@@ -147,12 +152,8 @@ function getCalendarCells(monthDate: Date) {
 }
 
 function Button3() {
-  const scrollToCalendar = () => {
-    document.getElementById("home-consultation-calendar")?.scrollIntoView({ behavior: "smooth", block: "center" });
-  };
-
   return (
-    <button className="absolute bg-[#bcff3d] h-[45px] left-[126px] rounded-[100px] top-[5919px] w-[277.36px] cursor-pointer transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 focus:ring-offset-2 focus:ring-offset-[#181818]" data-name="Button" onClick={scrollToCalendar} type="button">
+    <button className="absolute bg-[#bcff3d] h-[45px] left-[126px] rounded-[100px] top-[5919px] w-[277.36px] cursor-pointer transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 focus:ring-offset-2 focus:ring-offset-[#181818]" data-name="Button" onClick={scrollToConsultationCalendar} type="button">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-15.68px)] text-[#0d0d0d] text-[14px] text-center top-1/2 tracking-[0.14px] w-[216px]">
         <p className="leading-[normal]">Réserver un créneau</p>
       </div>
@@ -683,7 +684,7 @@ function Calendar() {
   };
 
   return (
-    <div className="absolute h-[782.22px] left-[832px] right-[136.56px] top-[5232px]" data-name="CALENDAR" id="home-consultation-calendar">
+    <div className="absolute hidden h-[782.22px] left-[832px] right-[136.56px] top-[5232px] lg:block" data-name="CALENDAR" id="home-consultation-calendar">
       <div className="absolute inset-[-30px]" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\\'0 0 531.44 842.22\\' xmlns=\\'http://www.w3.org/2000/svg\\' preserveAspectRatio=\\'none\\'><rect x=\\'0\\' y=\\'0\\' height=\\'100%\\' width=\\'100%\\' fill=\\'url(%23grad)\\' opacity=\\'1\\'/><defs><radialGradient id=\\'grad\\' gradientUnits=\\'userSpaceOnUse\\' cx=\\'0\\' cy=\\'0\\' r=\\'10\\' gradientTransform=\\'matrix(42.515 0 0 67.378 265.72 421.11)\\'><stop stop-color=\\'rgba(188,255,61,0.05)\\' offset=\\'0\\'/><stop stop-color=\\'rgba(188,255,61,0)\\' offset=\\'0.7\\'/></radialGradient></defs></svg>')" }} data-name="Gradient" />
       <div className="-translate-y-1/2 absolute backdrop-blur-[10px] bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[782.22px] left-0 right-0 rounded-[24px] top-1/2" data-name="Overlay+Border+OverlayBlur">
         <div className="absolute bg-[#bcff3d] h-[25px] left-[calc(23.13%-0.54px)] right-[calc(23.13%-0.54px)] rounded-[100px] top-[-16px]" data-name="Background">
@@ -818,37 +819,331 @@ function Calendar() {
   );
 }
 
+function MobileInfoChip({ icon, text }: { icon: React.ReactNode; text: string }) {
+  return (
+    <div className="flex items-center gap-2 rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-3 py-2">
+      <div className="flex size-[16px] shrink-0 items-center justify-center">{icon}</div>
+      <p className="font-['DM_Sans:9pt_Regular',sans-serif] text-[12px] leading-[16px] text-[rgba(255,255,255,0.72)]">
+        {text}
+      </p>
+    </div>
+  );
+}
+
+function MobileChannelIcon() {
+  return (
+    <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+      <g clipPath="url(#mobile-channel-icon)">
+        <path d={svgPaths.p3a487780} stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.19167" />
+        <path d={svgPaths.p1d11280} stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.19167" />
+      </g>
+      <defs>
+        <clipPath id="mobile-channel-icon">
+          <rect fill="white" height="13" width="13" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+}
+
+function MobileDurationIcon() {
+  return (
+    <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+      <g>
+        <path d={svgPaths.p3b7aed80} stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.19167" />
+        <path d="M8.66667 1.08333V3.25" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.19167" />
+        <path d="M4.33333 1.08333V3.25" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.19167" />
+        <path d="M1.625 5.41667H11.375" stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.19167" />
+      </g>
+    </svg>
+  );
+}
+
+function MobileSupportIcon() {
+  return (
+    <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+      <path d={svgPaths.p24454500} stroke="var(--stroke-0, #BCFF3D)" strokeWidth="1.19167" />
+    </svg>
+  );
+}
+
+function MobileArrowIcon() {
+  return (
+    <svg className="size-[16px]" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+      <path d={svgPaths.p25acf100} stroke="var(--stroke-0, #0D0D0D)" strokeWidth="1.66667" />
+    </svg>
+  );
+}
+
+function MobileCalendar() {
+  const [viewMonth, setViewMonth] = useState(new Date(2026, 2, 1));
+  const [selectedDate, setSelectedDate] = useState(new Date(2026, 2, 13));
+  const [selectedTime, setSelectedTime] = useState("10:30");
+  const [selectedDuration, setSelectedDuration] = useState(30);
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const calendarCells = getCalendarCells(viewMonth);
+  const selectedDateKey = getDateKey(selectedDate);
+
+  const changeMonth = (direction: number) => {
+    const nextMonth = new Date(viewMonth.getFullYear(), viewMonth.getMonth() + direction, 1);
+    const nextDate = getFirstBookableDate(nextMonth);
+
+    setViewMonth(nextMonth);
+    setSelectedDate(nextDate);
+    setSelectedTime("10:30");
+    setIsConfirmed(false);
+  };
+
+  const selectDate = (date: Date) => {
+    if (!isBookableDate(date)) {
+      return;
+    }
+
+    setViewMonth(new Date(date.getFullYear(), date.getMonth(), 1));
+    setSelectedDate(date);
+    setIsConfirmed(false);
+  };
+
+  return (
+    <div
+      className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-4 backdrop-blur-[10px] sm:p-5"
+      id="home-consultation-calendar-mobile"
+    >
+      <div className="mx-auto mb-3 w-fit rounded-full bg-[#bcff3d] px-4 py-1">
+        <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[11px] font-bold tracking-[0.44px] text-[#0c0d0c]">
+          ⚡ Prochain créneau dispo : demain
+        </p>
+      </div>
+
+      <div className="flex items-center justify-between gap-3">
+        <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[18px] font-bold text-white">
+          {getMonthLabel(viewMonth)}
+        </p>
+        <div className="flex gap-2">
+          <button
+            aria-label="Mois précédent"
+            className="flex size-8 items-center justify-center rounded-[8px] border border-[rgba(255,255,255,0.09)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.4)] transition-colors hover:border-[#bcff3d]/50 hover:text-[#bcff3d] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50"
+            onClick={() => changeMonth(-1)}
+            type="button"
+          >
+            ‹
+          </button>
+          <button
+            aria-label="Mois suivant"
+            className="flex size-8 items-center justify-center rounded-[8px] border border-[rgba(255,255,255,0.09)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.4)] transition-colors hover:border-[#bcff3d]/50 hover:text-[#bcff3d] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50"
+            onClick={() => changeMonth(1)}
+            type="button"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-4 grid grid-cols-7 gap-1.5">
+        {WEEK_DAYS.map((day) => (
+          <div
+            className="text-center font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[0.9px] text-[rgba(255,255,255,0.22)]"
+            key={day}
+          >
+            {day}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-2 grid grid-cols-7 gap-1.5">
+        {calendarCells.map((date) => {
+          const isCurrentMonth = date.getMonth() === viewMonth.getMonth();
+          const isSelected = getDateKey(date) === selectedDateKey;
+          const isBookable = isCurrentMonth && isBookableDate(date);
+
+          return (
+            <button
+              aria-pressed={isSelected}
+              className={`relative aspect-square rounded-[10px] font-['DM_Sans:9pt_Regular',sans-serif] text-[13px] transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
+                isSelected
+                  ? "bg-[#bcff3d] font-bold text-[#0c0d0c]"
+                  : isBookable
+                    ? "bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.72)] hover:bg-[rgba(188,255,61,0.12)] hover:text-[#bcff3d]"
+                    : "cursor-not-allowed text-[rgba(255,255,255,0.18)]"
+              }`}
+              disabled={!isBookable}
+              key={getDateKey(date)}
+              onClick={() => selectDate(date)}
+              type="button"
+            >
+              {date.getDate()}
+              {isBookable && !isSelected ? <span className="absolute bottom-[3px] left-1/2 size-[4px] -translate-x-1/2 rounded-[2px] bg-[#bcff3d] opacity-55" /> : null}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-5 border-t border-[rgba(255,255,255,0.06)] pt-4">
+        <div className="flex items-center justify-between gap-3">
+          <p className="font-['Plus_Jakarta_Sans:Medium',sans-serif] text-[10px] uppercase tracking-[1.2px] text-[rgba(255,255,255,0.22)]">
+            Créneaux disponibles
+          </p>
+          <p className="font-['Plus_Jakarta_Sans:SemiBold',sans-serif] text-[11px] capitalize text-[#bcff3d]">
+            {getSelectedDateLabel(selectedDate)}
+          </p>
+        </div>
+
+        <div className="mt-3 grid grid-cols-4 gap-2 sm:gap-2.5">
+          {CONSULTATION_TIMES.map((time) => {
+            const isSelected = selectedTime === time;
+
+            return (
+              <button
+                aria-pressed={isSelected}
+                className={`h-[40px] rounded-[9px] border font-['DM_Sans:9pt_Regular',sans-serif] text-[13px] transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
+                  isSelected
+                    ? "border-[#bcff3d] bg-[rgba(188,255,61,0.11)] font-semibold text-[#bcff3d]"
+                    : "border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.4)] hover:border-[#bcff3d]/50 hover:text-[#bcff3d]"
+                }`}
+                key={time}
+                onClick={() => {
+                  setSelectedTime(time);
+                  setIsConfirmed(false);
+                }}
+                type="button"
+              >
+                {time}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <p className="font-['Plus_Jakarta_Sans:Medium',sans-serif] text-[10px] uppercase tracking-[1.2px] text-[rgba(255,255,255,0.22)]">
+          Durée de la consultation
+        </p>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          {CONSULTATION_DURATIONS.map((duration) => {
+            const isSelected = selectedDuration === duration.value;
+
+            return (
+              <button
+                aria-pressed={isSelected}
+                className={`h-[58px] rounded-[9px] border text-center transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
+                  isSelected
+                    ? "border-[#bcff3d] bg-[rgba(188,255,61,0.07)] text-[#bcff3d]"
+                    : "border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.5)] hover:border-[#bcff3d]/50 hover:text-[#bcff3d]"
+                }`}
+                key={duration.value}
+                onClick={() => {
+                  setSelectedDuration(duration.value);
+                  setIsConfirmed(false);
+                }}
+                type="button"
+              >
+                <span className="block font-['Syne:Bold',sans-serif] text-[15px] font-bold leading-[18px]">{duration.label}</span>
+                <span className={`mt-[3px] block font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[0.7px] ${isSelected ? "text-[rgba(188,255,61,0.5)]" : "text-[rgba(255,255,255,0.25)]"}`}>
+                  {duration.detail}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-5">
+        <button
+          className="h-[44px] w-full rounded-[100px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[13px] font-bold tracking-[0.13px] text-[#0d0d0d] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+          onClick={() => setIsConfirmed(true)}
+          type="button"
+        >
+          Confirmer ce créneau
+        </button>
+        <p className={`mt-3 text-center font-['Plus_Jakarta_Sans:Medium',sans-serif] text-[11px] ${isConfirmed ? "text-[#bcff3d]" : "text-[rgba(255,255,255,0.35)]"}`}>
+          {isConfirmed
+            ? `Créneau confirmé : ${getSelectedDateLabel(selectedDate)} à ${selectedTime}, ${selectedDuration} min.`
+            : `${getSelectedDateLabel(selectedDate)} à ${selectedTime}, ${selectedDuration} min.`}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function ConsultationSection() {
   return (
-    <div className="absolute contents left-[126px] top-[5200px]">
-      <div className="absolute font-['Lexend:Medium',sans-serif] font-medium h-[305px] leading-[0] left-[126px] text-[0px] text-white top-[5200px] tracking-[0.58px] w-[665px] whitespace-pre-wrap">
-        <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-none mb-0 text-[58px]">{`Votre `}</p>
-        <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold mb-0 text-[58px]">
-          <span className="leading-none">prochain véhicul</span>
-          <span className="leading-[1.08]">
-            e,
-            <br aria-hidden="true" />
-            {`conseillé `}
-          </span>
-        </p>
-        <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold text-[58px]">
-          <span className="leading-none">{`par `}</span>
-          <span className="leading-none text-[#c8ec66]">Un expert</span>
-        </p>
+    <>
+      <div className="absolute left-0 top-[5200px] w-screen px-5 sm:px-8 lg:hidden">
+        <div className="mx-auto max-w-[640px]">
+          <div className="font-['Lexend:Medium',sans-serif] font-medium leading-[0] text-[0px] text-white tracking-[0.32px]">
+            <p className="mb-0 font-['Syne:ExtraBold',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">{`Votre `}</p>
+            <p className="mb-0 font-['Syne:ExtraBold',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">
+              <span>prochain véhicule,</span>
+              <br aria-hidden="true" />
+              <span>{`conseillé `}</span>
+            </p>
+            <p className="font-['Syne:ExtraBold',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">
+              <span>{`par `}</span>
+              <span className="text-[#c8ec66]">Un expert</span>
+            </p>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+            <MobileInfoChip icon={<MobileChannelIcon />} text="Visio · Téléphone · WhatsApp" />
+            <MobileInfoChip icon={<MobileDurationIcon />} text="30 ou 45 minutes" />
+            <MobileInfoChip icon={<MobileSupportIcon />} text="Accompagnement jusqu'à la livraison" />
+          </div>
+
+          <div className="mt-7">
+            <p className="font-['Roboto:SemiBold',sans-serif] text-[28px] font-semibold leading-[34px] text-white sm:text-[32px] sm:leading-[38px]">
+              L'expertise qui change tout. En 30 minutes.
+            </p>
+            <p className="mt-4 font-['Plus_Jakarta_Sans:Light',sans-serif] text-[16px] font-light leading-[26px] text-white/90">
+              Nos experts analysent votre profil, comparent les meilleures options du marché et vous accompagnent jusqu&apos;à la livraison, en visio, par téléphone ou WhatsApp.
+            </p>
+          </div>
+
+          <button
+            className="mt-6 flex h-[46px] w-full items-center justify-center gap-2 rounded-[100px] bg-[#bcff3d] px-5 font-['Syne:Bold',sans-serif] text-[14px] font-bold tracking-[0.14px] text-[#0d0d0d] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+            onClick={scrollToConsultationCalendar}
+            type="button"
+          >
+            <span>Réserver un créneau</span>
+            <MobileArrowIcon />
+          </button>
+
+          <div className="mt-6">
+            <MobileCalendar />
+          </div>
+        </div>
       </div>
-      <OverlayBorder3 />
-      <OverlayBorder4 />
-      <OverlayBorder5 />
-      <Button3 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Roboto:SemiBold',sans-serif] font-semibold h-[105px] justify-center leading-[0] left-[126px] text-[35px] text-white top-[5605.5px] w-[501px] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-        <p className="leading-[42px] mb-0">{`L'expertise qui change tout. `}</p>
-        <p className="leading-[42px]">En 30 minutes.</p>
+
+      <div className="hidden lg:block">
+        <div className="absolute font-['Lexend:Medium',sans-serif] font-medium h-[305px] leading-[0] left-[126px] text-[0px] text-white top-[5200px] tracking-[0.58px] w-[665px] whitespace-pre-wrap">
+          <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-none mb-0 text-[58px]">{`Votre `}</p>
+          <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold mb-0 text-[58px]">
+            <span className="leading-none">prochain véhicul</span>
+            <span className="leading-[1.08]">
+              e,
+              <br aria-hidden="true" />
+              {`conseillé `}
+            </span>
+          </p>
+          <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold text-[58px]">
+            <span className="leading-none">{`par `}</span>
+            <span className="leading-none text-[#c8ec66]">Un expert</span>
+          </p>
+        </div>
+        <OverlayBorder3 />
+        <OverlayBorder4 />
+        <OverlayBorder5 />
+        <Button3 />
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Roboto:SemiBold',sans-serif] font-semibold h-[105px] justify-center leading-[0] left-[126px] text-[35px] text-white top-[5605.5px] w-[501px] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="leading-[42px] mb-0">{`L'expertise qui change tout. `}</p>
+          <p className="leading-[42px]">En 30 minutes.</p>
+        </div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Light',sans-serif] font-light h-[137px] justify-center leading-[0] left-[126px] text-[19px] text-white top-[5726.5px] w-[468px]">
+          <p className="leading-[28px]">{`Nos experts analysent votre profil, comparent les meilleures options du marché et vous accompagnent jusqu'à la livraison — en visio, par téléphone ou WhatsApp.`}</p>
+        </div>
+        <Calendar />
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Light',sans-serif] font-light h-[137px] justify-center leading-[0] left-[126px] text-[19px] text-white top-[5726.5px] w-[468px]">
-        <p className="leading-[28px]">{`Nos experts analysent votre profil, comparent les meilleures options du marché et vous accompagnent jusqu'à la livraison — en visio, par téléphone ou WhatsApp.`}</p>
-      </div>
-      <Calendar />
-    </div>
+    </>
   );
 }
 
