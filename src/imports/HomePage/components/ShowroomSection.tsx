@@ -363,6 +363,160 @@ function HorizontalBorder1({ activeIndex, onPrevious, onNext, onSelect }: { acti
   );
 }
 
+function MobileShowroomArrow({ direction }: { direction: "left" | "right" }) {
+  return (
+    <svg className="size-4" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+      <path
+        d={direction === "left" ? svgPaths.pf1d5f80 : svgPaths.p3f191380}
+        stroke="var(--stroke-0, white)"
+        strokeOpacity="0.4"
+        strokeWidth="1.33333"
+      />
+    </svg>
+  );
+}
+
+function MobileCtaArrow() {
+  return (
+    <svg className="size-3" fill="none" preserveAspectRatio="none" viewBox="0 0 12 12">
+      <path d={svgPaths.p14d62980} stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.25" />
+    </svg>
+  );
+}
+
+function MobileShowroom() {
+  const [showroomIndex, setShowroomIndex] = useState(0);
+  const vehicle = SHOWROOM_VEHICLES[showroomIndex];
+
+  const showPreviousVehicle = () => {
+    setShowroomIndex((currentIndex) => (currentIndex - 1 + SHOWROOM_VEHICLES.length) % SHOWROOM_VEHICLES.length);
+  };
+
+  const showNextVehicle = () => {
+    setShowroomIndex((currentIndex) => (currentIndex + 1) % SHOWROOM_VEHICLES.length);
+  };
+
+  return (
+    <div className="absolute left-0 top-[3215px] w-screen px-5 sm:px-8 lg:hidden">
+      <div className="mx-auto max-w-[640px]">
+        <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
+          <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
+          <p className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]">
+            Véhicules disponibles
+          </p>
+        </div>
+
+        <p className="mt-5 text-center font-['Syne:ExtraBold',sans-serif] text-[38px] font-extrabold leading-[42px] tracking-[-1.2px] text-white sm:text-[46px] sm:leading-[50px]">
+          Notre <span className="text-[#bcff3d]">showroom</span>
+        </p>
+
+        <div className="mt-6 overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.03)]">
+          <div className="aspect-[1.22] w-full">
+            <img alt="" className="size-full object-cover object-center" src={vehicle.image} />
+          </div>
+
+          <div className="p-5">
+            <div className="flex items-center gap-3">
+              <p className="font-['Syne:Bold',sans-serif] text-[11px] font-bold uppercase tracking-[1.76px] text-[rgba(255,255,255,0.2)]">
+                {String(showroomIndex + 1).padStart(2, "0")}
+              </p>
+              <div className="h-px flex-1 bg-[rgba(255,255,255,0.15)]" />
+            </div>
+
+            <p className="mt-4 font-['DM_Sans:SemiBold',sans-serif] text-[12px] font-semibold uppercase tracking-[1.68px] text-[#bcff3d]">
+              {vehicle.brand}
+            </p>
+            <p className="mt-2 font-['Syne:ExtraBold',sans-serif] text-[36px] font-extrabold leading-[36px] tracking-[-1.4px] text-white">
+              {vehicle.model}
+            </p>
+            <p className="mt-3 font-['DM_Sans:Regular',sans-serif] text-[12px] uppercase tracking-[1.04px] text-[rgba(255,255,255,0.35)]">
+              {vehicle.subtitle}
+            </p>
+
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              {[
+                ["Carburant", vehicle.specs.fuel],
+                ["Année", vehicle.specs.year],
+                ["Kilométrage", vehicle.specs.mileage],
+                ["Boîte", vehicle.specs.gearbox],
+              ].map(([label, value]) => (
+                <div className="rounded-[12px] border border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.03)] px-3 py-3" key={label}>
+                  <p className="font-['DM_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[0.8px] text-[rgba(255,255,255,0.3)]">
+                    {label}
+                  </p>
+                  <p className="mt-2 font-['Syne:Bold',sans-serif] text-[15px] font-bold text-white">
+                    {value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-5 flex items-center justify-between gap-4">
+              <p className="font-['Syne:ExtraBold',sans-serif] text-[30px] font-extrabold leading-[30px] text-[#bcff3d]">
+                {vehicle.price}
+              </p>
+              <a
+                className="flex h-[44px] items-center gap-2 rounded-[100px] border border-[#bcff3d] bg-[#bcff3d] px-5 text-[#0c0d0c] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+                href="/showroom/produit"
+              >
+                <span className="font-['Syne:Bold',sans-serif] text-[13px] font-bold">En savoir plus</span>
+                <MobileCtaArrow />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 flex items-center justify-between gap-4">
+          <div className="flex gap-2">
+            <button
+              aria-label="Véhicule précédent"
+              className="flex size-[46px] items-center justify-center rounded-[23px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50"
+              onClick={showPreviousVehicle}
+              type="button"
+            >
+              <MobileShowroomArrow direction="left" />
+            </button>
+            <button
+              aria-label="Véhicule suivant"
+              className="flex size-[46px] items-center justify-center rounded-[23px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50"
+              onClick={showNextVehicle}
+              type="button"
+            >
+              <MobileShowroomArrow direction="right" />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {SHOWROOM_VEHICLES.map((item, index) => {
+              const isActive = showroomIndex === index;
+
+              return (
+                <button
+                  aria-label={`Afficher ${item.brand} ${item.model}`}
+                  aria-pressed={isActive}
+                  className={`${isActive ? "h-[6px] w-[22px] bg-[#bcff3d]" : "size-[6px] bg-[rgba(255,255,255,0.15)]"} rounded-[3px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50`}
+                  key={item.model}
+                  onClick={() => setShowroomIndex(index)}
+                  type="button"
+                />
+              );
+            })}
+          </div>
+        </div>
+
+        <a
+          className="mt-5 inline-flex items-center gap-2 font-['Syne:Bold',sans-serif] text-[13px] font-bold text-[rgba(255,255,255,0.4)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50"
+          href="/showroom"
+        >
+          <span>Voir tous nos véhicules</span>
+          <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+            <path d={svgPaths.p3be6c058} stroke="var(--stroke-0, white)" strokeOpacity="0.4" strokeWidth="1.35417" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  );
+}
 
 export default function ShowroomSection() {
   const [showroomIndex, setShowroomIndex] = useState(0);
@@ -376,15 +530,19 @@ export default function ShowroomSection() {
 
   return (
     <>
-      <OverlayBorder16 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-[\'Syne:ExtraBold\',sans-serif] font-extrabold h-[62px] justify-center leading-[0] left-[383px] right-[382.58px] text-[52px] text-white top-[3099px] tracking-[-1.56px]">
-        <p>
-          <span className="leading-[54.6px]">{`Notre `}</span>
-          <span className="leading-[54.6px] text-[#bcff3d]">showroom</span>
-        </p>
+      <MobileShowroom />
+
+      <div className="hidden lg:block">
+        <OverlayBorder16 />
+        <div className="-translate-y-1/2 absolute flex flex-col font-[\'Syne:ExtraBold\',sans-serif] font-extrabold h-[62px] justify-center leading-[0] left-[383px] right-[382.58px] text-[52px] text-white top-[3099px] tracking-[-1.56px]">
+          <p>
+            <span className="leading-[54.6px]">{`Notre `}</span>
+            <span className="leading-[54.6px] text-[#bcff3d]">showroom</span>
+          </p>
+        </div>
+        <Container2 vehicle={activeShowroomVehicle} />
+        <HorizontalBorder1 activeIndex={showroomIndex} onNext={showNextVehicle} onPrevious={showPreviousVehicle} onSelect={setShowroomIndex} />
       </div>
-      <Container2 vehicle={activeShowroomVehicle} />
-      <HorizontalBorder1 activeIndex={showroomIndex} onNext={showNextVehicle} onPrevious={showPreviousVehicle} onSelect={setShowroomIndex} />
     </>
   );
 }

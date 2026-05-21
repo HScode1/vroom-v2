@@ -438,28 +438,210 @@ function BackgroundShadow1({ isActive, onClick }: { isActive: boolean; onClick: 
   );
 }
 
+function MobileYoungIcon() {
+  return (
+    <svg className="size-7" fill="none" preserveAspectRatio="none" viewBox="0 0 28 28">
+      <g>
+        <path d={svgPaths.pae7ba80} stroke="var(--stroke-0, #7AB93D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.33333" />
+        <path d={svgPaths.p1d207080} stroke="var(--stroke-0, #7AB93D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.33333" />
+        <path d="M10.5 19.8333H17.5" stroke="var(--stroke-0, #7AB93D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.33333" />
+        <path d={svgPaths.p2f27cc00} stroke="var(--stroke-0, #7AB93D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.33333" />
+      </g>
+    </svg>
+  );
+}
+
+function MobileVtcIcon() {
+  return (
+    <svg className="size-7" fill="none" preserveAspectRatio="none" viewBox="0 0 28 28">
+      <g>
+        <path d={svgPaths.p2ada2820} stroke="var(--stroke-0, #7AB93D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.33333" />
+        <path d={svgPaths.p4cb2400} stroke="var(--stroke-0, #7AB93D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.33333" />
+      </g>
+    </svg>
+  );
+}
+
+function MobileBulletIcon({ light = false }: { light?: boolean }) {
+  return (
+    <svg className="size-4" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+      <g>
+        <path d={svgPaths.p13627a40} stroke={light ? "white" : "#7AB93D"} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+        <path d={svgPaths.p17134c00} stroke={light ? "white" : "#7AB93D"} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+      </g>
+    </svg>
+  );
+}
+
+function MobileArrowIcon({ light = false }: { light?: boolean }) {
+  return (
+    <svg className="size-4" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+      <g>
+        <path d="M10 2H14V6" stroke={light ? "white" : "#1F2937"} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+        <path d="M6.66667 9.33333L14 2" stroke={light ? "white" : "#1F2937"} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+        <path d={svgPaths.p25f66900} stroke={light ? "white" : "#1F2937"} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.33333" />
+      </g>
+    </svg>
+  );
+}
+
+function MobileStatIcon() {
+  return (
+    <svg className="size-5" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+      <g opacity="0.7">
+        <path d={svgPaths.p25fc4100} stroke="var(--stroke-0, #7AB93D)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+      </g>
+    </svg>
+  );
+}
+
+function MobileVtcStatIcon() {
+  return (
+    <svg className="size-5" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+      <g opacity="0.7">
+        <path d={svgPaths.p3c797180} stroke="var(--stroke-0, #C8EC66)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+        <path d={svgPaths.p3ac0b600} stroke="var(--stroke-0, #C8EC66)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+      </g>
+    </svg>
+  );
+}
+
+type MobileDriverCardProps = {
+  age: string;
+  title: string;
+  subtitle: string;
+  bullets: string[];
+  ctaHref: string;
+  ctaLabel: string;
+  stat: string;
+  variant: "young" | "vtc";
+};
+
+function MobileDriverCard({ age, title, subtitle, bullets, ctaHref, ctaLabel, stat, variant }: MobileDriverCardProps) {
+  const isYoung = variant === "young";
+
+  return (
+    <a
+      className={`block rounded-[24px] p-5 shadow-[0px_20px_25px_-5px_rgba(0,0,0,0.1),0px_8px_10px_-6px_rgba(0,0,0,0.1)] ${
+        isYoung ? "bg-[#f4fbdb] text-[#1f2937]" : "bg-[#c8ec66] text-[#1f2937]"
+      }`}
+      href={ctaHref}
+    >
+      <div className={`flex size-14 items-center justify-center rounded-[16px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] ${isYoung ? "bg-[rgba(200,236,102,0.2)]" : "bg-[#ebf8c3]"}`}>
+        {isYoung ? <MobileYoungIcon /> : <MobileVtcIcon />}
+      </div>
+
+      <p className="mt-4 font-['Helvetica_Neue:Bold',sans-serif] text-[18px] leading-[24px] opacity-80">{age}</p>
+      <p className="mt-1 font-['Wix_Madefor_Display:Bold',sans-serif] text-[26px] font-bold leading-[30px] tracking-[-0.5px]">
+        {title}
+      </p>
+      <p className="mt-4 font-['Helvetica_Neue:Medium',sans-serif] text-[17px] leading-[24px] opacity-90">{subtitle}</p>
+
+      <div className="mt-5 space-y-3">
+        {bullets.map((bullet) => (
+          <div className="flex items-start gap-3" key={bullet}>
+            <div className={`flex size-7 shrink-0 items-center justify-center rounded-full ${isYoung ? "bg-[rgba(200,236,102,0.2)]" : "bg-[#ebf8c3]"}`}>
+              <MobileBulletIcon />
+            </div>
+            <p className="font-['Helvetica_Neue:Medium',sans-serif] text-[14px] leading-[20px] opacity-95">{bullet}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className={`mt-6 flex h-[48px] items-center justify-center gap-2 rounded-[12px] ${isYoung ? "bg-[#c8ec66] text-[#1f2937]" : "bg-[#1f2937] text-white"}`}>
+        <span className="font-['Roboto:Regular',sans-serif] text-[15px] leading-[20px]">{ctaLabel}</span>
+        <MobileArrowIcon light={!isYoung} />
+      </div>
+
+      <div className="mt-5 flex items-center justify-center gap-2 text-center">
+        {isYoung ? <MobileStatIcon /> : <MobileVtcStatIcon />}
+        <p className="font-['Helvetica_Neue:Medium',sans-serif] text-[13px] leading-[18px] opacity-70">{stat}</p>
+      </div>
+    </a>
+  );
+}
+
 export default function VousEtesSection() {
   const [activeDriverCard, setActiveDriverCard] = useState<"young" | "vtc">("vtc");
 
   return (
-    <div className="absolute contents left-[140px] top-[3978px]">
-      <p className="-translate-x-1/2 absolute font-['Lexend:Medium',sans-serif] font-medium h-[72px] leading-[0] left-[740.5px] text-[48px] text-center text-white top-[3978px] w-[463px]">
-        <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5]">{`Vous `}</span>
-        <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">êtes :</span>
-      </p>
-      <p className="-translate-x-full absolute font-['Lexend:Medium',sans-serif] font-medium h-[360px] leading-[0] left-[489px] text-[0px] text-right text-white top-[4370px] w-[349px]">
-        <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[56px]">{`Pour `}</span>
-        <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66] text-[56px]">{`chaque `}</span>
-        <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[56px]">type de conducteur</span>
-      </p>
-      <BackgroundShadow isActive={activeDriverCard === "young"} onClick={() => setActiveDriverCard("young")} />
-      <BackgroundShadow1 isActive={activeDriverCard === "vtc"} onClick={() => setActiveDriverCard("vtc")} />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Light',sans-serif] font-light h-[95px] justify-center leading-[0] left-[1040px] text-[18px] text-white top-[4494.5px] w-[323px] z-20">
-        <p className="leading-[28px] mb-0">Que vous soyez un jeune conducteur à la recherche de votre</p>
-        <p className="leading-[28px] mb-0">{`première voiture ou un chauffeur VTC ayant besoin d'un`}</p>
-        <p className="leading-[28px] mb-0">véhicule professionnel, nous avons des solutions adaptées à</p>
-        <p className="leading-[28px]">vos besoins spécifiques.</p>
+    <>
+      <div className="absolute left-0 top-[4530px] w-screen px-5 sm:px-8 lg:hidden">
+        <div className="mx-auto max-w-[640px]">
+          <p className="text-center font-['Lexend:Medium',sans-serif] text-[40px] font-medium leading-[44px] text-white">
+            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold">{`Vous `}</span>
+            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold text-[#c8ec66]">êtes :</span>
+          </p>
+
+          <p className="mt-5 text-center font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[40px] text-white sm:text-[40px] sm:leading-[46px]">
+            <span>{`Pour `}</span>
+            <span className="text-[#c8ec66]">chaque </span>
+            <span>type de conducteur</span>
+          </p>
+
+          <div className="mt-8 space-y-5">
+            <MobileDriverCard
+              age="18-25 ans"
+              bullets={[
+                "Véhicules adaptés pour débutants",
+                "Financement spécial premier achat",
+                "Assurance avantageuse jeune conducteur",
+                "Entretien simplifié inclus",
+              ]}
+              ctaHref="/showroom"
+              ctaLabel="Découvrir notre offre"
+              stat="Garantie 24 mois incluse"
+              subtitle="Démarrez en toute confiance"
+              title="JEUNES PERMIS"
+              variant="young"
+            />
+
+            <MobileDriverCard
+              age="Professionnels"
+              bullets={[
+                "Véhicules conformes aux normes VTC",
+                "Solutions de financement professionnel",
+                "Forfaits kilométrage illimité",
+                "Maintenance prioritaire 7j/7",
+              ]}
+              ctaHref="/showroom"
+              ctaLabel="Découvrir notre offre"
+              stat="+2500 professionnels équipés"
+              subtitle="Optimisez votre activité"
+              title="CHAUFFEURS VTC"
+              variant="vtc"
+            />
+          </div>
+
+          <div className="mt-8 text-center font-['Plus_Jakarta_Sans:Light',sans-serif] text-[16px] font-light leading-[26px] text-white/90">
+            <p>
+              Que vous soyez un jeune conducteur à la recherche de votre première voiture ou un chauffeur VTC ayant besoin d&apos;un véhicule professionnel, nous avons des solutions adaptées à vos besoins spécifiques.
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div className="hidden lg:block">
+        <div className="absolute contents left-[140px] top-[3978px]">
+          <p className="-translate-x-1/2 absolute font-['Lexend:Medium',sans-serif] font-medium h-[72px] leading-[0] left-[740.5px] text-[48px] text-center text-white top-[3978px] w-[463px]">
+            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5]">{`Vous `}</span>
+            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">êtes :</span>
+          </p>
+          <p className="-translate-x-full absolute font-['Lexend:Medium',sans-serif] font-medium h-[360px] leading-[0] left-[489px] text-[0px] text-right text-white top-[4370px] w-[349px]">
+            <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[56px]">{`Pour `}</span>
+            <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66] text-[56px]">{`chaque `}</span>
+            <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[56px]">type de conducteur</span>
+          </p>
+          <BackgroundShadow isActive={activeDriverCard === "young"} onClick={() => setActiveDriverCard("young")} />
+          <BackgroundShadow1 isActive={activeDriverCard === "vtc"} onClick={() => setActiveDriverCard("vtc")} />
+          <div className="-translate-y-1/2 absolute z-20 flex h-[95px] w-[323px] flex-col justify-center font-['Plus_Jakarta_Sans:Light',sans-serif] text-[18px] font-light leading-[0] text-white left-[1040px] top-[4494.5px]">
+            <p className="mb-0 leading-[28px]">Que vous soyez un jeune conducteur à la recherche de votre</p>
+            <p className="mb-0 leading-[28px]">{`première voiture ou un chauffeur VTC ayant besoin d'un`}</p>
+            <p className="mb-0 leading-[28px]">véhicule professionnel, nous avons des solutions adaptées à</p>
+            <p className="leading-[28px]">vos besoins spécifiques.</p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

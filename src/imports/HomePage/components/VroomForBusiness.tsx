@@ -335,7 +335,7 @@ function MobileVroomForBusiness() {
 export default function VroomForBusiness() {
   return (
     <div
-      className="absolute left-0 top-[6700px] h-[787px] w-screen overflow-clip bg-gradient-to-r from-[rgba(0,153,255,0.5)] to-[rgba(200,236,102,0.5)] lg:left-[calc((1440px-100vw)/2)] lg:top-[6296px]"
+      className="absolute left-0 top-[7602px] h-[787px] w-screen overflow-clip bg-gradient-to-r from-[rgba(0,153,255,0.5)] to-[rgba(200,236,102,0.5)] lg:left-[calc((1440px-100vw)/2)] lg:top-[6296px]"
       data-name="Section"
     >
       {/* Background fade */}
