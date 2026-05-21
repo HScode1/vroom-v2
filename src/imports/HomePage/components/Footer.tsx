@@ -67,85 +67,40 @@ function TwitterIcon() {
 export default function Footer() {
   return (
     <div className="absolute left-0 right-0 top-[8389px] bg-[#181818] lg:top-[7083px]" data-name="Footer">
-      <div className="mx-auto max-w-[1200px] px-4 pb-8 pt-10 sm:px-6 lg:hidden">
-        <div className="overflow-hidden rounded-[30px] border border-[rgba(255,255,255,0.06)] bg-[radial-gradient(circle_at_top_left,rgba(200,236,102,0.1),rgba(24,24,24,0.98)_45%)] p-5 shadow-[0px_24px_60px_-24px_rgba(0,0,0,0.7)]">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(200,236,102,0.18)] bg-[rgba(200,236,102,0.08)] px-3 py-1.5">
-            <div className="size-2 rounded-full bg-[#c8ec66]" />
-            <p className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.6px] text-[#c8ec66]">
-              Contact Vroom
-            </p>
-          </div>
-
-          <p className="mt-5 font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[36px] tracking-[-1px] text-white">
-            Qu&apos;attendez-vous ?
-          </p>
-          <p className="mt-3 max-w-[28rem] font-['Plus_Jakarta_Sans:Light',sans-serif] text-[15px] font-light leading-[24px] text-[rgba(255,255,255,0.72)]">
-            Contactez Vroom Paris pour acheter, vendre ou trouver le bon véhicule avec un accompagnement direct.
-          </p>
-
-          <a
-            href="tel:+33670760719"
-            className="mt-6 inline-flex w-fit items-center gap-2 rounded-[12px] bg-[#c8ec66] px-4 py-3 shadow-[0px_16px_32px_-18px_rgba(200,236,102,0.55)]"
-          >
-            <PhoneIcon />
-            <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[16px] leading-[24px] text-black">
-              06 70 76 07 19
-            </span>
-          </a>
-
-          <div className="mt-6 space-y-4">
-            <a href="mailto:contact@vroomparis.fr" className="flex items-center gap-3 rounded-[14px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.03)] px-4 py-3">
-              <EmailIcon />
-              <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white">
-                contact@vroomparis.fr
-              </span>
-            </a>
-            <div className="flex items-start gap-3 rounded-[14px] border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.03)] px-4 py-3">
-              <AddressIcon />
-              <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white">
-                4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <footer className="mt-10 border-t border-[#1f2937] py-8 lg:hidden w-screen max-w-full">
+        <div className="mx-auto max-w-[760px] px-5 sm:px-8">
+          <div className="space-y-8 rounded-[24px] bg-[#111411] p-5 sm:p-6">
             <div>
-              <h3 className="mb-3 font-['Wix_Madefor_Display:Regular',sans-serif] text-[18px] font-normal leading-[26px] tracking-[-0.3px] text-white">
-                Navigation
-              </h3>
-              <div className="space-y-2">
-                <a href="/showroom" className="block font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white/88 transition-colors hover:text-[#c8ec66]">Showroom</a>
-                <a href="/acheter-votre-vehicule" className="block font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white/88 transition-colors hover:text-[#c8ec66]">Acheter un véhicule</a>
-                <a href="/vendre-votre-vehicule" className="block font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white/88 transition-colors hover:text-[#c8ec66]">Vendre un véhicule</a>
-                <a href="/conseils" className="block font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white/88 transition-colors hover:text-[#c8ec66]">Consultation automobile</a>
-                <a href="/a-propos" className="block font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white/88 transition-colors hover:text-[#c8ec66]">À propos</a>
+              <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Qu’attendez-vous ?</div>
+              <a href="tel:+33670760719" className="mt-4 inline-flex items-center rounded-[10px] bg-[#c8ec66] px-4 py-3 text-[15px] text-black">
+                06 70 76 07 19
+              </a>
+              <div className="mt-4 text-[15px] text-white">contact@vroomparis.fr</div>
+              <div className="mt-4 text-[15px] leading-6 text-white">4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency</div>
+            </div>
+            <div>
+              <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Informations générales</div>
+              <div className="mt-4 space-y-2 text-[15px] text-white flex flex-col">
+                <a href="/showroom">Showroom</a>
+                <a href="/acheter-votre-vehicule">Acheter un véhicule</a>
+                <a href="/vendre-votre-vehicule">Vendre votre véhicule</a>
+                <a href="/conseils">Consultation automobile</a>
+                <a href="/a-propos">À propos</a>
               </div>
             </div>
-
             <div>
-              <h3 className="mb-3 font-['Wix_Madefor_Display:Regular',sans-serif] text-[18px] font-normal leading-[26px] tracking-[-0.3px] text-white">
-                Mentions légales
-              </h3>
-              <div className="space-y-2">
-                <span className="block cursor-pointer font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white/88 transition-colors hover:text-[#c8ec66]">Politique de confidentialité</span>
-                <span className="block cursor-pointer font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-[22px] text-white/88 transition-colors hover:text-[#c8ec66]">Conditions générales</span>
+              <div className="font-['Wix_Madefor_Display:Regular',sans-serif] text-[20px] text-white">Mentions légales</div>
+              <div className="mt-4 space-y-2 text-[15px] text-white flex flex-col">
+                <div>Politique de confidentialité</div>
+                <div>Conditions générales</div>
               </div>
             </div>
-          </div>
-
-          <div className="mt-6 flex items-center gap-4">
-            <a href="#" aria-label="Facebook"><FacebookIcon /></a>
-            <a href="#" aria-label="Instagram"><InstagramIcon /></a>
-            <a href="#" aria-label="Twitter"><TwitterIcon /></a>
-          </div>
-
-          <div className="mt-8 border-t border-[#1f2937] pt-5">
-            <p className="text-center font-['Helvetica_Neue:Regular',sans-serif] text-[14px] leading-[22px] text-[#9ca3af]">
+            <div className="border-t border-[#1f2937] pt-4 text-center text-[14px] text-[#9ca3af]">
               © 2026 Vroom Paris. Tous droits réservés.
-            </p>
+            </div>
           </div>
         </div>
-      </div>
+      </footer>
 
       <div className="mx-auto hidden max-w-[1200px] px-4 pt-12 sm:px-6 lg:block lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
