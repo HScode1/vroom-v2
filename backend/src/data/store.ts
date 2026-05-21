@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+import { supabase } from "./supabase.js";
 
 export type VehicleStatus = "En ligne" | "Vendu" | "Brouillon";
 export type VehicleTag = "Bonne affaire" | "Forte demande" | "Baisse de prix" | "Nouveauté";
@@ -42,16 +42,9 @@ export interface BuyRequest {
   createdAt: string;
   customer: { firstName: string; lastName: string; email: string; phone: string };
   vehicleCriteria: {
-    brand: string;
-    model: string;
-    trim: string;
-    year: string;
-    gearbox: string;
-    fuel: string;
-    maxMileage: number;
-    maxBudget: number;
-    timeframe: string;
-    notes: string;
+    brand: string; model: string; trim: string; year: string;
+    gearbox: string; fuel: string; maxMileage: number; maxBudget: number;
+    timeframe: string; notes: string;
   };
 }
 
@@ -61,17 +54,8 @@ export interface SellRequest {
   createdAt: string;
   customer: { firstName: string; lastName: string; email: string; phone: string };
   vehicle: {
-    brand: string;
-    model: string;
-    trim: string;
-    year: number;
-    mileage: number;
-    gearbox: string;
-    fuel: string;
-    color: string;
-    doors: number;
-    notes: string;
-    photos: string[];
+    brand: string; model: string; trim: string; year: number; mileage: number;
+    gearbox: string; fuel: string; color: string; doors: number; notes: string; photos: string[];
   };
 }
 
@@ -94,158 +78,348 @@ export interface ContactMessage {
   message: string;
 }
 
-function today() {
-  return new Date().toISOString().split("T")[0];
+// ── Row mappers (snake_case DB → camelCase TS) ────────────────────────────────
+
+function rowToVehicle(row: Record<string, unknown>): Vehicle {
+  return {
+    id: row.id as string,
+    brand: row.brand as string,
+    model: row.model as string,
+    subtitle: row.subtitle as string,
+    price: row.price as number,
+    status: row.status as VehicleStatus,
+    image: row.image as string,
+    gallery: row.gallery as string[],
+    specs: row.specs as Vehicle["specs"],
+    history: row.history as Vehicle["history"],
+    tags: row.tags as VehicleTag[],
+    sellerNotes: row.seller_notes as string,
+    createdAt: (row.created_at as string).split("T")[0],
+    updatedAt: (row.updated_at as string).split("T")[0],
+  };
 }
 
-const vehicles: Vehicle[] = [
-  {
-    id: uuid(),
-    brand: "BMW", model: "Série 7", subtitle: "740Ld xDrive M Sport", price: 24990, status: "En ligne",
-    image: "", gallery: [],
-    specs: { fuel: "Diesel", year: 2021, mileage: 88500, gearbox: "Automatique", colorExterior: "Noir Saphir", colorInterior: "Cuir Cognac", engine: "3.0L 6cyl Diesel 340ch" },
-    history: { owners: 1, accidents: 0, usage: "Usage personnel", recalls: 0 },
-    tags: ["Bonne affaire", "Forte demande"], sellerNotes: "Véhicule en parfait état, carnet d'entretien complet BMW.",
-    createdAt: "2026-04-10", updatedAt: today(),
-  },
-  {
-    id: uuid(),
-    brand: "Mercedes-Benz", model: "GLC 300", subtitle: "AMG Line 4MATIC", price: 45900, status: "En ligne",
-    image: "", gallery: [],
-    specs: { fuel: "Essence", year: 2023, mileage: 18000, gearbox: "Automatique", colorExterior: "Blanc Polaire", colorInterior: "Cuir Noir", engine: "2.0L 4cyl Essence 258ch" },
-    history: { owners: 1, accidents: 0, usage: "Usage personnel", recalls: 0 },
-    tags: ["Nouveauté"], sellerNotes: "Quasi-neuf, first-hand. Pack AMG extérieur et intérieur.",
-    createdAt: "2026-04-15", updatedAt: today(),
-  },
-  {
-    id: uuid(),
-    brand: "Tesla", model: "Model 3", subtitle: "Performance Dual Motor", price: 42000, status: "En ligne",
-    image: "", gallery: [],
-    specs: { fuel: "Électrique", year: 2023, mileage: 22000, gearbox: "Automatique", colorExterior: "Bleu Minuit", colorInterior: "Cuir Blanc", engine: "Dual Motor AWD 513ch" },
-    history: { owners: 1, accidents: 0, usage: "Usage personnel", recalls: 0 },
-    tags: ["Bonne affaire"], sellerNotes: "Autopilot amélioré. Autonomie WLTP 547 km.",
-    createdAt: "2026-04-22", updatedAt: today(),
-  },
-];
+function rowToBuyRequest(row: Record<string, unknown>): BuyRequest {
+  return {
+    id: row.id as string,
+    status: row.status as RequestStatus,
+    createdAt: row.created_at as string,
+    customer: row.customer as BuyRequest["customer"],
+    vehicleCriteria: row.vehicle_criteria as BuyRequest["vehicleCriteria"],
+  };
+}
 
-const buyRequests: BuyRequest[] = [];
-const sellRequests: SellRequest[] = [];
-const appointments: Appointment[] = [];
-const contactMessages: ContactMessage[] = [];
+function rowToSellRequest(row: Record<string, unknown>): SellRequest {
+  return {
+    id: row.id as string,
+    status: row.status as RequestStatus,
+    createdAt: row.created_at as string,
+    customer: row.customer as SellRequest["customer"],
+    vehicle: row.vehicle as SellRequest["vehicle"],
+  };
+}
+
+function rowToAppointment(row: Record<string, unknown>): Appointment {
+  return {
+    id: row.id as string,
+    status: row.status as AppointmentStatus,
+    createdAt: row.created_at as string,
+    booking: row.booking as Appointment["booking"],
+    customer: row.customer as Appointment["customer"],
+    project: row.project as Appointment["project"],
+  };
+}
+
+// ── Store ─────────────────────────────────────────────────────────────────────
 
 export const store = {
   vehicles: {
-    findAll(filters?: { brand?: string; category?: string; fuel?: string; gearbox?: string; minPrice?: number; maxPrice?: number; minYear?: number; maxYear?: number; minMileage?: number; maxMileage?: number; status?: VehicleStatus; page?: number; limit?: number }) {
-      let result = [...vehicles];
-      if (filters?.brand) result = result.filter((v) => v.brand.toLowerCase() === filters.brand!.toLowerCase());
-      if (filters?.fuel) result = result.filter((v) => v.specs.fuel.toLowerCase() === filters.fuel!.toLowerCase());
-      if (filters?.gearbox) result = result.filter((v) => v.specs.gearbox.toLowerCase() === filters.gearbox!.toLowerCase());
-      if (filters?.minPrice) result = result.filter((v) => v.price >= filters.minPrice!);
-      if (filters?.maxPrice) result = result.filter((v) => v.price <= filters.maxPrice!);
-      if (filters?.minYear) result = result.filter((v) => v.specs.year >= filters.minYear!);
-      if (filters?.maxYear) result = result.filter((v) => v.specs.year <= filters.maxYear!);
-      if (filters?.minMileage) result = result.filter((v) => v.specs.mileage >= filters.minMileage!);
-      if (filters?.maxMileage) result = result.filter((v) => v.specs.mileage <= filters.maxMileage!);
-      if (filters?.status) result = result.filter((v) => v.status === filters.status);
-      const total = result.length;
-      const limit = filters?.limit ?? 12;
+    async findAll(filters?: {
+      brand?: string; fuel?: string; gearbox?: string;
+      minPrice?: number; maxPrice?: number; minYear?: number; maxYear?: number;
+      minMileage?: number; maxMileage?: number; status?: VehicleStatus;
+      page?: number; limit?: number;
+    }) {
       const page = filters?.page ?? 1;
-      const totalPages = Math.ceil(total / limit);
-      result = result.slice((page - 1) * limit, page * limit);
-      return { data: result, meta: { total, page, totalPages, limit } };
+      const limit = filters?.limit ?? 12;
+      const from = (page - 1) * limit;
+      const to = from + limit - 1;
+
+      let query = supabase.from("vehicles").select("*", { count: "exact" });
+
+      if (filters?.brand) query = query.ilike("brand", filters.brand);
+      if (filters?.fuel) query = query.ilike("specs->>fuel", filters.fuel);
+      if (filters?.gearbox) query = query.ilike("specs->>gearbox", filters.gearbox);
+      if (filters?.minPrice) query = query.gte("price", filters.minPrice);
+      if (filters?.maxPrice) query = query.lte("price", filters.maxPrice);
+      if (filters?.minYear) query = query.gte("specs->>year", String(filters.minYear));
+      if (filters?.maxYear) query = query.lte("specs->>year", String(filters.maxYear));
+      if (filters?.minMileage) query = query.gte("specs->>mileage", String(filters.minMileage));
+      if (filters?.maxMileage) query = query.lte("specs->>mileage", String(filters.maxMileage));
+      if (filters?.status) query = query.eq("status", filters.status);
+
+      query = query.order("created_at", { ascending: false }).range(from, to);
+
+      const { data, error, count } = await query;
+      if (error) throw error;
+
+      const total = count ?? 0;
+      return {
+        data: (data ?? []).map(rowToVehicle),
+        meta: { total, page, totalPages: Math.ceil(total / limit), limit },
+      };
     },
-    filters() {
+
+    async filters() {
+      const { data, error } = await supabase
+        .from("vehicles")
+        .select("brand")
+        .eq("status", "En ligne");
+      if (error) throw error;
+
       const brandMap = new Map<string, { id: string; label: string; count: number }>();
-      vehicles.filter((v) => v.status === "En ligne").forEach((v) => {
-        const id = v.brand.toLowerCase().replace(/\s+/g, "-");
+      (data ?? []).forEach((row: { brand: string }) => {
+        const id = row.brand.toLowerCase().replace(/\s+/g, "-");
         const existing = brandMap.get(id);
-        if (existing) { existing.count++; } else { brandMap.set(id, { id, label: v.brand, count: 1 }); }
+        if (existing) { existing.count++; } else { brandMap.set(id, { id, label: row.brand, count: 1 }); }
       });
       return { brands: Array.from(brandMap.values()) };
     },
-    findById(id: string) { return vehicles.find((v) => v.id === id); },
-    create(data: Omit<Vehicle, "id" | "createdAt" | "updatedAt">) {
-      const now = today();
-      const v: Vehicle = { ...data, id: uuid(), createdAt: now, updatedAt: now };
-      vehicles.push(v);
-      return v;
+
+    async findById(id: string) {
+      const { data, error } = await supabase.from("vehicles").select("*").eq("id", id).single();
+      if (error) return null;
+      return rowToVehicle(data);
     },
-    update(id: string, data: Partial<Omit<Vehicle, "id" | "createdAt">>) {
-      const idx = vehicles.findIndex((v) => v.id === id);
-      if (idx === -1) return null;
-      vehicles[idx] = { ...vehicles[idx], ...data, updatedAt: today() };
-      return vehicles[idx];
+
+    async create(vehicleData: Omit<Vehicle, "id" | "createdAt" | "updatedAt">) {
+      const { data, error } = await supabase
+        .from("vehicles")
+        .insert({
+          brand: vehicleData.brand,
+          model: vehicleData.model,
+          subtitle: vehicleData.subtitle,
+          price: vehicleData.price,
+          status: vehicleData.status,
+          image: vehicleData.image,
+          gallery: vehicleData.gallery,
+          specs: vehicleData.specs,
+          history: vehicleData.history,
+          tags: vehicleData.tags,
+          seller_notes: vehicleData.sellerNotes,
+        })
+        .select()
+        .single();
+      if (error) throw error;
+      return rowToVehicle(data);
     },
-    delete(id: string) {
-      const idx = vehicles.findIndex((v) => v.id === id);
-      if (idx === -1) return false;
-      vehicles.splice(idx, 1);
-      return true;
+
+    async update(id: string, vehicleData: Partial<Omit<Vehicle, "id" | "createdAt">>) {
+      const patch: Record<string, unknown> = {};
+      if (vehicleData.brand !== undefined) patch.brand = vehicleData.brand;
+      if (vehicleData.model !== undefined) patch.model = vehicleData.model;
+      if (vehicleData.subtitle !== undefined) patch.subtitle = vehicleData.subtitle;
+      if (vehicleData.price !== undefined) patch.price = vehicleData.price;
+      if (vehicleData.status !== undefined) patch.status = vehicleData.status;
+      if (vehicleData.image !== undefined) patch.image = vehicleData.image;
+      if (vehicleData.gallery !== undefined) patch.gallery = vehicleData.gallery;
+      if (vehicleData.specs !== undefined) patch.specs = vehicleData.specs;
+      if (vehicleData.history !== undefined) patch.history = vehicleData.history;
+      if (vehicleData.tags !== undefined) patch.tags = vehicleData.tags;
+      if (vehicleData.sellerNotes !== undefined) patch.seller_notes = vehicleData.sellerNotes;
+
+      const { data, error } = await supabase
+        .from("vehicles")
+        .update(patch)
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) return null;
+      return rowToVehicle(data);
+    },
+
+    async delete(id: string) {
+      const { error } = await supabase.from("vehicles").delete().eq("id", id);
+      return !error;
     },
   },
 
   buyRequests: {
-    findAll() { return [...buyRequests]; },
-    findById(id: string) { return buyRequests.find((r) => r.id === id); },
-    create(data: Omit<BuyRequest, "id" | "status" | "createdAt">) {
-      const r: BuyRequest = { ...data, id: uuid(), status: "Nouveau", createdAt: new Date().toISOString() };
-      buyRequests.push(r);
-      return r;
+    async findAll() {
+      const { data, error } = await supabase
+        .from("buy_requests")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data ?? []).map(rowToBuyRequest);
     },
-    updateStatus(id: string, status: RequestStatus) {
-      const r = buyRequests.find((r) => r.id === id);
-      if (!r) return null;
-      r.status = status;
-      return r;
+
+    async findById(id: string) {
+      const { data, error } = await supabase.from("buy_requests").select("*").eq("id", id).single();
+      if (error) return null;
+      return rowToBuyRequest(data);
+    },
+
+    async create(requestData: Omit<BuyRequest, "id" | "status" | "createdAt">) {
+      const { data, error } = await supabase
+        .from("buy_requests")
+        .insert({ customer: requestData.customer, vehicle_criteria: requestData.vehicleCriteria })
+        .select()
+        .single();
+      if (error) throw error;
+      return rowToBuyRequest(data);
+    },
+
+    async updateStatus(id: string, status: RequestStatus) {
+      const { data, error } = await supabase
+        .from("buy_requests")
+        .update({ status })
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) return null;
+      return rowToBuyRequest(data);
     },
   },
 
   sellRequests: {
-    findAll() { return [...sellRequests]; },
-    findById(id: string) { return sellRequests.find((r) => r.id === id); },
-    create(data: Omit<SellRequest, "id" | "status" | "createdAt">) {
-      const r: SellRequest = { ...data, id: uuid(), status: "Nouveau", createdAt: new Date().toISOString() };
-      sellRequests.push(r);
-      return r;
+    async findAll() {
+      const { data, error } = await supabase
+        .from("sell_requests")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data ?? []).map(rowToSellRequest);
     },
-    updateStatus(id: string, status: RequestStatus) {
-      const r = sellRequests.find((r) => r.id === id);
-      if (!r) return null;
-      r.status = status;
-      return r;
+
+    async findById(id: string) {
+      const { data, error } = await supabase.from("sell_requests").select("*").eq("id", id).single();
+      if (error) return null;
+      return rowToSellRequest(data);
+    },
+
+    async create(requestData: Omit<SellRequest, "id" | "status" | "createdAt">) {
+      const { data, error } = await supabase
+        .from("sell_requests")
+        .insert({ customer: requestData.customer, vehicle: requestData.vehicle })
+        .select()
+        .single();
+      if (error) throw error;
+      return rowToSellRequest(data);
+    },
+
+    async updateStatus(id: string, status: RequestStatus) {
+      const { data, error } = await supabase
+        .from("sell_requests")
+        .update({ status })
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) return null;
+      return rowToSellRequest(data);
     },
   },
 
   appointments: {
-    findAll() { return [...appointments]; },
-    findById(id: string) { return appointments.find((a) => a.id === id); },
-    create(data: Omit<Appointment, "id" | "status" | "createdAt">) {
-      const a: Appointment = { ...data, id: uuid(), status: "En attente", createdAt: new Date().toISOString() };
-      appointments.push(a);
-      return a;
+    async findAll() {
+      const { data, error } = await supabase
+        .from("appointments")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data ?? []).map(rowToAppointment);
     },
-    getAvailability(year: number, month: number) {
+
+    async findById(id: string) {
+      const { data, error } = await supabase.from("appointments").select("*").eq("id", id).single();
+      if (error) return null;
+      return rowToAppointment(data);
+    },
+
+    async create(appointmentData: Omit<Appointment, "id" | "status" | "createdAt">) {
+      const { data, error } = await supabase
+        .from("appointments")
+        .insert({
+          booking: appointmentData.booking,
+          customer: appointmentData.customer,
+          project: appointmentData.project,
+        })
+        .select()
+        .single();
+      if (error) throw error;
+      return rowToAppointment(data);
+    },
+
+    async updateStatus(id: string, status: AppointmentStatus) {
+      const { data, error } = await supabase
+        .from("appointments")
+        .update({ status })
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) return null;
+      return rowToAppointment(data);
+    },
+
+    async getAvailability(year: number, month: number) {
+      const startDate = `${year}-${String(month).padStart(2, "0")}-01`;
+      const endDate = `${year}-${String(month).padStart(2, "0")}-31`;
+
+      const { data, error } = await supabase
+        .from("appointments")
+        .select("booking")
+        .gte("booking->>date", startDate)
+        .lte("booking->>date", endDate);
+      if (error) throw error;
+
+      const bookedByDate = new Map<string, string[]>();
+      (data ?? []).forEach((row: { booking: { date: string; time: string } }) => {
+        const { date, time } = row.booking;
+        if (!bookedByDate.has(date)) bookedByDate.set(date, []);
+        bookedByDate.get(date)!.push(time);
+      });
+
+      const slots = ["09:00","09:30","10:00","10:30","11:00","11:30","14:00","14:30","15:00","15:30","16:00","16:30"];
       const daysInMonth = new Date(year, month, 0).getDate();
-      const slots = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
       const dates = [];
+
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month - 1, day);
         const weekday = date.getDay();
         const isWeekend = weekday === 0 || weekday === 6;
         const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-        const bookedSlots = appointments.filter((a) => a.booking.date === dateStr).map((a) => a.booking.time);
+        const bookedSlots = bookedByDate.get(dateStr) ?? [];
         const availableSlots = isWeekend ? [] : slots.filter((s) => !bookedSlots.includes(s));
         dates.push({ day, available: availableSlots.length > 0, slots: availableSlots });
       }
+
       return { month: `${year}-${String(month).padStart(2, "0")}`, dates };
     },
   },
 
   contactMessages: {
-    create(data: Omit<ContactMessage, "id" | "createdAt">) {
-      const m: ContactMessage = { ...data, id: uuid(), createdAt: new Date().toISOString() };
-      contactMessages.push(m);
-      return m;
+    async create(msgData: Omit<ContactMessage, "id" | "createdAt">) {
+      const { data, error } = await supabase
+        .from("contact_messages")
+        .insert({
+          first_name: msgData.firstName,
+          last_name: msgData.lastName,
+          email: msgData.email,
+          subject: msgData.subject,
+          message: msgData.message,
+        })
+        .select()
+        .single();
+      if (error) throw error;
+      return {
+        id: data.id as string,
+        createdAt: data.created_at as string,
+        firstName: data.first_name as string,
+        lastName: data.last_name as string,
+        email: data.email as string,
+        subject: data.subject as string,
+        message: data.message as string,
+      } as ContactMessage;
     },
   },
 };

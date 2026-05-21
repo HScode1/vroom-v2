@@ -1,15 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useAdminData } from "../context/AdminDataContext";
+import { uploads } from "../../lib/api";
 import { ChevronLeft, Upload, X, ImageIcon, Check } from "lucide-react";
-import type { Vehicle, VehicleStatus, VehicleTag } from "../data/mockData";
+import type { Vehicle } from "../../lib/api";
+
+type VehicleStatus = Vehicle["status"];
+type VehicleTag = Vehicle["tags"][number];
 
 const FUEL_OPTIONS = ["Essence", "Diesel", "Hybride", "Hybride rechargeable", "Électrique"];
 const GEARBOX_OPTIONS = ["Manuelle", "Automatique"];
 const STATUS_OPTIONS: VehicleStatus[] = ["En ligne", "Brouillon", "Vendu"];
 const TAGS: VehicleTag[] = ["Bonne affaire", "Forte demande", "Baisse de prix", "Nouveauté"];
 
-type FormData = Omit<Vehicle, "id" | "createdAt">;
+type FormData = Omit<Vehicle, "id" | "createdAt" | "updatedAt">;
 
 const EMPTY_FORM: FormData = {
   brand: "",
@@ -88,13 +92,32 @@ export default function AdminVehiculeForm() {
     }));
   }
 
-  function handleFilesSelected(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleFilesSelected(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
-    files.forEach((file) => {
-      const url = URL.createObjectURL(file);
-      setGalleryPreviews((prev) => [...prev, url]);
-      setForm((prev) => ({ ...prev, gallery: [...prev.gallery, url] }));
-    });
+    if (files.length === 0) return;
+
+    // Show local previews immediately
+    const localPreviews = files.map((f) => URL.createObjectURL(f));
+    setGalleryPreviews((prev) => [...prev, ...localPreviews]);
+
+    // Upload to Supabase Storage
+    try {
+      const { urls } = await uploads.images(files);
+      // Replace local blob URLs with real URLs
+      setGalleryPreviews((prev) => {
+        const updated = [...prev];
+        localPreviews.forEach((blob, i) => {
+          const idx = updated.indexOf(blob);
+          if (idx !== -1) updated[idx] = urls[i];
+        });
+        return updated;
+      });
+      setForm((prev) => ({ ...prev, gallery: [...prev.gallery, ...urls] }));
+    } catch {
+      // Remove failed previews
+      setGalleryPreviews((prev) => prev.filter((p) => !localPreviews.includes(p)));
+    }
+
     e.target.value = "";
   }
 
@@ -106,11 +129,10 @@ export default function AdminVehiculeForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    await new Promise((r) => setTimeout(r, 400));
     if (isEdit && id) {
-      updateVehicle(id, form);
+      await updateVehicle(id, form);
     } else {
-      addVehicle(form);
+      await addVehicle(form);
     }
     setSaving(false);
     setSaved(true);

@@ -1,28 +1,15 @@
 import { Router } from "express";
 import multer from "multer";
-import path from "path";
-import fs from "fs";
 import { requireAdmin } from "../middleware/auth.js";
+import { supabase } from "../data/supabase.js";
 
-const UPLOAD_DIR = process.env.UPLOAD_DIR ?? "./uploads";
 const MAX_FILE_SIZE_MB = Number(process.env.MAX_FILE_SIZE_MB ?? 10);
-
-if (!fs.existsSync(UPLOAD_DIR)) {
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-}
-
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`);
-  },
-});
+const BUCKET = process.env.SUPABASE_STORAGE_BUCKET ?? "vehicles";
 
 const ALLOWED_MIME = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE_MB * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     if (ALLOWED_MIME.includes(file.mimetype)) {
@@ -36,7 +23,7 @@ const upload = multer({
 const router = Router();
 
 router.post("/images", requireAdmin, (req, res, next) => {
-  upload.array("files", 20)(req, res, (err) => {
+  upload.array("files", 20)(req, res, async (err) => {
     if (err instanceof multer.MulterError) {
       if (err.code === "LIMIT_FILE_SIZE") {
         res.status(400).json({ error: `Fichier trop volumineux. Maximum ${MAX_FILE_SIZE_MB} Mo.` });
@@ -53,9 +40,25 @@ router.post("/images", requireAdmin, (req, res, next) => {
       return;
     }
 
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
-    const urls = files.map((f) => `${baseUrl}/uploads/${f.filename}`);
-    res.json({ urls });
+    try {
+      const urls: string[] = [];
+      for (const file of files) {
+        const ext = file.originalname.split(".").pop()?.toLowerCase() ?? "jpg";
+        const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+
+        const { error } = await supabase.storage
+          .from(BUCKET)
+          .upload(path, file.buffer, { contentType: file.mimetype, upsert: false });
+
+        if (error) throw error;
+
+        const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+        urls.push(data.publicUrl);
+      }
+      res.json({ urls });
+    } catch (uploadErr) {
+      next(uploadErr);
+    }
   });
 });
 

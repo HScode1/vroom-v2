@@ -1,7 +1,7 @@
 import { useAdminData } from "../context/AdminDataContext";
 import { useNavigate } from "react-router";
 import { Tag, Eye } from "lucide-react";
-import type { RequestStatus } from "../data/mockData";
+import type { RequestStatus } from "../context/AdminDataContext";
 import { useState } from "react";
 
 const STATUS_STYLES: Record<RequestStatus, string> = {

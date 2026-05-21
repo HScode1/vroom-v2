@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useAdminData } from "../context/AdminDataContext";
 import { Plus, Search, Pencil, Trash2, Car } from "lucide-react";
-import type { VehicleStatus } from "../data/mockData";
+import type { Vehicle } from "../../lib/api";
+type VehicleStatus = Vehicle["status"];
 
 const STATUS_STYLES: Record<VehicleStatus, string> = {
   "En ligne": "bg-emerald-500/15 text-emerald-400",
@@ -32,9 +33,9 @@ export default function AdminVehicules() {
     return matchSearch && matchStatus;
   });
 
-  function handleDelete(id: string) {
+  async function handleDelete(id: string) {
     if (deleteConfirm === id) {
-      deleteVehicle(id);
+      await deleteVehicle(id);
       setDeleteConfirm(null);
     } else {
       setDeleteConfirm(id);

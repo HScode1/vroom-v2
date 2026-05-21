@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAdminData } from "../context/AdminDataContext";
 import { ShoppingCart, ChevronDown, ChevronUp, Phone, Mail } from "lucide-react";
-import type { BuyRequest, RequestStatus } from "../data/mockData";
+import type { BuyRequest, RequestStatus } from "../context/AdminDataContext";
 
 const STATUS_STYLES: Record<RequestStatus, string> = {
   Nouveau: "bg-[#bcff3d]/15 text-[#bcff3d]",

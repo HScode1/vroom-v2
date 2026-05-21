@@ -1,36 +1,44 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { auth } from "../../lib/api";
 
 interface AdminAuthContextValue {
   isAuthenticated: boolean;
-  login(email: string, password: string): boolean;
+  login(email: string, password: string): Promise<boolean>;
   logout(): void;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextValue | null>(null);
 
-const ADMIN_CREDENTIALS = { email: "admin@vroomparis.fr", password: "Vroom2026!" };
-const STORAGE_KEY = "vroom_admin_auth";
+const TOKEN_KEY = "vroom_admin_token";
 
 export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem(STORAGE_KEY) === "true";
+    return !!localStorage.getItem(TOKEN_KEY);
   });
 
+  // Verify token is still valid on mount
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, isAuthenticated ? "true" : "false");
-  }, [isAuthenticated]);
+    if (!localStorage.getItem(TOKEN_KEY)) return;
+    auth.me().catch(() => {
+      localStorage.removeItem(TOKEN_KEY);
+      setIsAuthenticated(false);
+    });
+  }, []);
 
-  function login(email: string, password: string): boolean {
-    if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+  async function login(email: string, password: string): Promise<boolean> {
+    try {
+      const { token } = await auth.login(email, password);
+      localStorage.setItem(TOKEN_KEY, token);
       setIsAuthenticated(true);
       return true;
+    } catch {
+      return false;
     }
-    return false;
   }
 
   function logout() {
+    localStorage.removeItem(TOKEN_KEY);
     setIsAuthenticated(false);
-    localStorage.removeItem(STORAGE_KEY);
   }
 
   return (

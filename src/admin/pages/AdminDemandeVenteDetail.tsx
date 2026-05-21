@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useAdminData } from "../context/AdminDataContext";
 import { ChevronLeft, Phone, Mail, ChevronLeft as PrevIcon, ChevronRight as NextIcon } from "lucide-react";
-import type { RequestStatus } from "../data/mockData";
+import type { RequestStatus } from "../context/AdminDataContext";
 
 const STATUS_STYLES: Record<RequestStatus, string> = {
   Nouveau: "bg-[#bcff3d]/15 text-[#bcff3d]",

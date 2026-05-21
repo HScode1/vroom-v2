@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useAdminData } from "../context/AdminDataContext";
 import { CalendarDays, Phone, Mail, Video, MessageCircle } from "lucide-react";
-import type { AppointmentStatus, BookingFormat } from "../data/mockData";
+import type { AppointmentStatus } from "../context/AdminDataContext";
+import type { Appointment } from "../../lib/api";
+type BookingFormat = Appointment["booking"]["format"];
 
 const STATUS_STYLES: Record<AppointmentStatus, string> = {
   Confirmé: "bg-[#bcff3d]/15 text-[#bcff3d]",

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { vehicles as vehiclesApi } from "../../lib/api";
+import type { Vehicle } from "../../lib/api";
 import useEmblaCarousel from "embla-carousel-react";
 import svgPaths from "./svg-wzz9z1ej01";
 import imgCaptureDecran20251209A1739081 from "./c8e73a968bf4d279e3e7f298702c6d9e2caeab3d.png";
@@ -2001,6 +2003,115 @@ function Group8() {
   );
 }
 
+function VehicleCardDesktop({
+  leftBase,
+  topBase,
+  vehicle,
+  isGreen = false,
+}: {
+  leftBase: number;
+  topBase: number;
+  vehicle: Vehicle | undefined;
+  isGreen?: boolean;
+}) {
+  if (!vehicle) return null;
+
+  const priceLabel = vehicle.price.toLocaleString("fr-FR") + " €";
+  const tag1Text = vehicle.specs.fuel;
+  const tag2Text = vehicle.specs.engine || String(vehicle.specs.year);
+  const tag3Text = vehicle.specs.gearbox;
+  const nameText = `${vehicle.brand} ${vehicle.model}`;
+  const detailsText = `Voiture d'occasion • ${vehicle.specs.mileage.toLocaleString("fr-FR")} km • ${vehicle.specs.year}`;
+  const href = `/showroom/${vehicle.id}`;
+
+  return (
+    <>
+      <div
+        className="absolute bg-white border-2 border-[rgba(24,24,24,0.3)] border-solid h-[640px] rounded-[24px]"
+        data-name="Background+Border"
+        style={{ left: leftBase, top: topBase, right: 1920 - leftBase - 404 }}
+      />
+      <div
+        className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] not-italic text-[#010205] text-[31.8px] w-[183px]"
+        style={{ left: leftBase + 31, top: topBase + 286 }}
+      >
+        <p className="leading-[37.89px]">{priceLabel}</p>
+      </div>
+      <div
+        className="absolute bg-[#eeeff2] rounded-[4px] w-[71.08px] h-[23.84px]"
+        data-name="p-tag"
+        style={{ left: leftBase + 32, top: topBase + 320.14 }}
+      >
+        <div className="absolute h-[21.84px] left-[6px] overflow-clip top-px w-[59.08px]">
+          <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[22px] justify-center leading-[0] left-0 not-italic text-[#010205] text-[13.2px] top-[10px] w-[59.28px]">
+            <p className="leading-[21.84px]">{tag1Text}</p>
+          </div>
+        </div>
+      </div>
+      <div
+        className="absolute bg-[#eeeff2] rounded-[4px] w-[114.09px] h-[23.84px]"
+        data-name="p-tag"
+        style={{ left: leftBase + 110.88, top: topBase + 320.14 }}
+      >
+        <div className="absolute h-[21.84px] left-[6px] overflow-clip top-px w-[102.09px]">
+          <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[22px] justify-center leading-[0] left-0 not-italic text-[#010205] text-[13px] top-[10px] w-[102.29px]">
+            <p className="leading-[21.84px]">{tag2Text}</p>
+          </div>
+        </div>
+      </div>
+      <div
+        className="absolute bg-[#eeeff2] rounded-[4px] w-[87.95px] h-[23.84px]"
+        data-name="p-tag"
+        style={{ left: leftBase + 232.77, top: topBase + 320.14 }}
+      >
+        <div className="absolute h-[21.84px] left-[6px] overflow-clip top-px w-[75.95px]">
+          <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[22px] justify-center leading-[0] left-0 not-italic text-[#010205] text-[13.3px] top-[10px] w-[76.15px]">
+            <p className="leading-[21.84px]">{tag3Text}</p>
+          </div>
+        </div>
+      </div>
+      <div
+        className="absolute h-[98px]"
+        data-name="List - Points forts techniques"
+        style={{ left: leftBase + 32, right: 1920 - leftBase - 372, top: topBase + 391 }}
+      >
+        <div className="absolute h-[51.78px] left-0 right-0 top-[15px]" data-name="Item">
+          <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[21.84px] justify-center leading-[0] left-0 not-italic text-[#535457] text-[13.1px] top-[19.86px] w-[298.23px]">
+            <p className="leading-[21.84px] mb-0">{vehicle.subtitle}</p>
+            <p className="leading-[21.84px]">{`${vehicle.specs.fuel} • ${vehicle.specs.gearbox}`}</p>
+          </div>
+        </div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-0 not-italic text-[#010205] text-[24.8px] top-[-11px] w-[183px]">
+          <p className="leading-[37.89px]">{nameText}</p>
+        </div>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[30px] justify-center leading-[0] left-0 not-italic text-[#010205] text-[16.8px] top-[82px] w-[298px]">
+          <p className="leading-[29.94px]">{detailsText}</p>
+        </div>
+      </div>
+      <a
+        className={`absolute border-2 border-solid h-[54px] rounded-[4px] ${isGreen ? "bg-[#c8ec66] border-[#c8ec66]" : "bg-[#010205] border-[#010205]"}`}
+        data-name="p-link → Link - Sélectionner modèle"
+        href={href}
+        style={{ left: leftBase + 95, right: 1920 - leftBase - 306, top: topBase + 530 }}
+      >
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[108.26px] not-italic text-[14.8px] text-center top-[25px] w-[136.53px] ${isGreen ? "text-[#010205]" : "text-[#fbfcff]"}`}>
+          <p className="leading-[24px]">Voir les détails</p>
+        </div>
+      </a>
+      <div
+        className="absolute h-[237px] rounded-tl-[22px] rounded-tr-[22px] w-[409px]"
+        style={{ left: leftBase + 2, top: topBase + 2 }}
+      >
+        <img
+          alt=""
+          className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-tl-[22px] rounded-tr-[22px] size-full"
+          src={vehicle.image || imgCaptureDecran20251209A1739081}
+        />
+      </div>
+    </>
+  );
+}
+
 function Link({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
   return (
     <button type="button" onClick={onClick} className={`-translate-y-1/2 absolute h-[59px] left-[1031px] rounded-[9999px] top-[calc(50%-1693px)] w-[188px] ${isActive ? "bg-[#c8ec66] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)]" : "bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"}`} data-name="Link" aria-pressed={isActive}>
@@ -2368,19 +2479,23 @@ function MobileFilterSection({
 }
 
 function MobileVehicleCard({
+  id,
   title,
   subtitle,
   price,
   specs,
+  image,
 }: {
+  id: string;
   title: string;
   subtitle: string;
   price: string;
   specs: readonly string[];
+  image?: string;
 }) {
   return (
     <article className="overflow-hidden rounded-[24px] border border-white/10 bg-white text-[#010205] shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
-      <img alt={title} className="h-52 w-full object-cover" src={imgCaptureDecran20251209A1739081} />
+      <img alt={title} className="h-52 w-full object-cover" src={image || imgCaptureDecran20251209A1739081} />
       <div className="space-y-5 p-5">
         <div className="space-y-2">
           <p className="font-['Helvetica_Neue:Bold',sans-serif] text-[30px] leading-none">{price}</p>
@@ -2401,7 +2516,7 @@ function MobileVehicleCard({
         </div>
         <a
           className="block rounded-[10px] bg-[#010205] px-4 py-3 text-center font-['Helvetica_Neue:Regular',sans-serif] text-sm text-white"
-          href="/showroom/produit"
+          href={`/showroom/${id}`}
         >
           Voir les détails
         </a>
@@ -2447,6 +2562,7 @@ function MobilePremiumView({
   selectedBrand,
   selectedCategory,
   setSelectedCategory,
+  apiVehicles,
 }: {
   openSection: (typeof FILTER_SECTIONS)[number] | null;
   onReset: () => void;
@@ -2455,7 +2571,23 @@ function MobilePremiumView({
   selectedBrand: (typeof BRAND_OPTIONS)[number]["id"];
   selectedCategory: "premium" | "citadine";
   setSelectedCategory: (category: "premium" | "citadine") => void;
+  apiVehicles: Vehicle[];
 }) {
+  const mappedVehicles = apiVehicles.map((v) => ({
+    id: v.id,
+    brandId: v.brand.toLowerCase().replace(/[\s-]+/g, "-"),
+    category: (v.price > 20000 ? "premium" : "citadine") as "premium" | "citadine",
+    title: `${v.brand} ${v.model}`,
+    subtitle: v.subtitle,
+    price: v.price.toLocaleString("fr-FR") + " €",
+    priceValue: v.price,
+    fuel: v.specs.fuel as (typeof MOBILE_FUEL_OPTIONS)[number],
+    gearbox: v.specs.gearbox as (typeof MOBILE_GEARBOX_OPTIONS)[number],
+    mileageValue: v.specs.mileage,
+    yearValue: v.specs.year,
+    specs: [v.specs.fuel, v.specs.gearbox, v.specs.mileage.toLocaleString("fr-FR") + " km", String(v.specs.year)] as readonly string[],
+    image: v.image,
+  }));
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedFuel, setSelectedFuel] = useState<(typeof MOBILE_FUEL_OPTIONS)[number] | null>(null);
   const [selectedGearbox, setSelectedGearbox] = useState<(typeof MOBILE_GEARBOX_OPTIONS)[number] | null>(null);
@@ -2493,7 +2625,7 @@ function MobilePremiumView({
     return priceValue > 28000;
   };
 
-  const visibleVehicles = MOBILE_SHOWROOM_VEHICLES.filter((vehicle) => {
+  const visibleVehicles = mappedVehicles.filter((vehicle) => {
     const matchesBrand = selectedBrand === "all" || vehicle.brandId === selectedBrand;
     const matchesFuel = selectedFuel === null || vehicle.fuel === selectedFuel;
     const matchesGearbox = selectedGearbox === null || vehicle.gearbox === selectedGearbox;
@@ -2692,6 +2824,8 @@ function MobilePremiumView({
                     {visibleVehicles.map((vehicle) => (
                       <div className="min-w-0 flex-[0_0_100%] pl-4" key={vehicle.id}>
                         <MobileVehicleCard
+                          id={vehicle.id}
+                          image={vehicle.image}
                           price={vehicle.price}
                           specs={vehicle.specs}
                           subtitle={vehicle.subtitle}
@@ -2732,9 +2866,31 @@ function MobilePremiumView({
 }
 
 export default function Premium() {
-  const [selectedBrand, setSelectedBrand] = useState<(typeof BRAND_OPTIONS)[number]["id"]>("mercedes-benz");
-  const [selectedCategory, setSelectedCategory] = useState<"premium" | "citadine">("citadine");
+  const [selectedBrand, setSelectedBrand] = useState<(typeof BRAND_OPTIONS)[number]["id"]>("all");
+  const [selectedCategory, setSelectedCategory] = useState<"premium" | "citadine">("premium");
   const [openSection, setOpenSection] = useState<(typeof FILTER_SECTIONS)[number] | null>("Type de carburant");
+  const [apiVehicles, setApiVehicles] = useState<Vehicle[]>([]);
+
+  useEffect(() => {
+    vehiclesApi.list({ status: "En ligne", limit: 50 }).then((res) => {
+      setApiVehicles(res.data);
+    }).catch(() => {});
+  }, []);
+
+  const DESKTOP_SLOTS: Array<{ leftBase: number; topBase: number; isGreen?: boolean }> = [
+    { leftBase: 502, topBase: 445 },
+    { leftBase: 983, topBase: 445, isGreen: true },
+    { leftBase: 1468, topBase: 445 },
+    { leftBase: 502, topBase: 1138 },
+    { leftBase: 983, topBase: 1138 },
+    { leftBase: 1468, topBase: 1138 },
+    { leftBase: 502, topBase: 1831 },
+    { leftBase: 983, topBase: 1831 },
+    { leftBase: 1468, topBase: 1831 },
+    { leftBase: 502, topBase: 2524 },
+    { leftBase: 983, topBase: 2524 },
+    { leftBase: 1468, topBase: 2524 },
+  ];
 
   const resetFilters = () => {
     setSelectedBrand("all");
@@ -2747,6 +2903,7 @@ export default function Premium() {
   return (
     <>
       <MobilePremiumView
+        apiVehicles={apiVehicles}
         onReset={resetFilters}
         onSelectBrand={setSelectedBrand}
         onToggleSection={(section) => setOpenSection((current) => current === section ? null : section)}
@@ -2786,18 +2943,15 @@ export default function Premium() {
         <PAccordion4 isOpen={openSection === "Années"} onToggle={() => setOpenSection((current) => current === "Années" ? null : "Années")} />
         <PAccordion5 isOpen={openSection === "Prix"} onToggle={() => setOpenSection((current) => current === "Prix" ? null : "Prix")} />
         <PButtonButton onReset={resetFilters} />
-        <Group2 />
-        <Group3 />
-        <Group9 />
-        <Group6 />
-        <Group1 />
-        <Group4 />
-        <Group10 />
-        <Group7 />
-        <Group />
-        <Group5 />
-        <Group11 />
-        <Group8 />
+        {DESKTOP_SLOTS.map((slot, i) => (
+          <VehicleCardDesktop
+            key={apiVehicles[i]?.id ?? i}
+            isGreen={!!slot.isGreen}
+            leftBase={slot.leftBase}
+            topBase={slot.topBase}
+            vehicle={apiVehicles[i]}
+          />
+        ))}
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-[517px] not-italic text-[24.8px] text-[transparent] top-[373px] w-[118px]">
           <p className="leading-[37.89px]">{selectedBrandLabel}</p>
         </div>
