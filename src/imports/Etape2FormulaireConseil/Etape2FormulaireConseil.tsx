@@ -1,6 +1,59 @@
 import { useNavigate, useSearchParams } from "react-router";
 import svgPaths from "./svg-t3kgt1lbc3";
 
+function buildGoogleCalendarUrl({
+  date,
+  slot,
+  duration,
+  format,
+  fullName,
+}: {
+  date: string | null;
+  slot: string | null;
+  duration: string | null;
+  format: string | null;
+  fullName: string;
+}): string {
+  const dateStr = date || "2026-03-13";
+  const slotStr = slot || "10:30";
+
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const [hours, minutes] = slotStr.split(":").map(Number);
+  const startDate = new Date(year, month - 1, day, hours, minutes);
+
+  let durationMinutes = 30;
+  if (duration) {
+    const matchH = duration.match(/(\d+)\s*h/);
+    const matchMin = duration.match(/(\d+)\s*min/);
+    if (matchH) durationMinutes = parseInt(matchH[1]) * 60;
+    else if (matchMin) durationMinutes = parseInt(matchMin[1]);
+  }
+  const endDate = new Date(startDate.getTime() + durationMinutes * 60 * 1000);
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const fmt = (d: Date) =>
+    `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+
+  const formatLabel =
+    format === "telephone"
+      ? "Consultation par téléphone"
+      : format === "whatsapp"
+        ? "Consultation sur WhatsApp"
+        : "Consultation en visio";
+
+  const details = `Votre consultation automobile avec VroomAdvisor.\n\nFormat : ${formatLabel}\nConseiller : Julien DURANT\n\nContact : 06 70 76 07 19 | contact@vroomparis.fr`;
+
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: `Consultation VroomAdvisor — ${fullName}`,
+    dates: `${fmt(startDate)}/${fmt(endDate)}`,
+    details,
+    location: "VroomAdvisor - 4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency",
+  });
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
 function formatBookingDate(value: string | null) {
   if (!value) {
     return "Vendredi 13 mars 2026";
@@ -505,14 +558,14 @@ function Svg12() {
   );
 }
 
-function Button() {
+function Button({ calendarUrl }: { calendarUrl: string }) {
   return (
-    <button type="button" className="absolute bg-[#bcff3d] h-[50px] left-[36px] right-[325px] rounded-[12px] top-0" data-name="Button">
+    <a href={calendarUrl} target="_blank" rel="noopener noreferrer" className="absolute bg-[#bcff3d] h-[50px] left-[36px] right-[325px] rounded-[12px] top-0" data-name="Button">
       <Svg12 />
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%+12.17px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[170.492px]">
         <p className="leading-[normal]">Ajouter à mon agenda</p>
       </div>
-    </button>
+    </a>
   );
 }
 
@@ -574,14 +627,16 @@ function Actions({
   onEdit,
   onCancel,
   onHome,
+  calendarUrl,
 }: {
   onEdit: () => void;
   onCancel: () => void;
   onHome: () => void;
+  calendarUrl: string;
 }) {
   return (
     <div className="absolute h-[133px] left-0 right-0 top-[824.17px]" data-name="ACTIONS">
-      <Button />
+      <Button calendarUrl={calendarUrl} />
       <Button1 />
       <div className="absolute bg-[rgba(255,255,255,0.08)] h-px left-[36px] right-[36px] top-[66px]" data-name="Horizontal Divider" />
       <Link onClick={onEdit} label="Modifier mon rendez-vous" />
@@ -664,6 +719,7 @@ function OverlayBorder({
   onEdit,
   onCancel,
   onHome,
+  calendarUrl,
 }: {
   fullName: string;
   email: string;
@@ -673,13 +729,14 @@ function OverlayBorder({
   onEdit: () => void;
   onCancel: () => void;
   onHome: () => void;
+  calendarUrl: string;
 }) {
   return (
     <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid h-[1006.17px] left-[416px] overflow-clip right-[384px] rounded-[28px] top-[calc(50%+15.58px)]" data-name="Overlay+Border">
       <TopBar />
       <SuccessHero fullName={fullName} email={email} />
       <RdvRecapCard bookingDate={bookingDate} bookingTime={bookingTime} bookingFormat={bookingFormat} email={email} />
-      <Actions onEdit={onEdit} onCancel={onCancel} onHome={onHome} />
+      <Actions onEdit={onEdit} onCancel={onCancel} onHome={onHome} calendarUrl={calendarUrl} />
       <BottomStrip />
     </div>
   );
@@ -958,6 +1015,7 @@ function MobileConfirmationCard({
   onEdit,
   onCancel,
   onHome,
+  calendarUrl,
 }: {
   fullName: string;
   email: string;
@@ -967,6 +1025,7 @@ function MobileConfirmationCard({
   onEdit: () => void;
   onCancel: () => void;
   onHome: () => void;
+  calendarUrl: string;
 }) {
   return (
     <div className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
@@ -1032,17 +1091,28 @@ function MobileConfirmationCard({
         </div>
 
         <div className="mt-8 space-y-3">
+          <a
+            href={calendarUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+          >
+            <svg width="16" height="16" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 1.25V3.75M5 1.25V3.75M1.875 6.25H13.125M2.5 2.5H12.5C12.8452 2.5 13.125 2.7798 13.125 3.125V12.5C13.125 12.8452 12.8452 13.125 12.5 13.125H2.5C2.1548 13.125 1.875 12.8452 1.875 12.5V3.125C1.875 2.7798 2.1548 2.5 2.5 2.5Z" stroke="#0C0D0C" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Ajouter à Google Calendar
+          </a>
           <button
             type="button"
             onClick={onHome}
-            className="w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+            className="w-full rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-4 text-[14px] text-white"
           >
             Retour à l&apos;accueil
           </button>
           <button
             type="button"
             onClick={onEdit}
-            className="w-full rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-4 text-[14px] text-white"
+            className="w-full rounded-[14px] border border-[rgba(255,255,255,0.08)] bg-transparent px-4 py-4 text-[14px] text-white"
           >
             Modifier mes informations
           </button>
@@ -1110,6 +1180,7 @@ function MobileEtape2FormulaireConseil({
   onEdit,
   onCancel,
   onHome,
+  calendarUrl,
 }: {
   fullName: string;
   email: string;
@@ -1119,6 +1190,7 @@ function MobileEtape2FormulaireConseil({
   onEdit: () => void;
   onCancel: () => void;
   onHome: () => void;
+  calendarUrl: string;
 }) {
   return (
     <div className="relative overflow-x-hidden xl:hidden">
@@ -1146,6 +1218,7 @@ function MobileEtape2FormulaireConseil({
             onEdit={onEdit}
             onCancel={onCancel}
             onHome={onHome}
+            calendarUrl={calendarUrl}
           />
         </section>
 
@@ -1164,6 +1237,7 @@ function DesktopEtape2FormulaireConseil({
   onEdit,
   onCancel,
   onHome,
+  calendarUrl,
 }: {
   fullName: string;
   email: string;
@@ -1173,6 +1247,7 @@ function DesktopEtape2FormulaireConseil({
   onEdit: () => void;
   onCancel: () => void;
   onHome: () => void;
+  calendarUrl: string;
 }) {
   return (
     <div className="relative mx-auto hidden h-[2219px] w-[1440px] bg-[#181818] xl:block" data-name="etape 2 formulaire conseil">
@@ -1205,7 +1280,7 @@ function DesktopEtape2FormulaireConseil({
         <p className="leading-[26.35px] mb-0">Choisissez votre créneau. Un expert VroomAdvisor vous</p>
         <p className="leading-[26.35px]">{`rappelle à l'heure choisie.`}</p>
       </div>
-      <OverlayBorder fullName={fullName} email={email} bookingDate={bookingDate} bookingTime={bookingTime} bookingFormat={bookingFormat} onEdit={onEdit} onCancel={onCancel} onHome={onHome} />
+      <OverlayBorder fullName={fullName} email={email} bookingDate={bookingDate} bookingTime={bookingTime} bookingFormat={bookingFormat} onEdit={onEdit} onCancel={onCancel} onHome={onHome} calendarUrl={calendarUrl} />
       <Footer />
     </div>
   );
@@ -1220,6 +1295,14 @@ export default function Etape2FormulaireConseil() {
   const fullName = formatFullName(searchParams.get("firstName"), searchParams.get("lastName"));
   const email = searchParams.get("email") || "jean.dupont@email.com";
 
+  const calendarUrl = buildGoogleCalendarUrl({
+    date: searchParams.get("date"),
+    slot: searchParams.get("slot"),
+    duration: searchParams.get("duration"),
+    format: searchParams.get("format"),
+    fullName,
+  });
+
   return (
     <div className="w-full bg-[#181818]">
       <MobileEtape2FormulaireConseil
@@ -1228,6 +1311,7 @@ export default function Etape2FormulaireConseil() {
         bookingDate={bookingDate}
         bookingTime={bookingTime}
         bookingFormat={bookingFormat}
+        calendarUrl={calendarUrl}
         onEdit={() => navigate(`/conseils/formulaire?${searchParams.toString()}`)}
         onCancel={() => navigate(`/conseils?${searchParams.toString()}`)}
         onHome={() => navigate("/")}
@@ -1238,6 +1322,7 @@ export default function Etape2FormulaireConseil() {
         bookingDate={bookingDate}
         bookingTime={bookingTime}
         bookingFormat={bookingFormat}
+        calendarUrl={calendarUrl}
         onEdit={() => navigate(`/conseils/formulaire?${searchParams.toString()}`)}
         onCancel={() => navigate(`/conseils?${searchParams.toString()}`)}
         onHome={() => navigate("/")}

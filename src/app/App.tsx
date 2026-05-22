@@ -26,15 +26,10 @@ import AdminRendezVous from "../admin/pages/AdminRendezVous";
 const NAV_LINKS = [
   { to: "/", label: "Accueil" },
   { to: "/a-propos", label: "À propos" },
-  { to: "/conseils", label: "Conseil" },
-  { to: "/conseils/formulaire", label: "Formulaire" },
-  { to: "/conseils/formulaire/etape-2", label: "Étape 2 conseil" },
-  { to: "/vendre-votre-vehicule", label: "Vendre" },
-  { to: "/vendre-votre-vehicule/formulaire", label: "Vendre étape 2" },
-  { to: "/acheter-votre-vehicule", label: "Acheter" },
-  { to: "/acheter-votre-vehicule/etape-2", label: "Acheter étape 2" },
   { to: "/showroom", label: "Showroom" },
-  { to: "/showroom/produit", label: "Car details" },
+  { to: "/acheter-votre-vehicule", label: "Acheter" },
+  { to: "/vendre-votre-vehicule", label: "Vendre" },
+  { to: "/conseils", label: "Conseil" },
 ];
 
 const PAGE_SIZES: Record<string, { width: number; height: number }> = {

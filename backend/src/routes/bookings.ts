@@ -2,6 +2,7 @@ import { Router } from "express";
 import { store } from "../data/store.js";
 import { requireAdmin } from "../middleware/auth.js";
 import { BookingAvailabilitySchema, BookingCreateSchema, AppointmentStatusUpdateSchema } from "../schemas/index.js";
+import { sendBookingConfirmationToClient, sendBookingNotificationToTeam } from "../services/email.js";
 
 const router = Router();
 
@@ -36,6 +37,28 @@ router.post("/", async (req, res, next) => {
       return;
     }
     const appointment = await store.appointments.create(data);
+
+    const emailParams = {
+      date: data.booking.date,
+      time: data.booking.time,
+      durationMinutes: data.booking.duration,
+      format: data.booking.format,
+      firstName: data.customer.firstName,
+      lastName: data.customer.lastName,
+      email: data.customer.email,
+      phone: data.customer.phone,
+    };
+
+    await Promise.allSettled([
+      sendBookingConfirmationToClient(emailParams),
+      sendBookingNotificationToTeam({
+        ...emailParams,
+        budget: data.project.budget,
+        vehicleType: data.project.vehicleType,
+        description: data.project.description,
+      }),
+    ]);
+
     res.status(201).json({ id: appointment.id, message: "Rendez-vous confirmé" });
   } catch (err) {
     next(err);
