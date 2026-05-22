@@ -187,6 +187,18 @@ function HamburgerNav() {
                 {label}
               </NavLink>
             ))}
+            <div className="border-t border-white/10">
+              <NavLink
+                to="/admin/login"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 px-5 py-3 text-sm text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M18 12H9m0 0l3-3m-3 3l3 3" />
+                </svg>
+                Connexion
+              </NavLink>
+            </div>
           </div>
         )}
       </nav>
