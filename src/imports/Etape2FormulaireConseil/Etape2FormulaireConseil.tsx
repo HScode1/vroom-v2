@@ -113,7 +113,7 @@ function Group() {
 
 function Heading() {
   return (
-    <div className="absolute font-['Syne:ExtraBold',sans-serif] font-extrabold h-[245.88px] leading-[0] left-[160px] right-[160px] text-[58px] text-center top-[230px] tracking-[-1.74px]" data-name="Heading 1">
+    <div className="absolute font-['Syne',sans-serif] font-extrabold h-[245.88px] leading-[0] left-[160px] right-[160px] text-[58px] text-center top-[230px] tracking-[-1.74px]" data-name="Heading 1">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[131.47px] justify-center left-[calc(50%+0.92px)] text-white top-[60.74px] w-[660.289px]">
         <p className="leading-[61.48px] mb-0">Réservez votre</p>
         <p className="leading-[61.48px]">consultation</p>
@@ -286,7 +286,7 @@ function OverlayBorder4() {
 function SuccessHero({ fullName, email }: { fullName: string; email: string }) {
   return (
     <div className="absolute h-[317.17px] left-0 right-0 top-[73px]" data-name="SUCCESS HERO">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[31px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[26px] text-center text-white top-[186.5px] w-[489.691px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[31px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[26px] text-center text-white top-[186.5px] w-[489.691px]">
         <p className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif]">
           <span className="leading-[29.9px]">{`Rendez-vous `}</span>
           <span className="leading-[29.9px] text-[#bcff3d]">confirmé !</span>
@@ -562,7 +562,7 @@ function Button({ calendarUrl }: { calendarUrl: string }) {
   return (
     <a href={calendarUrl} target="_blank" rel="noopener noreferrer" className="absolute bg-[#bcff3d] h-[50px] left-[36px] right-[325px] rounded-[12px] top-0" data-name="Button">
       <Svg12 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%+12.17px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[170.492px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%+12.17px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[170.492px]">
         <p className="leading-[normal]">Ajouter à mon agenda</p>
       </div>
     </a>
@@ -1095,7 +1095,7 @@ function MobileConfirmationCard({
             href={calendarUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex w-full items-center justify-center gap-2 rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+            className="flex w-full items-center justify-center gap-2 rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
           >
             <svg width="16" height="16" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 1.25V3.75M5 1.25V3.75M1.875 6.25H13.125M2.5 2.5H12.5C12.8452 2.5 13.125 2.7798 13.125 3.125V12.5C13.125 12.8452 12.8452 13.125 12.5 13.125H2.5C2.1548 13.125 1.875 12.8452 1.875 12.5V3.125C1.875 2.7798 2.1548 2.5 2.5 2.5Z" stroke="#0C0D0C" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1199,7 +1199,7 @@ function MobileEtape2FormulaireConseil({
       </div>
       <div className="relative mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
         <section className="text-center">
-          <h1 className="font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
+          <h1 className="font-['Syne',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
             Réservez votre
             <span className="block text-[#bcff3d]">consultation automobile</span>
           </h1>

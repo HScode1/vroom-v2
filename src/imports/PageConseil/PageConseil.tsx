@@ -628,7 +628,7 @@ function Overlay21() {
 function OverlayBorder4() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.07)] border border-[#bcff3d] border-solid inset-[155px_265px_437px_44px] rounded-[14px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[25px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[20px] text-center top-[28.5px] w-[109.319px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[25px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[20px] text-center top-[28.5px] w-[109.319px]">
         <p className="leading-[normal]">30 min</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-1/2 text-[11px] text-[rgba(188,255,61,0.45)] text-center top-[49.44px] w-[91px]">
@@ -642,7 +642,7 @@ function OverlayBorder4() {
 function ParagraphOverlayBorder() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid inset-[155px_44px_437px_265px] leading-[0] rounded-[14px] text-center" data-name="Paragraph+Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[25px] justify-center left-[calc(50%+0.17px)] text-[20px] text-[rgba(255,255,255,0.4)] top-[28.5px] w-[109.068px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[25px] justify-center left-[calc(50%+0.17px)] text-[20px] text-[rgba(255,255,255,0.4)] top-[28.5px] w-[109.068px]">
         <p className="leading-[normal]">45 min</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[calc(50%-0.5px)] text-[11px] text-[rgba(255,255,255,0.25)] top-[49.44px] w-[100px]">
@@ -1099,7 +1099,7 @@ function BookingCard() {
                       : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] hover:border-[rgba(188,255,61,0.28)]"
                   }`}
                 >
-                  <p className={`font-['Syne:ExtraBold',sans-serif] mt-[18px] text-[20px] ${isSelected ? "text-[#bcff3d]" : "text-[rgba(255,255,255,0.4)]"}`}>
+                  <p className={`font-['Syne',sans-serif] mt-[18px] text-[20px] ${isSelected ? "text-[#bcff3d]" : "text-[rgba(255,255,255,0.4)]"}`}>
                     {duration.label}
                   </p>
                   <p className={`font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[11px] ${isSelected ? "text-[rgba(188,255,61,0.45)]" : "text-[rgba(255,255,255,0.25)]"}`}>
@@ -1212,7 +1212,7 @@ function Container() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase w-[76.457px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Le service</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[86.8px] justify-center leading-[0] left-0 text-[38px] text-white top-[71.4px] tracking-[-0.76px] w-[291.626px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[86.8px] justify-center leading-[0] left-0 text-[38px] text-white top-[71.4px] tracking-[-0.76px] w-[291.626px]">
         <p className="leading-[41.8px] mb-0">Ce qui est</p>
         <p className="leading-[41.8px] text-[#bcff3d]">inclus</p>
       </div>
@@ -1245,7 +1245,7 @@ function BackgroundBorder() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid inset-[261px_943.34px_80px_0] overflow-clip rounded-[20px]" data-name="Background+Border">
       <OverlayBorder17 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.15px)] text-[12px] text-center text-white top-[99px] w-[137.997px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.15px)] text-[12px] text-center text-white top-[99px] w-[137.997px]">
         <p className="leading-[15.6px]">Consultation en ligne</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.37px)] text-[11px] text-[rgba(255,255,255,0.4)] text-center top-[120.6px] w-[117.794px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1281,7 +1281,7 @@ function BackgroundBorder1() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid inset-[261px_754.67px_80px_188.66px] overflow-clip rounded-[20px]" data-name="Background+Border">
       <OverlayBorder18 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[12px] text-center text-white top-[99px] w-[108.978px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[12px] text-center text-white top-[99px] w-[108.978px]">
         <p className="leading-[15.6px]">Analyse de profil</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.36px)] text-[11px] text-[rgba(255,255,255,0.4)] text-center top-[120.6px] w-[114.458px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1318,7 +1318,7 @@ function BackgroundBorder2() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid inset-[261px_566px_80px_377.33px] overflow-clip rounded-[20px]" data-name="Background+Border">
       <OverlayBorder19 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[12px] text-center text-white top-[99px] w-[104.441px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[12px] text-center text-white top-[99px] w-[104.441px]">
         <p className="leading-[15.6px]">Sélection ciblée</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.33px)] text-[11px] text-[rgba(255,255,255,0.4)] text-center top-[120.6px] w-[100.433px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1353,7 +1353,7 @@ function BackgroundBorder3() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid inset-[261px_377.34px_80px_566px] overflow-clip rounded-[20px]" data-name="Background+Border">
       <OverlayBorder20 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[12px] text-center text-white top-[99px] w-[80.984px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[12px] text-center text-white top-[99px] w-[80.984px]">
         <p className="leading-[15.6px]">Négociation</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.4px)] text-[11px] text-[rgba(255,255,255,0.4)] text-center top-[120.6px] w-[128.705px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1389,7 +1389,7 @@ function BackgroundBorder4() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid inset-[261px_188.67px_80px_754.66px] overflow-clip rounded-[20px]" data-name="Background+Border">
       <OverlayBorder21 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.15px)] text-[12px] text-center text-white top-[99px] w-[130.961px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.15px)] text-[12px] text-center text-white top-[99px] w-[130.961px]">
         <p className="leading-[15.6px]">Livraison à domicile</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.28px)] text-[11px] text-[rgba(255,255,255,0.4)] text-center top-[120.6px] w-[120.04px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1424,7 +1424,7 @@ function BackgroundBorder5() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid inset-[261px_0_80px_943.33px] overflow-clip rounded-[20px]" data-name="Background+Border">
       <OverlayBorder22 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[12px] text-center text-white top-[99px] w-[97.57px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[14px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[12px] text-center text-white top-[99px] w-[97.57px]">
         <p className="leading-[15.6px]">Achat sécurisé</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[calc(50%+0.46px)] text-[11px] text-[rgba(255,255,255,0.4)] text-center top-[120.6px] w-[118.629px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1462,7 +1462,7 @@ function Container1() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase w-[99.133px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Le processus</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[86.79px] justify-center leading-[0] left-0 text-[38px] text-white top-[71.4px] tracking-[-0.76px] w-[397.048px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[86.79px] justify-center leading-[0] left-0 text-[38px] text-white top-[71.4px] tracking-[-0.76px] w-[397.048px]">
         <p className="leading-[41.8px] mb-0">Comment ça</p>
         <p className="leading-[41.8px] text-[#bcff3d]">marche ?</p>
       </div>
@@ -1497,10 +1497,10 @@ function OverlayBorder23() {
 function BackgroundBorder6() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[236.78px] left-0 overflow-clip right-[568px] rounded-[22px] top-[241.59px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[83.278px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[83.278px]">
         <p className="leading-[52px]">01</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[142.95px] text-[18px] text-white top-[46px] w-[251.505px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[142.95px] text-[18px] text-white top-[46px] w-[251.505px]">
         <p className="leading-[21.6px]">Vous réservez un créneau</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[65.6px] justify-center leading-[0] left-[142.95px] text-[14px] text-[rgba(255,255,255,0.4)] top-[102.39px] w-[367.14px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1546,10 +1546,10 @@ function OverlayBorder24() {
 function BackgroundBorder7() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[236.78px] left-[568px] overflow-clip right-0 rounded-[22px] top-[241.59px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[107.957px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[107.957px]">
         <p className="leading-[52px]">02</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[167.59px] text-[18px] text-white top-[46px] w-[235.773px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[167.59px] text-[18px] text-white top-[46px] w-[235.773px]">
         <p className="leading-[21.6px]">On analyse votre besoin</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[89.4px] justify-center leading-[0] left-[167.59px] text-[14px] text-[rgba(255,255,255,0.4)] top-[114.29px] w-[301.97px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1595,10 +1595,10 @@ function OverlayBorder25() {
 function BackgroundBorder8() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[212.98px] left-0 overflow-clip right-[568px] rounded-[22px] top-[494.37px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[110.671px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[110.671px]">
         <p className="leading-[52px]">03</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[170.3px] text-[18px] text-white top-[46px] w-[329.968px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[170.3px] text-[18px] text-white top-[46px] w-[329.968px]">
         <p className="leading-[21.6px]">On propose les meilleures options</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[65.59px] justify-center leading-[0] left-[170.3px] text-[14px] text-[rgba(255,255,255,0.4)] top-[102.39px] w-[313.51px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1638,10 +1638,10 @@ function OverlayBorder26() {
 function BackgroundBorder9() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[212.98px] left-[568px] overflow-clip right-0 rounded-[22px] top-[494.37px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[112.704px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[52px] justify-center leading-[0] left-[36px] text-[52px] text-[rgba(188,255,61,0.12)] top-[62px] w-[112.704px]">
         <p className="leading-[52px]">04</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[172.33px] text-[18px] text-white top-[46px] w-[206.34px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[22px] justify-center leading-[0] left-[172.33px] text-[18px] text-white top-[46px] w-[206.34px]">
         <p className="leading-[21.6px]">On finalise ensemble</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[65.59px] justify-center leading-[0] left-[172.33px] text-[14px] text-[rgba(255,255,255,0.4)] top-[102.39px] w-[340.78px]" style={{ fontVariationSettings: "'opsz' 9" }}>
@@ -1687,7 +1687,7 @@ function Emphasis() {
 
 function Heading1() {
   return (
-    <div className="absolute font-['Syne:ExtraBold',sans-serif] font-extrabold h-[138px] left-0 right-0 text-[30px] top-0" data-name="Heading 3">
+    <div className="absolute font-['Syne',sans-serif] font-extrabold h-[138px] left-0 right-0 text-[30px] top-0" data-name="Heading 3">
       <div className="-translate-y-1/2 absolute flex flex-col h-[105px] justify-center left-0 text-white top-[51.5px] w-[427.79px]">
         <p className="leading-[34.5px] mb-0">Une seule</p>
         <p className="leading-[34.5px] mb-0">consultation suffit</p>
@@ -1776,7 +1776,7 @@ function Container3() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase w-[166.349px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Questions fréquentes</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[128.59px] justify-center leading-[0] left-0 text-[38px] text-white top-[92.29px] tracking-[-0.76px] w-[377.677px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[128.59px] justify-center leading-[0] left-0 text-[38px] text-white top-[92.29px] tracking-[-0.76px] w-[377.677px]">
         <p className="leading-[41.8px] mb-0">Tout ce que</p>
         <p className="leading-[41.8px] mb-0">vous</p>
         <p className="leading-[41.8px] text-[#bcff3d]">voulez savoir</p>
@@ -1800,7 +1800,7 @@ function Svg14() {
 function BackgroundBorder10() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[125.06px] left-0 right-[565px] rounded-[16px] top-[271.39px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[269.355px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[269.355px]">
         <p className="leading-[18.2px]">Comment se déroule la consultation ?</p>
       </div>
       <Svg14 />
@@ -1827,7 +1827,7 @@ function Svg15() {
 function BackgroundBorder11() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[125.06px] left-[565px] right-0 rounded-[16px] top-[271.39px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[294.655px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[294.655px]">
         <p className="leading-[18.2px]">Quelle différence entre 30 et 45 minutes ?</p>
       </div>
       <Svg15 />
@@ -1854,7 +1854,7 @@ function Svg16() {
 function BackgroundBorder12() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[125.06px] left-0 right-[565px] rounded-[16px] top-[406.45px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[383.959px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[383.959px]">
         <p className="leading-[18.2px]">{`VroomAdvisor peut-il trouver n'importe quel véhicule ?`}</p>
       </div>
       <Svg16 />
@@ -1881,7 +1881,7 @@ function Svg17() {
 function BackgroundBorder13() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[125.06px] left-[565px] right-0 rounded-[16px] top-[406.45px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[327.357px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[28px] text-[14px] text-white top-[34.5px] w-[327.357px]">
         <p className="leading-[18.2px]">Puis-je annuler ou reporter mon rendez-vous ?</p>
       </div>
       <Svg17 />
@@ -1912,7 +1912,7 @@ function SectionFaq() {
               }`}
             >
               <div className="flex items-start justify-between gap-4">
-                <p className="font-['Syne:SemiBold',sans-serif] text-[14px] leading-[18.2px] text-white">{item.question}</p>
+                <p className="font-['Syne',sans-serif] text-[14px] leading-[18.2px] text-white">{item.question}</p>
                 <span className={`mt-1 text-[#bcff3d] text-[18px] transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
               </div>
               {isOpen && (
@@ -1956,7 +1956,7 @@ function OverlayBorder31() {
 
 function Heading() {
   return (
-    <div className="absolute font-['Syne:ExtraBold',sans-serif] font-extrabold h-[245.88px] leading-[0] left-[161px] right-[159px] text-[58px] text-center top-[282px] tracking-[-1.74px]" data-name="Heading 1">
+    <div className="absolute font-['Syne',sans-serif] font-extrabold h-[245.88px] leading-[0] left-[161px] right-[159px] text-[58px] text-center top-[282px] tracking-[-1.74px]" data-name="Heading 1">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[131.47px] justify-center left-[calc(50%+0.92px)] text-white top-[60.74px] w-[660.289px]">
         <p className="leading-[61.48px] mb-0">Réservez votre</p>
         <p className="leading-[61.48px]">consultation</p>
@@ -2294,7 +2294,7 @@ function MobileSectionTitle({
         {eyebrow}
       </div>
       <div className="space-y-3">
-        <h2 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px]">
+        <h2 className="font-['Syne',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px]">
           {title}
           <span className="block text-[#bcff3d]">{accent}</span>
         </h2>
@@ -2459,7 +2459,7 @@ function MobileBookingCard() {
                     isSelected ? "border-[#bcff3d] bg-[rgba(188,255,61,0.07)]" : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)]"
                   }`}
                 >
-                  <p className={`font-['Syne:ExtraBold',sans-serif] text-[22px] ${isSelected ? "text-[#bcff3d]" : "text-white"}`}>{duration.label}</p>
+                  <p className={`font-['Syne',sans-serif] text-[22px] ${isSelected ? "text-[#bcff3d]" : "text-white"}`}>{duration.label}</p>
                   <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">{duration.description}</p>
                   {duration.recommended ? <span className="mt-3 inline-flex rounded-full bg-[rgba(188,255,61,0.14)] px-3 py-1 text-[9px] uppercase tracking-[0.9px] text-[#bcff3d]">Recommandé</span> : null}
                 </button>
@@ -2544,7 +2544,7 @@ function MobileConseilsPage() {
             <span className="size-[6px] rounded-full bg-[#bcff3d]" />
             Un conseiller · Disponible demain
           </div>
-          <h1 className="mt-6 font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
+          <h1 className="mt-6 font-['Syne',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
             Réservez votre consultation
             <span className="block text-[#bcff3d]">automobile personnalisée</span>
           </h1>
@@ -2565,7 +2565,7 @@ function MobileConseilsPage() {
                 <div className="relative flex size-12 items-center justify-center rounded-[14px] border border-[rgba(188,255,61,0.16)] bg-[rgba(188,255,61,0.09)]">
                   {item.icon}
                 </div>
-                <h3 className="mt-5 font-['Syne:Bold',sans-serif] text-[18px] font-bold text-white">{item.title}</h3>
+                <h3 className="mt-5 font-['Syne',sans-serif] text-[18px] font-bold text-white">{item.title}</h3>
                 <p className="mt-2 text-[14px] leading-6 text-[rgba(255,255,255,0.45)]">{item.description}</p>
               </div>
             ))}
@@ -2577,8 +2577,8 @@ function MobileConseilsPage() {
           <div className="mt-8 grid gap-4">
             {PROCESS_ITEMS.map((item) => (
               <div key={item.id} className="rounded-[22px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-6">
-                <div className="text-[42px] font-['Syne:ExtraBold',sans-serif] font-extrabold text-[rgba(188,255,61,0.12)]">{item.id}</div>
-                <h3 className="mt-2 font-['Syne:Bold',sans-serif] text-[20px] font-bold text-white">{item.title}</h3>
+                <div className="text-[42px] font-['Syne',sans-serif] font-extrabold text-[rgba(188,255,61,0.12)]">{item.id}</div>
+                <h3 className="mt-2 font-['Syne',sans-serif] text-[20px] font-bold text-white">{item.title}</h3>
                 <p className="mt-3 text-[14px] leading-7 text-[rgba(255,255,255,0.45)]">{item.description}</p>
                 <div className="mt-4 inline-flex rounded-full border border-[rgba(188,255,61,0.14)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[11px] text-[#bcff3d]">
                   {item.badge}
@@ -2589,7 +2589,7 @@ function MobileConseilsPage() {
         </section>
 
         <section className="mt-24 overflow-hidden rounded-[24px] border border-[rgba(188,255,61,0.13)] p-6 sm:p-8" style={{ backgroundImage: "linear-gradient(134.892deg, rgba(188, 255, 61, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%)" }}>
-          <h2 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.04] tracking-[-0.04em] text-white">
+          <h2 className="font-['Syne',sans-serif] text-[34px] font-extrabold leading-[1.04] tracking-[-0.04em] text-white">
             Une seule consultation suffit
             <span className="block text-[#bcff3d]">pour faire le bon choix</span>
           </h2>
@@ -2619,7 +2619,7 @@ function MobileConseilsPage() {
                   className={`w-full rounded-[16px] border bg-[#111411] px-5 py-5 text-left transition-colors ${isOpen ? "border-[rgba(188,255,61,0.32)]" : "border-[rgba(255,255,255,0.08)]"}`}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <p className="font-['Syne:SemiBold',sans-serif] text-[15px] leading-6 text-white">{item.question}</p>
+                    <p className="font-['Syne',sans-serif] text-[15px] leading-6 text-white">{item.question}</p>
                     <span className={`mt-1 text-[18px] text-[#bcff3d] transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
                   </div>
                   {isOpen ? <p className="mt-4 text-[14px] leading-7 text-[rgba(255,255,255,0.45)]">{item.answer}</p> : null}

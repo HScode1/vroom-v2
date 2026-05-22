@@ -52,7 +52,7 @@ function ShowroomSpecBox({ label, value, className, labelClassName, valueClassNa
       <div className={`-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[13px] justify-center text-[10px] text-[rgba(255,255,255,0.3)] top-[18.5px] tracking-[0.8px] uppercase ${labelClassName}`} style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">{label}</p>
       </div>
-      <div className={`-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[18px] justify-center text-[15px] text-white top-[37px] ${valueClassName}`}>
+      <div className={`-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[18px] justify-center text-[15px] text-white top-[37px] ${valueClassName}`}>
         <p className="leading-[normal]">{value}</p>
       </div>
     </div>
@@ -75,14 +75,14 @@ function Slide({ vehicle }: { vehicle: Vehicle }) {
   const carImage = vehicle.image || vehicle.gallery?.[0];
   return (
     <div className="absolute inset-[0_0.34px_0_0]" data-name="SLIDE 1">
-      <div className="absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold inset-[48px_798.33px_459px_64px] justify-center leading-[0] text-[11px] text-[rgba(255,255,255,0.2)] tracking-[1.76px] uppercase">
+      <div className="absolute flex flex-col font-['Syne',sans-serif] font-bold inset-[48px_798.33px_459px_64px] justify-center leading-[0] text-[11px] text-[rgba(255,255,255,0.2)] tracking-[1.76px] uppercase">
         <p className="leading-[normal]">01</p>
       </div>
       <div className="absolute bg-[rgba(255,255,255,0.15)] inset-[54px_760.72px_465px_89.94px]" data-name="Horizontal Divider" />
       <div className="absolute flex flex-col font-['DM_Sans:SemiBold',sans-serif] font-semibold inset-[81px_752.25px_423px_64px] justify-center leading-[0] opacity-80 text-[#bcff3d] text-[12px] tracking-[1.68px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">{vehicle.brand}</p>
       </div>
-      <div className="absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold inset-[97px_572.03px_353px_64px] justify-center leading-[0] text-[58px] text-white tracking-[-2.32px]">
+      <div className="absolute flex flex-col font-['Syne',sans-serif] font-extrabold inset-[97px_572.03px_353px_64px] justify-center leading-[0] text-[58px] text-white tracking-[-2.32px]">
         <p className="leading-[55.1px]">{vehicle.model}</p>
       </div>
       <div className="absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal inset-[168.1px_640.21px_334.9px_64px] justify-center leading-[0] text-[13px] text-[rgba(255,255,255,0.35)] tracking-[1.04px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -92,11 +92,11 @@ function Slide({ vehicle }: { vehicle: Vehicle }) {
       <ShowroomSpecBox className="inset-[216.85px_785.66px_243.15px_253px]" label="Année" labelClassName="left-[14px] right-[102.92px]" value={String(vehicle.specs.year)} valueClassName="left-[14px] right-[99.52px]" />
       <ShowroomSpecBox className="inset-[286.85px_975.66px_173.15px_64px]" label="Kilométrage" labelClassName="left-[14px] right-[64.27px]" value={formatMileage(vehicle.specs.mileage)} valueClassName="left-[14px] right-[55.37px]" />
       <ShowroomSpecBox className="inset-[286.85px_785.66px_173.15px_253px]" label="Boîte" labelClassName="left-[14px] right-[107.23px]" value={vehicle.specs.gearbox} valueClassName="left-[14px] right-[29.41px]" />
-      <div className="absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold inset-[410px_910.66px_73px_64px] justify-center leading-[0] text-[#bcff3d] text-[32px]">
+      <div className="absolute flex flex-col font-['Syne',sans-serif] font-extrabold inset-[410px_910.66px_73px_64px] justify-center leading-[0] text-[#bcff3d] text-[32px]">
         <p className="leading-[32px]">{formatPrice(vehicle.price)}</p>
       </div>
       <a className="absolute bg-[#bcff3d] border border-[#bcff3d] border-solid bottom-[70px] h-[44px] left-[307px] rounded-[100px] w-[156px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" href={`/showroom/${vehicle.id}`}>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[16px] justify-center leading-[0] left-[22px] text-[#0c0d0c] text-[13px] top-1/2 w-[132.893px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[16px] justify-center leading-[0] left-[22px] text-[#0c0d0c] text-[13px] top-1/2 w-[132.893px]">
           <p className="leading-[normal]">En savoir plus</p>
         </div>
         <Svg32 />
@@ -191,7 +191,7 @@ function HorizontalBorder1({ vehicles, activeIndex, onPrevious, onNext, onSelect
         })}
       </div>
       <a className="-translate-y-1/2 absolute h-[16px] left-[1014px] top-[calc(50%+3.5px)] w-[180.88px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" href="/showroom">
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[16px] justify-center leading-[0] left-0 text-[13px] text-[rgba(255,255,255,0.4)] top-1/2 w-[160.204px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[16px] justify-center leading-[0] left-0 text-[13px] text-[rgba(255,255,255,0.4)] top-1/2 w-[160.204px]">
           <p className="leading-[normal]">Voir tous nos véhicules</p>
         </div>
         <Svg35 />
@@ -244,7 +244,7 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
           </p>
         </div>
 
-        <p className="mt-5 text-center font-['Syne:ExtraBold',sans-serif] text-[38px] font-extrabold leading-[42px] tracking-[-1.2px] text-white sm:text-[46px] sm:leading-[50px]">
+        <p className="mt-5 text-center font-['Syne',sans-serif] text-[38px] font-extrabold leading-[42px] tracking-[-1.2px] text-white sm:text-[46px] sm:leading-[50px]">
           Notre <span className="text-[#bcff3d]">showroom</span>
         </p>
 
@@ -257,7 +257,7 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
 
           <div className="p-5">
             <div className="flex items-center gap-3">
-              <p className="font-['Syne:Bold',sans-serif] text-[11px] font-bold uppercase tracking-[1.76px] text-[rgba(255,255,255,0.2)]">
+              <p className="font-['Syne',sans-serif] text-[11px] font-bold uppercase tracking-[1.76px] text-[rgba(255,255,255,0.2)]">
                 {String(showroomIndex + 1).padStart(2, "0")}
               </p>
               <div className="h-px flex-1 bg-[rgba(255,255,255,0.15)]" />
@@ -266,7 +266,7 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
             <p className="mt-4 font-['DM_Sans:SemiBold',sans-serif] text-[12px] font-semibold uppercase tracking-[1.68px] text-[#bcff3d]">
               {vehicle.brand}
             </p>
-            <p className="mt-2 font-['Syne:ExtraBold',sans-serif] text-[36px] font-extrabold leading-[36px] tracking-[-1.4px] text-white">
+            <p className="mt-2 font-['Syne',sans-serif] text-[36px] font-extrabold leading-[36px] tracking-[-1.4px] text-white">
               {vehicle.model}
             </p>
             <p className="mt-3 font-['DM_Sans:Regular',sans-serif] text-[12px] uppercase tracking-[1.04px] text-[rgba(255,255,255,0.35)]">
@@ -282,20 +282,20 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
               ].map(([label, value]) => (
                 <div className="rounded-[12px] border border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.03)] px-3 py-3" key={label}>
                   <p className="font-['DM_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[0.8px] text-[rgba(255,255,255,0.3)]">{label}</p>
-                  <p className="mt-2 font-['Syne:Bold',sans-serif] text-[15px] font-bold text-white">{value}</p>
+                  <p className="mt-2 font-['Syne',sans-serif] text-[15px] font-bold text-white">{value}</p>
                 </div>
               ))}
             </div>
 
             <div className="mt-5 flex items-center justify-between gap-4">
-              <p className="font-['Syne:ExtraBold',sans-serif] text-[30px] font-extrabold leading-[30px] text-[#bcff3d]">
+              <p className="font-['Syne',sans-serif] text-[30px] font-extrabold leading-[30px] text-[#bcff3d]">
                 {formatPrice(vehicle.price)}
               </p>
               <a
                 className="flex h-[44px] items-center gap-2 rounded-[100px] border border-[#bcff3d] bg-[#bcff3d] px-5 text-[#0c0d0c] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
                 href={`/showroom/${vehicle.id}`}
               >
-                <span className="font-['Syne:Bold',sans-serif] text-[13px] font-bold">En savoir plus</span>
+                <span className="font-['Syne',sans-serif] text-[13px] font-bold">En savoir plus</span>
                 <MobileCtaArrow />
               </a>
             </div>
@@ -329,7 +329,7 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
           </div>
         </div>
 
-        <a className="mt-5 inline-flex items-center gap-2 font-['Syne:Bold',sans-serif] text-[13px] font-bold text-[rgba(255,255,255,0.4)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" href="/showroom">
+        <a className="mt-5 inline-flex items-center gap-2 font-['Syne',sans-serif] text-[13px] font-bold text-[rgba(255,255,255,0.4)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" href="/showroom">
           <span>Voir tous nos véhicules</span>
           <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
             <path d={svgPaths.p3be6c058} stroke="var(--stroke-0, white)" strokeOpacity="0.4" strokeWidth="1.35417" />
@@ -372,7 +372,7 @@ export default function ShowroomSection() {
             <p className="leading-[normal]">Véhicules disponibles</p>
           </div>
         </div>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[62px] justify-center leading-[0] left-[383px] right-[382.58px] text-[52px] text-white top-[3099px] tracking-[-1.56px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[62px] justify-center leading-[0] left-[383px] right-[382.58px] text-[52px] text-white top-[3099px] tracking-[-1.56px]">
           <p>
             <span className="leading-[54.6px]">{`Notre `}</span>
             <span className="leading-[54.6px] text-[#bcff3d]">showroom</span>

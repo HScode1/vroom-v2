@@ -15,7 +15,7 @@ function Badge() {
 
 function ServiceList() {
   return (
-    <div className="absolute contents font-['Syne:Bold',sans-serif] font-bold leading-[1.5] left-[120px] top-[1173px]">
+    <div className="absolute contents font-['Syne',sans-serif] font-bold leading-[1.5] left-[120px] top-[1173px]">
       <p className="absolute left-[120px] text-[48px] text-white top-[1173px] w-[760px]">ACHETER UN VÉHICULE</p>
       <p className="absolute left-[120px] opacity-20 text-[#c8ec66] text-[41px] top-[1280px] w-[793px]">COMMANDER UN VÉHICULE</p>
       <p className="absolute left-[120px] opacity-20 text-[#c8ec66] text-[41px] top-[1380px] w-[793px]">VENDRE UN VÉHICULE</p>
@@ -87,20 +87,20 @@ function MobileNosSolutions() {
           </p>
         </div>
 
-        <p className="mt-5 text-center font-['Lexend:Medium',sans-serif] text-[40px] font-medium leading-[44px] text-white sm:text-[46px] sm:leading-[50px]">
-          <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold">{`Nos `}</span>
-          <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold text-[#c8ec66]">Solutions</span>
+        <p className="mt-5 text-center font-['Syne',sans-serif] text-[40px] font-extrabold leading-[44px] text-white sm:text-[46px] sm:leading-[50px]">
+          <span className="font-['Syne',sans-serif] font-extrabold">{`Nos `}</span>
+          <span className="font-['Syne',sans-serif] font-extrabold text-[#c8ec66]">Solutions</span>
         </p>
 
         <div className="mt-8">
           <div className="space-y-4">
-            <p className="font-['Syne:Bold',sans-serif] text-[34px] font-bold leading-[36px] text-white sm:text-[38px] sm:leading-[40px]">
+            <p className="font-['Syne',sans-serif] text-[34px] font-bold leading-[36px] text-white sm:text-[38px] sm:leading-[40px]">
               ACHETER UN VÉHICULE
             </p>
-            <p className="font-['Syne:Bold',sans-serif] text-[30px] font-bold leading-[32px] text-[#c8ec66]/22 sm:text-[34px] sm:leading-[36px]">
+            <p className="font-['Syne',sans-serif] text-[30px] font-bold leading-[32px] text-[#c8ec66]/22 sm:text-[34px] sm:leading-[36px]">
               COMMANDER UN VÉHICULE
             </p>
-            <p className="font-['Syne:Bold',sans-serif] text-[30px] font-bold leading-[32px] text-[#c8ec66]/22 sm:text-[34px] sm:leading-[36px]">
+            <p className="font-['Syne',sans-serif] text-[30px] font-bold leading-[32px] text-[#c8ec66]/22 sm:text-[34px] sm:leading-[36px]">
               VENDRE UN VÉHICULE
             </p>
           </div>
@@ -133,7 +133,7 @@ function MobileNosSolutions() {
           <div className="mt-4 overflow-hidden rounded-[22px] border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.03)] px-4 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="max-w-[52%]">
-                <p className="font-['Syne:Bold',sans-serif] text-[20px] font-bold leading-[24px] text-[#c8ec66]/75">
+                <p className="font-['Syne',sans-serif] text-[20px] font-bold leading-[24px] text-[#c8ec66]/75">
                   COMMANDER UN VÉHICULE
                 </p>
                 <p className="mt-3 font-['Helvetica_Neue:Light',sans-serif] text-[15px] leading-[22px] text-white/70">
@@ -159,9 +159,9 @@ export default function NosSolutions() {
       <div className="hidden lg:block">
         <Badge />
 
-        <p className="-translate-x-1/2 absolute font-['Lexend:Medium',sans-serif] font-medium h-[72px] leading-[0] left-[704.5px] text-[48px] text-center text-white top-[956px] w-[1187px]">
-          <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5]">{`Nos `}</span>
-          <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">Solutions</span>
+        <p className="-translate-x-1/2 absolute font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[704.5px] text-[48px] text-center text-white top-[956px] w-[1187px]">
+          <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5]">{`Nos `}</span>
+          <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">Solutions</span>
         </p>
 
         <ServiceList />

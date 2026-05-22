@@ -15,7 +15,7 @@ function OverlayBorder() {
 function OverlayBorder1() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.2)] border-solid left-0 rounded-[16px] size-[32px] top-[18px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[12.763px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[12.763px]">
         <p className="leading-[normal]">01</p>
       </div>
     </div>
@@ -39,7 +39,7 @@ function HorizontalBorder() {
 function OverlayBorder2() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.2)] border-solid left-0 rounded-[16px] size-[32px] top-[18px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.355px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.355px]">
         <p className="leading-[normal]">02</p>
       </div>
     </div>
@@ -63,7 +63,7 @@ function HorizontalBorder1() {
 function OverlayBorder3() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.2)] border-solid left-[80px] rounded-[16px] size-[32px] top-[595.88px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.547px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.547px]">
         <p className="leading-[normal]">03</p>
       </div>
     </div>
@@ -73,7 +73,7 @@ function OverlayBorder3() {
 function ParagraphBackground() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-0 right-[223.5px] top-0" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[109.779px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[109.779px]">
         <p className="leading-[normal]">500+</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[95.597px]">
@@ -86,7 +86,7 @@ function ParagraphBackground() {
 function ParagraphBackground1() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-[223.5px] right-0 top-0" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[87.284px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[87.284px]">
         <p className="leading-[normal]">24h</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[87.304px]">
@@ -99,7 +99,7 @@ function ParagraphBackground1() {
 function ParagraphBackground2() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-0 right-[223.5px] top-[92px]" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[111.202px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[111.202px]">
         <p className="leading-[normal]">100%</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[34.855px]">
@@ -112,7 +112,7 @@ function ParagraphBackground2() {
 function ParagraphBackground3() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-[223.5px] right-0 top-[92px]" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[89.558px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[89.558px]">
         <p className="leading-[normal]">12m</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[82.246px]">
@@ -221,7 +221,7 @@ function BackgroundBorder() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[12px] justify-center leading-[0] left-[36px] opacity-70 text-[#bcff3d] text-[10px] top-[46px] tracking-[1.6px] uppercase w-[200.856px]">
         <p className="leading-[normal]">Vroom · Recherche véhicule</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[52.39px] justify-center leading-[0] left-[36px] text-[22px] text-white top-[94.19px] w-[399.9px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[52.39px] justify-center leading-[0] left-[36px] text-[22px] text-white top-[94.19px] w-[399.9px]">
         <p className="mb-0">
           <span className="leading-[26.4px]">{`Accès à `}</span>
           <span className="leading-[26.4px] text-[#bcff3d]">tout le marché</span>
@@ -240,7 +240,7 @@ function SectionHero() {
   return (
     <div className="absolute h-[705.88px] left-[80px] right-[80px] top-[145px]" data-name="Section - HERO">
       <OverlayBorder />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[179.47px] justify-center leading-[0] left-[80px] text-[54px] text-white top-[206.74px] tracking-[-1.62px] w-[505.551px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[179.47px] justify-center leading-[0] left-[80px] text-[54px] text-white top-[206.74px] tracking-[-1.62px] w-[505.551px]">
         <p className="leading-[57.24px] mb-0">Décrivez le</p>
         <p className="leading-[57.24px] mb-0">véhicule</p>
         <p>
@@ -297,7 +297,7 @@ function TopBar() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.08)] border-b border-solid h-[118.92px] left-0 right-0 top-0" data-name="top bar">
       <OverlayBorder7 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[85px] text-[14px] text-white top-[51.5px] w-[274px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[85px] text-[14px] text-white top-[51.5px] w-[274px]">
         <p className="leading-[normal]">Demande reçue · Vroom Advisor</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-[85px] text-[11px] text-[rgba(255,255,255,0.4)] top-[68.45px] w-[366px]">
@@ -425,7 +425,7 @@ function OverlayBorder8() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-[76px] text-[11px] text-[rgba(255,255,255,0.4)] top-[22.5px] tracking-[0.88px] uppercase w-[111.292px]">
         <p className="leading-[normal]">Budget maximum</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[26px] justify-center leading-[0] left-[76px] text-[#bcff3d] text-[22px] top-[46.4px] w-[191px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[26px] justify-center leading-[0] left-[76px] text-[#bcff3d] text-[22px] top-[46.4px] w-[191px]">
         <p className="leading-[normal]">20 000 €</p>
       </div>
     </div>
@@ -561,7 +561,7 @@ function Link() {
   return (
     <div className="absolute bg-[#bcff3d] inset-[28px_359px_61px_36px] rounded-[12px]" data-name="Link">
       <Svg8 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%+12.18px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[193.41px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%+12.18px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[193.41px]">
         <p className="leading-[normal]">Renvoyer la confirmation</p>
       </div>
     </div>
@@ -701,7 +701,7 @@ function SuccessHero() {
       <div className="absolute border border-[rgba(188,255,61,0.16)] border-solid inset-[61.84px_324px_243.6px_340px] rounded-[48px]" data-name="Border" />
       <div className="absolute border border-[rgba(188,255,61,0.16)] border-solid inset-[61.84px_324px_243.6px_340px] rounded-[48px]" data-name="Border" />
       <OverlayBorder14 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center leading-[0] left-[calc(50%+7.5px)] text-[28px] text-center text-white top-[200.22px] w-[503px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center leading-[0] left-[calc(50%+7.5px)] text-[28px] text-center text-white top-[200.22px] w-[503px]">
         <p>
           <span className="leading-[32.2px]">{`Demande `}</span>
           <span className="leading-[32.2px] text-[#bcff3d]">bien reçue !</span>
@@ -902,7 +902,7 @@ function BackgroundBorder1() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[193px] left-0 overflow-clip right-[-38px] rounded-[20px] top-[0.12px]" data-name="Background+Border">
       <Svg14 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-63px)] w-[178.558px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-63px)] w-[178.558px]">
         <p className="leading-[normal]">Ce qui se passe ensuite</p>
       </div>
       <Svg15 />
@@ -1017,7 +1017,7 @@ function BackgroundBorder2() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[177px] left-0 overflow-clip right-[-38px] rounded-[20px] top-[207.12px]" data-name="Background+Border">
       <Svg19 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-55px)] w-[106.164px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-55px)] w-[106.164px]">
         <p className="leading-[normal]">Nos garanties</p>
       </div>
       <Svg20 />
@@ -1335,7 +1335,7 @@ function MobileHero() {
           <span className="size-1.5 rounded-full bg-[#bcff3d]" />
           Service personnalisé · Réponse sous 24h
         </div>
-        <h1 className="font-['Syne:ExtraBold',sans-serif] text-[34px] leading-[1.02] tracking-[-1.2px] text-white">
+        <h1 className="font-['Syne',sans-serif] text-[34px] leading-[1.02] tracking-[-1.2px] text-white">
           Décrivez le véhicule
           <br />
           de vos <span className="text-[#bcff3d]">rêves</span>
@@ -1351,7 +1351,7 @@ function MobileHero() {
             ["12m", "garantie incluse"],
           ].map(([value, label]) => (
             <div key={label} className="rounded-[16px] bg-[#111411] px-4 py-4">
-              <div className="font-['Syne:ExtraBold',sans-serif] text-[26px] text-[#bcff3d]">{value}</div>
+              <div className="font-['Syne',sans-serif] text-[26px] text-[#bcff3d]">{value}</div>
               <div className="mt-1 text-[11px] text-[rgba(255,255,255,0.42)]">{label}</div>
             </div>
           ))}
@@ -1382,7 +1382,7 @@ function MobileSidebarCards() {
   return (
     <div className="space-y-3">
       <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
-        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Ce qui se passe ensuite</div>
+        <div className="font-['Syne',sans-serif] text-[16px] text-white">Ce qui se passe ensuite</div>
         <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
           <div>Votre demande est transmise à notre équipe</div>
           <div>Analyse de tout le marché auto</div>
@@ -1391,7 +1391,7 @@ function MobileSidebarCards() {
         </div>
       </div>
       <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
-        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Nos garanties</div>
+        <div className="font-['Syne',sans-serif] text-[16px] text-white">Nos garanties</div>
         <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
           <div>100% gratuit, sans engagement</div>
           <div>Garantie 12 mois sur chaque véhicule</div>
@@ -1400,7 +1400,7 @@ function MobileSidebarCards() {
         </div>
       </div>
       <div className="rounded-[20px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.05)] p-5">
-        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-[#bcff3d]">Une question ?</div>
+        <div className="font-['Syne',sans-serif] text-[16px] text-[#bcff3d]">Une question ?</div>
         <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.66)]">
           <div>06 19 93 37 65</div>
           <div>contact@vroomparis.fr</div>
@@ -1424,7 +1424,7 @@ function MobileConfirmationSection() {
                 <div className="text-[18px]">🚚</div>
               </div>
               <div>
-                <div className="font-['Syne:Bold',sans-serif] text-[18px] text-white">Demande reçue · Vroom Advisor</div>
+                <div className="font-['Syne',sans-serif] text-[18px] text-white">Demande reçue · Vroom Advisor</div>
                 <div className="mt-2 text-[13px] leading-5 text-[rgba(255,255,255,0.45)]">
                   Notre équipe va analyser votre demande et vous contacter sous 24h.
                 </div>
@@ -1436,7 +1436,7 @@ function MobileConfirmationSection() {
             <div className="mx-auto flex size-[68px] items-center justify-center rounded-full border border-[rgba(188,255,61,0.28)] bg-[rgba(188,255,61,0.12)] text-[28px]">
               ✓
             </div>
-            <h2 className="mt-6 font-['Syne:ExtraBold',sans-serif] text-[28px] leading-[1.15] text-white">
+            <h2 className="mt-6 font-['Syne',sans-serif] text-[28px] leading-[1.15] text-white">
               Demande <span className="text-[#bcff3d]">bien reçue !</span>
             </h2>
             <p className="mt-4 text-[15px] leading-[24px] text-[rgba(255,255,255,0.55)]">
@@ -1474,7 +1474,7 @@ function MobileConfirmationSection() {
                   <div className="flex size-10 items-center justify-center rounded-[10px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.1)] text-[#bcff3d]">💶</div>
                   <div>
                     <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.4)]">Budget maximum</div>
-                    <div className="mt-1 font-['Syne:ExtraBold',sans-serif] text-[22px] text-[#bcff3d]">20 000 €</div>
+                    <div className="mt-1 font-['Syne',sans-serif] text-[22px] text-[#bcff3d]">20 000 €</div>
                   </div>
                 </div>
               </div>
@@ -1498,7 +1498,7 @@ function MobileConfirmationSection() {
             </div>
 
             <div className="space-y-3 border-t border-[rgba(255,255,255,0.08)] pt-5">
-              <button className="h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]">
+              <button className="h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne',sans-serif] text-[15px] font-bold text-[#0c0d0c]">
                 Renvoyer la confirmation
               </button>
               <button

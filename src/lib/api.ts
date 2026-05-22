@@ -42,6 +42,9 @@ export const vehicles = {
     const qs = params ? "?" + new URLSearchParams(params as Record<string, string>).toString() : "";
     return request<{ data: Vehicle[]; meta: { total: number; page: number; totalPages: number; limit: number } }>(`/api/v1/vehicles${qs}`);
   },
+  async getFilters() {
+    return request<{ brands: { id: string; label: string; count: number }[] }>("/api/v1/vehicles/filters");
+  },
   async get(id: string) {
     return request<Vehicle>(`/api/v1/vehicles/${id}`);
   },

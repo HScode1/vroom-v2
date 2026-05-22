@@ -1,6 +1,66 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { requests } from "../../lib/api";
 import svgPaths from "./svg-fi2qbhww8w";
+
+type GearboxSelection = "automatique" | "manuelle" | "peuImporte";
+type HorizonSelection = "immediat" | "1-3mois" | "3-6mois" | "6plus";
+
+function mapGearbox(selection: GearboxSelection): string {
+  if (selection === "manuelle") return "Manuelle";
+  if (selection === "peuImporte") return "Peu importe";
+  return "Automatique";
+}
+
+function mapHorizon(selection: HorizonSelection): string {
+  switch (selection) {
+    case "1-3mois":
+      return "Dans 1 à 3 mois";
+    case "3-6mois":
+      return "Dans 3 à 6 mois";
+    case "6plus":
+      return "+ de 6 mois";
+    case "immediat":
+    default:
+      return "Immédiatement";
+  }
+}
+
+function submitBuyRequest(params: {
+  navigate: (path: string) => void;
+  budget: number;
+  gearbox: GearboxSelection;
+  horizon: HorizonSelection;
+}) {
+  const { navigate, budget, gearbox, horizon } = params;
+
+  void requests
+    .createBuy({
+      customer: {
+        firstName: "Jean",
+        lastName: "Dupont",
+        email: "jean.dupont@email.com",
+        phone: "06 00 00 00 00",
+      },
+      vehicleCriteria: {
+        brand: "Volkswagen",
+        model: "Golf",
+        trim: "GTI ou R",
+        year: "2022 - 2023",
+        gearbox: mapGearbox(gearbox),
+        fuel: "Essence",
+        maxMileage: 60000,
+        maxBudget: budget,
+        timeframe: mapHorizon(horizon),
+        notes: "Recherche familiale fiable, usage quotidien + autoroute.",
+      },
+    })
+    .catch((error) => {
+      console.error("Impossible d'enregistrer la demande d'achat", error);
+    });
+
+  navigate("/acheter-votre-vehicule/etape-2");
+}
 
 function OverlayBorder() {
   return (
@@ -16,7 +76,7 @@ function OverlayBorder() {
 function OverlayBorder1() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.2)] border-solid left-0 rounded-[16px] size-[32px] top-[18px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[12.763px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[12.763px]">
         <p className="leading-[normal]">01</p>
       </div>
     </div>
@@ -40,7 +100,7 @@ function HorizontalBorder() {
 function OverlayBorder2() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.2)] border-solid left-0 rounded-[16px] size-[32px] top-[18px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.355px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.355px]">
         <p className="leading-[normal]">02</p>
       </div>
     </div>
@@ -64,7 +124,7 @@ function HorizontalBorder1() {
 function OverlayBorder3() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.09)] border border-[rgba(188,255,61,0.2)] border-solid left-[80px] rounded-[16px] size-[32px] top-[595.88px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.547px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[13px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[#bcff3d] text-[11px] text-center top-1/2 w-[15.547px]">
         <p className="leading-[normal]">03</p>
       </div>
     </div>
@@ -74,7 +134,7 @@ function OverlayBorder3() {
 function ParagraphBackground() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-0 right-[223.5px] top-0" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[109.779px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[109.779px]">
         <p className="leading-[normal]">500+</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[95.597px]">
@@ -87,7 +147,7 @@ function ParagraphBackground() {
 function ParagraphBackground1() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-[223.5px] right-0 top-0" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[87.284px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[87.284px]">
         <p className="leading-[normal]">24h</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[87.304px]">
@@ -100,7 +160,7 @@ function ParagraphBackground1() {
 function ParagraphBackground2() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-0 right-[223.5px] top-[92px]" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[111.202px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[111.202px]">
         <p className="leading-[normal]">100%</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[34.855px]">
@@ -113,7 +173,7 @@ function ParagraphBackground2() {
 function ParagraphBackground3() {
   return (
     <div className="absolute bg-[#111411] h-[91px] left-[223.5px] right-0 top-[92px]" data-name="Paragraph+Background">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[89.558px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center left-[16px] text-[#bcff3d] text-[28px] top-[37px] w-[89.558px]">
         <p className="leading-[normal]">12m</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[16px] text-[11px] text-[rgba(255,255,255,0.4)] top-[64.5px] w-[82.246px]">
@@ -222,7 +282,7 @@ function BackgroundBorder() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[12px] justify-center leading-[0] left-[36px] opacity-70 text-[#bcff3d] text-[10px] top-[46px] tracking-[1.6px] uppercase w-[200.856px]">
         <p className="leading-[normal]">Vroom · Recherche véhicule</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[52.39px] justify-center leading-[0] left-[36px] text-[22px] text-white top-[94.19px] w-[399.9px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[52.39px] justify-center leading-[0] left-[36px] text-[22px] text-white top-[94.19px] w-[399.9px]">
         <p className="mb-0">
           <span className="leading-[26.4px]">{`Accès à `}</span>
           <span className="leading-[26.4px] text-[#bcff3d]">tout le marché</span>
@@ -241,7 +301,7 @@ function SectionHero() {
   return (
     <div className="absolute h-[705.88px] left-[80px] right-[80px] top-[145px]" data-name="Section - HERO">
       <OverlayBorder />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[179.47px] justify-center leading-[0] left-[80px] text-[54px] text-white top-[206.74px] tracking-[-1.62px] w-[505.551px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[179.47px] justify-center leading-[0] left-[80px] text-[54px] text-white top-[206.74px] tracking-[-1.62px] w-[505.551px]">
         <p className="leading-[57.24px] mb-0">Décrivez le</p>
         <p className="leading-[57.24px] mb-0">véhicule</p>
         <p>
@@ -468,7 +528,7 @@ function BackgroundBorder1() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[193px] left-0 overflow-clip right-[-38px] rounded-[20px] top-[0.12px]" data-name="Background+Border">
       <Svg5 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-63px)] w-[178.558px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-63px)] w-[178.558px]">
         <p className="leading-[normal]">Ce qui se passe ensuite</p>
       </div>
       <Svg6 />
@@ -583,7 +643,7 @@ function BackgroundBorder2() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[177px] left-0 overflow-clip right-[-38px] rounded-[20px] top-[207.12px]" data-name="Background+Border">
       <Svg10 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-55px)] w-[106.164px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[46px] text-[14px] text-white top-[calc(50%-55px)] w-[106.164px]">
         <p className="leading-[normal]">Nos garanties</p>
       </div>
       <Svg11 />
@@ -652,7 +712,7 @@ function OverlayHorizontalBorder() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.08)] border-b border-solid h-[79px] left-0 right-0 top-0" data-name="Overlay+HorizontalBorder">
       <OverlayBorder9 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[92px] text-[15px] text-white top-[calc(50%-8.5px)] w-[274.857px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[92px] text-[15px] text-white top-[calc(50%-8.5px)] w-[274.857px]">
         <p className="leading-[normal]">Formulaire de recherche véhicule</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] left-[92px] text-[12px] text-[rgba(255,255,255,0.4)] top-[calc(50%+10px)] w-[425.456px]">
@@ -944,10 +1004,10 @@ function Section2Budget({ top = 368 }: { top?: number }) {
   return (
     <div className="absolute h-[142px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 2 : Budget">
       <HorizontalBorder3 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-0 right-[501.26px] text-[#bcff3d] text-[32px] top-[69px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-0 right-[501.26px] text-[#bcff3d] text-[32px] top-[69px]">
         <p className="leading-[32px]">{budget.toLocaleString("fr-FR")}</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Regular',sans-serif] font-normal h-[19px] justify-center leading-[0] left-[188.39px] right-[489.05px] text-[16px] text-[rgba(255,255,255,0.4)] top-[73.5px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-normal h-[19px] justify-center leading-[0] left-[188.39px] right-[489.05px] text-[16px] text-[rgba(255,255,255,0.4)] top-[73.5px]">
         <p className="leading-[16px]">€</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] left-0 right-[566.34px] text-[12px] text-[rgba(255,255,255,0.4)] top-[92.5px]">
@@ -1382,11 +1442,10 @@ function Svg22() {
   );
 }
 
-function Button() {
-  const navigate = useNavigate();
+function Button({ onSubmit }: { onSubmit: () => void }) {
   return (
-    <div className="absolute bg-[#bcff3d] h-[54px] left-[40px] right-[40px] rounded-[14px] top-[61.18px] cursor-pointer" data-name="Button" onClick={() => navigate("/acheter-votre-vehicule/etape-2")}>
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.82px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[188.096px]">
+    <div className="absolute bg-[#bcff3d] h-[54px] left-[40px] right-[40px] rounded-[14px] top-[61.18px] cursor-pointer" data-name="Button" onClick={onSubmit}>
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.82px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[188.096px]">
         <p className="leading-[normal]">Envoyer ma demande</p>
       </div>
       <Svg22 />
@@ -1450,14 +1509,14 @@ function Svg25() {
   );
 }
 
-function FormBody({ top = 1303.78 }: { top?: number }) {
+function FormBody({ top = 1303.78, onSubmit }: { top?: number; onSubmit: () => void }) {
   return (
     <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t h-[177.19px] left-0 right-0" style={{ top }} data-name="form-body">
       <Svg21 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] left-[64px] right-[62.54px] text-[12px] text-[rgba(255,255,255,0.4)] top-[33.5px]">
         <p className="leading-[19.2px]">Vos données sont strictement confidentielles et utilisées uniquement pour répondre à votre demande de véhicule.</p>
       </div>
-      <Button />
+      <Button onSubmit={onSubmit} />
       <Svg23 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-[203.2px] right-[471.48px] text-[11px] text-[rgba(255,255,255,0.25)] text-center top-[133.68px]">
         <p className="leading-[normal]">Sans engagement</p>
@@ -1509,7 +1568,7 @@ function PrecedentButton({ top, onPrev }: { top: number; onPrev: () => void }) {
   );
 }
 
-function FormCard({ step, onNext, onPrev }: { step: number; onNext: () => void; onPrev: () => void }) {
+function FormCard({ step, onNext, onPrev, onSubmit }: { step: number; onNext: () => void; onPrev: () => void; onSubmit: () => void }) {
   // Step 1 — Votre véhicule idéal
   // Section1: top=119, h=213, ends=332 → button at 368
   // Card height: 368+54+40 = 462
@@ -1544,7 +1603,7 @@ function FormCard({ step, onNext, onPrev }: { step: number; onNext: () => void; 
     <>
       <Section4Coordonnees top={119} />
       <PrecedentButton top={465} onPrev={onPrev} />
-      <FormBody top={530} />
+      <FormBody top={530} onSubmit={onSubmit} />
     </>
   );
 
@@ -1565,8 +1624,10 @@ function FormCard({ step, onNext, onPrev }: { step: number; onNext: () => void; 
 }
 
 function FormSection() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const sectionHeights: Record<number, number> = { 1: 700, 2: 1020, 3: 980 };
+  const handleSubmit = () => submitBuyRequest({ navigate, budget: 20000, gearbox: "automatique", horizon: "immediat" });
 
   return (
     <div
@@ -1584,6 +1645,7 @@ function FormSection() {
         step={currentStep}
         onNext={() => setCurrentStep(s => Math.min(3, s + 1))}
         onPrev={() => setCurrentStep(s => Math.max(1, s - 1))}
+        onSubmit={handleSubmit}
       />
     </div>
   );
@@ -1867,7 +1929,7 @@ function MobileHero() {
           <span className="size-1.5 rounded-full bg-[#bcff3d]" />
           Service personnalisé · Réponse sous 24h
         </div>
-        <h1 className="font-['Syne:ExtraBold',sans-serif] text-[34px] leading-[1.02] tracking-[-1.2px] text-white">
+        <h1 className="font-['Syne',sans-serif] text-[34px] leading-[1.02] tracking-[-1.2px] text-white">
           Décrivez le véhicule
           <br />
           de vos <span className="text-[#bcff3d]">rêves</span>
@@ -1883,7 +1945,7 @@ function MobileHero() {
             ["12m", "garantie incluse"],
           ].map(([value, label]) => (
             <div key={label} className="rounded-[16px] bg-[#111411] px-4 py-4">
-              <div className="font-['Syne:ExtraBold',sans-serif] text-[26px] text-[#bcff3d]">{value}</div>
+              <div className="font-['Syne',sans-serif] text-[26px] text-[#bcff3d]">{value}</div>
               <div className="mt-1 text-[11px] text-[rgba(255,255,255,0.42)]">{label}</div>
             </div>
           ))}
@@ -1914,7 +1976,7 @@ function MobileSidebarCards() {
   return (
     <div className="space-y-3">
       <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
-        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Ce qui se passe ensuite</div>
+        <div className="font-['Syne',sans-serif] text-[16px] text-white">Ce qui se passe ensuite</div>
         <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
           <div>Votre demande est transmise à notre équipe</div>
           <div>Analyse de tout le marché auto</div>
@@ -1923,7 +1985,7 @@ function MobileSidebarCards() {
         </div>
       </div>
       <div className="rounded-[20px] border border-[rgba(255,255,255,0.08)] bg-[#111411] p-5">
-        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-white">Nos garanties</div>
+        <div className="font-['Syne',sans-serif] text-[16px] text-white">Nos garanties</div>
         <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.58)]">
           <div>100% gratuit, sans engagement</div>
           <div>Garantie 12 mois sur chaque véhicule</div>
@@ -1932,7 +1994,7 @@ function MobileSidebarCards() {
         </div>
       </div>
       <div className="rounded-[20px] border border-[rgba(188,255,61,0.15)] bg-[rgba(188,255,61,0.05)] p-5">
-        <div className="font-['Syne:Bold',sans-serif] text-[16px] text-[#bcff3d]">Une question ?</div>
+        <div className="font-['Syne',sans-serif] text-[16px] text-[#bcff3d]">Une question ?</div>
         <div className="mt-4 space-y-3 text-[13px] text-[rgba(255,255,255,0.66)]">
           <div>06 19 93 37 65</div>
           <div>contact@vroomparis.fr</div>
@@ -1946,12 +2008,13 @@ function MobileSidebarCards() {
 function MobileFormSection() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [boite, setBoite] = useState<'automatique' | 'manuelle' | 'peuImporte'>('automatique');
+  const [boite, setBoite] = useState<GearboxSelection>("automatique");
   const [budget, setBudget] = useState(20000);
-  const [horizon, setHorizon] = useState<'immediat' | '1-3mois' | '3-6mois' | '6plus'>('immediat');
+  const [horizon, setHorizon] = useState<HorizonSelection>("immediat");
   const min = 5000;
   const max = 100000;
   const pct = ((budget - min) / (max - min)) * 100;
+  const handleSubmit = () => submitBuyRequest({ navigate, budget, gearbox: boite, horizon });
 
   return (
     <section className="px-4 py-8">
@@ -1987,7 +2050,7 @@ function MobileFormSection() {
                   <div className="text-[18px]">🚚</div>
                 </div>
                 <div className="min-w-0">
-                  <div className="font-['Syne:Bold',sans-serif] text-[18px] text-white">Formulaire de recherche véhicule</div>
+                  <div className="font-['Syne',sans-serif] text-[18px] text-white">Formulaire de recherche véhicule</div>
                   <div className="mt-2 text-[13px] leading-5 text-[rgba(255,255,255,0.45)]">
                     Décrivez le véhicule que vous recherchez, notre équipe s&apos;occupe du reste.
                   </div>
@@ -2082,7 +2145,7 @@ function MobileFormSection() {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(2)}
-                  className="h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
+                  className="h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
                 >
                   Suivant →
                 </button>
@@ -2096,7 +2159,7 @@ function MobileFormSection() {
                     <span className="text-[#bcff3d]">💶</span>
                     <span>Votre budget maximum</span>
                   </div>
-                  <div className="font-['Syne:ExtraBold',sans-serif] text-[34px] text-[#bcff3d]">{budget.toLocaleString("fr-FR")} <span className="text-[18px] text-[rgba(255,255,255,0.4)]">€</span></div>
+                  <div className="font-['Syne',sans-serif] text-[34px] text-[#bcff3d]">{budget.toLocaleString("fr-FR")} <span className="text-[18px] text-[rgba(255,255,255,0.4)]">€</span></div>
                   <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.4)]">budget maximum TTC</div>
                   <div className="relative mt-6 h-7">
                     <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[rgba(255,255,255,0.08)]" />
@@ -2168,14 +2231,14 @@ function MobileFormSection() {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="h-[54px] flex-1 rounded-[14px] border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-white"
+                    className="h-[54px] flex-1 rounded-[14px] border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] font-['Syne',sans-serif] text-[15px] font-bold text-white"
                   >
                     ← Précédent
                   </button>
                   <button
                     type="button"
                     onClick={() => setCurrentStep(3)}
-                    className="h-[54px] flex-1 rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
+                    className="h-[54px] flex-1 rounded-[14px] bg-[#bcff3d] font-['Syne',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
                   >
                     Suivant →
                   </button>
@@ -2218,7 +2281,7 @@ function MobileFormSection() {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(2)}
-                  className="h-[48px] w-full rounded-[14px] border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-white"
+                  className="h-[48px] w-full rounded-[14px] border border-[rgba(255,255,255,0.12)] bg-[rgba(255,255,255,0.04)] font-['Syne',sans-serif] text-[15px] font-bold text-white"
                 >
                   ← Précédent
                 </button>
@@ -2229,8 +2292,8 @@ function MobileFormSection() {
                   </p>
                   <button
                     type="button"
-                    onClick={() => navigate("/acheter-votre-vehicule/etape-2")}
-                    className="mt-5 h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
+                    onClick={handleSubmit}
+                    className="mt-5 h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
                   >
                     Envoyer ma demande
                   </button>

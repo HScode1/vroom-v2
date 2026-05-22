@@ -136,13 +136,13 @@ function MobileAchetezSection() {
             </p>
           </div>
 
-          <p className="mt-5 font-['Syne:Bold',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] text-white sm:text-[46px] sm:leading-[46px]">
+          <p className="mt-5 font-['Syne',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] text-white sm:text-[46px] sm:leading-[46px]">
             ACHETEZ VOTRE
           </p>
-          <p className="mt-2 font-['Syne:Bold',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] text-white sm:text-[46px] sm:leading-[46px]">
+          <p className="mt-2 font-['Syne',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] text-white sm:text-[46px] sm:leading-[46px]">
             VEHICULE
           </p>
-          <div className="mt-5 font-['Syne:Bold',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] sm:text-[46px] sm:leading-[46px]">
+          <div className="mt-5 font-['Syne',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] sm:text-[46px] sm:leading-[46px]">
             <p className="text-white">DEPUIS <span className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">VOTRE</span></p>
             <p className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">CANAPE !</p>
           </div>
@@ -257,18 +257,18 @@ export default function AchetezSection() {
             </div>
           </div>
         </a>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2467.75px] tracking-[-1.5px] w-[654px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2467.75px] tracking-[-1.5px] w-[654px]">
           <p className="leading-[60px]">ACHETEZ VOTRE</p>
         </div>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2539.75px] tracking-[-1.5px] w-[395px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2539.75px] tracking-[-1.5px] w-[395px]">
           <p className="leading-[60px]">VEHICULE</p>
         </div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:ExtraBold',sans-serif] font-extrabold h-[136px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2641.75px] tracking-[-1.5px] w-[575px]">
-          <p className="font-['Syne:Bold',sans-serif] font-bold mb-0">
+          <p className="font-['Syne',sans-serif] font-bold mb-0">
             <span className="leading-[60px]">{`DEPUIS `}</span>
             <span className="bg-clip-text bg-gradient-to-r from-[#c8ec66] leading-[60px] text-[transparent] to-[#b5e43d]">VOTRE</span>
           </p>
-          <p className="bg-clip-text bg-gradient-to-r font-['Syne:Bold',sans-serif] font-bold from-[#c8ec66] leading-[60px] text-[transparent] to-[#b5e43d]">CANAPE !</p>
+          <p className="bg-clip-text bg-gradient-to-r font-['Syne',sans-serif] font-bold from-[#c8ec66] leading-[60px] text-[transparent] to-[#b5e43d]">CANAPE !</p>
         </div>
         <Button />
       </div>

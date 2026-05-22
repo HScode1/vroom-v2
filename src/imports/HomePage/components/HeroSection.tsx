@@ -56,7 +56,7 @@ function MobileHeroSection() {
         style={{ background: "radial-gradient(circle at top right, rgba(5,8,12,0.98) 0%, rgba(5,8,12,0.9) 42%, rgba(5,8,12,0) 100%)" }}
       />
 
-      <div className="absolute inset-x-5 top-[47dvh] z-10 text-center font-['Syne:ExtraBold',sans-serif] font-extrabold leading-none tracking-[0px] text-white sm:top-[44dvh]">
+      <div className="absolute inset-x-5 top-[47dvh] z-10 text-center font-['Syne',sans-serif] font-extrabold leading-none tracking-[0px] text-white sm:top-[44dvh]">
         <p className="text-[76px] leading-[0.82] sm:text-[96px]">Acheter</p>
         <p className="mt-1 text-[70px] leading-[0.82] text-[#bcff3d] sm:text-[88px]">simplement.</p>
       </div>
@@ -73,7 +73,7 @@ function MobileHeroSection() {
 
       <div className="absolute bottom-[76px] left-5 right-5 z-40">
         <a
-          className="flex h-[54px] w-full items-center justify-center gap-3 rounded-[100px] bg-[#bcff3d] font-['Syne:ExtraBold',sans-serif] text-[14px] font-extrabold tracking-[0.52px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
+          className="flex h-[54px] w-full items-center justify-center gap-3 rounded-[100px] bg-[#bcff3d] font-['Syne',sans-serif] text-[14px] font-extrabold tracking-[0.52px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
           href="/acheter-votre-vehicule"
         >
           <span>Acheter votre véhicule</span>
@@ -164,7 +164,7 @@ export default function HeroSection() {
 
           <BrandBar />
 
-          <div className="absolute left-0 right-0 top-[148px] flex h-[303px] flex-col justify-center text-center font-['Syne:ExtraBold',sans-serif] text-[0px] font-extrabold leading-[0] tracking-[-11px] text-white">
+          <div className="absolute left-0 right-0 top-[148px] flex h-[303px] flex-col justify-center text-center font-['Syne',sans-serif] text-[0px] font-extrabold leading-[0] tracking-[-11px] text-white">
             <p className="mb-0 text-[150px] leading-[113.6px]">Acheter</p>
             <p className="text-[130px] leading-[113.6px] text-[#bcff3d]">simplement.</p>
           </div>
@@ -198,7 +198,7 @@ export default function HeroSection() {
 
           <div className="absolute right-[65px] top-[710px] h-[69px] w-[271.64px]" data-name="CTA BAS DROITE">
             <div className="absolute right-[-0.36px] top-0 h-[44px] w-[306px] rounded-[100px] bg-[#bcff3d]" data-name="Link">
-              <div className="absolute left-[18px] top-1/2 flex h-[16px] w-[247px] -translate-y-1/2 flex-col justify-center font-['Syne:ExtraBold',sans-serif] text-[13px] font-extrabold leading-[0] tracking-[0.52px] text-[#0c0d0c]">
+              <div className="absolute left-[18px] top-1/2 flex h-[16px] w-[247px] -translate-y-1/2 flex-col justify-center font-['Syne',sans-serif] text-[13px] font-extrabold leading-[0] tracking-[0.52px] text-[#0c0d0c]">
                 <p className="leading-[normal]">Acheter votre véhicule</p>
               </div>
               <div className="absolute left-[265px] top-1/2 size-[13px] -translate-y-1/2" data-name="SVG">

@@ -384,7 +384,7 @@ function PAccordion() {
 
 function Section({ selectedBrand, onSelectBrand }: { selectedBrand: string; onSelectBrand: (brand: string) => void }) {
   return (
-    <div className="absolute h-[365px] left-[68px] right-[1540px] top-[369px]" data-name="Section">
+    <div className="absolute h-[365px] left-[68px] w-[312px] top-[369px]" data-name="Section">
       <FilterRadio option={BRAND_OPTIONS[0]} top={47.59} isSelected={selectedBrand === BRAND_OPTIONS[0].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[0].id)} />
       <FilterRadio option={BRAND_OPTIONS[1]} top={91.59} isSelected={selectedBrand === BRAND_OPTIONS[1].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[1].id)} />
       <FilterRadio option={BRAND_OPTIONS[2]} top={135.59} isSelected={selectedBrand === BRAND_OPTIONS[2].id} onSelect={() => onSelectBrand(BRAND_OPTIONS[2].id)} />
@@ -442,7 +442,7 @@ function Heading3Button1() {
 
 function PAccordion1({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[734px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] w-[310px] top-[734px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
       <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[132px]">
           <p className="leading-[24px]">Type de carburant</p>
@@ -502,7 +502,7 @@ function Heading3Button2() {
 
 function PAccordion2({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[789px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] w-[310px] top-[789px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
       <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[13.8px] text-white top-1/2 w-[120.67px]">
           <p className="leading-[24px]">Boîtes de vitesse</p>
@@ -562,7 +562,7 @@ function Heading3Button3() {
 
 function PAccordion3({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[844px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] w-[310px] top-[844px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
       <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[88.48px]">
           <p className="leading-[24px]">Kilométrage</p>
@@ -622,7 +622,7 @@ function Heading3Button4() {
 
 function PAccordion4({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[899px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] w-[310px] top-[899px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
       <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[120.81px]">
           <p className="leading-[24px]">Années</p>
@@ -682,7 +682,7 @@ function Heading3Button5() {
 
 function PAccordion5({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void }) {
   return (
-    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] right-[1540px] top-[954px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
+    <button type="button" onClick={onToggle} className="absolute border-b border-solid border-white h-[55px] left-[70px] w-[310px] top-[954px] text-left" data-name="p-accordion" aria-expanded={isOpen}>
       <div className="absolute h-[54px] left-0 right-[0.25px] top-0" data-name="Heading 3 → Button">
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[24px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-1/2 w-[120.81px]">
           <p className="leading-[24px]">Prix</p>
@@ -699,7 +699,7 @@ function PAccordion5({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => vo
 
 function PButtonButton({ onReset }: { onReset: () => void }) {
   return (
-    <button type="button" onClick={onReset} className="absolute border-2 border-solid border-white h-[54px] left-[70px] right-[1540px] rounded-[4px] top-[1058px] text-left" data-name="p-button → Button">
+    <button type="button" onClick={onReset} className="absolute border-2 border-solid border-white h-[54px] left-[70px] w-[310px] rounded-[4px] top-[1058px] text-left" data-name="p-button → Button">
       <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Regular',sans-serif] h-[24px] justify-center leading-[0] left-[87.3px] not-italic text-[15.3px] text-white top-[25px] w-[122.34px]">
         <p className="leading-[24px]">réinitialiser le filtre</p>
       </div>
@@ -2495,7 +2495,7 @@ function MobileVehicleCard({
 }) {
   return (
     <article className="overflow-hidden rounded-[24px] border border-white/10 bg-white text-[#010205] shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
-      <img alt={title} className="h-52 w-full object-cover" src={image || imgCaptureDecran20251209A1739081} />
+      <img alt={title} className="h-52 w-full object-cover rounded-tl-[24px] rounded-tr-[24px]" src={image || imgCaptureDecran20251209A1739081} />
       <div className="space-y-5 p-5">
         <div className="space-y-2">
           <p className="font-['Helvetica_Neue:Bold',sans-serif] text-[30px] leading-none">{price}</p>
@@ -2575,7 +2575,7 @@ function MobilePremiumView({
 }) {
   const mappedVehicles = apiVehicles.map((v) => ({
     id: v.id,
-    brandId: v.brand.toLowerCase().replace(/[\s-]+/g, "-"),
+    brandId: v.brand.toLowerCase().replace(/\s+/g, "-"),
     category: (v.price > 20000 ? "premium" : "citadine") as "premium" | "citadine",
     title: `${v.brand} ${v.model}`,
     subtitle: v.subtitle,
@@ -2865,17 +2865,215 @@ function MobilePremiumView({
   );
 }
 
+function DesktopFilterSidebar({
+  brands,
+  selectedBrand,
+  onSelectBrand,
+  selectedFuel,
+  onSelectFuel,
+  selectedGearbox,
+  onSelectGearbox,
+  selectedMileage,
+  onSelectMileage,
+  selectedYear,
+  onSelectYear,
+  selectedPrice,
+  onSelectPrice,
+  openSection,
+  onToggleSection,
+  onReset,
+}: {
+  brands: { id: string; label: string; count: number }[];
+  selectedBrand: string;
+  onSelectBrand: (brand: string) => void;
+  selectedFuel: string | null;
+  onSelectFuel: (val: string) => void;
+  selectedGearbox: string | null;
+  onSelectGearbox: (val: string) => void;
+  selectedMileage: string | null;
+  onSelectMileage: (val: string) => void;
+  selectedYear: string | null;
+  onSelectYear: (val: string) => void;
+  selectedPrice: string | null;
+  onSelectPrice: (val: string) => void;
+  openSection: string | null;
+  onToggleSection: (section: string) => void;
+  onReset: () => void;
+}) {
+  const filterSections = [
+    {
+      title: "Type de carburant",
+      options: MOBILE_FUEL_OPTIONS.map((o) => ({ id: o, label: o })),
+      selected: selectedFuel,
+      onSelect: onSelectFuel,
+    },
+    {
+      title: "Boîtes de vitesse",
+      options: MOBILE_GEARBOX_OPTIONS.map((o) => ({ id: o, label: o })),
+      selected: selectedGearbox,
+      onSelect: onSelectGearbox,
+    },
+    {
+      title: "Kilométrage",
+      options: MOBILE_MILEAGE_OPTIONS as readonly { id: string; label: string }[],
+      selected: selectedMileage,
+      onSelect: onSelectMileage,
+    },
+    {
+      title: "Années",
+      options: MOBILE_YEAR_OPTIONS as readonly { id: string; label: string }[],
+      selected: selectedYear,
+      onSelect: onSelectYear,
+    },
+    {
+      title: "Prix",
+      options: MOBILE_PRICE_OPTIONS as readonly { id: string; label: string }[],
+      selected: selectedPrice,
+      onSelect: onSelectPrice,
+    },
+  ];
+
+  return (
+    <div className="absolute left-[68px] top-[369px] w-[310px]">
+      <div className="border-b border-white">
+        <div className="flex items-center justify-between h-[55px]">
+          <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[14px] font-bold text-white">Marques</span>
+          <span className="text-white text-xl leading-none">—</span>
+        </div>
+        <div className="flex flex-col gap-3 pb-5">
+          {brands.map((option) => (
+            <button
+              key={option.id}
+              onClick={() => onSelectBrand(option.id)}
+              type="button"
+              className="flex items-center gap-3 text-left"
+            >
+              <div
+                className={`flex-none size-[28px] rounded-full border-2 border-white flex items-center justify-center ${
+                  selectedBrand === option.id ? "bg-white" : ""
+                }`}
+              >
+                {selectedBrand === option.id && (
+                  <div className="size-3 rounded-full bg-[#181818]" />
+                )}
+              </div>
+              <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-white">
+                {option.label}{" "}
+                <span className="text-white/70">({option.count})</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+      {filterSections.map((section) => (
+        <div key={section.title} className="border-b border-white">
+          <button
+            type="button"
+            onClick={() => onToggleSection(section.title)}
+            className="flex items-center justify-between w-full h-[55px] text-left"
+            aria-expanded={openSection === section.title}
+          >
+            <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[14px] text-white">
+              {section.title}
+            </span>
+            <span
+              className={`inline-flex transition-transform duration-200 ${
+                openSection === section.title ? "rotate-45" : ""
+              }`}
+            >
+              <svg fill="none" height="19.5" viewBox="0 0 19.5 19.5" width="19.5">
+                <path d={svgPaths.p276a4f00} fill="white" />
+              </svg>
+            </span>
+          </button>
+          {openSection === section.title && (
+            <div className="pb-4 flex flex-wrap gap-2">
+              {section.options.map((opt) => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  onClick={() => section.onSelect(opt.id)}
+                  className={`rounded px-3 py-1.5 font-['Helvetica_Neue:Regular',sans-serif] text-[13px] border transition-colors ${
+                    section.selected === opt.id
+                      ? "bg-white text-[#181818] border-white"
+                      : "border-white/40 text-white hover:border-white/80"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <button
+        type="button"
+        onClick={onReset}
+        className="mt-6 w-full border-2 border-white rounded-[4px] h-[54px] font-['Helvetica_Neue:Regular',sans-serif] text-[15px] text-white"
+      >
+        réinitialiser le filtre
+      </button>
+    </div>
+  );
+}
+
 export default function Premium() {
-  const [selectedBrand, setSelectedBrand] = useState<(typeof BRAND_OPTIONS)[number]["id"]>("all");
+  const [selectedBrand, setSelectedBrand] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<"premium" | "citadine">("premium");
-  const [openSection, setOpenSection] = useState<(typeof FILTER_SECTIONS)[number] | null>("Type de carburant");
+  const [openSection, setOpenSection] = useState<string | null>("Type de carburant");
   const [apiVehicles, setApiVehicles] = useState<Vehicle[]>([]);
+  const [apiBrands, setApiBrands] = useState<{ id: string; label: string; count: number }[]>([]);
+  const [desktopSelectedFuel, setDesktopSelectedFuel] = useState<string | null>(null);
+  const [desktopSelectedGearbox, setDesktopSelectedGearbox] = useState<string | null>(null);
+  const [desktopSelectedMileage, setDesktopSelectedMileage] = useState<string | null>(null);
+  const [desktopSelectedYear, setDesktopSelectedYear] = useState<string | null>(null);
+  const [desktopSelectedPrice, setDesktopSelectedPrice] = useState<string | null>(null);
 
   useEffect(() => {
     vehiclesApi.list({ status: "En ligne", limit: 50 }).then((res) => {
       setApiVehicles(res.data);
     }).catch(() => {});
+    vehiclesApi.getFilters().then((res) => {
+      const total = res.brands.reduce((sum, b) => sum + b.count, 0);
+      setApiBrands([{ id: "all", label: "Tous", count: total }, ...res.brands]);
+    }).catch(() => {});
   }, []);
+
+  const matchesMileageDesktop = (mileageValue: number, option: string | null) => {
+    if (!option) return true;
+    if (option === "under-50000") return mileageValue < 50000;
+    if (option === "50000-80000") return mileageValue >= 50000 && mileageValue <= 80000;
+    return mileageValue > 80000;
+  };
+
+  const matchesYearDesktop = (yearValue: number, option: string | null) => {
+    if (!option) return true;
+    if (option === "2024-plus") return yearValue >= 2024;
+    if (option === "2022-2023") return yearValue >= 2022 && yearValue <= 2023;
+    return yearValue <= 2021;
+  };
+
+  const matchesPriceDesktop = (priceValue: number, option: string | null) => {
+    if (!option) return true;
+    if (option === "under-20000") return priceValue < 20000;
+    if (option === "20000-28000") return priceValue >= 20000 && priceValue <= 28000;
+    return priceValue > 28000;
+  };
+
+  const desktopFilteredVehicles = apiVehicles.filter((v) => {
+    const brandId = v.brand.toLowerCase().replace(/\s+/g, "-");
+    const matchesBrand = selectedBrand === "all" || brandId === selectedBrand;
+    const matchesFuel = !desktopSelectedFuel || v.specs.fuel === desktopSelectedFuel;
+    const matchesGearbox = !desktopSelectedGearbox || v.specs.gearbox === desktopSelectedGearbox;
+    return (
+      matchesBrand &&
+      matchesFuel &&
+      matchesGearbox &&
+      matchesMileageDesktop(v.specs.mileage, desktopSelectedMileage) &&
+      matchesYearDesktop(v.specs.year, desktopSelectedYear) &&
+      matchesPriceDesktop(v.price, desktopSelectedPrice)
+    );
+  });
 
   const DESKTOP_SLOTS: Array<{ leftBase: number; topBase: number; isGreen?: boolean }> = [
     { leftBase: 502, topBase: 445 },
@@ -2896,9 +3094,14 @@ export default function Premium() {
     setSelectedBrand("all");
     setSelectedCategory("premium");
     setOpenSection("Type de carburant");
+    setDesktopSelectedFuel(null);
+    setDesktopSelectedGearbox(null);
+    setDesktopSelectedMileage(null);
+    setDesktopSelectedYear(null);
+    setDesktopSelectedPrice(null);
   };
 
-  const selectedBrandLabel = BRAND_OPTIONS.find((option) => option.id === selectedBrand)?.label ?? "Tous";
+  const selectedBrandLabel = apiBrands.find((option) => option.id === selectedBrand)?.label ?? "Tous";
 
   return (
     <>
@@ -2907,8 +3110,8 @@ export default function Premium() {
         onReset={resetFilters}
         onSelectBrand={setSelectedBrand}
         onToggleSection={(section) => setOpenSection((current) => current === section ? null : section)}
-        openSection={openSection}
-        selectedBrand={selectedBrand}
+        openSection={openSection as (typeof FILTER_SECTIONS)[number] | null}
+        selectedBrand={selectedBrand as (typeof BRAND_OPTIONS)[number]["id"]}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
@@ -2936,20 +3139,31 @@ export default function Premium() {
             </svg>
           </div>
         </div>
-        <Section selectedBrand={selectedBrand} onSelectBrand={(brand) => setSelectedBrand(brand)} />
-        <PAccordion1 isOpen={openSection === "Type de carburant"} onToggle={() => setOpenSection((current) => current === "Type de carburant" ? null : "Type de carburant")} />
-        <PAccordion2 isOpen={openSection === "Boîtes de vitesse"} onToggle={() => setOpenSection((current) => current === "Boîtes de vitesse" ? null : "Boîtes de vitesse")} />
-        <PAccordion3 isOpen={openSection === "Kilométrage"} onToggle={() => setOpenSection((current) => current === "Kilométrage" ? null : "Kilométrage")} />
-        <PAccordion4 isOpen={openSection === "Années"} onToggle={() => setOpenSection((current) => current === "Années" ? null : "Années")} />
-        <PAccordion5 isOpen={openSection === "Prix"} onToggle={() => setOpenSection((current) => current === "Prix" ? null : "Prix")} />
-        <PButtonButton onReset={resetFilters} />
+        <DesktopFilterSidebar
+          brands={apiBrands}
+          selectedBrand={selectedBrand}
+          onSelectBrand={setSelectedBrand}
+          selectedFuel={desktopSelectedFuel}
+          onSelectFuel={(val) => setDesktopSelectedFuel((c) => c === val ? null : val)}
+          selectedGearbox={desktopSelectedGearbox}
+          onSelectGearbox={(val) => setDesktopSelectedGearbox((c) => c === val ? null : val)}
+          selectedMileage={desktopSelectedMileage}
+          onSelectMileage={(val) => setDesktopSelectedMileage((c) => c === val ? null : val)}
+          selectedYear={desktopSelectedYear}
+          onSelectYear={(val) => setDesktopSelectedYear((c) => c === val ? null : val)}
+          selectedPrice={desktopSelectedPrice}
+          onSelectPrice={(val) => setDesktopSelectedPrice((c) => c === val ? null : val)}
+          openSection={openSection}
+          onToggleSection={(section) => setOpenSection((c) => c === section ? null : section)}
+          onReset={resetFilters}
+        />
         {DESKTOP_SLOTS.map((slot, i) => (
           <VehicleCardDesktop
-            key={apiVehicles[i]?.id ?? i}
+            key={desktopFilteredVehicles[i]?.id ?? i}
             isGreen={!!slot.isGreen}
             leftBase={slot.leftBase}
             topBase={slot.topBase}
-            vehicle={apiVehicles[i]}
+            vehicle={desktopFilteredVehicles[i]}
           />
         ))}
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-[517px] not-italic text-[24.8px] text-[transparent] top-[373px] w-[118px]">

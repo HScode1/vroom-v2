@@ -154,7 +154,7 @@ function getCalendarCells(monthDate: Date) {
 function Button3() {
   return (
     <button className="absolute bg-[#bcff3d] h-[45px] left-[126px] rounded-[100px] top-[5919px] w-[277.36px] cursor-pointer transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 focus:ring-offset-2 focus:ring-offset-[#181818]" data-name="Button" onClick={scrollToConsultationCalendar} type="button">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-15.68px)] text-[#0d0d0d] text-[14px] text-center top-1/2 tracking-[0.14px] w-[216px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-15.68px)] text-[#0d0d0d] text-[14px] text-center top-1/2 tracking-[0.14px] w-[216px]">
         <p className="leading-[normal]">Réserver un créneau</p>
       </div>
       <Svg29 />
@@ -265,7 +265,7 @@ function OverlayBorder13() {
 function ParagraphOverlayBorder() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.07)] border border-[#bcff3d] border-solid inset-[620.22px_238.72px_101px_56px] leading-[0] rounded-[9px] text-center" data-name="Paragraph+Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[19px] justify-center left-[calc(50%+0.19px)] text-[#bcff3d] text-[16px] top-[20.5px] w-[59.722px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[19px] justify-center left-[calc(50%+0.19px)] text-[#bcff3d] text-[16px] top-[20.5px] w-[59.722px]">
         <p className="leading-[normal]">30 min</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center left-[calc(50%+0.14px)] text-[10px] text-[rgba(188,255,61,0.5)] top-[38.28px] tracking-[0.7px] uppercase w-[103px]">
@@ -795,7 +795,7 @@ function Calendar() {
                 }}
                 type="button"
               >
-                <span className="block font-['Syne:Bold',sans-serif] font-bold text-[16px] leading-[19px]">{duration.label}</span>
+                <span className="block font-['Syne',sans-serif] font-bold text-[16px] leading-[19px]">{duration.label}</span>
                 <span className={`block font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal mt-[3px] text-[10px] tracking-[0.7px] uppercase ${isSelected ? "text-[rgba(188,255,61,0.5)]" : "text-[rgba(255,255,255,0.25)]"}`}>
                   {duration.detail}
                 </span>
@@ -805,7 +805,7 @@ function Calendar() {
         </div>
 
         <div className="absolute left-[56px] right-[56px] top-[698px]">
-          <button className="h-[44px] w-full rounded-[100px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] font-bold text-[#0d0d0d] text-[13px] tracking-[0.13px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" onClick={() => setIsConfirmed(true)} type="button">
+          <button className="h-[44px] w-full rounded-[100px] bg-[#bcff3d] font-['Syne',sans-serif] font-bold text-[#0d0d0d] text-[13px] tracking-[0.13px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" onClick={() => setIsConfirmed(true)} type="button">
             Confirmer ce créneau
           </button>
           <p className={`mt-[10px] text-center font-['Plus_Jakarta_Sans:Medium',sans-serif] text-[11px] transition-opacity ${isConfirmed ? "text-[#bcff3d] opacity-100" : "text-[rgba(255,255,255,0.35)] opacity-100"}`}>
@@ -1038,7 +1038,7 @@ function MobileCalendar() {
                 }}
                 type="button"
               >
-                <span className="block font-['Syne:Bold',sans-serif] text-[15px] font-bold leading-[18px]">{duration.label}</span>
+                <span className="block font-['Syne',sans-serif] text-[15px] font-bold leading-[18px]">{duration.label}</span>
                 <span className={`mt-[3px] block font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[0.7px] ${isSelected ? "text-[rgba(188,255,61,0.5)]" : "text-[rgba(255,255,255,0.25)]"}`}>
                   {duration.detail}
                 </span>
@@ -1050,7 +1050,7 @@ function MobileCalendar() {
 
       <div className="mt-5">
         <button
-          className="h-[44px] w-full rounded-[100px] bg-[#bcff3d] font-['Syne:Bold',sans-serif] text-[13px] font-bold tracking-[0.13px] text-[#0d0d0d] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+          className="h-[44px] w-full rounded-[100px] bg-[#bcff3d] font-['Syne',sans-serif] text-[13px] font-bold tracking-[0.13px] text-[#0d0d0d] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
           onClick={() => setIsConfirmed(true)}
           type="button"
         >
@@ -1071,14 +1071,14 @@ export default function ConsultationSection() {
     <>
       <div className="absolute left-0 top-[6102px] w-screen px-5 sm:px-8 lg:hidden">
         <div className="mx-auto max-w-[640px]">
-          <div className="font-['Lexend:Medium',sans-serif] font-medium leading-[0] text-[0px] text-white tracking-[0.32px]">
-            <p className="mb-0 font-['Syne:ExtraBold',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">{`Votre `}</p>
-            <p className="mb-0 font-['Syne:ExtraBold',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">
+          <div className="font-['Syne',sans-serif] font-extrabold leading-[0] text-[0px] text-white tracking-[0.32px]">
+            <p className="mb-0 font-['Syne',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">{`Votre `}</p>
+            <p className="mb-0 font-['Syne',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">
               <span>prochain véhicule,</span>
               <br aria-hidden="true" />
               <span>{`conseillé `}</span>
             </p>
-            <p className="font-['Syne:ExtraBold',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">
+            <p className="font-['Syne',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">
               <span>{`par `}</span>
               <span className="text-[#c8ec66]">Un expert</span>
             </p>
@@ -1100,7 +1100,7 @@ export default function ConsultationSection() {
           </div>
 
           <button
-            className="mt-6 flex h-[46px] w-full items-center justify-center gap-2 rounded-[100px] bg-[#bcff3d] px-5 font-['Syne:Bold',sans-serif] text-[14px] font-bold tracking-[0.14px] text-[#0d0d0d] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+            className="mt-6 flex h-[46px] w-full items-center justify-center gap-2 rounded-[100px] bg-[#bcff3d] px-5 font-['Syne',sans-serif] text-[14px] font-bold tracking-[0.14px] text-[#0d0d0d] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
             onClick={scrollToConsultationCalendar}
             type="button"
           >
@@ -1115,9 +1115,9 @@ export default function ConsultationSection() {
       </div>
 
       <div className="hidden lg:block">
-        <div className="absolute font-['Lexend:Medium',sans-serif] font-medium h-[305px] leading-[0] left-[126px] text-[0px] text-white top-[5200px] tracking-[0.58px] w-[665px] whitespace-pre-wrap">
-          <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-none mb-0 text-[58px]">{`Votre `}</p>
-          <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold mb-0 text-[58px]">
+        <div className="absolute font-['Syne',sans-serif] font-extrabold h-[305px] leading-[0] left-[126px] text-[0px] text-white top-[5200px] tracking-[0.58px] w-[665px] whitespace-pre-wrap">
+          <p className="font-['Syne',sans-serif] font-extrabold leading-none mb-0 text-[58px]">{`Votre `}</p>
+          <p className="font-['Syne',sans-serif] font-extrabold mb-0 text-[58px]">
             <span className="leading-none">prochain véhicul</span>
             <span className="leading-[1.08]">
               e,
@@ -1125,7 +1125,7 @@ export default function ConsultationSection() {
               {`conseillé `}
             </span>
           </p>
-          <p className="font-['Syne:ExtraBold',sans-serif] font-extrabold text-[58px]">
+          <p className="font-['Syne',sans-serif] font-extrabold text-[58px]">
             <span className="leading-none">{`par `}</span>
             <span className="leading-none text-[#c8ec66]">Un expert</span>
           </p>

@@ -153,7 +153,7 @@ function OverlayBorderShadow() {
 function ParagraphOverlayBorderOverlayBlur() {
   return (
     <div className="absolute backdrop-blur-[10px] bg-[rgba(188,255,61,0.1)] border border-[rgba(188,255,61,0.25)] border-solid h-[78px] leading-[0] left-[986.08px] right-0 rounded-[16px] text-center top-[396px]" data-name="Paragraph+Overlay+Border+OverlayBlur">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[26px] justify-center left-[70.17px] text-[#bcff3d] text-[26px] top-[30px] w-[100.502px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[26px] justify-center left-[70.17px] text-[#bcff3d] text-[26px] top-[30px] w-[100.502px]">
         <p className="leading-[26px]">⭐ 5,0</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[65.6px] text-[11px] text-[rgba(255,255,255,0.55)] top-[56px] w-[55.366px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -167,7 +167,7 @@ function SectionHero() {
   return (
     <div className="absolute h-[616px] left-[160px] right-[160px] top-[128px]" data-name="Section - HERO">
       <OverlayBorder />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[171.19px] justify-center leading-[0] left-0 right-[598.16px] text-[52px] text-white top-[219.71px] tracking-[-1.56px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[171.19px] justify-center leading-[0] left-0 right-[598.16px] text-[52px] text-white top-[219.71px] tracking-[-1.56px]">
         <p className="leading-[54.6px] mb-0">{`L'automobile`}</p>
         <p className="leading-[54.6px] mb-0">autrement,</p>
         <p className="leading-[54.6px] text-[#bcff3d]">avec vous.</p>
@@ -177,19 +177,19 @@ function SectionHero() {
         <p className="leading-[28px] mb-0">{`juste un conseiller dédié, une sélection rigoureuse `}</p>
         <p className="leading-[28px]">et un accompagnement de A à Z.</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-0 right-[994.58px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-0 right-[994.58px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
         <p className="leading-[32px]">500+</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[14.89px] right-[1009.53px] text-[12px] text-[rgba(255,255,255,0.4)] text-center top-[519.89px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">véhicules vendus</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-[157.03px] right-[849.43px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-[157.03px] right-[849.43px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
         <p className="leading-[32px]">98%</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[168.59px] right-[860.77px] text-[12px] text-[rgba(255,255,255,0.4)] text-center top-[519.89px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">clients satisfaits</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-[302.19px] right-[680.92px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[32px] justify-center leading-[0] left-[302.19px] right-[680.92px] text-[#bcff3d] text-[32px] text-center top-[489.89px]">
         <p className="leading-[32px]">3 ans</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[340.17px] right-[718.83px] text-[12px] text-[rgba(255,255,255,0.4)] text-center top-[519.89px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -236,7 +236,7 @@ function OverlayBorder1() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[74.5px] left-[600px] right-0 rounded-[14px] top-[454px]" data-name="Overlay+Border">
       <OverlayBorder2 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[155.701px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[155.701px]">
         <p className="leading-[normal]">Transparence totale</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[19.5px] justify-center leading-[0] left-[68px] text-[13px] text-[rgba(255,255,255,0.4)] top-[46.75px] w-[306.864px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -271,7 +271,7 @@ function OverlayBorder3() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[94px] left-[600px] right-0 rounded-[14px] top-[542.5px]" data-name="Overlay+Border">
       <OverlayBorder4 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[123.16px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[123.16px]">
         <p className="leading-[normal]">Conseiller dédié</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[36.5px] justify-center leading-[0] left-[68px] text-[13px] text-[rgba(255,255,255,0.4)] top-[56.25px] w-[421.305px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -312,7 +312,7 @@ function OverlayBorder5() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[74.5px] left-[600px] right-0 rounded-[14px] top-[650.5px]" data-name="Overlay+Border">
       <OverlayBorder6 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[123.701px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[68px] text-[14px] text-white top-[24.5px] w-[123.701px]">
         <p className="leading-[normal]">Qualité garantie</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[19.5px] justify-center leading-[0] left-[68px] text-[13px] text-[rgba(255,255,255,0.4)] top-[46.75px] w-[408.786px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -330,7 +330,7 @@ function SectionNotreHistoire() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[640px] opacity-80 right-[370.25px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Notre histoire</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[136px] justify-center leading-[0] left-[600px] right-[41.73px] text-[40px] text-white top-[96px] tracking-[-0.8px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[136px] justify-center leading-[0] left-[600px] right-[41.73px] text-[40px] text-white top-[96px] tracking-[-0.8px]">
         <p className="leading-[44px] mb-0">Nés de la</p>
         <p className="leading-[44px] mb-0">passion</p>
         <p className="leading-[44px] text-[#bcff3d]">{`de l'automobile`}</p>
@@ -386,7 +386,7 @@ function OverlayBorder7() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[279.39px] left-0 overflow-clip right-[757.34px] rounded-[22px] top-[166px]" data-name="Overlay+Border">
       <OverlayBorder8 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[40.13px] text-[18px] text-white top-[111px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[40.13px] text-[18px] text-white top-[111px]">
         <p className="leading-[normal]">Transparence totale</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[35.1px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -433,7 +433,7 @@ function OverlayBorder9() {
   return (
     <div className="absolute bg-[rgba(188,255,61,0.06)] border border-[rgba(188,255,61,0.22)] border-solid h-[279.39px] left-[378.66px] overflow-clip right-[378.67px] rounded-[22px] top-[166px]" data-name="Overlay+Border">
       <OverlayBorder10 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[104.32px] text-[18px] text-white top-[111px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[104.32px] text-[18px] text-white top-[111px]">
         <p className="leading-[normal]">Conseiller dédié</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[38.83px] text-[14px] text-[rgba(255,255,255,0.55)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -477,7 +477,7 @@ function OverlayBorder12() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[279.39px] left-[757.33px] overflow-clip right-[0.01px] rounded-[22px] top-[166px]" data-name="Overlay+Border">
       <OverlayBorder13 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[104.4px] text-[18px] text-white top-[111px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[104.4px] text-[18px] text-white top-[111px]">
         <p className="leading-[normal]">Qualité garantie</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[45.2px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -513,7 +513,7 @@ function OverlayBorder14() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[237.39px] left-0 overflow-clip right-[757.34px] rounded-[22px] top-[461.39px]" data-name="Overlay+Border">
       <OverlayBorder15 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[51.58px] text-[18px] text-white top-[111px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[51.58px] text-[18px] text-white top-[111px]">
         <p className="leading-[normal]">Livraison à domicile</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[59.6px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -549,7 +549,7 @@ function OverlayBorder16() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[237.39px] left-[378.66px] overflow-clip right-[378.67px] rounded-[22px] top-[461.39px]" data-name="Overlay+Border">
       <OverlayBorder17 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[187.23px] text-[18px] text-white top-[111px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[187.23px] text-[18px] text-white top-[111px]">
         <p className="leading-[normal]">Prix justes</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[34.36px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -591,7 +591,7 @@ function OverlayBorder18() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[237.39px] left-[757.33px] overflow-clip right-[0.01px] rounded-[22px] top-[461.39px]" data-name="Overlay+Border">
       <OverlayBorder19 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[120.41px] text-[18px] text-white top-[111px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[22px] justify-center leading-[0] left-[28px] right-[120.41px] text-[18px] text-white top-[111px]">
         <p className="leading-[normal]">Réactivité 7j/7</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Light',sans-serif] font-light h-[65.59px] justify-center leading-[0] left-[28px] right-[40.76px] text-[14px] text-[rgba(255,255,255,0.45)] top-[166.79px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -612,7 +612,7 @@ function SectionNosValeurs() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 right-[935.64px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Ce qui nous définit</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[630.14px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[630.14px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
         <p className="leading-[44px] mb-0">Nos valeurs,</p>
         <p className="leading-[44px] text-[#bcff3d]">votre confiance</p>
       </div>
@@ -654,7 +654,7 @@ function SectionNosValeurs() {
             >
               {card.icon}
             </div>
-            <div className="absolute left-[28px] right-[28px] top-[100px] font-['Syne:ExtraBold',sans-serif] text-[18px] text-white">
+            <div className="absolute left-[28px] right-[28px] top-[100px] font-['Syne',sans-serif] text-[18px] text-white">
               {card.title}
             </div>
             <div className="absolute left-[28px] right-[28px] top-[140px] text-[14px] leading-[23.8px] text-[rgba(255,255,255,0.5)]">
@@ -706,7 +706,7 @@ function Link() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-11px)] tracking-[0.88px] uppercase w-[68.836px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Téléphone</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[121.548px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[121.548px]">
         <p className="leading-[normal]">06 70 76 07 19</p>
       </div>
     </a>
@@ -745,7 +745,7 @@ function Link1() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-11px)] tracking-[0.88px] uppercase w-[35.858px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Email</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[204.379px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[19px] justify-center leading-[0] left-[78px] text-[16px] text-white top-[calc(50%+8.5px)] w-[204.379px]">
         <p className="leading-[normal]">contact@vroomparis.fr</p>
       </div>
     </a>
@@ -791,7 +791,7 @@ function OverlayBorder22() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[78px] text-[11px] text-[rgba(255,255,255,0.3)] top-[calc(50%-18.5px)] tracking-[0.88px] uppercase w-[53.132px]" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Adresse</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[34px] justify-center leading-[0] left-[78px] text-[14px] text-white top-[calc(50%+8.5px)] w-[255.58px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[34px] justify-center leading-[0] left-[78px] text-[14px] text-white top-[calc(50%+8.5px)] w-[255.58px]">
         <p className="leading-[normal] mb-0">4 bis Av. Alexandre Dumas, 95230</p>
         <p className="leading-[normal]">Soisy-sous-Montmorency</p>
       </div>
@@ -823,7 +823,7 @@ function OverlayHorizontalBorder() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.08)] border-b border-solid h-[71px] left-0 right-0 top-0" data-name="Overlay+HorizontalBorder">
       <OverlayBorder24 />
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[74px] text-[14px] text-white top-[calc(50%-8px)] w-[205.63px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[74px] text-[14px] text-white top-[calc(50%-8px)] w-[205.63px]">
         <p className="leading-[normal]">Envoyez-nous un message</p>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center leading-[0] left-[74px] text-[11px] text-[rgba(255,255,255,0.4)] top-[calc(50%+9.5px)] w-[162.889px]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -930,7 +930,7 @@ function Svg13() {
 function Button() {
   return (
     <div className="absolute bg-[#bcff3d] h-[49px] left-[28px] right-[28px] rounded-[13px] top-[16px]" data-name="Button">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-10.85px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[152.398px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-10.85px)] text-[#0c0d0c] text-[14px] text-center top-1/2 w-[152.398px]">
         <p className="leading-[normal]">Envoyer le message</p>
       </div>
       <Svg13 />
@@ -1076,7 +1076,7 @@ function FormulaireSimple() {
           type="submit"
           className="absolute left-[28px] right-[28px] top-[16px] h-[49px] rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01]"
         >
-          <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-10.85px)] top-1/2 flex h-[17px] w-[152.398px] flex-col justify-center text-center font-['Syne:Bold',sans-serif] text-[14px] font-bold text-[#0c0d0c] leading-[0]">
+          <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-10.85px)] top-1/2 flex h-[17px] w-[152.398px] flex-col justify-center text-center font-['Syne',sans-serif] text-[14px] font-bold text-[#0c0d0c] leading-[0]">
             <p className="leading-[normal]">Envoyer le message</p>
           </div>
           <Svg13 />
@@ -1098,7 +1098,7 @@ function SectionContact() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 right-[958.38px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Nous contacter</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[662.17px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[662.17px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
         <p className="leading-[44px] mb-0">Une question ?</p>
         <p className="leading-[44px] text-[#bcff3d]">Écrivez-nous.</p>
       </div>
@@ -1131,7 +1131,7 @@ function Svg14() {
 function BackgroundBorder() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-0 right-[566px] rounded-[16px] top-[166px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[306.94px] text-[14px] text-white top-[32.5px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[306.94px] text-[14px] text-white top-[32.5px]">
         <p className="leading-[normal]">{`Qu'est-ce que Vroom Advisor ?`}</p>
       </div>
       <Svg14 />
@@ -1156,7 +1156,7 @@ function Svg15() {
 function BackgroundBorder1() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-[566px] right-0 rounded-[16px] top-[166px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[186.97px] text-[14px] text-white top-[32.5px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[186.97px] text-[14px] text-white top-[32.5px]">
         <p className="leading-[normal]">Comment fonctionne le service VroomAdvisor ?</p>
       </div>
       <Svg15 />
@@ -1181,7 +1181,7 @@ function Svg16() {
 function BackgroundBorder2() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-0 right-[566px] rounded-[16px] top-[245px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[175.71px] text-[14px] text-white top-[32.5px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[175.71px] text-[14px] text-white top-[32.5px]">
         <p className="leading-[normal]">Est-ce que vous proposez la livraison à domicile ?</p>
       </div>
       <Svg16 />
@@ -1206,7 +1206,7 @@ function Svg17() {
 function BackgroundBorder3() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-[566px] right-0 rounded-[16px] top-[245px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[238.16px] text-[14px] text-white top-[32.5px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[238.16px] text-[14px] text-white top-[32.5px]">
         <p className="leading-[normal]">{`Quelle garantie est incluse avec l'achat ?`}</p>
       </div>
       <Svg17 />
@@ -1231,7 +1231,7 @@ function Svg18() {
 function BackgroundBorder4() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-0 right-[566px] rounded-[16px] top-[324px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[189.23px] text-[14px] text-white top-[32.5px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[189.23px] text-[14px] text-white top-[32.5px]">
         <p className="leading-[normal]">Comment se passe la reprise de mon véhicule ?</p>
       </div>
       <Svg18 />
@@ -1256,7 +1256,7 @@ function Svg19() {
 function BackgroundBorder5() {
   return (
     <div className="absolute bg-[#111411] border border-[rgba(255,255,255,0.08)] border-solid h-[67px] left-[566px] right-0 rounded-[16px] top-[324px]" data-name="Background+Border">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:SemiBold',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[195.45px] text-[14px] text-white top-[32.5px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-semibold h-[17px] justify-center leading-[0] left-[26px] right-[195.45px] text-[14px] text-white top-[32.5px]">
         <p className="leading-[normal]">Proposez-vous des solutions de financement ?</p>
       </div>
       <Svg19 />
@@ -1275,7 +1275,7 @@ function SectionFaq() {
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[40px] opacity-80 right-[913.65px] text-[#bcff3d] text-[11px] top-[7px] tracking-[1.76px] uppercase" style={{ fontVariationSettings: "'opsz' 14" }}>
         <p className="leading-[normal]">Questions fréquentes</p>
       </div>
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[595.12px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[92px] justify-center leading-[0] left-0 right-[595.12px] text-[40px] text-white top-[74px] tracking-[-0.8px]">
         <p className="leading-[44px] mb-0">Tout ce que vous</p>
         <p className="leading-[44px] text-[#bcff3d]">voulez savoir</p>
       </div>
@@ -1298,7 +1298,7 @@ function SectionFaq() {
                   : "border-[rgba(255,255,255,0.08)] bg-[#111411]",
               )}
             >
-              <AccordionTrigger className="py-[22px] font-['Syne:SemiBold',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
+              <AccordionTrigger className="py-[22px] font-['Syne',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="pb-[22px] font-['DM_Sans:Regular',sans-serif] text-[14px] leading-[24px] text-[rgba(255,255,255,0.55)]">
@@ -1319,7 +1319,7 @@ function SectionFaq() {
                   : "border-[rgba(255,255,255,0.08)] bg-[#111411]",
               )}
             >
-              <AccordionTrigger className="py-[22px] font-['Syne:SemiBold',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
+              <AccordionTrigger className="py-[22px] font-['Syne',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
                 {item.question}
               </AccordionTrigger>
               <AccordionContent className="pb-[22px] font-['DM_Sans:Regular',sans-serif] text-[14px] leading-[24px] text-[rgba(255,255,255,0.55)]">
@@ -1634,7 +1634,7 @@ function MobileSectionHeader({
         {eyebrow}
       </div>
       <div className="space-y-3">
-        <h2 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px]">
+        <h2 className="font-['Syne',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:text-[40px]">
           {title}
           <span className="block text-[#bcff3d]">{accent}</span>
         </h2>
@@ -1680,7 +1680,7 @@ function MobileValueCard({
       >
         {icon}
       </div>
-      <h3 className="font-['Syne:ExtraBold',sans-serif] text-[20px] font-extrabold text-white">{title}</h3>
+      <h3 className="font-['Syne',sans-serif] text-[20px] font-extrabold text-white">{title}</h3>
       <p className="mt-3 font-['DM_Sans:Light',sans-serif] text-[14px] leading-7 text-[rgba(255,255,255,0.5)]">{description}</p>
       {badge ? (
         <div className="mt-5 inline-flex rounded-full border border-[rgba(188,255,61,0.22)] bg-[rgba(188,255,61,0.12)] px-3 py-[6px] text-[11px] font-semibold tracking-[0.66px] text-[#bcff3d]">
@@ -1732,7 +1732,7 @@ function MobileContactForm() {
           <Svg12 />
         </div>
         <div>
-          <div className="font-['Syne:Bold',sans-serif] text-[16px] font-bold text-white">Envoyez-nous un message</div>
+          <div className="font-['Syne',sans-serif] text-[16px] font-bold text-white">Envoyez-nous un message</div>
           <div className="mt-1 font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.45)]">
             Nous vous répondons sous 24h.
           </div>
@@ -1818,7 +1818,7 @@ function MobileContactForm() {
           type="submit"
           className="relative h-[52px] w-full rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01]"
         >
-          <span className="font-['Syne:Bold',sans-serif] text-[14px] font-bold text-[#0c0d0c]">Envoyer le message</span>
+          <span className="font-['Syne',sans-serif] text-[14px] font-bold text-[#0c0d0c]">Envoyer le message</span>
         </button>
         <div className="mt-4 text-center font-['DM_Sans:Regular',sans-serif] text-[11px] text-[rgba(255,255,255,0.28)]">
           {status === "success" ? "Message prêt à être envoyé · Vérifiez vos informations" : "Données confidentielles · Réponse sous 24h"}
@@ -1844,7 +1844,7 @@ function MobileAboutPage() {
               <span className="size-[6px] rounded-full bg-[#bcff3d]" />
               Vroom Advisor · Agence automobile
             </div>
-            <h1 className="font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[52px]">
+            <h1 className="font-['Syne',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[52px]">
               L&apos;automobile
               <span className="block">autrement,</span>
               <span className="block text-[#bcff3d]">avec vous.</span>
@@ -1862,7 +1862,7 @@ function MobileAboutPage() {
               ["3 ans", "d'expertise"],
             ].map(([value, label]) => (
               <div key={value} className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] px-4 py-4 text-center">
-                <div className="font-['Syne:ExtraBold',sans-serif] text-[28px] font-extrabold text-[#bcff3d]">{value}</div>
+                <div className="font-['Syne',sans-serif] text-[28px] font-extrabold text-[#bcff3d]">{value}</div>
                 <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">{label}</div>
               </div>
             ))}
@@ -1876,7 +1876,7 @@ function MobileAboutPage() {
               <img alt="Intérieur de l'agence Vroom Advisor" className="h-[150px] w-full object-cover sm:h-[180px]" src={imgOverlayBorderShadow} />
             </div>
             <div className="absolute right-0 top-5 rounded-[16px] border border-[rgba(188,255,61,0.25)] bg-[rgba(188,255,61,0.1)] px-5 py-4 text-center backdrop-blur-[10px]">
-              <div className="font-['Syne:ExtraBold',sans-serif] text-[26px] font-extrabold text-[#bcff3d]">⭐ 5,0</div>
+              <div className="font-['Syne',sans-serif] text-[26px] font-extrabold text-[#bcff3d]">⭐ 5,0</div>
               <div className="text-[11px] text-[rgba(255,255,255,0.55)]">sur Google</div>
             </div>
           </div>
@@ -1912,7 +1912,7 @@ function MobileAboutPage() {
                   <div className="relative mb-3 flex size-10 items-center justify-center rounded-[12px] border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.09)]">
                     {card.icon}
                   </div>
-                  <div className="font-['Syne:Bold',sans-serif] text-[16px] font-bold text-white">{card.title}</div>
+                  <div className="font-['Syne',sans-serif] text-[16px] font-bold text-white">{card.title}</div>
                   <div className="mt-2 text-[13px] leading-6 text-[rgba(255,255,255,0.45)]">{card.description}</div>
                 </div>
               ))}
@@ -1954,14 +1954,14 @@ function MobileAboutPage() {
               className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-5 transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
             >
               <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.3)]">Téléphone</div>
-              <div className="mt-2 font-['Syne:Bold',sans-serif] text-[20px] font-bold text-white">06 70 76 07 19</div>
+              <div className="mt-2 font-['Syne',sans-serif] text-[20px] font-bold text-white">06 70 76 07 19</div>
             </a>
             <a
               href="mailto:contact@vroomparis.fr"
               className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-5 transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
             >
               <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.3)]">Email</div>
-              <div className="mt-2 break-all font-['Syne:Bold',sans-serif] text-[20px] font-bold text-white">contact@vroomparis.fr</div>
+              <div className="mt-2 break-all font-['Syne',sans-serif] text-[20px] font-bold text-white">contact@vroomparis.fr</div>
             </a>
             <a
               href="https://maps.google.com/?q=4+bis+Av.+Alexandre+Dumas,+95230+Soisy-sous-Montmorency"
@@ -1970,7 +1970,7 @@ function MobileAboutPage() {
               className="rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-5 transition-all duration-200 hover:border-[rgba(188,255,61,0.22)] hover:bg-[rgba(188,255,61,0.05)]"
             >
               <div className="text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.3)]">Adresse</div>
-              <div className="mt-2 font-['Syne:Bold',sans-serif] text-[18px] font-bold leading-7 text-white">
+              <div className="mt-2 font-['Syne',sans-serif] text-[18px] font-bold leading-7 text-white">
                 4 bis Av. Alexandre Dumas, 95230 Soisy-sous-Montmorency
               </div>
             </a>
@@ -1998,7 +1998,7 @@ function MobileAboutPage() {
                     : "border-[rgba(255,255,255,0.08)] bg-[#111411]",
                 )}
               >
-                <AccordionTrigger className="py-5 text-left font-['Syne:SemiBold',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
+                <AccordionTrigger className="py-5 text-left font-['Syne',sans-serif] text-[14px] font-semibold text-white hover:no-underline [&>svg]:text-[#bcff3d]">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="pb-5 font-['DM_Sans:Regular',sans-serif] text-[14px] leading-7 text-[rgba(255,255,255,0.55)]">

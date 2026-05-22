@@ -1,5 +1,6 @@
 import { useState, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { useNavigate, useSearchParams } from "react-router";
+import { bookings } from "../../lib/api";
 import svgPaths from "./svg-r4glvpdzde";
 
 type FormState = {
@@ -71,6 +72,16 @@ function formatBookingMode(value: string | null) {
   }
 }
 
+function parseDurationMinutes(value: string | null): number {
+  if (!value) return 30;
+  const hours = value.match(/(\d+)\s*h/);
+  if (hours) return Number(hours[1]) * 60;
+  const minutes = value.match(/(\d+)\s*min/);
+  if (minutes) return Number(minutes[1]);
+  const raw = Number(value);
+  return Number.isFinite(raw) && raw > 0 ? raw : 30;
+}
+
 function Group() {
   return (
     <div className="absolute inset-[1.46%_46.71%_96.06%_46.74%]">
@@ -92,7 +103,7 @@ function Group() {
 
 function Heading1() {
   return (
-    <div className="absolute font-['Syne:ExtraBold',sans-serif] font-extrabold h-[245.88px] leading-[0] left-[161px] right-[159px] text-[58px] text-center top-[282px] tracking-[-1.74px]">
+    <div className="absolute font-['Syne',sans-serif] font-extrabold h-[245.88px] leading-[0] left-[161px] right-[159px] text-[58px] text-center top-[282px] tracking-[-1.74px]">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[131.47px] justify-center left-[calc(50%+0.92px)] text-white top-[60.74px] w-[660.289px]">
         <p className="leading-[61.48px] mb-0">Réservez votre</p>
         <p className="leading-[61.48px]">consultation</p>
@@ -261,7 +272,7 @@ function RecapCreneauChoisi({ dateText, slotText, formatText }: { dateText: stri
 function Heading() {
   return (
     <div className="absolute h-[73.59px] leading-[0] left-[36px] right-[36px] top-[124px]">
-      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[26px] justify-center left-0 text-[22px] text-white top-[13px] w-[295.315px]">
+      <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[26px] justify-center left-0 text-[22px] text-white top-[13px] w-[295.315px]">
         <p className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif]">
           <span className="leading-[normal]">{`Vos `}</span>
           <span className="leading-[normal] text-[#bcff3d]">informations</span>
@@ -520,7 +531,7 @@ function Footer({ onBack, onSubmit }: { onBack: () => void; onSubmit: () => void
       </div>
 
       <button type="button" onClick={onSubmit} className="absolute bg-[#bcff3d] h-[52px] left-[36px] overflow-clip right-[36px] rounded-[14px] top-[110px] cursor-pointer">
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.83px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[203.878px]">
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.83px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[203.878px]">
           <p className="leading-[normal]">Finaliser ma réservation</p>
         </div>
         <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%+106.75px)] size-[16px] top-1/2">
@@ -809,7 +820,7 @@ function MobileInfoForm({
           <button
             type="button"
             onClick={onSubmit}
-            className="mt-6 w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+            className="mt-6 w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
           >
             Finaliser ma réservation
           </button>
@@ -880,7 +891,7 @@ function MobileRedirectionFormulaireConseil({
       </div>
       <div className="relative mx-auto max-w-[760px] px-5 pb-16 pt-24 sm:px-8 sm:pt-28">
         <section className="text-center">
-          <h1 className="font-['Syne:ExtraBold',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
+          <h1 className="font-['Syne',sans-serif] text-[42px] font-extrabold leading-[0.98] tracking-[-0.05em] text-white sm:text-[54px]">
             Réservez votre
             <span className="block text-[#bcff3d]">consultation automobile</span>
           </h1>
@@ -971,6 +982,31 @@ export default function RedirectionFormulaireConseil() {
     nextParams.set("budget", form.budget);
     nextParams.set("vehicleType", form.vehicleType);
     nextParams.set("project", form.project);
+
+    void bookings
+      .create({
+        booking: {
+          date: searchParams.get("date") || "2026-03-13",
+          time: searchParams.get("slot") || "10:30",
+          duration: parseDurationMinutes(searchParams.get("duration")),
+          format: (searchParams.get("format") as "visio" | "telephone" | "whatsapp") || "visio",
+        },
+        customer: {
+          firstName: form.firstName || DEFAULT_FORM.firstName,
+          lastName: form.lastName || DEFAULT_FORM.lastName,
+          email: form.email || DEFAULT_FORM.email,
+          phone: form.phone || DEFAULT_FORM.phone,
+        },
+        project: {
+          budget: form.budget || "20 000 € - 35 000 €",
+          vehicleType: form.vehicleType || "SUV / 4x4",
+          description: form.project || "",
+        },
+      })
+      .catch((error) => {
+        console.error("Impossible de créer le rendez-vous", error);
+      });
+
     navigate(`/conseils/formulaire/etape-2?${nextParams.toString()}`);
   };
 

@@ -466,7 +466,7 @@ function HorizontalBorder() {
       <div className="absolute border border-[rgba(188,255,61,0.16)] border-solid inset-[45.22px_278.02px_253.22px_312.98px] rounded-[48px]" data-name="Border" />
       <div className="absolute border border-[rgba(188,255,61,0.16)] border-solid inset-[45.22px_278.02px_253.22px_312.98px] rounded-[48px]" data-name="Border" />
       <OverlayBorder9 />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:ExtraBold',sans-serif] font-extrabold h-[34px] justify-center leading-[0] left-[calc(50%+0.69px)] text-[28px] text-center text-white top-[196px] w-[488.28px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[34px] justify-center leading-[0] left-[calc(50%+0.69px)] text-[28px] text-center text-white top-[196px] w-[488.28px]">
         <p>
           <span className="leading-[32.2px]">{`Demande `}</span>
           <span className="leading-[32.2px] text-[#bcff3d]">bien reçue !</span>
@@ -557,7 +557,7 @@ function HorizontalBorder1() {
 function Background() {
   return (
     <div className="-translate-x-1/2 absolute bg-[#bcff3d] left-[calc(50%-142px)] rounded-[13px] size-[26px] top-[12px]" data-name="Background">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[12px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[#0c0d0c] text-[10px] text-center top-1/2 w-[6.581px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[12px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[#0c0d0c] text-[10px] text-center top-1/2 w-[6.581px]">
         <p className="leading-[normal]">2</p>
       </div>
     </div>
@@ -582,7 +582,7 @@ function HorizontalBorder2() {
 function OverlayBorder12() {
   return (
     <div className="-translate-x-1/2 absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[calc(50%-142px)] rounded-[13px] size-[26px] top-[12px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[12px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[10px] text-[rgba(255,255,255,0.25)] text-center top-1/2 w-[6.755px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[12px] justify-center leading-[0] left-[calc(50%+0.16px)] text-[10px] text-[rgba(255,255,255,0.25)] text-center top-1/2 w-[6.755px]">
         <p className="leading-[normal]">3</p>
       </div>
     </div>
@@ -607,7 +607,7 @@ function HorizontalBorder3() {
 function OverlayBorder13() {
   return (
     <div className="-translate-x-1/2 absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[calc(50%-142px)] rounded-[13px] size-[26px] top-[278px]" data-name="Overlay+Border">
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold h-[12px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[10px] text-[rgba(255,255,255,0.25)] text-center top-1/2 w-[7.483px]">
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[12px] justify-center leading-[0] left-[calc(50%+0.18px)] text-[10px] text-[rgba(255,255,255,0.25)] text-center top-1/2 w-[7.483px]">
         <p className="leading-[normal]">4</p>
       </div>
     </div>
@@ -1154,7 +1154,7 @@ function MobileEtape2FormulaireVendreVotreVehicule() {
           </div>
 
           <div className="mt-8">
-            <h1 className="font-['Syne:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white">
+            <h1 className="font-['Syne',sans-serif] text-[34px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white">
               Demande de reprise
               <span className="block text-[#bcff3d]">bien reçue</span>
             </h1>

@@ -568,9 +568,9 @@ export default function VousEtesSection() {
     <>
       <div className="absolute left-0 top-[4530px] w-screen px-5 sm:px-8 lg:hidden">
         <div className="mx-auto max-w-[640px]">
-          <p className="text-center font-['Lexend:Medium',sans-serif] text-[40px] font-medium leading-[44px] text-white">
-            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold">{`Vous `}</span>
-            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold text-[#c8ec66]">êtes :</span>
+          <p className="text-center font-['Syne',sans-serif] text-[40px] font-extrabold leading-[44px] text-white">
+            <span className="font-['Syne',sans-serif] font-extrabold">{`Vous `}</span>
+            <span className="font-['Syne',sans-serif] font-extrabold text-[#c8ec66]">êtes :</span>
           </p>
 
           <p className="mt-5 text-center font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] text-[34px] font-extrabold leading-[40px] text-white sm:text-[40px] sm:leading-[46px]">
@@ -623,9 +623,9 @@ export default function VousEtesSection() {
 
       <div className="hidden lg:block">
         <div className="absolute contents left-[140px] top-[3978px]">
-          <p className="-translate-x-1/2 absolute font-['Lexend:Medium',sans-serif] font-medium h-[72px] leading-[0] left-[740.5px] text-[48px] text-center text-white top-[3978px] w-[463px]">
-            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5]">{`Vous `}</span>
-            <span className="font-['Syne:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">êtes :</span>
+          <p className="-translate-x-1/2 absolute font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[740.5px] text-[48px] text-center text-white top-[3978px] w-[463px]">
+            <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5]">{`Vous `}</span>
+            <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">êtes :</span>
           </p>
           <p className="-translate-x-full absolute font-['Lexend:Medium',sans-serif] font-medium h-[360px] leading-[0] left-[489px] text-[0px] text-right text-white top-[4370px] w-[349px]">
             <span className="font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] font-extrabold leading-[1.5] text-[56px]">{`Pour `}</span>
