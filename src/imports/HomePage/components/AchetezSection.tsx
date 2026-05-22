@@ -263,12 +263,13 @@ export default function AchetezSection() {
         <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2539.75px] tracking-[-1.5px] w-[395px]">
           <p className="leading-[60px]">VEHICULE</p>
         </div>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Wix_Madefor_Display:ExtraBold',sans-serif] font-extrabold h-[136px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2641.75px] tracking-[-1.5px] w-[575px]">
-          <p className="font-['Syne',sans-serif] font-bold mb-0">
-            <span className="leading-[60px]">{`DEPUIS `}</span>
-            <span className="bg-clip-text bg-gradient-to-r from-[#c8ec66] leading-[60px] text-[transparent] to-[#b5e43d]">VOTRE</span>
-          </p>
-          <p className="bg-clip-text bg-gradient-to-r font-['Syne',sans-serif] font-bold from-[#c8ec66] leading-[60px] text-[transparent] to-[#b5e43d]">CANAPE !</p>
+        <div className="-translate-y-1/2 absolute left-[122px] top-[2641.75px] w-[575px] font-['Syne',sans-serif] text-[60px] font-bold tracking-[-1.5px] text-white">
+          <div className="whitespace-nowrap leading-[60px]">
+            DEPUIS <span className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">VOTRE</span>
+          </div>
+          <div className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text leading-[60px] text-transparent">
+            CANAPE !
+          </div>
         </div>
         <Button />
       </div>
