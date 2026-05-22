@@ -23,6 +23,9 @@ export interface Vehicle {
     colorExterior: string;
     colorInterior: string;
     engine: string;
+    vin: string;
+    stockNumber: string;
+    consumption: string;
   };
   history: {
     owners: number;

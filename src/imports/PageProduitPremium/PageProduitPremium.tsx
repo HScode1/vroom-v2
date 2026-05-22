@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
+import { vehicles as vehiclesApi } from "../../lib/api";
+import type { Vehicle } from "../../lib/api";
 import svgPaths from "./svg-e2a6upuiz3";
 import imgPictureA290 from "./adf5b1cba6c70082754343ed9b3203d797ea65f4.png";
 import imgPictureA291 from "./ef0d6bd9f0f2987d8c5717276c603f97d24e79a2.png";
@@ -42,20 +44,20 @@ function ThumbnailButton({
   );
 }
 
-function List({ selectedIndex, onSelect }: { selectedIndex: number; onSelect: (index: number) => void }) {
+function List({ selectedIndex, onSelect, images }: { selectedIndex: number; onSelect: (index: number) => void; images: string[] }) {
   return (
     <div className="absolute bottom-[0.5px] left-0 overflow-x-auto overflow-y-clip top-0 w-[888px]" data-name="List">
-      {thumbnailImages.map((src, index) => (
+      {images.map((src, index) => (
         <ThumbnailButton index={index} key={src} onSelect={onSelect} selected={selectedIndex === index} src={src} />
       ))}
     </div>
   );
 }
 
-function Container({ selectedIndex, onSelect }: { selectedIndex: number; onSelect: (index: number) => void }) {
+function Container({ selectedIndex, onSelect, images }: { selectedIndex: number; onSelect: (index: number) => void; images: string[] }) {
   return (
     <div className="absolute inset-[1176px_639px_1435px_108px] overflow-clip" data-name="Container">
-      <List onSelect={onSelect} selectedIndex={selectedIndex} />
+      <List images={images} onSelect={onSelect} selectedIndex={selectedIndex} />
     </div>
   );
 }
@@ -1217,13 +1219,29 @@ function MobileFooter() {
 
 export default function PageProduitPremium() {
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isPriceHistoryOpen, setIsPriceHistoryOpen] = useState(true);
   const [sellerNotesExpanded, setSellerNotesExpanded] = useState(false);
 
-  const selectedImage = galleryImages[selectedImageIndex];
-  const goToPreviousImage = () => setSelectedImageIndex((current) => (current === 0 ? galleryImages.length - 1 : current - 1));
-  const goToNextImage = () => setSelectedImageIndex((current) => (current === galleryImages.length - 1 ? 0 : current + 1));
+  useEffect(() => {
+    if (!id) return;
+    setSelectedImageIndex(0);
+    vehiclesApi.get(id).then(setVehicle).catch(() => navigate("/showroom"));
+  }, [id, navigate]);
+
+  const dynamicGallery: string[] = vehicle
+    ? vehicle.gallery.length > 0
+      ? vehicle.gallery
+      : vehicle.image
+        ? [vehicle.image]
+        : galleryImages
+    : galleryImages;
+
+  const selectedImage = dynamicGallery[selectedImageIndex] ?? galleryImages[0];
+  const goToPreviousImage = () => setSelectedImageIndex((current) => (current === 0 ? dynamicGallery.length - 1 : current - 1));
+  const goToNextImage = () => setSelectedImageIndex((current) => (current === dynamicGallery.length - 1 ? 0 : current + 1));
   const handleBack = () => {
     if (window.history.length > 1) {
       navigate(-1);
@@ -1233,25 +1251,56 @@ export default function PageProduitPremium() {
     navigate("/showroom");
   };
 
-  const mobileSpecsLeft = [
-    "Couleur extérieure Blanc",
-    "intérieur noir",
-    "Type de carburant essence",
-    "Moteur essence 4 cylindres en ligne 2 litres, injection directe, DACT, distribution variable",
-  ];
-  const mobileSpecsRight = [
-    "22-29 mpg",
-    "Transmission intégrale",
-    "Transmission automatique",
-    "Aucun accident ni dommage n'a été signalé.",
-  ];
-  const mobileHistoryItems = [
-    "Titre de propriété propre",
-    "Aucun accident ni dommage n'a été signalé.",
-    "1 propriétaire",
-    "Usage personnel uniquement",
-    "Aucun rappel en cours n'a été signalé.",
-  ];
+  const vehicleTitle = vehicle ? `${vehicle.brand} ${vehicle.model} d'occasion` : "BMW X3 xDrive30i d'occasion";
+  const vehiclePrice = vehicle ? vehicle.price.toLocaleString("fr-FR") + " €" : "16 990 €";
+  const vehicleMileage = vehicle ? vehicle.specs.mileage.toLocaleString("fr-FR") + " km" : "85 912 km";
+  const vehicleTags = vehicle ? vehicle.tags : ["Bonne affaire"];
+  const vehicleSellerNotes = vehicle?.sellerNotes || sellerNoteFull;
+  const vehicleSellerNotesPreview = vehicleSellerNotes.length > 220 ? vehicleSellerNotes.slice(0, 220) + "…" : vehicleSellerNotes;
+
+  const mobileSpecsLeft = vehicle
+    ? [
+        vehicle.specs.colorExterior ? `Couleur extérieure ${vehicle.specs.colorExterior}` : null,
+        vehicle.specs.colorInterior ? `Couleur intérieure ${vehicle.specs.colorInterior}` : null,
+        `Carburant ${vehicle.specs.fuel}`,
+        vehicle.specs.engine ? `Moteur ${vehicle.specs.engine}` : null,
+        vehicle.specs.consumption ? `Consommation ${vehicle.specs.consumption}` : null,
+      ].filter(Boolean) as string[]
+    : [
+        "Couleur extérieure Blanc",
+        "intérieur noir",
+        "Type de carburant essence",
+        "Moteur essence 4 cylindres en ligne 2 litres, injection directe, DACT, distribution variable",
+      ];
+  const mobileSpecsRight = vehicle
+    ? [
+        `Boîte ${vehicle.specs.gearbox}`,
+        `Kilométrage ${vehicle.specs.mileage.toLocaleString("fr-FR")} km`,
+        `Année ${vehicle.specs.year}`,
+        `${vehicle.history.owners} propriétaire${vehicle.history.owners > 1 ? "s" : ""}`,
+        vehicle.history.accidents === 0 ? "Aucun accident ni dommage signalé." : `${vehicle.history.accidents} accident(s) signalé(s).`,
+      ]
+    : [
+        "22-29 mpg",
+        "Transmission intégrale",
+        "Transmission automatique",
+        "Aucun accident ni dommage n'a été signalé.",
+      ];
+  const mobileHistoryItems = vehicle
+    ? [
+        "Titre de propriété propre",
+        vehicle.history.accidents === 0 ? "Aucun accident ni dommage n'a été signalé." : `${vehicle.history.accidents} accident(s) signalé(s).`,
+        `${vehicle.history.owners} propriétaire${vehicle.history.owners > 1 ? "s" : ""}`,
+        vehicle.history.usage,
+        vehicle.history.recalls === 0 ? "Aucun rappel en cours n'a été signalé." : `${vehicle.history.recalls} rappel(s) signalé(s).`,
+      ]
+    : [
+        "Titre de propriété propre",
+        "Aucun accident ni dommage n'a été signalé.",
+        "1 propriétaire",
+        "Usage personnel uniquement",
+        "Aucun rappel en cours n'a été signalé.",
+      ];
 
   return (
     <div className="bg-[#181818] relative min-h-screen size-full" data-name="page produit premium">
@@ -1264,10 +1313,10 @@ export default function PageProduitPremium() {
           </button>
 
           <div className="relative overflow-hidden rounded-[24px] border border-white/8 bg-[#0f0f10]">
-            <img alt="BMW X3 xDrive30i" className="h-[260px] w-full object-cover sm:h-[340px]" src={selectedImage} />
+            <img alt={vehicleTitle} className="h-[260px] w-full object-cover sm:h-[340px]" src={selectedImage} />
             <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
               <div className="rounded-full bg-[#626366] px-3 py-1 text-[11px] uppercase text-white">
-                {selectedImageIndex + 1} / {galleryImages.length}
+                {selectedImageIndex + 1} / {dynamicGallery.length}
               </div>
               <div className="flex gap-2">
                 <button className="flex size-9 items-center justify-center rounded-full bg-white text-[#626366]" onClick={goToPreviousImage} type="button">‹</button>
@@ -1277,7 +1326,7 @@ export default function PageProduitPremium() {
           </div>
 
           <div className="mt-4 flex gap-3 overflow-x-auto pb-1">
-            {thumbnailImages.map((src, index) => (
+            {dynamicGallery.map((src, index) => (
               <button
                 key={src}
                 aria-label={`Afficher la photo ${index + 1}`}
@@ -1292,15 +1341,15 @@ export default function PageProduitPremium() {
           </div>
 
           <div className="mt-8">
-            <h1 className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[32px] leading-[1.1] tracking-[-0.48px] text-white">BMW X3 xDrive30i d&apos;occasion</h1>
+            <h1 className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[32px] leading-[1.1] tracking-[-0.48px] text-white">{vehicleTitle}</h1>
 
             <div className="mt-5 rounded-[18px] bg-white/0 shadow-[0px_0px_10px_0px_rgba(68,89,88,0.1)]">
-              <div className="text-[42px] font-['DM_Sans:Bold',sans-serif] font-bold tracking-[-0.48px] text-white">16 990 €</div>
-              <div className="mt-1 font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-white">85 912 km</div>
+              <div className="text-[42px] font-['DM_Sans:Bold',sans-serif] font-bold tracking-[-0.48px] text-white">{vehiclePrice}</div>
+              <div className="mt-1 font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-white">{vehicleMileage}</div>
               <div className="mt-4 flex flex-wrap gap-2">
-                <span className="rounded-full bg-[#e3f4f1] px-3 py-1 text-[12px] text-[#181818]">Bonne affaire</span>
-                <span className="rounded-full bg-[#f0f2f1] px-3 py-1 text-[12px] text-[#181818]">baisse de prix de 1 000 €</span>
-                <span className="rounded-full bg-[#f0f2f1] px-3 py-1 text-[12px] text-[#181818]">Forte demande</span>
+                {vehicleTags.map((tag) => (
+                  <span className="rounded-full bg-[#e3f4f1] px-3 py-1 text-[12px] text-[#181818]" key={tag}>{tag}</span>
+                ))}
               </div>
             </div>
 
@@ -1313,7 +1362,7 @@ export default function PageProduitPremium() {
                 <div className="absolute left-[14%] right-[14%] top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#21a38a]" />
                 <div className="absolute right-0 top-1/2 h-1 w-[26%] -translate-y-1/2 rounded-full bg-[#fa7412]" />
                 <div className="absolute left-[15%] top-1/2 size-[10px] -translate-y-1/2 rounded-full bg-[#21a38a] shadow-[0px_0px_0px_5px_#c6eae3]" />
-                <div className="absolute left-[8%] top-[64px] text-[11px] text-white">16 990 €</div>
+                <div className="absolute left-[8%] top-[64px] text-[11px] text-white">{vehiclePrice}</div>
               </div>
               <p className="mt-3 font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6 text-white">
                 Ce véhicule est proposé à un tarif aligné avec les prix constatés sur le marché français.
@@ -1335,9 +1384,13 @@ export default function PageProduitPremium() {
 
             <div className="mt-8">
               <div className="font-['DM_Sans:Bold',sans-serif] text-[26px] tracking-[-0.48px] text-white">Caractéristiques principales du véhicule</div>
-              <div className="mt-2 font-['Helvetica_Neue:Regular',sans-serif] text-[12px] leading-5 text-white">
-                Numéro d&apos;identification du véhicule (VIN) : 5UXTR9C52KLP97298 / Numéro de stock : LX14141
-              </div>
+              {(vehicle?.specs.vin || vehicle?.specs.stockNumber) && (
+                <div className="mt-2 font-['Helvetica_Neue:Regular',sans-serif] text-[12px] leading-5 text-white">
+                  {vehicle.specs.vin && `Numéro d'identification du véhicule (VIN) : ${vehicle.specs.vin}`}
+                  {vehicle.specs.vin && vehicle.specs.stockNumber && " / "}
+                  {vehicle.specs.stockNumber && `Numéro de stock : ${vehicle.specs.stockNumber}`}
+                </div>
+              )}
               <div className="mt-6 grid gap-6 sm:grid-cols-2">
                 <div className="space-y-3">
                   {mobileSpecsLeft.map((item) => (
@@ -1376,7 +1429,7 @@ export default function PageProduitPremium() {
             <div className="mt-8">
               <div className="font-['DM_Sans:Bold',sans-serif] text-[26px] tracking-[-0.48px] text-white">Notes du vendeur</div>
               <p className="mt-4 font-['Helvetica_Neue:Regular',sans-serif] text-[15px] leading-6 text-white">
-                {sellerNotesExpanded ? sellerNoteFull : sellerNotePreview}
+                {sellerNotesExpanded ? vehicleSellerNotes : vehicleSellerNotesPreview}
               </p>
               <button
                 className="mt-4 inline-flex items-center gap-3 font-['Helvetica_Neue:Bold',sans-serif] text-[15px] text-white"
@@ -1448,9 +1501,9 @@ export default function PageProduitPremium() {
             </div>
           </div>
         </button>
-        <Container onSelect={setSelectedImageIndex} selectedIndex={selectedImageIndex} />
+        <Container images={dynamicGallery} onSelect={setSelectedImageIndex} selectedIndex={selectedImageIndex} />
         <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[46.5px] justify-center leading-[0] left-[1233px] text-[40px] text-white top-[326.25px] tracking-[-0.48px] w-[587.768px]">
-          <p className="leading-[43.2px]">{`BMW X3 xDrive30i d'occasion`}</p>
+          <p className="leading-[43.2px]">{vehicleTitle}</p>
         </div>
         <Section />
         <Section1 isPriceHistoryOpen={isPriceHistoryOpen} onTogglePriceHistory={() => setIsPriceHistoryOpen((current) => !current)} />
@@ -1459,7 +1512,7 @@ export default function PageProduitPremium() {
         <Section5 onToggleSellerNotes={() => setSellerNotesExpanded((current) => !current)} sellerNotesExpanded={sellerNotesExpanded} />
         <Section6 />
         <div className="absolute h-[768px] left-[106px] top-[371px] w-[1024px]" data-name="8301">
-          <img alt="BMW X3 xDrive30i" className="absolute inset-0 max-w-none object-cover size-full" src={selectedImage} />
+          <img alt={vehicleTitle} className="absolute inset-0 max-w-none object-cover size-full" src={selectedImage} />
         </div>
         <button className="absolute bg-white left-[125px] size-[34px] top-[753px] cursor-pointer" data-name="Button - Previous slide" onClick={goToPreviousImage} type="button">
           <Svg />
@@ -1473,7 +1526,7 @@ export default function PageProduitPremium() {
         <Group3 />
         <div className="absolute bg-[#626366] bottom-[1608px] h-[22px] left-[134px] rounded-[16px] w-[33px]" data-name="Background">
           <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[15px] justify-center leading-[0] left-[calc(50%+0.59px)] not-italic text-[9.6px] text-center text-white top-[calc(50%-0.5px)] uppercase w-[22px]">
-            <p className="leading-[12px]">{selectedImageIndex + 1} / 7</p>
+            <p className="leading-[12px]">{selectedImageIndex + 1} / {dynamicGallery.length}</p>
           </div>
         </div>
         <Footer />

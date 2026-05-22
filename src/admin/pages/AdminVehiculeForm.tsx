@@ -23,7 +23,7 @@ const EMPTY_FORM: FormData = {
   status: "Brouillon",
   image: "",
   gallery: [],
-  specs: { fuel: "Essence", year: new Date().getFullYear(), mileage: 0, gearbox: "Automatique", colorExterior: "", colorInterior: "", engine: "" },
+  specs: { fuel: "Essence", year: new Date().getFullYear(), mileage: 0, gearbox: "Automatique", colorExterior: "", colorInterior: "", engine: "", vin: "", stockNumber: "", consumption: "" },
   history: { owners: 1, accidents: 0, usage: "Usage personnel", recalls: 0 },
   tags: [],
   sellerNotes: "",
@@ -213,6 +213,15 @@ export default function AdminVehiculeForm() {
               <label className="text-xs font-medium text-white/50 uppercase tracking-wide">Motorisation</label>
               <input className={inputCls} value={form.specs.engine} onChange={(e) => setSpec("engine", e.target.value)} placeholder="3.0L 6cyl Diesel 340ch" />
             </div>
+            <Field label="Consommation">
+              <input className={inputCls} value={form.specs.consumption} onChange={(e) => setSpec("consumption", e.target.value)} placeholder="7.5L/100km" />
+            </Field>
+            <Field label="N° VIN">
+              <input className={inputCls} value={form.specs.vin} onChange={(e) => setSpec("vin", e.target.value)} placeholder="VF1RFD00067XXXXXX" />
+            </Field>
+            <Field label="N° de stock">
+              <input className={inputCls} value={form.specs.stockNumber} onChange={(e) => setSpec("stockNumber", e.target.value)} placeholder="LX14141" />
+            </Field>
           </div>
         </Section>
 

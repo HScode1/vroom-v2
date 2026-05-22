@@ -28,6 +28,9 @@ export const VehicleCreateSchema = z.object({
     colorExterior: z.string().default(""),
     colorInterior: z.string().default(""),
     engine: z.string().default(""),
+    vin: z.string().default(""),
+    stockNumber: z.string().default(""),
+    consumption: z.string().default(""),
   }),
   history: z.object({
     owners: z.number().int().min(1).default(1),

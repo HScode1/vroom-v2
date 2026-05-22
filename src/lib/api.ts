@@ -127,7 +127,7 @@ export interface Vehicle {
   status: "En ligne" | "Vendu" | "Brouillon";
   image: string;
   gallery: string[];
-  specs: { fuel: string; year: number; mileage: number; gearbox: string; colorExterior: string; colorInterior: string; engine: string };
+  specs: { fuel: string; year: number; mileage: number; gearbox: string; colorExterior: string; colorInterior: string; engine: string; vin: string; stockNumber: string; consumption: string };
   history: { owners: number; accidents: number; usage: string; recalls: number };
   tags: ("Bonne affaire" | "Forte demande" | "Baisse de prix" | "Nouveauté")[];
   sellerNotes: string;

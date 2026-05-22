@@ -72,6 +72,7 @@ function Svg32() {
 }
 
 function Slide({ vehicle }: { vehicle: Vehicle }) {
+  const carImage = vehicle.image || vehicle.gallery?.[0];
   return (
     <div className="absolute inset-[0_0.34px_0_0]" data-name="SLIDE 1">
       <div className="absolute flex flex-col font-['Syne:Bold',sans-serif] font-bold inset-[48px_798.33px_459px_64px] justify-center leading-[0] text-[11px] text-[rgba(255,255,255,0.2)] tracking-[1.76px] uppercase">
@@ -100,9 +101,9 @@ function Slide({ vehicle }: { vehicle: Vehicle }) {
         </div>
         <Svg32 />
       </a>
-      {vehicle.image && (
+      {carImage && (
         <div className="absolute h-[454px] left-[542px] top-[51px] w-[676px]">
-          <img alt={`${vehicle.brand} ${vehicle.model}`} className="absolute inset-0 max-w-none object-cover object-center pointer-events-none size-full" src={vehicle.image} />
+          <img alt={`${vehicle.brand} ${vehicle.model}`} className="absolute inset-0 max-w-none object-cover object-center pointer-events-none size-full" src={carImage} />
         </div>
       )}
     </div>
@@ -248,9 +249,9 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
         </p>
 
         <div className="mt-6 overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.03)]">
-          {vehicle.image && (
+          {(vehicle.image || vehicle.gallery?.[0]) && (
             <div className="aspect-[1.22] w-full">
-              <img alt={`${vehicle.brand} ${vehicle.model}`} className="size-full object-cover object-center" src={vehicle.image} />
+              <img alt={`${vehicle.brand} ${vehicle.model}`} className="size-full object-cover object-center" src={vehicle.image || vehicle.gallery[0]} />
             </div>
           )}
 

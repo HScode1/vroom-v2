@@ -2105,7 +2105,7 @@ function VehicleCardDesktop({
         <img
           alt=""
           className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-tl-[22px] rounded-tr-[22px] size-full"
-          src={vehicle.image || imgCaptureDecran20251209A1739081}
+          src={vehicle.image || vehicle.gallery?.[0] || imgCaptureDecran20251209A1739081}
         />
       </div>
     </>
@@ -2586,7 +2586,7 @@ function MobilePremiumView({
     mileageValue: v.specs.mileage,
     yearValue: v.specs.year,
     specs: [v.specs.fuel, v.specs.gearbox, v.specs.mileage.toLocaleString("fr-FR") + " km", String(v.specs.year)] as readonly string[],
-    image: v.image,
+    image: v.image || v.gallery?.[0],
   }));
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedFuel, setSelectedFuel] = useState<(typeof MOBILE_FUEL_OPTIONS)[number] | null>(null);

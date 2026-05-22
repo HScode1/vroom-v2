@@ -243,6 +243,7 @@ export default function App() {
                     <Route path="/acheter-votre-vehicule/etape-2" element={<PageWrapper path="/acheter-votre-vehicule/etape-2"><Etape2FormulaireAcheterVotreVehicule /></PageWrapper>} />
                     <Route path="/showroom" element={<PageWrapper path="/showroom"><Premium /></PageWrapper>} />
                     <Route path="/showroom/produit" element={<PageWrapper path="/showroom/produit"><PageProduitPremium /></PageWrapper>} />
+                    <Route path="/showroom/:id" element={<PageProduitPremium />} />
                   </Routes>
                 </div>
               }
