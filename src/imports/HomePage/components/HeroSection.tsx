@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import svgPaths from "../svg-gblhduksgt";
 import imgImage6 from "../18bcc12168a0b83331f4e8f2123cf6e5d012abb2.png";
 import imgImageRemovebg1 from "../68297c37c62088e6f25beeb99b890264d41ec9fd.png";
 import imgHeroBackgroundMobile from "../sans_voiture.png";
 
 function MobileHeroSection() {
+  const navigate = useNavigate();
   return (
     <div className="relative h-[100dvh] min-h-[700px] w-screen overflow-hidden bg-[#050808] lg:hidden">
       <img
@@ -36,15 +38,15 @@ function MobileHeroSection() {
       <div className="absolute bottom-0 left-0 right-0 z-30 h-[210px] bg-[linear-gradient(180deg,rgba(5,8,8,0)_0%,rgba(24,24,24,0.68)_42%,#181818_100%)]" />
 
       <div className="absolute bottom-[76px] left-5 right-5 z-40">
-        <a
+        <button
           className="flex h-[54px] w-full items-center justify-center gap-3 rounded-[100px] bg-[#bcff3d] font-['Syne',sans-serif] text-[14px] font-extrabold tracking-[0.52px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
-          href="/acheter-votre-vehicule"
+          onClick={() => navigate("/acheter-votre-vehicule")}
         >
           <span>Acheter votre véhicule</span>
           <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
             <path d={svgPaths.p3d0c5000} stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.35417" />
           </svg>
-        </a>
+        </button>
       </div>
 
       <div className="absolute bottom-6 left-5 z-40 space-y-2">
@@ -65,6 +67,7 @@ function MobileHeroSection() {
 }
 
 function TabletHeroSection() {
+  const navigate = useNavigate();
   return (
     <div className="relative hidden h-[100dvh] min-h-[760px] w-screen overflow-hidden bg-[#050808] lg:block xl:hidden">
       <img
@@ -106,21 +109,22 @@ function TabletHeroSection() {
       </div>
 
       <div className="absolute bottom-8 right-[55px] z-40">
-        <a
+        <button
           className="flex h-[48px] min-w-[292px] items-center justify-center gap-3 rounded-[100px] bg-[#bcff3d] px-6 font-['Syne',sans-serif] text-[13px] font-extrabold tracking-[0.52px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
-          href="/acheter-votre-vehicule"
+          onClick={() => navigate("/acheter-votre-vehicule")}
         >
           <span>Acheter votre véhicule</span>
           <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
             <path d={svgPaths.p3d0c5000} stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.35417" />
           </svg>
-        </a>
+        </button>
       </div>
     </div>
   );
 }
 
 export default function HeroSection() {
+  const navigate = useNavigate();
   const [viewportWidth, setViewportWidth] = useState(() =>
     typeof window === "undefined" ? 1440 : window.innerWidth,
   );
@@ -221,7 +225,11 @@ export default function HeroSection() {
           </div>
 
           <div className="absolute right-[65px] top-[710px] h-[69px] w-[271.64px]" data-name="CTA BAS DROITE">
-            <div className="absolute right-[-0.36px] top-0 h-[44px] w-[306px] rounded-[100px] bg-[#bcff3d]" data-name="Link">
+            <button
+              className="absolute right-[-0.36px] top-0 h-[44px] w-[306px] rounded-[100px] bg-[#bcff3d] cursor-pointer"
+              data-name="Link"
+              onClick={() => navigate("/acheter-votre-vehicule")}
+            >
               <div className="absolute left-[18px] top-1/2 flex h-[16px] w-[247px] -translate-y-1/2 flex-col justify-center font-['Syne',sans-serif] text-[13px] font-extrabold leading-[0] tracking-[0.52px] text-[#0c0d0c]">
                 <p className="leading-[normal]">Acheter votre véhicule</p>
               </div>
@@ -232,7 +240,7 @@ export default function HeroSection() {
                   </g>
                 </svg>
               </div>
-            </div>
+            </button>
 
             <div className="absolute right-[151.92px] top-[62px] h-px w-[24px] bg-[rgba(255,255,255,0.15)]" data-name="Horizontal Divider" />
 
