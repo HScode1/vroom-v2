@@ -884,6 +884,27 @@ function MobilePlusIcon() {
   );
 }
 
+function MobileNotesIcon() {
+  return (
+    <svg className="block size-[12px]" fill="none" viewBox="0 0 12 12">
+      <path d={svgPaths.p253c6700} stroke="#BCFF3D" />
+      <path d={svgPaths.p37638700} stroke="#BCFF3D" />
+      <path d={svgPaths.p5f15a80} stroke="#BCFF3D" />
+      <path d="M8 8.5H4" stroke="#BCFF3D" />
+      <path d="M5 4.5H4.5H4" stroke="#BCFF3D" />
+    </svg>
+  );
+}
+
+function MobileUserIcon() {
+  return (
+    <svg className="block size-[12px]" fill="none" viewBox="0 0 12 12">
+      <path d={svgPaths.p1abc700} stroke="#BCFF3D" />
+      <path d={svgPaths.p20933800} stroke="#BCFF3D" />
+    </svg>
+  );
+}
+
 function OverlayBorder19() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid inset-[309px_0_0_475.5px] overflow-clip rounded-[10px]" data-name="Overlay+Border">
@@ -2137,7 +2158,7 @@ function MobilePageCmsVendreVotreVehicule() {
 
                 <section>
                   <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
-                    <Svg5 />
+                    <MobilePhotoIcon />
                     <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Photos du véhicule</span>
                   </div>
                   <div className="rounded-[18px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.05)] p-6 text-center">
@@ -2182,7 +2203,7 @@ function MobilePageCmsVendreVotreVehicule() {
 
                 <section>
                   <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
-                    <Svg7 />
+                    <MobileNotesIcon />
                     <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Remarques & observations</span>
                   </div>
                   <label className="mb-2 block text-[11px] uppercase tracking-[0.88px] text-[rgba(255,255,255,0.25)]">Informations complémentaires <span className="normal-case tracking-normal text-[10px]">(optionnel)</span></label>
@@ -2191,7 +2212,7 @@ function MobilePageCmsVendreVotreVehicule() {
 
                 <section>
                   <div className="mb-4 flex items-center gap-3 border-b border-[rgba(255,255,255,0.08)] pb-3">
-                    <Svg8 />
+                    <MobileUserIcon />
                     <span className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Vos coordonnées</span>
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">

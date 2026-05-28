@@ -4,40 +4,6 @@ import imgImage6 from "../18bcc12168a0b83331f4e8f2123cf6e5d012abb2.png";
 import imgImageRemovebg1 from "../68297c37c62088e6f25beeb99b890264d41ec9fd.png";
 import imgHeroBackgroundMobile from "../sans_voiture.png";
 
-function BrandBar() {
-  return (
-    <div className="absolute h-[30px] left-[103px] right-[48px] top-[25px]">
-      <div className="absolute inset-[-1px_0_0_0]">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1289.75 31">
-          <g id="Group 82">
-            <g id="Group 24">
-              <path d={svgPaths.p20d54300} fill="var(--fill-0, #C8C8C8)" id="Vector" />
-              <path d={svgPaths.p3554500} fill="var(--fill-0, #C8C8C8)" id="Vector_2" />
-              <path d={svgPaths.p40a2e00} fill="var(--fill-0, #C8C8C8)" id="Vector_3" />
-            </g>
-          </g>
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-function MobileBrandMark() {
-  return (
-    <div className="absolute left-6 top-6 z-20 h-[22px] w-[72px] overflow-hidden">
-      <svg className="h-full w-[946px] max-w-none" fill="none" preserveAspectRatio="xMinYMid meet" viewBox="0 0 1289.75 31">
-        <g>
-          <g>
-            <path d={svgPaths.p20d54300} fill="var(--fill-0, #C8C8C8)" />
-            <path d={svgPaths.p3554500} fill="var(--fill-0, #C8C8C8)" />
-            <path d={svgPaths.p40a2e00} fill="var(--fill-0, #C8C8C8)" />
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
 function MobileHeroSection() {
   return (
     <div className="relative h-[100dvh] min-h-[700px] w-screen overflow-hidden bg-[#050808] lg:hidden">
@@ -48,8 +14,6 @@ function MobileHeroSection() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,8,0.12)_0%,rgba(5,8,8,0)_42%,rgba(5,8,8,0.74)_100%)]" />
       <div className="absolute inset-x-0 top-0 h-[150px] bg-[linear-gradient(180deg,rgba(5,8,8,0.72),rgba(5,8,8,0))]" />
-
-      <MobileBrandMark />
 
       <div
         className="pointer-events-none absolute right-0 top-0 z-10 h-[104px] w-[118px]"
@@ -110,8 +74,6 @@ function TabletHeroSection() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,8,0.12)_0%,rgba(5,8,8,0)_38%,rgba(5,8,8,0.72)_100%)]" />
       <div className="absolute inset-x-0 top-0 h-[170px] bg-[linear-gradient(180deg,rgba(5,8,8,0.78),rgba(5,8,8,0))]" />
-
-      <BrandBar />
 
       <div
         className="pointer-events-none absolute right-0 top-0 z-10 h-[104px] w-[118px]"
@@ -225,8 +187,6 @@ export default function HeroSection() {
           <div className="absolute h-[965px] left-[-4px] top-[-155px] w-[1448px]" data-name="image 6">
             <img alt="" className="absolute inset-0 size-full max-w-none object-cover pointer-events-none" src={imgImage6} />
           </div>
-
-          <BrandBar />
 
           <div className="absolute left-0 right-0 top-[148px] flex h-[303px] flex-col justify-center text-center font-['Syne',sans-serif] text-[0px] font-extrabold leading-[0] tracking-[-11px] text-white">
             <p className="mb-0 text-[150px] leading-[113.6px]">Acheter</p>

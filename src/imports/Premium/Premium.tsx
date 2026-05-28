@@ -2528,7 +2528,7 @@ function MobileVehicleCard({
 function MobileFooter() {
   return (
     <footer className="border-t border-white/10 px-5 py-8 text-white">
-      <div className="mx-auto max-w-md space-y-6">
+      <div className="mx-auto max-w-md space-y-6 md:max-w-3xl md:px-3">
         <div className="space-y-3">
           <p className="font-['Wix_Madefor_Display:Regular',sans-serif] text-xl">Qu’attendez-vous ?</p>
           <a className="inline-flex rounded-[10px] bg-[#c8ec66] px-4 py-3 text-sm text-[#010205]" href="tel:+33670760719">
@@ -2680,33 +2680,30 @@ function MobilePremiumView({
   }, [emblaApi, selectedBrand, selectedCategory, selectedFuel, selectedGearbox, selectedMileage, selectedPrice, selectedYear]);
 
   return (
-    <div className="min-h-screen bg-[#181818] text-white md:hidden">
-      <div className="relative overflow-hidden px-5 pb-8 pt-6">
+    <div className="min-h-screen bg-[#181818] text-white xl:hidden">
+      <div className="relative overflow-hidden px-5 pb-8 pt-24 md:px-8 md:pb-10 md:pt-28 lg:px-10">
         <div className="pointer-events-none absolute inset-x-[-25%] top-[-140px] h-[320px] rounded-full bg-[radial-gradient(circle_at_center,rgba(200,236,102,0.3),rgba(114,249,216,0.12),transparent_70%)] blur-3xl" />
-        <div className="relative mx-auto max-w-md space-y-6">
-          <div className="flex items-start justify-between gap-4">
-            <div className="space-y-2">
-              <p className="font-['Helvetica_Neue:Regular',sans-serif] text-sm uppercase tracking-[0.18em] text-white/45">
-                Showroom
-              </p>
-              <h1 className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[34px] leading-none">
-                Aperçu du modèle
-              </h1>
-            </div>
-            <a className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80" href="/">
-              Accueil
-            </a>
+        <div className="relative mx-auto max-w-md space-y-6 md:max-w-5xl md:space-y-8">
+          <div className="space-y-2">
+            <p className="font-['Helvetica_Neue:Regular',sans-serif] text-sm uppercase tracking-[0.18em] text-white/45">
+              Showroom
+            </p>
+            <h1 className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[34px] leading-none md:text-[52px] md:leading-[0.95]">
+              Aperçu du modèle
+            </h1>
           </div>
 
-          <div className="flex gap-3">
-            <MobileFilterChip active={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")}>
-              Premium
-            </MobileFilterChip>
-            <MobileFilterChip active={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")}>
-              Citadine
-            </MobileFilterChip>
+          <div className="flex flex-wrap items-center gap-3 md:gap-4">
+            <div className="flex gap-3 md:gap-4">
+              <MobileFilterChip active={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")}>
+                Premium
+              </MobileFilterChip>
+              <MobileFilterChip active={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")}>
+                Citadine
+              </MobileFilterChip>
+            </div>
             <button
-              className="ml-auto rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm text-white"
+              className="rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm text-white md:ml-auto"
               onClick={() => setFiltersOpen((current) => !current)}
               type="button"
             >
@@ -2715,7 +2712,7 @@ function MobilePremiumView({
           </div>
 
           {filtersOpen ? (
-            <div className="space-y-5 rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+            <div className="space-y-5 rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-sm md:p-5">
               <div className="flex flex-wrap gap-2">
                 {BRAND_OPTIONS.map((option) => (
                   <MobileFilterChip
@@ -2819,7 +2816,7 @@ function MobilePremiumView({
           <div className="space-y-4">
             {visibleVehicles.length > 0 ? (
               <>
-                <div className="overflow-hidden" ref={emblaRef}>
+                <div className="overflow-hidden md:hidden" ref={emblaRef}>
                   <div className="-ml-4 flex">
                     {visibleVehicles.map((vehicle) => (
                       <div className="min-w-0 flex-[0_0_100%] pl-4" key={vehicle.id}>
@@ -2835,8 +2832,21 @@ function MobilePremiumView({
                     ))}
                   </div>
                 </div>
+                <div className="hidden gap-6 md:grid md:grid-cols-2">
+                  {visibleVehicles.map((vehicle) => (
+                    <MobileVehicleCard
+                      id={vehicle.id}
+                      image={vehicle.image}
+                      key={vehicle.id}
+                      price={vehicle.price}
+                      specs={vehicle.specs}
+                      subtitle={vehicle.subtitle}
+                      title={vehicle.title}
+                    />
+                  ))}
+                </div>
                 {visibleVehicles.length > 1 ? (
-                  <div className="flex items-center justify-center gap-2">
+                  <div className="flex items-center justify-center gap-2 md:hidden">
                     {visibleVehicles.map((vehicle, index) => (
                       <button
                         aria-label={`Aller au véhicule ${index + 1}`}
@@ -3115,7 +3125,7 @@ export default function Premium() {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <div className="relative hidden size-full bg-[#181818] md:block" data-name="premium">
+      <div className="relative hidden size-full bg-[#181818] xl:block" data-name="premium">
         <div className="absolute h-[742.872px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
           <div className="absolute inset-[-26.92%_-7.51%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">

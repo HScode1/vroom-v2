@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from "react-router";
+import appLogo from "../imports/HomePage/logo.png";
 import HomePage from "../imports/HomePage/HomePage";
 import AProposDeNous from "../imports/AProposDeNous/AProposDeNous";
 import PageConseil from "../imports/PageConseil/PageConseil";
@@ -61,7 +62,7 @@ function PageWrapper({ path, children }: { path: string; children: React.ReactNo
   }, []);
 
   if (path === "/showroom") {
-    if (viewportWidth < 768) {
+    if (viewportWidth < 1280) {
       return <div className="relative w-full">{children}</div>;
     }
 
@@ -166,9 +167,19 @@ function HamburgerNav() {
 
   return (
     <>
-      <nav className="fixed top-4 right-4 z-[60]">
+      <nav className="fixed left-4 right-4 top-4 z-[60] flex items-center justify-between">
+        <NavLink
+          to="/"
+          onClick={() => setOpen(false)}
+          className="flex items-center"
+          aria-label="Retour à l'accueil"
+        >
+          <img src={appLogo} alt="Vroom" className="h-14 w-auto object-contain sm:h-16" />
+        </NavLink>
+
         <button
           onClick={() => setOpen((v) => !v)}
+          type="button"
           className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] rounded-full bg-white/10 transition-colors hover:bg-white/20"
           aria-label="Menu"
         >

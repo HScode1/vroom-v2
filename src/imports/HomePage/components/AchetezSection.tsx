@@ -2,11 +2,11 @@ import svgPaths from "../svg-gblhduksgt";
 import imgIPhone16 from "../bce2e8571e4f8518e7458dc942a118877f14fa46.png";
 
 function Frame1() {
-  return <div className="absolute h-[209px] left-[1216px] rounded-[10px] top-[2847px] w-[361px]" />;
+  return <div className="absolute h-[209px] left-[1216px] rounded-[10px] top-[2687px] w-[361px]" />;
 }
 
 function Frame() {
-  return <div className="absolute h-[209px] left-[-80px] rounded-[10px] top-[3056px] w-[206px]" />;
+  return <div className="absolute h-[209px] left-[-80px] rounded-[10px] top-[2896px] w-[206px]" />;
 }
 
 function Group1() {
@@ -94,7 +94,7 @@ function Group6() {
 }
 
 function Container() {
-  return <div className="absolute bg-[#0f0d0d] h-[520px] opacity-60 top-[2357px]" data-name="Container" style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw" }} />;
+  return <div className="absolute bg-[#0f0d0d] h-[520px] opacity-60 top-[2197px]" data-name="Container" style={{ left: "calc((1440px - 100vw) / 2)", width: "100vw" }} />;
 }
 
 function Svg() {
@@ -111,7 +111,7 @@ function Svg() {
 
 function Button() {
   return (
-    <a className="absolute bg-[#c8ec66] h-[60px] left-[122px] overflow-clip rounded-[9999px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] top-[2738px] w-[266.16px] transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70" data-name="Button" href="/acheter-votre-vehicule">
+    <a className="absolute bg-[#c8ec66] h-[60px] left-[122px] overflow-clip rounded-[9999px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] top-[2578px] w-[266.16px] transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70" data-name="Button" href="/acheter-votre-vehicule">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[28px] justify-center leading-[0] left-[calc(50%-13.58px)] not-italic text-[#1f2937] text-[18px] text-center top-1/2 w-[189px]">
         <p className="leading-[28px]">Découvrir notre offre</p>
       </div>
@@ -122,7 +122,7 @@ function Button() {
 
 function MobileAchetezSection() {
   return (
-    <div className="absolute left-0 top-[2225px] w-screen overflow-hidden px-5 sm:px-8 lg:hidden">
+    <div className="absolute left-0 top-[2065px] w-screen overflow-hidden px-5 sm:px-8 lg:hidden">
       <div className="relative mx-auto max-w-[640px] overflow-hidden rounded-[34px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_left,rgba(200,236,102,0.1),rgba(15,13,13,0.94)_34%,rgba(15,13,13,0.98)_100%)] px-5 pb-7 pt-7 shadow-[0px_24px_60px_-24px_rgba(0,0,0,0.65)] sm:px-7">
         <div className="pointer-events-none absolute -left-16 top-2 size-[180px] rounded-full bg-[#c8ec66] blur-[110px] opacity-40" />
         <div className="pointer-events-none absolute -right-20 bottom-6 size-[220px] rounded-full bg-[#9cc726] blur-[120px] opacity-35" />
@@ -189,7 +189,7 @@ function MobileAchetezSection() {
 
 function TabletAchetezSection() {
   return (
-    <div className="absolute left-0 top-[2225px] hidden w-screen overflow-hidden px-10 lg:block xl:hidden">
+    <div className="absolute left-0 top-[2065px] hidden w-screen overflow-hidden px-10 lg:block xl:hidden">
       <div className="relative mx-auto max-w-[1180px] overflow-hidden rounded-[42px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_left,rgba(200,236,102,0.12),rgba(15,13,13,0.94)_34%,rgba(15,13,13,0.98)_100%)] px-10 pb-10 pt-10 shadow-[0px_28px_80px_-28px_rgba(0,0,0,0.68)]">
         <div className="pointer-events-none absolute -left-24 top-0 size-[260px] rounded-full bg-[#c8ec66] blur-[140px] opacity-35" />
         <div className="pointer-events-none absolute -right-24 bottom-0 size-[300px] rounded-full bg-[#9cc726] blur-[150px] opacity-30" />
@@ -297,7 +297,7 @@ export default function AchetezSection() {
             </svg>
           </div>
         </div>
-        <div className="absolute flex h-[698.639px] items-center justify-center left-[690px] top-[2329px] w-[669.918px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
+        <div className="absolute flex h-[698.639px] items-center justify-center left-[690px] top-[2169px] w-[669.918px]" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
           <div className="flex-none rotate-90">
             <div className="h-[669.918px] relative w-[698.639px]" data-name="Union">
               <div className="absolute inset-[-29.85%_-28.63%]">
@@ -324,26 +324,26 @@ export default function AchetezSection() {
             </div>
           </div>
         </div>
-        <div className="absolute bg-[#c8ec66] blur-[142px] left-[-120px] rounded-[9999px] size-[256px] top-[2333px]" data-name="Background+Blur" />
+        <div className="absolute bg-[#c8ec66] blur-[142px] left-[-120px] rounded-[9999px] size-[256px] top-[2173px]" data-name="Background+Blur" />
         <div className="absolute bg-[#9cc726] blur-[142px] bottom-[3601px] right-[-224px] rounded-[9999px] size-[320px]" data-name="Background+Blur" />
         <Frame />
         <Group8 />
         <Group6 />
         <Container />
-        <a aria-label="Acheter votre véhicule" className="absolute flex h-[760px] items-center justify-center left-[760px] top-[2225px] w-[620px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/50" href="/acheter-votre-vehicule" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "604" } as React.CSSProperties}>
+        <a aria-label="Acheter votre véhicule" className="absolute flex h-[760px] items-center justify-center left-[760px] top-[2065px] w-[620px] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/50" href="/acheter-votre-vehicule" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "604" } as React.CSSProperties}>
           <div className="flex-none rotate-[8.53deg]">
             <div className="h-[690px] relative w-[555px]" data-name="iPhone 16">
               <img alt="" className="absolute block inset-0 max-w-none size-full" height="690" src={imgIPhone16} width="555" />
             </div>
           </div>
         </a>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2467.75px] tracking-[-1.5px] w-[654px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2307.75px] tracking-[-1.5px] w-[654px]">
           <p className="leading-[60px]">ACHETEZ VOTRE</p>
         </div>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2539.75px] tracking-[-1.5px] w-[395px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[60px] justify-center leading-[0] left-[122px] text-[60px] text-white top-[2379.75px] tracking-[-1.5px] w-[395px]">
           <p className="leading-[60px]">VEHICULE</p>
         </div>
-        <div className="-translate-y-1/2 absolute left-[122px] top-[2641.75px] w-[575px] font-['Syne',sans-serif] text-[60px] font-bold tracking-[-1.5px] text-white">
+        <div className="-translate-y-1/2 absolute left-[122px] top-[2481.75px] w-[575px] font-['Syne',sans-serif] text-[60px] font-bold tracking-[-1.5px] text-white">
           <div className="whitespace-nowrap leading-[60px]">
             DEPUIS <span className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">VOTRE</span>
           </div>
