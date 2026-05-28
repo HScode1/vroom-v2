@@ -2,7 +2,12 @@ import { useState } from "react";
 import svgPaths from "../svg-gblhduksgt";
 
 function scrollToConsultationCalendar() {
-  const calendarId = window.innerWidth < 1024 ? "home-consultation-calendar-mobile" : "home-consultation-calendar";
+  const calendarId =
+    window.innerWidth < 1024
+      ? "home-consultation-calendar-mobile"
+      : window.innerWidth < 1440
+        ? "home-consultation-calendar-tablet"
+        : "home-consultation-calendar";
   document.getElementById(calendarId)?.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
@@ -875,7 +880,7 @@ function MobileArrowIcon() {
   );
 }
 
-function MobileCalendar() {
+function MobileCalendar({ calendarId = "home-consultation-calendar-mobile" }: { calendarId?: string }) {
   const [viewMonth, setViewMonth] = useState(new Date(2026, 2, 1));
   const [selectedDate, setSelectedDate] = useState(new Date(2026, 2, 13));
   const [selectedTime, setSelectedTime] = useState("10:30");
@@ -908,7 +913,7 @@ function MobileCalendar() {
   return (
     <div
       className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-4 backdrop-blur-[10px] sm:p-5"
-      id="home-consultation-calendar-mobile"
+      id={calendarId}
     >
       <div className="mx-auto mb-3 w-fit rounded-full bg-[#bcff3d] px-4 py-1">
         <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[11px] font-bold tracking-[0.44px] text-[#0c0d0c]">
@@ -1066,6 +1071,59 @@ function MobileCalendar() {
   );
 }
 
+function TabletConsultationSection() {
+  return (
+    <div className="absolute left-0 top-[5200px] hidden w-screen px-10 lg:block xl:hidden">
+      <div className="mx-auto grid max-w-[1180px] grid-cols-[minmax(0,420px)_minmax(0,1fr)] items-start gap-8">
+        <div className="pt-4">
+          <div className="font-['Syne',sans-serif] font-extrabold leading-[0] text-[0px] tracking-[0.5px] text-white">
+            <p className="mb-0 text-[52px] leading-[50px]">{`Votre `}</p>
+            <p className="mb-0 text-[52px] leading-[50px]">
+              <span>prochain véhicule,</span>
+              <br aria-hidden="true" />
+              <span>{`conseillé `}</span>
+            </p>
+            <p className="text-[52px] leading-[50px]">
+              <span>{`par `}</span>
+              <span className="text-[#c8ec66]">Un expert</span>
+            </p>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 gap-3">
+            <MobileInfoChip icon={<MobileChannelIcon />} text="Visio · Téléphone · WhatsApp" />
+            <MobileInfoChip icon={<MobileDurationIcon />} text="30 ou 45 minutes" />
+            <MobileInfoChip icon={<MobileSupportIcon />} text="Accompagnement jusqu'à la livraison" />
+          </div>
+
+          <div className="mt-7">
+            <p className="font-['Roboto:SemiBold',sans-serif] text-[32px] font-semibold leading-[38px] text-white">
+              L'expertise qui change tout. En 30 minutes.
+            </p>
+            <p className="mt-4 font-['Plus_Jakarta_Sans:Light',sans-serif] text-[17px] font-light leading-[28px] text-white/90">
+              Nos experts analysent votre profil, comparent les meilleures options du marché et vous accompagnent jusqu&apos;à la livraison, en visio, par téléphone ou WhatsApp.
+            </p>
+          </div>
+
+          <div className="mt-7 max-w-[360px]">
+            <button
+              className="flex h-[50px] w-full items-center justify-center gap-2 rounded-[100px] bg-[#bcff3d] px-5 font-['Syne',sans-serif] text-[15px] font-bold tracking-[0.14px] text-[#0d0d0d] transition-transform hover:scale-[1.01] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+              onClick={scrollToConsultationCalendar}
+              type="button"
+            >
+              <span>Réserver un créneau</span>
+              <MobileArrowIcon />
+            </button>
+          </div>
+        </div>
+
+        <div className="max-w-[640px]">
+          <MobileCalendar calendarId="home-consultation-calendar-tablet" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ConsultationSection() {
   return (
     <>
@@ -1114,7 +1172,9 @@ export default function ConsultationSection() {
         </div>
       </div>
 
-      <div className="hidden lg:block">
+      <TabletConsultationSection />
+
+      <div className="hidden xl:block">
         <div className="absolute font-['Syne',sans-serif] font-extrabold h-[305px] leading-[0] left-[126px] text-[0px] text-white top-[5200px] tracking-[0.58px] w-[665px] whitespace-pre-wrap">
           <p className="font-['Syne',sans-serif] font-extrabold leading-none mb-0 text-[58px]">{`Votre `}</p>
           <p className="font-['Syne',sans-serif] font-extrabold mb-0 text-[58px]">

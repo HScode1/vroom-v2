@@ -151,12 +151,98 @@ function MobileNosSolutions() {
   );
 }
 
+function TabletNosSolutions() {
+  return (
+    <div className="absolute left-0 top-[928px] hidden w-screen px-10 lg:block xl:hidden">
+      <div className="mx-auto max-w-[1180px]">
+        <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
+          <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
+          <p
+            className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]"
+            style={{ fontVariationSettings: "'opsz' 14" }}
+          >
+            Ce que nous faisons
+          </p>
+        </div>
+
+        <p className="mt-6 text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] text-white">
+          <span>{`Nos `}</span>
+          <span className="text-[#c8ec66]">Solutions</span>
+        </p>
+
+        <div className="mt-10 grid grid-cols-[minmax(0,380px)_minmax(0,1fr)] items-start gap-8 xl:gap-10">
+          <div className="pt-6">
+            <div className="space-y-5">
+              <p className="font-['Syne',sans-serif] text-[48px] font-bold leading-[0.95] text-white">
+                ACHETER UN VÉHICULE
+              </p>
+              <p className="font-['Syne',sans-serif] text-[38px] font-bold leading-[1] text-[#c8ec66]/22">
+                COMMANDER UN VÉHICULE
+              </p>
+              <p className="font-['Syne',sans-serif] text-[38px] font-bold leading-[1] text-[#c8ec66]/22">
+                VENDRE UN VÉHICULE
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            <div className="relative overflow-hidden rounded-[34px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_right,rgba(200,236,102,0.16),rgba(24,24,24,0.9)_58%)] px-8 py-8 shadow-[0px_24px_60px_-30px_rgba(0,0,0,0.6)]">
+              <div className="pointer-events-none absolute -left-16 top-10 size-32 rounded-full bg-[#bcff3d]/20 blur-[56px]" />
+              <div className="pointer-events-none absolute -right-8 bottom-6 size-40 rounded-full bg-[#c8ec66]/15 blur-[60px]" />
+
+              <div className="relative z-10 flex items-center justify-between gap-8">
+                <div className="max-w-[320px]">
+                  <p className="font-['Helvetica_Neue:Light',sans-serif] text-[36px] leading-[38px] text-white">
+                    Trouvez la voiture de vos rêves
+                  </p>
+
+                  <a
+                    className="mt-8 inline-flex h-[56px] items-center gap-3 rounded-[9999px] border-2 border-[#c8ec66] bg-[#c8ec66] px-7 shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+                    href="/showroom"
+                  >
+                    <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[18px] font-bold text-[#1f2937]">
+                      Notre sélection
+                    </span>
+                    <MobileSolutionArrow />
+                  </a>
+                </div>
+
+                <div className="w-[44%] min-w-[260px]">
+                  <img alt="" className="ml-auto h-auto w-full max-w-[360px]" src={imgAcheterUnVehicule} />
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-[28px] border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.03)] px-6 py-5">
+              <div className="flex items-center justify-between gap-6">
+                <div className="max-w-[54%]">
+                  <p className="font-['Syne',sans-serif] text-[26px] font-bold leading-[28px] text-[#c8ec66]/75">
+                    COMMANDER UN VÉHICULE
+                  </p>
+                  <p className="mt-3 font-['Helvetica_Neue:Light',sans-serif] text-[17px] leading-[25px] text-white/70">
+                    Nous cherchons le bon véhicule pour votre besoin.
+                  </p>
+                </div>
+
+                <div className="w-[32%] min-w-[170px]">
+                  <img alt="" className="ml-auto h-auto w-full max-w-[210px] opacity-90" src={imgCommanderUnVehicule} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function NosSolutions() {
   return (
     <>
       <MobileNosSolutions />
+      <TabletNosSolutions />
 
-      <div className="hidden lg:block">
+      <div className="hidden xl:block">
         <Badge />
 
         <p className="-translate-x-1/2 absolute font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[704.5px] text-[48px] text-center text-white top-[956px] w-[1187px]">

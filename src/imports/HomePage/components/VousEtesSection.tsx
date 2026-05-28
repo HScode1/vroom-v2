@@ -561,6 +561,65 @@ function MobileDriverCard({ age, title, subtitle, bullets, ctaHref, ctaLabel, st
   );
 }
 
+function TabletVousEtesSection() {
+  return (
+    <div className="absolute left-0 top-[3978px] hidden w-screen px-10 lg:block xl:hidden">
+      <div className="mx-auto max-w-[1180px]">
+        <p className="text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] text-white">
+          <span>{`Vous `}</span>
+          <span className="text-[#c8ec66]">êtes :</span>
+        </p>
+
+        <p className="mt-6 text-center font-['Plus_Jakarta_Sans:ExtraBold',sans-serif] text-[50px] font-extrabold leading-[56px] text-white">
+          <span>{`Pour `}</span>
+          <span className="text-[#c8ec66]">chaque </span>
+          <span>type de conducteur</span>
+        </p>
+
+        <div className="mt-10 grid grid-cols-2 gap-6">
+          <MobileDriverCard
+            age="18-25 ans"
+            bullets={[
+              "Véhicules adaptés pour débutants",
+              "Financement spécial premier achat",
+              "Assurance avantageuse jeune conducteur",
+              "Entretien simplifié inclus",
+            ]}
+            ctaHref="/showroom"
+            ctaLabel="Découvrir notre offre"
+            stat="Garantie 24 mois incluse"
+            subtitle="Démarrez en toute confiance"
+            title="JEUNES PERMIS"
+            variant="young"
+          />
+
+          <MobileDriverCard
+            age="Professionnels"
+            bullets={[
+              "Véhicules conformes aux normes VTC",
+              "Solutions de financement professionnel",
+              "Forfaits kilométrage illimité",
+              "Maintenance prioritaire 7j/7",
+            ]}
+            ctaHref="/showroom"
+            ctaLabel="Découvrir notre offre"
+            stat="+2500 professionnels équipés"
+            subtitle="Optimisez votre activité"
+            title="CHAUFFEURS VTC"
+            variant="vtc"
+          />
+        </div>
+
+        <div className="mx-auto mt-10 max-w-[760px] text-center font-['Plus_Jakarta_Sans:Light',sans-serif] text-[18px] font-light leading-[30px] text-white/90">
+          <p>
+            Que vous soyez un jeune conducteur à la recherche de votre première voiture ou un chauffeur VTC ayant besoin d&apos;un véhicule professionnel, nous avons des solutions adaptées à vos besoins spécifiques.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function VousEtesSection() {
   const [activeDriverCard, setActiveDriverCard] = useState<"young" | "vtc">("vtc");
 
@@ -621,7 +680,9 @@ export default function VousEtesSection() {
         </div>
       </div>
 
-      <div className="hidden lg:block">
+      <TabletVousEtesSection />
+
+      <div className="hidden xl:block">
         <div className="absolute contents left-[140px] top-[3978px]">
           <p className="-translate-x-1/2 absolute font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[740.5px] text-[48px] text-center text-white top-[3978px] w-[463px]">
             <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5]">{`Vous `}</span>

@@ -340,6 +340,138 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
   );
 }
 
+function TabletShowroom({ vehicles }: { vehicles: Vehicle[] }) {
+  const [showroomIndex, setShowroomIndex] = useState(0);
+  const vehicle = vehicles[showroomIndex];
+
+  const showPreviousVehicle = () => {
+    setShowroomIndex((i) => (i - 1 + vehicles.length) % vehicles.length);
+  };
+  const showNextVehicle = () => {
+    setShowroomIndex((i) => (i + 1) % vehicles.length);
+  };
+
+  if (!vehicle) return null;
+
+  const carImage = vehicle.image || vehicle.gallery?.[0];
+
+  return (
+    <div className="absolute left-0 top-[3215px] hidden w-screen px-10 lg:block xl:hidden">
+      <div className="mx-auto max-w-[1180px]">
+        <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
+          <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
+          <p
+            className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]"
+            style={{ fontVariationSettings: "'opsz' 14" }}
+          >
+            Véhicules disponibles
+          </p>
+        </div>
+
+        <p className="mt-6 text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] tracking-[-1.4px] text-white">
+          Notre <span className="text-[#bcff3d]">showroom</span>
+        </p>
+
+        <div className="mt-8 overflow-hidden rounded-[32px] border border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.03)] shadow-[0px_28px_80px_-36px_rgba(0,0,0,0.7)]">
+          <div className="grid grid-cols-[minmax(0,420px)_minmax(0,1fr)] items-stretch">
+            <div className="p-8">
+              <div className="flex items-center gap-3">
+                <p className="font-['Syne',sans-serif] text-[11px] font-bold uppercase tracking-[1.76px] text-[rgba(255,255,255,0.2)]">
+                  {String(showroomIndex + 1).padStart(2, "0")}
+                </p>
+                <div className="h-px flex-1 bg-[rgba(255,255,255,0.15)]" />
+              </div>
+
+              <p className="mt-6 font-['DM_Sans:SemiBold',sans-serif] text-[12px] font-semibold uppercase tracking-[1.68px] text-[#bcff3d]">
+                {vehicle.brand}
+              </p>
+              <p className="mt-2 font-['Syne',sans-serif] text-[52px] font-extrabold leading-[50px] tracking-[-2px] text-white">
+                {vehicle.model}
+              </p>
+              <p className="mt-4 font-['DM_Sans:Regular',sans-serif] text-[12px] uppercase tracking-[1.04px] text-[rgba(255,255,255,0.35)]">
+                {vehicle.subtitle}
+              </p>
+
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                {[
+                  ["Carburant", vehicle.specs.fuel],
+                  ["Année", String(vehicle.specs.year)],
+                  ["Kilométrage", formatMileage(vehicle.specs.mileage)],
+                  ["Boîte", vehicle.specs.gearbox],
+                ].map(([label, value]) => (
+                  <div className="rounded-[12px] border border-[rgba(255,255,255,0.07)] bg-[rgba(255,255,255,0.03)] px-4 py-3" key={label}>
+                    <p className="font-['DM_Sans:Regular',sans-serif] text-[10px] uppercase tracking-[0.8px] text-[rgba(255,255,255,0.3)]">{label}</p>
+                    <p className="mt-2 font-['Syne',sans-serif] text-[15px] font-bold text-white">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-7 flex items-center justify-between gap-4">
+                <p className="font-['Syne',sans-serif] text-[34px] font-extrabold leading-[34px] text-[#bcff3d]">
+                  {formatPrice(vehicle.price)}
+                </p>
+                <a
+                  className="inline-flex h-[44px] items-center gap-2 rounded-[100px] border border-[#bcff3d] bg-[#bcff3d] px-5 text-[#0c0d0c] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+                  href={`/showroom/${vehicle.id}`}
+                >
+                  <span className="font-['Syne',sans-serif] text-[13px] font-bold">En savoir plus</span>
+                  <MobileCtaArrow />
+                </a>
+              </div>
+            </div>
+
+            <div className="relative min-h-[560px] overflow-hidden bg-[radial-gradient(circle_at_center,rgba(188,255,61,0.08),rgba(24,24,24,0)_58%)]">
+              <div className="pointer-events-none absolute -left-10 top-8 size-32 rounded-full bg-[#bcff3d]/15 blur-[60px]" />
+              <div className="pointer-events-none absolute -right-12 bottom-10 size-40 rounded-full bg-[#72f9d8]/10 blur-[70px]" />
+              {carImage ? (
+                <img
+                  alt={`${vehicle.brand} ${vehicle.model}`}
+                  className="absolute inset-0 size-full object-cover object-center"
+                  src={carImage}
+                />
+              ) : null}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center justify-between gap-6">
+          <div className="flex gap-2">
+            <button aria-label="Véhicule précédent" className="flex size-[46px] items-center justify-center rounded-[23px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" onClick={showPreviousVehicle} type="button">
+              <MobileShowroomArrow direction="left" />
+            </button>
+            <button aria-label="Véhicule suivant" className="flex size-[46px] items-center justify-center rounded-[23px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" onClick={showNextVehicle} type="button">
+              <MobileShowroomArrow direction="right" />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {vehicles.map((item, index) => {
+              const isActive = showroomIndex === index;
+              return (
+                <button
+                  aria-label={`Afficher ${item.brand} ${item.model}`}
+                  aria-pressed={isActive}
+                  className={`${isActive ? "h-[6px] w-[22px] bg-[#bcff3d]" : "size-[6px] bg-[rgba(255,255,255,0.15)]"} rounded-[3px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50`}
+                  key={item.id}
+                  onClick={() => setShowroomIndex(index)}
+                  type="button"
+                />
+              );
+            })}
+          </div>
+
+          <a className="inline-flex items-center gap-2 font-['Syne',sans-serif] text-[13px] font-bold text-[rgba(255,255,255,0.4)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" href="/showroom">
+            <span>Voir tous nos véhicules</span>
+            <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+              <path d={svgPaths.p3be6c058} stroke="var(--stroke-0, white)" strokeOpacity="0.4" strokeWidth="1.35417" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ShowroomSection() {
   const [showroomVehicles, setShowroomVehicles] = useState<Vehicle[]>([]);
   const [showroomIndex, setShowroomIndex] = useState(0);
@@ -364,8 +496,9 @@ export default function ShowroomSection() {
   return (
     <>
       <MobileShowroom vehicles={showroomVehicles} />
+      <TabletShowroom vehicles={showroomVehicles} />
 
-      <div className="hidden lg:block">
+      <div className="hidden xl:block">
         <div className="-translate-x-1/2 absolute bg-[rgba(188,255,61,0.08)] border border-[rgba(188,255,61,0.2)] border-solid h-[28px] left-[calc(50%+10px)] rounded-[100px] top-[3035px] w-[208px]">
           <div className="-translate-y-1/2 absolute bg-[#bcff3d] left-[18px] rounded-[2.5px] size-[5px] top-1/2" />
           <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[calc(50%+8.5px)] text-[#bcff3d] text-[11px] text-center top-1/2 tracking-[1.76px] uppercase w-[177px]">

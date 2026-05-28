@@ -72,6 +72,19 @@ function PageWrapper({ path, children }: { path: string; children: React.ReactNo
     );
   }
 
+  if (path === "/") {
+    if (viewportWidth < 1440) {
+      return <div className="relative w-full">{children}</div>;
+    }
+
+    const wrapperClassName = "relative mx-auto";
+    return (
+      <div className={wrapperClassName} style={{ width, height }}>
+        {children}
+      </div>
+    );
+  }
+
   if (
     path === "/a-propos" ||
     path === "/conseils" ||

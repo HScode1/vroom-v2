@@ -100,11 +100,73 @@ function MobileHeroSection() {
   );
 }
 
+function TabletHeroSection() {
+  return (
+    <div className="relative hidden h-[100dvh] min-h-[760px] w-screen overflow-hidden bg-[#050808] lg:block xl:hidden">
+      <img
+        alt=""
+        className="absolute inset-0 size-full object-cover object-center opacity-95"
+        src={imgHeroBackgroundMobile}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,8,8,0.12)_0%,rgba(5,8,8,0)_38%,rgba(5,8,8,0.72)_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-[170px] bg-[linear-gradient(180deg,rgba(5,8,8,0.78),rgba(5,8,8,0))]" />
+
+      <BrandBar />
+
+      <div
+        className="pointer-events-none absolute right-0 top-0 z-10 h-[104px] w-[118px]"
+        style={{ background: "radial-gradient(circle at top right, rgba(5,8,12,0.98) 0%, rgba(5,8,12,0.9) 42%, rgba(5,8,12,0) 100%)" }}
+      />
+
+      <div className="absolute inset-x-0 top-[140px] z-10 text-center font-['Syne',sans-serif] font-extrabold leading-none tracking-[-6px] text-white">
+        <p className="text-[122px] leading-[0.84]">Acheter</p>
+        <p className="mt-1 text-[108px] leading-[0.84] text-[#bcff3d]">simplement.</p>
+      </div>
+
+      <div className="absolute inset-x-[-12vw] bottom-[132px] z-20">
+        <img alt="" className="h-auto w-full max-w-none" src={imgImageRemovebg1} />
+      </div>
+
+      <div className="absolute bottom-0 left-0 right-0 z-30 h-[230px] bg-[linear-gradient(180deg,rgba(5,8,8,0)_0%,rgba(24,24,24,0.72)_42%,#181818_100%)]" />
+
+      <div className="absolute bottom-8 left-[55px] z-40 space-y-2">
+        <div className="flex items-center gap-2">
+          <svg className="size-[12px]" fill="none" preserveAspectRatio="none" viewBox="0 0 12 12">
+            <path d={svgPaths.p8610900} stroke="var(--stroke-0, #BCFF3D)" />
+          </svg>
+          <p className="font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.45)]" style={{ fontVariationSettings: "'opsz' 14" }}>
+            Garantie 12 mois incluse
+          </p>
+        </div>
+        <p className="font-['DM_Sans:Light',sans-serif] text-[12px] font-light text-[rgba(255,255,255,0.36)]" style={{ fontVariationSettings: "'opsz' 14" }}>
+          Contrôlés · Garantis · Livrés à domicile
+        </p>
+      </div>
+
+      <div className="absolute bottom-8 right-[55px] z-40">
+        <a
+          className="flex h-[48px] min-w-[292px] items-center justify-center gap-3 rounded-[100px] bg-[#bcff3d] px-6 font-['Syne',sans-serif] text-[13px] font-extrabold tracking-[0.52px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
+          href="/acheter-votre-vehicule"
+        >
+          <span>Acheter votre véhicule</span>
+          <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+            <path d={svgPaths.p3d0c5000} stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.35417" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function HeroSection() {
+  const [viewportWidth, setViewportWidth] = useState(() =>
+    typeof window === "undefined" ? 1440 : window.innerWidth,
+  );
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
     const updateScale = () => {
+      setViewportWidth(window.innerWidth);
       const scaleX = window.innerWidth / 1440;
       const scaleY = window.innerHeight / 860;
       setScale(Math.max(scaleX, scaleY));
@@ -118,12 +180,14 @@ export default function HeroSection() {
 
   return (
     <section
-      className="absolute left-0 top-0 z-20 h-[100dvh] w-screen overflow-hidden lg:left-[calc((1440px-100vw)/2)]"
+      className="absolute left-0 top-0 z-20 h-[100dvh] w-screen overflow-hidden"
+      style={{ left: viewportWidth >= 1440 ? "calc((1440px - 100vw) / 2)" : "0px" }}
       data-name="fullscreen hero"
     >
-      <MobileHeroSection />
+      {viewportWidth < 1024 ? <MobileHeroSection /> : null}
+      {viewportWidth >= 1024 && viewportWidth < 1440 ? <TabletHeroSection /> : null}
 
-      <div className="relative hidden h-[100dvh] w-screen overflow-hidden lg:block">
+      <div className={`relative h-[100dvh] w-screen overflow-hidden ${viewportWidth >= 1440 ? "block" : "hidden"}`}>
         <div
           className="absolute left-0 top-0 origin-top-left overflow-hidden bg-[#181818]"
           style={{ width: "1440px", height: "860px", transform: `scale(${scale})` }}

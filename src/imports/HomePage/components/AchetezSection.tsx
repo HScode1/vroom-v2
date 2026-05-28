@@ -187,12 +187,92 @@ function MobileAchetezSection() {
   );
 }
 
+function TabletAchetezSection() {
+  return (
+    <div className="absolute left-0 top-[2225px] hidden w-screen overflow-hidden px-10 lg:block xl:hidden">
+      <div className="relative mx-auto max-w-[1180px] overflow-hidden rounded-[42px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_left,rgba(200,236,102,0.12),rgba(15,13,13,0.94)_34%,rgba(15,13,13,0.98)_100%)] px-10 pb-10 pt-10 shadow-[0px_28px_80px_-28px_rgba(0,0,0,0.68)]">
+        <div className="pointer-events-none absolute -left-24 top-0 size-[260px] rounded-full bg-[#c8ec66] blur-[140px] opacity-35" />
+        <div className="pointer-events-none absolute -right-24 bottom-0 size-[300px] rounded-full bg-[#9cc726] blur-[150px] opacity-30" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[rgba(255,255,255,0.04)] to-transparent" />
+
+        <div className="relative z-10 grid grid-cols-[minmax(0,470px)_minmax(0,1fr)] items-center gap-8">
+          <div className="max-w-[470px]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(200,236,102,0.18)] bg-[rgba(200,236,102,0.08)] px-4 py-2">
+              <div className="size-2 rounded-full bg-[#c8ec66]" />
+              <p
+                className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.6px] text-[#c8ec66]"
+                style={{ fontVariationSettings: "'opsz' 14" }}
+              >
+                Achat 100% digital
+              </p>
+            </div>
+
+            <div className="mt-7 font-['Syne',sans-serif] text-[56px] font-bold leading-[0.95] tracking-[-1.5px] text-white">
+              <p>ACHETEZ VOTRE</p>
+              <p className="mt-2">VEHICULE</p>
+              <div className="mt-5">
+                <p>
+                  DEPUIS{" "}
+                  <span className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">
+                    VOTRE
+                  </span>
+                </p>
+                <p className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">
+                  CANAPE !
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-6 max-w-[28rem] font-['Plus_Jakarta_Sans:Light',sans-serif] text-[17px] font-light leading-[28px] text-[rgba(255,255,255,0.72)]">
+              Parcourez notre sélection, échangez avec un conseiller et finalisez votre achat depuis votre téléphone, simplement.
+            </p>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <div className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-2 font-['DM_Sans:Regular',sans-serif] text-[13px] text-[rgba(255,255,255,0.68)]">
+                Sélection vérifiée
+              </div>
+              <div className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-2 font-['DM_Sans:Regular',sans-serif] text-[13px] text-[rgba(255,255,255,0.68)]">
+                Parcours guidé
+              </div>
+            </div>
+
+            <a
+              className="mt-8 inline-flex h-[56px] items-center gap-3 rounded-[9999px] bg-[#c8ec66] px-7 shadow-[0px_16px_32px_-14px_rgba(200,236,102,0.5)] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70"
+              href="/acheter-votre-vehicule"
+            >
+              <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[18px] font-bold text-[#1f2937]">
+                Découvrir notre offre
+              </span>
+              <svg className="size-5" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                <path d={svgPaths.p25f63580} stroke="var(--stroke-0, #1F2937)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
+              </svg>
+            </a>
+          </div>
+
+          <a
+            aria-label="Acheter votre véhicule"
+            className="relative flex min-h-[620px] items-center justify-center"
+            href="/acheter-votre-vehicule"
+          >
+            <div className="absolute inset-x-[18%] top-[19%] h-[56%] rounded-full bg-[rgba(200,236,102,0.22)] blur-[92px]" />
+            <div className="absolute left-1/2 top-[9%] h-[84%] w-[50%] -translate-x-1/2 rounded-[999px] border border-[rgba(255,255,255,0.04)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))]" />
+            <div className="relative rotate-[8deg]">
+              <img alt="" className="h-auto w-[430px] max-w-full drop-shadow-[0px_34px_54px_rgba(0,0,0,0.58)]" src={imgIPhone16} />
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AchetezSection() {
   return (
     <>
       <MobileAchetezSection />
+      <TabletAchetezSection />
 
-      <div className="hidden lg:block">
+      <div className="hidden xl:block">
         <Frame1 />
         <div className="absolute h-[1038.64px] left-[-280px] top-[-259px] w-[1841.571px]" data-name="Union">
           <div className="absolute inset-[-19.26%_-10.86%]">
