@@ -3,7 +3,7 @@ import { auth } from "../../lib/api";
 
 interface AdminAuthContextValue {
   isAuthenticated: boolean;
-  login(email: string, password: string): Promise<boolean>;
+  login(email: string, password: string): Promise<{ ok: true } | { ok: false; error: string }>;
   logout(): void;
 }
 
@@ -25,14 +25,19 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  async function login(email: string, password: string): Promise<boolean> {
+  async function login(
+    email: string,
+    password: string,
+  ): Promise<{ ok: true } | { ok: false; error: string }> {
     try {
-      const { token } = await auth.login(email, password);
+      const { token } = await auth.login(email.trim(), password);
       localStorage.setItem(TOKEN_KEY, token);
       setIsAuthenticated(true);
-      return true;
-    } catch {
-      return false;
+      return { ok: true };
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Connexion impossible pour le moment.";
+      return { ok: false, error: message };
     }
   }
 

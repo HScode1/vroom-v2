@@ -16,12 +16,16 @@ export default function AdminLogin() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    const ok = await login(email, password);
+    const result = await login(email, password);
     setLoading(false);
-    if (ok) {
+    if (result.ok) {
       navigate("/admin");
     } else {
-      setError("Email ou mot de passe incorrect.");
+      if (result.error === "Failed to fetch") {
+        setError("Connexion au serveur impossible. Vérifie que l'API est démarrée ou que VITE_API_URL est correcte.");
+        return;
+      }
+      setError(result.error);
     }
   }
 
