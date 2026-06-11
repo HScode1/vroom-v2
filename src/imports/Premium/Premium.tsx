@@ -2099,7 +2099,7 @@ function VehicleCardDesktop({
         </div>
       </a>
       <div
-        className="absolute h-[237px] rounded-tl-[22px] rounded-tr-[22px] w-[409px]"
+        className="absolute h-[237px] rounded-tl-[22px] rounded-tr-[22px] w-[400px] overflow-hidden"
         style={{ left: leftBase + 2, top: topBase + 2 }}
       >
         <img
@@ -2112,9 +2112,9 @@ function VehicleCardDesktop({
   );
 }
 
-function Link({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
+function Link({ isActive, onClick, light }: { isActive: boolean; onClick: () => void; light?: boolean }) {
   return (
-    <button type="button" onClick={onClick} className={`-translate-y-1/2 absolute h-[59px] left-[1031px] rounded-[9999px] top-[calc(50%-1693px)] w-[188px] ${isActive ? "bg-[#c8ec66] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)]" : "bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"}`} data-name="Link" aria-pressed={isActive}>
+    <button type="button" onClick={onClick} className={`-translate-y-1/2 absolute h-[59px] left-[1031px] rounded-[9999px] top-[calc(50%-1693px)] w-[188px] ${isActive ? "bg-[#c8ec66] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)]" : light ? "bg-neutral-100 border border-[#181818]/15 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.15)]" : "bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"}`} data-name="Link" aria-pressed={isActive}>
       <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[19px] justify-center leading-[0] left-[112.5px] not-italic text-[24px] text-center top-[29.5px] w-[165px] ${isActive ? "text-white" : "text-[#010205]"}`}>
         <p className="leading-[24px]">Citadine</p>
       </div>
@@ -2122,9 +2122,9 @@ function Link({ isActive, onClick }: { isActive: boolean; onClick: () => void })
   );
 }
 
-function Link1({ isActive, onClick }: { isActive: boolean; onClick: () => void }) {
+function Link1({ isActive, onClick, light }: { isActive: boolean; onClick: () => void; light?: boolean }) {
   return (
-    <button type="button" onClick={onClick} className={`-translate-y-1/2 absolute h-[59px] left-[926px] rounded-[9999px] top-[calc(50%-1693px)] w-[164px] ${isActive ? "bg-[#c8ec66] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)]" : "bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"}`} data-name="Link" aria-pressed={isActive}>
+    <button type="button" onClick={onClick} className={`-translate-y-1/2 absolute h-[59px] left-[926px] rounded-[9999px] top-[calc(50%-1693px)] w-[164px] ${isActive ? "bg-[#c8ec66] shadow-[3px_4px_4px_0px_rgba(0,0,0,0.25)]" : light ? "bg-neutral-100 border border-[#181818]/15 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.15)]" : "bg-white shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"}`} data-name="Link" aria-pressed={isActive}>
       <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Medium',sans-serif] h-[19px] justify-center leading-[0] left-[76px] not-italic text-[24px] text-center top-1/2 w-[176px] ${isActive ? "text-white" : "text-[#010205]"}`}>
         <p className="leading-[24px]">Premium</p>
       </div>
@@ -2132,34 +2132,37 @@ function Link1({ isActive, onClick }: { isActive: boolean; onClick: () => void }
   );
 }
 
-function Group12() {
+function Group12({ light }: { light?: boolean }) {
+  const fillActive = light ? "#181818" : "#FFFAFA";
+  const fillInactive = light ? "#cfcfcf" : "#4F4F4F";
   return (
     <div className="absolute h-[14.813px] left-[1178px] top-[3260.59px] w-[79px]">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 79 14.8125">
         <g id="Group 71">
-          <circle cx="7.40625" cy="7.40625" fill="var(--fill-0, #FFFAFA)" id="Ellipse 6" r="7.40625" />
-          <circle cx="28.8021" cy="7.40625" fill="var(--fill-0, #4F4F4F)" id="Ellipse 7" r="7.40625" />
-          <circle cx="50.1979" cy="7.40625" fill="var(--fill-0, #4F4F4F)" id="Ellipse 8" r="7.40625" />
-          <circle cx="71.5938" cy="7.40625" fill="var(--fill-0, #4F4F4F)" id="Ellipse 9" r="7.40625" />
+          <circle cx="7.40625" cy="7.40625" fill={fillActive} id="Ellipse 6" r="7.40625" />
+          <circle cx="28.8021" cy="7.40625" fill={fillInactive} id="Ellipse 7" r="7.40625" />
+          <circle cx="50.1979" cy="7.40625" fill={fillInactive} id="Ellipse 8" r="7.40625" />
+          <circle cx="71.5938" cy="7.40625" fill={fillInactive} id="Ellipse 9" r="7.40625" />
         </g>
       </svg>
     </div>
   );
 }
 
-function Group13() {
+function Group13({ light }: { light?: boolean }) {
+  const color = light ? "#181818" : "white";
   return (
     <div className="absolute inset-[0.6%_47.33%_97.84%_47.33%]">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 103 59.6789">
         <g id="Group 72">
           <g id="Vector">
             <mask fill="white" id="path-1-inside-1_6_3014">
-              <path d={svgPaths.p32c9100} />
+              <path d={svgPaths.p32c9100} fill="white" />
             </mask>
-            <path d={svgPaths.p32c9100} fill="var(--fill-0, white)" mask="url(#path-1-inside-1_6_3014)" stroke="var(--stroke-0, white)" strokeWidth="2" />
+            <path d={svgPaths.p32c9100} fill={color} mask="url(#path-1-inside-1_6_3014)" stroke={color} strokeWidth="2" />
           </g>
-          <path d={svgPaths.p213c4b00} fill="var(--fill-0, white)" id="Vector_2" stroke="var(--stroke-0, white)" />
-          <path d={svgPaths.p4662c70} fill="var(--fill-0, white)" id="Vector_3" stroke="var(--stroke-0, white)" />
+          <path d={svgPaths.p213c4b00} fill={color} id="Vector_2" stroke={color} />
+          <path d={svgPaths.p4662c70} fill={color} id="Vector_3" stroke={color} />
         </g>
       </svg>
     </div>
@@ -2434,15 +2437,21 @@ function MobileFilterChip({
   active,
   children,
   onClick,
+  light,
 }: {
   active: boolean;
   children: React.ReactNode;
   onClick: () => void;
+  light?: boolean;
 }) {
   return (
     <button
       className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-colors ${
-        active ? "border-[#c8ec66] bg-[#c8ec66] text-[#010205]" : "border-white/12 bg-white/5 text-white"
+        active
+          ? "border-[#c8ec66] bg-[#c8ec66] text-[#010205]"
+          : light
+            ? "border-[#181818]/12 bg-[#181818]/5 text-[#181818]"
+            : "border-white/12 bg-white/5 text-white"
       }`}
       onClick={onClick}
       type="button"
@@ -2457,21 +2466,23 @@ function MobileFilterSection({
   isOpen,
   title,
   onToggle,
+  light,
 }: {
   children?: React.ReactNode;
   isOpen: boolean;
   title: string;
   onToggle: () => void;
+  light?: boolean;
 }) {
   return (
-    <div className="border-b border-white/10 pb-3">
+    <div className={`border-b pb-3 ${light ? "border-[#181818]/10" : "border-white/10"}`}>
       <button
         className="flex w-full items-center justify-between text-left font-['Helvetica_Neue:Bold',sans-serif] text-sm"
         onClick={onToggle}
         type="button"
       >
         <span>{title}</span>
-        <span className={`text-white/60 transition-transform ${isOpen ? "rotate-45" : ""}`}>+</span>
+        <span className={`transition-transform ${light ? "text-[#181818]/60" : "text-white/60"} ${isOpen ? "rotate-45" : ""}`}>+</span>
       </button>
       {isOpen ? <div className="flex flex-wrap gap-2 pt-3">{children}</div> : null}
     </div>
@@ -2485,6 +2496,7 @@ function MobileVehicleCard({
   price,
   specs,
   image,
+  light,
 }: {
   id: string;
   title: string;
@@ -2492,9 +2504,10 @@ function MobileVehicleCard({
   price: string;
   specs: readonly string[];
   image?: string;
+  light?: boolean;
 }) {
   return (
-    <article className="overflow-hidden rounded-[24px] border border-white/10 bg-white text-[#010205] shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+    <article className={`overflow-hidden rounded-[24px] border bg-white text-[#010205] shadow-[0_20px_60px_rgba(0,0,0,0.25)] ${light ? "border-[#181818]/10" : "border-white/10"}`}>
       <img alt={title} className="h-52 w-full object-cover rounded-tl-[24px] rounded-tr-[24px]" src={image || imgCaptureDecran20251209A1739081} />
       <div className="space-y-5 p-5">
         <div className="space-y-2">
@@ -2679,13 +2692,15 @@ function MobilePremiumView({
     setSelectedSlide(0);
   }, [emblaApi, selectedBrand, selectedCategory, selectedFuel, selectedGearbox, selectedMileage, selectedPrice, selectedYear]);
 
+  const isCitadine = selectedCategory === "citadine";
+
   return (
-    <div className="min-h-screen bg-[#181818] text-white xl:hidden">
+    <div className={`min-h-screen xl:hidden transition-colors duration-300 ${isCitadine ? "bg-white text-[#181818]" : "bg-[#181818] text-white"}`}>
       <div className="relative overflow-hidden px-5 pb-8 pt-24 md:px-8 md:pb-10 md:pt-28 lg:px-10">
         <div className="pointer-events-none absolute inset-x-[-25%] top-[-140px] h-[320px] rounded-full bg-[radial-gradient(circle_at_center,rgba(200,236,102,0.3),rgba(114,249,216,0.12),transparent_70%)] blur-3xl" />
         <div className="relative mx-auto max-w-md space-y-6 md:max-w-5xl md:space-y-8">
           <div className="space-y-2">
-            <p className="font-['Helvetica_Neue:Regular',sans-serif] text-sm uppercase tracking-[0.18em] text-white/45">
+            <p className={`font-['Helvetica_Neue:Regular',sans-serif] text-sm uppercase tracking-[0.18em] ${isCitadine ? "text-[#181818]/45" : "text-white/45"}`}>
               Showroom
             </p>
             <h1 className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[34px] leading-none md:text-[52px] md:leading-[0.95]">
@@ -2695,15 +2710,15 @@ function MobilePremiumView({
 
           <div className="flex flex-wrap items-center gap-3 md:gap-4">
             <div className="flex gap-3 md:gap-4">
-              <MobileFilterChip active={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")}>
+              <MobileFilterChip active={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} light={isCitadine}>
                 Premium
               </MobileFilterChip>
-              <MobileFilterChip active={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")}>
+              <MobileFilterChip active={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} light={isCitadine}>
                 Citadine
               </MobileFilterChip>
             </div>
             <button
-              className="rounded-full border border-white/12 bg-white/5 px-4 py-2 text-sm text-white md:ml-auto"
+              className={`rounded-full border px-4 py-2 text-sm md:ml-auto ${isCitadine ? "border-[#181818]/12 bg-[#181818]/5 text-[#181818]" : "border-white/12 bg-white/5 text-white"}`}
               onClick={() => setFiltersOpen((current) => !current)}
               type="button"
             >
@@ -2712,13 +2727,14 @@ function MobilePremiumView({
           </div>
 
           {filtersOpen ? (
-            <div className="space-y-5 rounded-[24px] border border-white/10 bg-white/5 p-4 backdrop-blur-sm md:p-5">
+            <div className={`space-y-5 rounded-[24px] border p-4 backdrop-blur-sm md:p-5 ${isCitadine ? "border-[#181818]/10 bg-[#181818]/5" : "border-white/10 bg-white/5"}`}>
               <div className="flex flex-wrap gap-2">
                 {BRAND_OPTIONS.map((option) => (
                   <MobileFilterChip
                     active={selectedBrand === option.id}
                     key={option.id}
                     onClick={() => onSelectBrand(option.id)}
+                    light={isCitadine}
                   >
                     {option.label}
                   </MobileFilterChip>
@@ -2730,12 +2746,14 @@ function MobilePremiumView({
                   isOpen={openSection === "Type de carburant"}
                   onToggle={() => onToggleSection("Type de carburant")}
                   title="Type de carburant"
+                  light={isCitadine}
                 >
                   {MOBILE_FUEL_OPTIONS.map((option) => (
                     <MobileFilterChip
                       active={selectedFuel === option}
                       key={option}
                       onClick={() => setSelectedFuel((current) => current === option ? null : option)}
+                      light={isCitadine}
                     >
                       {option}
                     </MobileFilterChip>
@@ -2745,12 +2763,14 @@ function MobilePremiumView({
                   isOpen={openSection === "Boîtes de vitesse"}
                   onToggle={() => onToggleSection("Boîtes de vitesse")}
                   title="Boîtes de vitesse"
+                  light={isCitadine}
                 >
                   {MOBILE_GEARBOX_OPTIONS.map((option) => (
                     <MobileFilterChip
                       active={selectedGearbox === option}
                       key={option}
                       onClick={() => setSelectedGearbox((current) => current === option ? null : option)}
+                      light={isCitadine}
                     >
                       {option}
                     </MobileFilterChip>
@@ -2760,12 +2780,14 @@ function MobilePremiumView({
                   isOpen={openSection === "Kilométrage"}
                   onToggle={() => onToggleSection("Kilométrage")}
                   title="Kilométrage"
+                  light={isCitadine}
                 >
                   {MOBILE_MILEAGE_OPTIONS.map((option) => (
                     <MobileFilterChip
                       active={selectedMileage === option.id}
                       key={option.id}
                       onClick={() => setSelectedMileage((current) => current === option.id ? null : option.id)}
+                      light={isCitadine}
                     >
                       {option.label}
                     </MobileFilterChip>
@@ -2775,12 +2797,14 @@ function MobilePremiumView({
                   isOpen={openSection === "Années"}
                   onToggle={() => onToggleSection("Années")}
                   title="Années"
+                  light={isCitadine}
                 >
                   {MOBILE_YEAR_OPTIONS.map((option) => (
                     <MobileFilterChip
                       active={selectedYear === option.id}
                       key={option.id}
                       onClick={() => setSelectedYear((current) => current === option.id ? null : option.id)}
+                      light={isCitadine}
                     >
                       {option.label}
                     </MobileFilterChip>
@@ -2790,12 +2814,14 @@ function MobilePremiumView({
                   isOpen={openSection === "Prix"}
                   onToggle={() => onToggleSection("Prix")}
                   title="Prix"
+                  light={isCitadine}
                 >
                   {MOBILE_PRICE_OPTIONS.map((option) => (
                     <MobileFilterChip
                       active={selectedPrice === option.id}
                       key={option.id}
                       onClick={() => setSelectedPrice((current) => current === option.id ? null : option.id)}
+                      light={isCitadine}
                     >
                       {option.label}
                     </MobileFilterChip>
@@ -2804,7 +2830,7 @@ function MobilePremiumView({
               </div>
 
               <button
-                className="w-full rounded-[10px] border border-white/20 px-4 py-3 font-['Helvetica_Neue:Regular',sans-serif] text-sm"
+                className={`w-full rounded-[10px] border px-4 py-3 font-['Helvetica_Neue:Regular',sans-serif] text-sm ${isCitadine ? "border-[#181818]/20 hover:bg-[#181818]/5" : "border-white/20 hover:bg-white/5"}`}
                 onClick={resetMobileFilters}
                 type="button"
               >
@@ -2827,6 +2853,7 @@ function MobilePremiumView({
                           specs={vehicle.specs}
                           subtitle={vehicle.subtitle}
                           title={vehicle.title}
+                          light={isCitadine}
                         />
                       </div>
                     ))}
@@ -2842,6 +2869,7 @@ function MobilePremiumView({
                       specs={vehicle.specs}
                       subtitle={vehicle.subtitle}
                       title={vehicle.title}
+                      light={isCitadine}
                     />
                   ))}
                 </div>
@@ -2852,7 +2880,7 @@ function MobilePremiumView({
                         aria-label={`Aller au véhicule ${index + 1}`}
                         aria-pressed={selectedSlide === index}
                         className={`h-2.5 rounded-full transition-all ${
-                          selectedSlide === index ? "w-6 bg-[#c8ec66]" : "w-2.5 bg-white/25"
+                          selectedSlide === index ? "w-6 bg-[#c8ec66]" : isCitadine ? "w-2.5 bg-[#181818]/25" : "w-2.5 bg-white/25"
                         }`}
                         key={vehicle.id}
                         onClick={() => emblaApi?.scrollTo(index)}
@@ -2863,7 +2891,7 @@ function MobilePremiumView({
                 ) : null}
               </>
             ) : (
-              <div className="rounded-[24px] border border-white/10 bg-white/5 p-6 text-center font-['Helvetica_Neue:Regular',sans-serif] text-sm text-white/70">
+              <div className={`rounded-[24px] border p-6 text-center font-['Helvetica_Neue:Regular',sans-serif] text-sm ${isCitadine ? "border-[#181818]/10 bg-[#181818]/5 text-[#181818]/70" : "border-white/10 bg-white/5 text-white/70"}`}>
                 Aucun véhicule ne correspond à ces filtres.
               </div>
             )}
@@ -2892,6 +2920,7 @@ function DesktopFilterSidebar({
   openSection,
   onToggleSection,
   onReset,
+  selectedCategory,
 }: {
   brands: { id: string; label: string; count: number }[];
   selectedBrand: string;
@@ -2909,7 +2938,9 @@ function DesktopFilterSidebar({
   openSection: string | null;
   onToggleSection: (section: string) => void;
   onReset: () => void;
+  selectedCategory: "premium" | "citadine";
 }) {
+  const isCitadine = selectedCategory === "citadine";
   const filterSections = [
     {
       title: "Type de carburant",
@@ -2945,10 +2976,10 @@ function DesktopFilterSidebar({
 
   return (
     <div className="absolute left-[68px] top-[369px] w-[310px]">
-      <div className="border-b border-white">
+      <div className={`border-b ${isCitadine ? "border-[#181818]" : "border-white"}`}>
         <div className="flex items-center justify-between h-[55px]">
-          <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[14px] font-bold text-white">Marques</span>
-          <span className="text-white text-xl leading-none">—</span>
+          <span className={`font-['Helvetica_Neue:Bold',sans-serif] text-[14px] font-bold ${isCitadine ? "text-[#181818]" : "text-white"}`}>Marques</span>
+          <span className={`${isCitadine ? "text-[#181818]" : "text-white"} text-xl leading-none`}>—</span>
         </div>
         <div className="flex flex-col gap-3 pb-5">
           {brands.map((option) => (
@@ -2956,34 +2987,34 @@ function DesktopFilterSidebar({
               key={option.id}
               onClick={() => onSelectBrand(option.id)}
               type="button"
-              className="flex items-center gap-3 text-left"
+              className="flex items-center gap-3 text-left pointer-events-auto cursor-pointer"
             >
               <div
-                className={`flex-none size-[28px] rounded-full border-2 border-white flex items-center justify-center ${
-                  selectedBrand === option.id ? "bg-white" : ""
-                }`}
+                className={`flex-none size-[28px] rounded-full border-2 flex items-center justify-center ${
+                  isCitadine ? "border-[#181818]" : "border-white"
+                } ${selectedBrand === option.id ? (isCitadine ? "bg-[#181818]" : "bg-white") : ""}`}
               >
                 {selectedBrand === option.id && (
-                  <div className="size-3 rounded-full bg-[#181818]" />
+                  <div className={`size-3 rounded-full ${isCitadine ? "bg-white" : "bg-[#181818]"}`} />
                 )}
               </div>
-              <span className="font-['Helvetica_Neue:Regular',sans-serif] text-[16px] text-white">
+              <span className={`font-['Helvetica_Neue:Regular',sans-serif] text-[16px] ${isCitadine ? "text-[#181818]" : "text-white"}`}>
                 {option.label}{" "}
-                <span className="text-white/70">({option.count})</span>
+                <span className={isCitadine ? "text-[#181818]/70" : "text-white/70"}>({option.count})</span>
               </span>
             </button>
           ))}
         </div>
       </div>
       {filterSections.map((section) => (
-        <div key={section.title} className="border-b border-white">
+        <div key={section.title} className={`border-b ${isCitadine ? "border-[#181818]" : "border-white"}`}>
           <button
             type="button"
             onClick={() => onToggleSection(section.title)}
-            className="flex items-center justify-between w-full h-[55px] text-left"
+            className="flex items-center justify-between w-full h-[55px] text-left pointer-events-auto cursor-pointer"
             aria-expanded={openSection === section.title}
           >
-            <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[14px] text-white">
+            <span className={`font-['Helvetica_Neue:Bold',sans-serif] text-[14px] ${isCitadine ? "text-[#181818]" : "text-white"}`}>
               {section.title}
             </span>
             <span
@@ -2992,7 +3023,7 @@ function DesktopFilterSidebar({
               }`}
             >
               <svg fill="none" height="19.5" viewBox="0 0 19.5 19.5" width="19.5">
-                <path d={svgPaths.p276a4f00} fill="white" />
+                <path d={svgPaths.p276a4f00} fill={isCitadine ? "#181818" : "white"} />
               </svg>
             </span>
           </button>
@@ -3005,8 +3036,8 @@ function DesktopFilterSidebar({
                   onClick={() => section.onSelect(opt.id)}
                   className={`rounded px-3 py-1.5 font-['Helvetica_Neue:Regular',sans-serif] text-[13px] border transition-colors ${
                     section.selected === opt.id
-                      ? "bg-white text-[#181818] border-white"
-                      : "border-white/40 text-white hover:border-white/80"
+                      ? (isCitadine ? "bg-[#181818] text-white border-[#181818]" : "bg-white text-[#181818] border-white")
+                      : (isCitadine ? "border-[#181818]/40 text-[#181818] hover:border-[#181818]/80" : "border-white/40 text-white hover:border-white/80")
                   }`}
                 >
                   {opt.label}
@@ -3019,7 +3050,9 @@ function DesktopFilterSidebar({
       <button
         type="button"
         onClick={onReset}
-        className="mt-6 w-full border-2 border-white rounded-[4px] h-[54px] font-['Helvetica_Neue:Regular',sans-serif] text-[15px] text-white"
+        className={`mt-6 w-full border-2 rounded-[4px] h-[54px] font-['Helvetica_Neue:Regular',sans-serif] text-[15px] ${
+          isCitadine ? "border-[#181818] text-[#181818] hover:bg-[#181818]/5" : "border-white text-white hover:bg-white/5"
+        }`}
       >
         réinitialiser le filtre
       </button>
@@ -3038,6 +3071,36 @@ export default function Premium() {
   const [desktopSelectedMileage, setDesktopSelectedMileage] = useState<string | null>(null);
   const [desktopSelectedYear, setDesktopSelectedYear] = useState<string | null>(null);
   const [desktopSelectedPrice, setDesktopSelectedPrice] = useState<string | null>(null);
+
+  useEffect(() => {
+    const isCitadine = selectedCategory === "citadine";
+    const scrollContainer = document.querySelector(".h-\\[100dvh\\]");
+    
+    // Ensure transition classes are applied
+    document.body.classList.add("transition-colors", "duration-300");
+
+    if (isCitadine) {
+      document.body.classList.add("light-showroom");
+      if (scrollContainer) {
+        scrollContainer.classList.remove("bg-[#181818]");
+        scrollContainer.classList.add("bg-white");
+      }
+    } else {
+      document.body.classList.remove("light-showroom");
+      if (scrollContainer) {
+        scrollContainer.classList.remove("bg-white");
+        scrollContainer.classList.add("bg-[#181818]");
+      }
+    }
+    return () => {
+      document.body.classList.remove("light-showroom");
+      document.body.classList.remove("transition-colors", "duration-300");
+      if (scrollContainer) {
+        scrollContainer.classList.remove("bg-white");
+        scrollContainer.classList.add("bg-[#181818]");
+      }
+    };
+  }, [selectedCategory]);
 
   useEffect(() => {
     vehiclesApi.list({ status: "En ligne", limit: 50 }).then((res) => {
@@ -3125,7 +3188,7 @@ export default function Premium() {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <div className="relative hidden size-full bg-[#181818] xl:block" data-name="premium">
+      <div className={`relative hidden size-full xl:block transition-colors duration-300 ${selectedCategory === "citadine" ? "bg-white text-[#181818]" : "bg-[#181818] text-white"}`} data-name="premium">
         <div className="absolute h-[742.872px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
           <div className="absolute inset-[-26.92%_-7.51%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -3166,6 +3229,7 @@ export default function Premium() {
           openSection={openSection}
           onToggleSection={(section) => setOpenSection((c) => c === section ? null : section)}
           onReset={resetFilters}
+          selectedCategory={selectedCategory}
         />
         {DESKTOP_SLOTS.map((slot, i) => (
           <VehicleCardDesktop
@@ -3179,13 +3243,13 @@ export default function Premium() {
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-[517px] not-italic text-[24.8px] text-[transparent] top-[373px] w-[118px]">
           <p className="leading-[37.89px]">{selectedBrandLabel}</p>
         </div>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[78px] justify-center leading-[0] left-[68px] text-[43.9px] text-white top-[194px] w-[472px]">
-          <p className="leading-[62.88px]">Aperçu du modèle</p>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold h-[78px] justify-center leading-[0] left-[68px] text-[43.9px] top-[194px] w-[472px]">
+          <p className={`leading-[62.88px] ${selectedCategory === "citadine" ? "text-[#181818]" : "text-white"}`}>Aperçu du modèle</p>
         </div>
-        <Link isActive={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} />
-        <Link1 isActive={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} />
-        <Group12 />
-        <Group13 />
+        <Link isActive={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} light={selectedCategory === "citadine"} />
+        <Link1 isActive={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} light={selectedCategory === "citadine"} />
+        <Group12 light={selectedCategory === "citadine"} />
+        <Group13 light={selectedCategory === "citadine"} />
         <Footer />
       </div>
     </>

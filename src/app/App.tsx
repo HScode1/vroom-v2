@@ -260,7 +260,7 @@ export default function App() {
             <Route
               path="*"
               element={
-                <div className="h-[100dvh] w-full bg-[#181818] overflow-x-hidden overflow-y-auto overscroll-none">
+                <div className="h-[100dvh] w-full bg-[#181818] overflow-x-hidden overflow-y-auto overscroll-none transition-colors duration-300">
                   <HamburgerNav />
                   <Routes>
                     <Route path="/" element={<PageWrapper path="/"><HomePage /></PageWrapper>} />

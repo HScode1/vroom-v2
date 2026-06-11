@@ -187,3 +187,19 @@
     line-height: 1.5;
   }
 }
+
+body.light-showroom img[alt="Vroom"] {
+  filter: invert(1);
+}
+
+body.light-showroom button[aria-label="Menu"] {
+  background-color: rgba(24, 24, 24, 0.1) !important;
+}
+body.light-showroom button[aria-label="Menu"]:hover {
+  background-color: rgba(24, 24, 24, 0.2) !important;
+}
+body.light-showroom button[aria-label="Menu"] span {
+  background-color: #181818 !important;
+}
+
+
