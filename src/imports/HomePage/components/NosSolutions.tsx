@@ -25,9 +25,18 @@ function ServiceList() {
 
 function CarKeyImage() {
   return (
-    <div className="absolute inset-[21.42%_35.14%_68.98%_-7.99%]" data-name="COMMANDER UN VÉHICULE">
+    <div className="absolute inset-[21.42%_35.14%_68.98%_-7.99%] overflow-visible" data-name="COMMANDER UN VÉHICULE">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img alt="" className="absolute h-full left-[13.24%] max-w-none top-0 w-[73.53%]" src={imgCommanderUnVehicule} />
+      </div>
+
+      <div className="absolute left-[56%] top-[16%] w-[320px]">
+        <p className="font-['Syne',sans-serif] text-[32px] font-bold leading-[34px] text-[#c8ec66]">
+          COMMANDER UN VÉHICULE
+        </p>
+        <p className="mt-4 font-['Helvetica_Neue:Light',sans-serif] text-[20px] leading-[28px] text-white/78">
+          Nous cherchons le bon véhicule pour votre besoin et l’intégrons dans une composition desktop lisible.
+        </p>
       </div>
     </div>
   );
