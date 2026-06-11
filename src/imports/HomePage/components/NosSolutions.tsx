@@ -1,6 +1,34 @@
+import { useState } from "react";
 import svgPaths from "../svg-gblhduksgt";
 import imgCommanderUnVehicule from "../28b5e3bd0392406194bedf4941ae0ec6300e0d9b.png";
+import imgVendreUnVehicule from "../9ec2680292a070b26eb145624c6ebdf5aa592f21.png";
 import imgAcheterUnVehicule from "../e0de623de74cc21ab7c67e1329b4727a39894ea2.png";
+
+type DesktopSolution = "acheter" | "commander" | "vendre";
+
+const desktopSolutionContent: Record<
+  DesktopSolution,
+  { title: string; buttonLabel: string; href: string; buttonWidthClassName: string }
+> = {
+  acheter: {
+    title: "Trouvez la voiture de vos rêves",
+    buttonLabel: "Notre sélection",
+    href: "/showroom",
+    buttonWidthClassName: "w-[213.913px]",
+  },
+  commander: {
+    title: "Sur mesure selon vos besoins",
+    buttonLabel: "Choisir son véhicule",
+    href: "/showroom",
+    buttonWidthClassName: "w-[236px]",
+  },
+  vendre: {
+    title: "Vendez en toute simplicité",
+    buttonLabel: "Vendre votre véhicule",
+    href: "/vendre-votre-vehicule",
+    buttonWidthClassName: "w-[257px]",
+  },
+};
 
 function Badge() {
   return (
@@ -13,12 +41,52 @@ function Badge() {
   );
 }
 
-function ServiceList() {
+function ServiceList({
+  activeSolution,
+  onHoverSolution,
+  onLeaveSolutions,
+}: {
+  activeSolution: DesktopSolution;
+  onHoverSolution: (solution: DesktopSolution) => void;
+  onLeaveSolutions: () => void;
+}) {
+  const getTextClassName = (solution: DesktopSolution) =>
+    activeSolution === solution ? "text-[38px] text-white opacity-100" : "text-[41px] text-[#c8ec66] opacity-20";
+  const getTextWidthClassName = (solution: DesktopSolution) => {
+    if (activeSolution !== solution) {
+      return solution === "acheter" ? "w-[760px]" : "w-[793px]";
+    }
+
+    if (solution === "commander") {
+      return "w-[620px]";
+    }
+
+    return "w-[700px]";
+  };
+
   return (
-    <div className="absolute contents font-['Syne',sans-serif] font-bold leading-[1.5] left-[120px] top-[1173px]">
-      <p className="absolute left-[120px] z-10 text-[48px] text-white top-[1173px] w-[760px]">ACHETER UN VÉHICULE</p>
-      <p className="absolute left-[120px] z-10 opacity-20 text-[#c8ec66] text-[41px] top-[1280px] w-[793px]">COMMANDER UN VÉHICULE</p>
-      <p className="absolute left-[120px] z-10 opacity-20 text-[#c8ec66] text-[41px] top-[1380px] w-[793px]">VENDRE UN VÉHICULE</p>
+    <div
+      className="absolute contents font-['Syne',sans-serif] font-bold leading-[1.5] left-[120px] top-[1173px]"
+      onMouseLeave={onLeaveSolutions}
+    >
+      <p
+        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1173px] ${getTextWidthClassName("acheter")} ${getTextClassName("acheter")}`}
+        onMouseEnter={() => onHoverSolution("acheter")}
+      >
+        ACHETER UN VÉHICULE
+      </p>
+      <p
+        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1280px] ${getTextWidthClassName("commander")} ${getTextClassName("commander")}`}
+        onMouseEnter={() => onHoverSolution("commander")}
+      >
+        COMMANDER UN VÉHICULE
+      </p>
+      <p
+        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1380px] ${getTextWidthClassName("vendre")} ${getTextClassName("vendre")}`}
+        onMouseEnter={() => onHoverSolution("vendre")}
+      >
+        VENDRE UN VÉHICULE
+      </p>
     </div>
   );
 }
@@ -33,25 +101,53 @@ function CarKeyImage() {
   );
 }
 
-function AcheterImage() {
+function AcheterImage({ activeSolution }: { activeSolution: DesktopSolution }) {
   return (
     <div className="absolute inset-[14.79%_14.61%_79.72%_43.89%]" data-name="ACHETER UN VÉHICULE">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img alt="" className="absolute h-full left-[14.74%] max-w-none top-0 w-[70.52%]" src={imgAcheterUnVehicule} />
+        <img
+          alt=""
+          className={`absolute h-full left-[14.74%] max-w-none top-0 w-[70.52%] transition-all duration-500 ${
+            activeSolution === "acheter" ? "translate-y-0 opacity-100 scale-100" : "translate-y-2 opacity-0 scale-[0.985]"
+          }`}
+          src={imgAcheterUnVehicule}
+        />
+        <img
+          alt=""
+          className={`absolute h-full left-[14.74%] max-w-none top-0 w-[70.52%] transition-all duration-500 ${
+            activeSolution === "commander" ? "translate-y-0 opacity-100 scale-100" : "translate-y-2 opacity-0 scale-[0.985]"
+          }`}
+          src={imgCommanderUnVehicule}
+        />
+        <img
+          alt=""
+          className={`absolute h-full left-[14.74%] max-w-none top-0 w-[70.52%] transition-all duration-500 ${
+            activeSolution === "vendre" ? "translate-y-0 opacity-100 scale-100" : "translate-y-2 opacity-0 scale-[0.985]"
+          }`}
+          src={imgVendreUnVehicule}
+        />
       </div>
     </div>
   );
 }
 
-function SelectionButton() {
+function SelectionButton({
+  buttonLabel,
+  href,
+  buttonWidthClassName,
+}: {
+  buttonLabel: string;
+  href: string;
+  buttonWidthClassName: string;
+}) {
   return (
     <a
-      className="-translate-x-1/2 absolute z-10 bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[1340px] w-[213.913px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+      className={`-translate-x-1/2 absolute z-10 bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[1340px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 ${buttonWidthClassName}`}
       data-name="Button"
-      href="/showroom"
+      href={href}
     >
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[21.5px] justify-center leading-[0] left-[calc(50%-16.3px)] not-italic text-[#1f2937] text-[18px] text-center top-[calc(50%-0.25px)] w-[155.32px]">
-        <p className="leading-[28px]">Notre sélection</p>
+      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[21.5px] justify-center leading-[0] left-[calc(50%-16.3px)] not-italic text-[#1f2937] text-[18px] text-center top-[calc(50%-0.25px)] w-[180px]">
+        <p className="leading-[28px]">{buttonLabel}</p>
       </div>
       <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%+83.04px)] size-[20px] top-1/2" data-name="SVG">
         <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
@@ -237,6 +333,9 @@ function TabletNosSolutions() {
 }
 
 export default function NosSolutions() {
+  const [activeDesktopSolution, setActiveDesktopSolution] = useState<DesktopSolution>("acheter");
+  const activeDesktopContent = desktopSolutionContent[activeDesktopSolution];
+
   return (
     <>
       <MobileNosSolutions />
@@ -250,16 +349,20 @@ export default function NosSolutions() {
           <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">Solutions</span>
         </p>
 
-        <ServiceList />
+        <ServiceList
+          activeSolution={activeDesktopSolution}
+          onHoverSolution={setActiveDesktopSolution}
+          onLeaveSolutions={() => setActiveDesktopSolution("acheter")}
+        />
 
         <CarKeyImage />
 
         <div className="absolute contents inset-[14.79%_14.61%_79.72%_43.89%]">
-          <AcheterImage />
+          <AcheterImage activeSolution={activeDesktopSolution} />
         </div>
 
         <div className="-translate-x-1/2 -translate-y-1/2 absolute z-10 flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[20px] justify-center leading-[0] left-[1170px] not-italic text-[34px] text-center text-white top-[1247px] w-[280px]">
-          <p className="leading-[31px]">Trouvez la voiture de vos rêves</p>
+          <p className="leading-[31px]">{activeDesktopContent.title}</p>
         </div>
 
         <div className="-translate-x-full absolute z-10 font-['Syne',sans-serif] font-bold h-[138px] leading-[0] left-[1286px] text-[0px] text-right text-white top-[1942px] w-[661px] whitespace-pre-wrap">
@@ -271,7 +374,11 @@ export default function NosSolutions() {
           <p className="text-[35px] font-semibold leading-[1.2] text-[#bcff3d]">nos clients</p>
         </div>
 
-        <SelectionButton />
+        <SelectionButton
+          buttonLabel={activeDesktopContent.buttonLabel}
+          href={activeDesktopContent.href}
+          buttonWidthClassName={activeDesktopContent.buttonWidthClassName}
+        />
       </div>
     </>
   );
