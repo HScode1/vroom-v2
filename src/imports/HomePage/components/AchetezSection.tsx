@@ -272,7 +272,7 @@ export default function AchetezSection() {
       <MobileAchetezSection />
       <TabletAchetezSection />
 
-      <div className="hidden xl:block">
+      <div className="hidden xl:block" style={{ transform: "translateY(122px)" }}>
         <Frame1 />
         <div className="absolute h-[1038.64px] left-[-280px] top-[-259px] w-[1841.571px]" data-name="Union">
           <div className="absolute inset-[-19.26%_-10.86%]">

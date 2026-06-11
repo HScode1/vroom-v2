@@ -16,27 +16,18 @@ function Badge() {
 function ServiceList() {
   return (
     <div className="absolute contents font-['Syne',sans-serif] font-bold leading-[1.5] left-[120px] top-[1173px]">
-      <p className="absolute left-[120px] text-[48px] text-white top-[1173px] w-[760px]">ACHETER UN VÉHICULE</p>
-      <p className="absolute left-[120px] opacity-20 text-[#c8ec66] text-[41px] top-[1280px] w-[793px]">COMMANDER UN VÉHICULE</p>
-      <p className="absolute left-[120px] opacity-20 text-[#c8ec66] text-[41px] top-[1380px] w-[793px]">VENDRE UN VÉHICULE</p>
+      <p className="absolute left-[120px] z-10 text-[48px] text-white top-[1173px] w-[760px]">ACHETER UN VÉHICULE</p>
+      <p className="absolute left-[120px] z-10 opacity-20 text-[#c8ec66] text-[41px] top-[1280px] w-[793px]">COMMANDER UN VÉHICULE</p>
+      <p className="absolute left-[120px] z-10 opacity-20 text-[#c8ec66] text-[41px] top-[1380px] w-[793px]">VENDRE UN VÉHICULE</p>
     </div>
   );
 }
 
 function CarKeyImage() {
   return (
-    <div className="absolute inset-[21.42%_35.14%_68.98%_-7.99%] overflow-visible" data-name="COMMANDER UN VÉHICULE">
+    <div className="absolute inset-[21.42%_35.14%_68.98%_-7.99%]" data-name="COMMANDER UN VÉHICULE">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img alt="" className="absolute h-full left-[13.24%] max-w-none top-0 w-[73.53%]" src={imgCommanderUnVehicule} />
-      </div>
-
-      <div className="absolute left-[56%] top-[16%] w-[320px]">
-        <p className="font-['Syne',sans-serif] text-[32px] font-bold leading-[34px] text-[#c8ec66]">
-          COMMANDER UN VÉHICULE
-        </p>
-        <p className="mt-4 font-['Helvetica_Neue:Light',sans-serif] text-[20px] leading-[28px] text-white/78">
-          Nous cherchons le bon véhicule pour votre besoin et l’intégrons dans une composition desktop lisible.
-        </p>
       </div>
     </div>
   );
@@ -55,7 +46,7 @@ function AcheterImage() {
 function SelectionButton() {
   return (
     <a
-      className="-translate-x-1/2 absolute bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[1340px] w-[213.913px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
+      className="-translate-x-1/2 absolute z-10 bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[1340px] w-[213.913px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
       data-name="Button"
       href="/showroom"
     >
@@ -254,7 +245,7 @@ export default function NosSolutions() {
       <div className="hidden xl:block">
         <Badge />
 
-        <p className="-translate-x-1/2 absolute font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[704.5px] text-[48px] text-center text-white top-[956px] w-[1187px]">
+        <p className="-translate-x-1/2 absolute z-10 font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[704.5px] text-[48px] text-center text-white top-[956px] w-[1187px]">
           <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5]">{`Nos `}</span>
           <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">Solutions</span>
         </p>
@@ -267,8 +258,17 @@ export default function NosSolutions() {
           <AcheterImage />
         </div>
 
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[20px] justify-center leading-[0] left-[1170px] not-italic text-[34px] text-center text-white top-[1247px] w-[280px]">
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute z-10 flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[20px] justify-center leading-[0] left-[1170px] not-italic text-[34px] text-center text-white top-[1247px] w-[280px]">
           <p className="leading-[31px]">Trouvez la voiture de vos rêves</p>
+        </div>
+
+        <div className="-translate-x-full absolute z-10 font-['Syne',sans-serif] font-bold h-[138px] leading-[0] left-[1286px] text-[0px] text-right text-white top-[1942px] w-[661px] whitespace-pre-wrap">
+          <p className="mb-0 text-[35px] font-semibold leading-[1.2]">
+            <span>{`Nous croyons que `}</span>
+            <span className="text-[#bcff3d]">la meilleur route</span>
+            <span>{` est celle qui se construit avec `}</span>
+          </p>
+          <p className="text-[35px] font-semibold leading-[1.2] text-[#bcff3d]">nos clients</p>
         </div>
 
         <SelectionButton />
