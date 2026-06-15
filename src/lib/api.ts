@@ -12,7 +12,11 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   };
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
-  const res = await fetch(`${BASE_URL}${path}`, { ...init, headers, cache: "no-store" });
+  const res = await fetch(`${BASE_URL}${path}`, {
+    ...init,
+    headers,
+    cache: token || init.method ? "no-store" : "default",
+  });
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));

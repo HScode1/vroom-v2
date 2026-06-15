@@ -1,11 +1,16 @@
-import { Router } from "express";
+import { Router, type NextFunction, type Request, type Response } from "express";
 import { store } from "../data/store.js";
 import { requireAdmin } from "../middleware/auth.js";
 import { VehicleCreateSchema, VehicleUpdateSchema, VehicleFiltersSchema } from "../schemas/index.js";
 
 const router = Router();
 
-router.get("/", async (req, res, next) => {
+function cachePublicVehicles(_req: Request, res: Response, next: NextFunction) {
+  res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+  next();
+}
+
+router.get("/", cachePublicVehicles, async (req, res, next) => {
   try {
     const filters = VehicleFiltersSchema.parse(req.query);
     const result = await store.vehicles.findAll(filters);
@@ -15,7 +20,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/filters", async (_req, res, next) => {
+router.get("/filters", cachePublicVehicles, async (_req, res, next) => {
   try {
     res.json(await store.vehicles.filters());
   } catch (err) {
@@ -23,7 +28,7 @@ router.get("/filters", async (_req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", cachePublicVehicles, async (req, res, next) => {
   try {
     const vehicle = await store.vehicles.findById(req.params.id);
     if (!vehicle) { res.status(404).json({ error: "Véhicule introuvable" }); return; }
