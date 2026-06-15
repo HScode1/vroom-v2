@@ -5,6 +5,23 @@ import imgImage6 from "../18bcc12168a0b83331f4e8f2123cf6e5d012abb2.png";
 import imgImageRemovebg1 from "../68297c37c62088e6f25beeb99b890264d41ec9fd.png";
 import imgHeroBackgroundMobile from "../sans_voiture.png";
 
+function HeroVehicle({ className = "" }: { className?: string }) {
+  return (
+    <div className={`relative aspect-[1095/322] shrink-0 overflow-hidden ${className}`}>
+      <img
+        alt="Véhicule premium"
+        className="pointer-events-none absolute h-auto max-w-none"
+        src={imgImageRemovebg1}
+        style={{
+          left: "-15.434%",
+          top: "-170.807%",
+          width: "136.986%",
+        }}
+      />
+    </div>
+  );
+}
+
 function MobileHeroSection() {
   const navigate = useNavigate();
   return (
@@ -22,17 +39,12 @@ function MobileHeroSection() {
         style={{ background: "radial-gradient(circle at top right, rgba(5,8,12,0.98) 0%, rgba(5,8,12,0.9) 42%, rgba(5,8,12,0) 100%)" }}
       />
 
-      <div className="absolute inset-x-5 top-[47dvh] z-10 text-center font-['Syne',sans-serif] font-extrabold leading-none tracking-[0px] text-white sm:top-[44dvh]">
-        <p className="text-[76px] leading-[0.82] sm:text-[96px]">Acheter</p>
-        <p className="mt-1 text-[70px] leading-[0.82] text-[#bcff3d] sm:text-[88px]">simplement.</p>
-      </div>
-
-      <div className="absolute inset-x-[-42vw] bottom-[156px] z-20 sm:inset-x-[-28vw]">
-        <img
-          alt=""
-          className="h-auto w-full max-w-none"
-          src={imgImageRemovebg1}
-        />
+      <div className="absolute inset-x-0 bottom-[clamp(230px,28dvh,290px)] z-20 flex translate-y-[18px] flex-col items-center">
+        <div className="text-center font-['Syne',sans-serif] font-extrabold leading-none tracking-[-3.5px] text-white sm:tracking-[-4.5px]">
+          <p className="text-[clamp(44px,12vw,84px)] leading-[0.8]">Acheter</p>
+          <p className="mt-1 text-[clamp(40px,10.5vw,76px)] leading-[0.8] text-[#bcff3d]">simplement.</p>
+        </div>
+        <HeroVehicle className="z-10 mt-[-12px] w-[clamp(420px,calc(77.5vw+179px),973px)]" />
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 z-30 h-[210px] bg-[linear-gradient(180deg,rgba(5,8,8,0)_0%,rgba(24,24,24,0.68)_42%,#181818_100%)]" />
@@ -83,13 +95,12 @@ function TabletHeroSection() {
         style={{ background: "radial-gradient(circle at top right, rgba(5,8,12,0.98) 0%, rgba(5,8,12,0.9) 42%, rgba(5,8,12,0) 100%)" }}
       />
 
-      <div className="absolute inset-x-0 top-[140px] z-10 text-center font-['Syne',sans-serif] font-extrabold leading-none tracking-[-6px] text-white">
-        <p className="text-[122px] leading-[0.84]">Acheter</p>
-        <p className="mt-1 text-[108px] leading-[0.84] text-[#bcff3d]">simplement.</p>
-      </div>
-
-      <div className="absolute inset-x-[-12vw] bottom-[132px] z-20">
-        <img alt="" className="h-auto w-full max-w-none" src={imgImageRemovebg1} />
+      <div className="absolute inset-x-0 bottom-[clamp(190px,24dvh,250px)] z-20 flex flex-col items-center">
+        <div className="text-center font-['Syne',sans-serif] font-extrabold leading-none tracking-[-6px] text-white">
+          <p className="text-[122px] leading-[0.84]">Acheter</p>
+          <p className="mt-1 text-[108px] leading-[0.84] text-[#bcff3d]">simplement.</p>
+        </div>
+        <HeroVehicle className="z-10 mt-[-24px] w-[calc(28.85vw+677px)]" />
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 z-30 h-[230px] bg-[linear-gradient(180deg,rgba(5,8,8,0)_0%,rgba(24,24,24,0.72)_42%,#181818_100%)]" />
