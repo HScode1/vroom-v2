@@ -122,7 +122,7 @@ function Button() {
 
 function MobileAchetezSection() {
   return (
-    <div className="absolute left-0 top-[2065px] w-screen overflow-hidden px-5 sm:px-8 lg:hidden">
+    <div className="absolute left-0 top-[1985px] w-screen overflow-hidden px-5 sm:px-8 lg:hidden">
       <div className="relative mx-auto max-w-[640px] overflow-hidden rounded-[30px] border border-[rgba(200,236,102,0.15)] bg-gradient-to-b from-[#181818] to-[#0f0d0d] px-6 py-8 shadow-[0px_24px_60px_-24px_rgba(0,0,0,0.8)] sm:px-8">
         <div className="pointer-events-none absolute -left-16 top-2 size-[180px] rounded-full bg-[#c8ec66] blur-[110px] opacity-25" />
         <div className="pointer-events-none absolute -right-20 bottom-6 size-[220px] rounded-full bg-[#9cc726] blur-[120px] opacity-20" />

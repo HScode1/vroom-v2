@@ -293,10 +293,10 @@ function MobileNosSolutions() {
                         </div>
 
                         {/* Floating Car Image */}
-                        <div className="relative flex items-center justify-center self-center sm:self-auto w-[45%] max-w-[160px] aspect-[4/3] sm:mt-0 mt-2">
+                        <div className="relative mt-2 flex w-[58%] max-w-[220px] self-center aspect-[4/3] items-center justify-center sm:mt-0 sm:w-[45%] sm:max-w-[160px] sm:self-auto">
                           <img
                             alt={sol.title}
-                            className="relative z-10 max-h-[100px] w-full object-contain drop-shadow-[0_12px_12px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out hover:scale-105"
+                            className="relative z-10 w-full max-h-[140px] object-contain drop-shadow-[0_12px_12px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out hover:scale-105 sm:max-h-[100px]"
                             src={sol.image}
                           />
                         </div>
