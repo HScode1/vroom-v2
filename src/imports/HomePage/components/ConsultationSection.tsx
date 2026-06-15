@@ -965,7 +965,7 @@ function MobileCalendar({ calendarId = "home-consultation-calendar-mobile" }: { 
           return (
             <button
               aria-pressed={isSelected}
-              className={`relative aspect-square rounded-[10px] font-['DM_Sans:9pt_Regular',sans-serif] text-[13px] transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
+              className={`relative flex items-center justify-center h-9 sm:h-10 w-full rounded-[10px] font-['DM_Sans:9pt_Regular',sans-serif] text-[13px] transition-all focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50 ${
                 isSelected
                   ? "bg-[#bcff3d] font-bold text-[#0c0d0c]"
                   : isBookable

@@ -123,9 +123,9 @@ function Button() {
 function MobileAchetezSection() {
   return (
     <div className="absolute left-0 top-[2065px] w-screen overflow-hidden px-5 sm:px-8 lg:hidden">
-      <div className="relative mx-auto max-w-[640px] overflow-hidden rounded-[34px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_left,rgba(200,236,102,0.1),rgba(15,13,13,0.94)_34%,rgba(15,13,13,0.98)_100%)] px-5 pb-7 pt-7 shadow-[0px_24px_60px_-24px_rgba(0,0,0,0.65)] sm:px-7">
-        <div className="pointer-events-none absolute -left-16 top-2 size-[180px] rounded-full bg-[#c8ec66] blur-[110px] opacity-40" />
-        <div className="pointer-events-none absolute -right-20 bottom-6 size-[220px] rounded-full bg-[#9cc726] blur-[120px] opacity-35" />
+      <div className="relative mx-auto max-w-[640px] overflow-hidden rounded-[30px] border border-[rgba(200,236,102,0.15)] bg-gradient-to-b from-[#181818] to-[#0f0d0d] px-6 py-8 shadow-[0px_24px_60px_-24px_rgba(0,0,0,0.8)] sm:px-8">
+        <div className="pointer-events-none absolute -left-16 top-2 size-[180px] rounded-full bg-[#c8ec66] blur-[110px] opacity-25" />
+        <div className="pointer-events-none absolute -right-20 bottom-6 size-[220px] rounded-full bg-[#9cc726] blur-[120px] opacity-20" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[rgba(255,255,255,0.03)] to-transparent" />
 
         <div className="relative z-10">
@@ -136,51 +136,111 @@ function MobileAchetezSection() {
             </p>
           </div>
 
-          <p className="mt-5 font-['Syne',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] text-white sm:text-[46px] sm:leading-[46px]">
-            ACHETEZ VOTRE
+          <h2 className="mt-4 font-['Syne',sans-serif] text-[32px] font-extrabold leading-[1.15] tracking-[-1.5px] text-white">
+            Achetez votre véhicule <br />
+            <span className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">
+              depuis votre canapé !
+            </span>
+          </h2>
+
+          <p className="mt-3.5 max-w-[26rem] font-['Plus_Jakarta_Sans:Light',sans-serif] text-[14px] font-light leading-[22px] text-[rgba(255,255,255,0.72)]">
+            Fini les tracas administratifs et les déplacements inutiles. Vroom réinvente l&apos;expérience d&apos;achat d&apos;automobile.
           </p>
-          <p className="mt-2 font-['Syne',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] text-white sm:text-[46px] sm:leading-[46px]">
-            VEHICULE
-          </p>
-          <div className="mt-5 font-['Syne',sans-serif] text-[38px] font-bold leading-[38px] tracking-[-1px] sm:text-[46px] sm:leading-[46px]">
-            <p className="text-white">DEPUIS <span className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">VOTRE</span></p>
-            <p className="bg-gradient-to-r from-[#c8ec66] to-[#b5e43d] bg-clip-text text-transparent">CANAPE !</p>
+
+          <div className="mt-6 space-y-3.5">
+            {/* Step 1 */}
+            <div className="flex items-center gap-4 rounded-2xl border border-[rgba(255,255,255,0.04)] bg-[rgba(255,255,255,0.02)] p-3 backdrop-blur-sm">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-[rgba(200,236,102,0.15)] bg-[rgba(200,236,102,0.08)] text-[#c8ec66]">
+                <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-['DM_Sans:Medium',sans-serif] text-[14px] font-semibold text-white">
+                  1. Parcourez la sélection
+                </h3>
+                <p className="font-['Plus_Jakarta_Sans:Light',sans-serif] text-[12px] text-[rgba(255,255,255,0.55)]">
+                  Des modèles certifiés, inspectés et prêts à rouler.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex items-center gap-4 rounded-2xl border border-[rgba(255,255,255,0.04)] bg-[rgba(255,255,255,0.02)] p-3 backdrop-blur-sm">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-[rgba(200,236,102,0.15)] bg-[rgba(200,236,102,0.08)] text-[#c8ec66]">
+                <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-['DM_Sans:Medium',sans-serif] text-[14px] font-semibold text-white">
+                  2. Configurez en ligne
+                </h3>
+                <p className="font-['Plus_Jakarta_Sans:Light',sans-serif] text-[12px] text-[rgba(255,255,255,0.55)]">
+                  Échangez avec un conseiller et préparez votre dossier.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex items-center gap-4 rounded-2xl border border-[rgba(255,255,255,0.04)] bg-[rgba(255,255,255,0.02)] p-3 backdrop-blur-sm">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-[rgba(200,236,102,0.15)] bg-[rgba(200,236,102,0.08)] text-[#c8ec66]">
+                <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-['DM_Sans:Medium',sans-serif] text-[14px] font-semibold text-white">
+                  3. Livraison à domicile
+                </h3>
+                <p className="font-['Plus_Jakarta_Sans:Light',sans-serif] text-[12px] text-[rgba(255,255,255,0.55)]">
+                  Votre nouveau véhicule livré directement chez vous.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <p className="mt-4 max-w-[26rem] font-['Plus_Jakarta_Sans:Light',sans-serif] text-[15px] font-light leading-[24px] text-[rgba(255,255,255,0.72)]">
-            Parcourez notre sélection, échangez avec un conseiller et finalisez votre achat depuis votre téléphone, simplement.
-          </p>
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            <div className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-3 py-1.5 font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.68)]">
-              Sélection vérifiée
-            </div>
-            <div className="rounded-full border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-3 py-1.5 font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.68)]">
-              Parcours guidé
-            </div>
+          <div className="mt-6 flex items-center justify-start">
+            <a
+              className="group inline-flex h-[52px] items-center gap-3 rounded-[9999px] bg-[#c8ec66] px-6 shadow-[0px_16px_32px_-14px_rgba(200,236,102,0.5)] transition-transform duration-300 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70"
+              href="/acheter-votre-vehicule"
+            >
+              <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[16px] font-bold text-[#1f2937]">
+                Découvrir notre offre
+              </span>
+              <svg className="size-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 20 20">
+                <path d={svgPaths.p25f63580} stroke="var(--stroke-0, #1F2937)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+              </svg>
+            </a>
           </div>
 
-          <a
-            className="mt-6 inline-flex h-[54px] items-center gap-3 rounded-[9999px] bg-[#c8ec66] px-6 shadow-[0px_16px_32px_-14px_rgba(200,236,102,0.5)] focus:outline-none focus:ring-2 focus:ring-[#c8ec66]/70"
-            href="/acheter-votre-vehicule"
-          >
-            <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[17px] font-bold text-[#1f2937]">Découvrir notre offre</span>
-            <svg className="size-5" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-              <path d={svgPaths.p25f63580} stroke="var(--stroke-0, #1F2937)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.66667" />
-            </svg>
-          </a>
-
-          <a
-            aria-label="Acheter votre véhicule"
-            className="relative mt-8 flex items-center justify-center pt-2"
-            href="/acheter-votre-vehicule"
-          >
-            <div className="absolute inset-x-[16%] top-[18%] h-[62%] rounded-full bg-[rgba(200,236,102,0.24)] blur-[74px]" />
-            <div className="absolute left-1/2 top-[12%] h-[82%] w-[58%] -translate-x-1/2 rounded-[999px] border border-[rgba(255,255,255,0.04)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01))]" />
-            <div className="relative rotate-[10deg]">
-              <img alt="" className="h-auto w-[290px] max-w-full drop-shadow-[0px_28px_40px_rgba(0,0,0,0.55)] sm:w-[340px]" src={imgIPhone16} />
+          <div className="relative mt-8 flex items-center justify-center pt-2">
+            <div className="absolute inset-x-[20%] top-[20%] h-[60%] rounded-full bg-[rgba(200,236,102,0.22)] blur-[60px]" />
+            <div className="absolute left-1/2 top-[10%] h-[80%] w-[60%] -translate-x-1/2 rounded-[999px] border border-[rgba(255,255,255,0.04)] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0))]" />
+            <div className="relative z-10 rotate-[8deg] transition-transform duration-500 hover:rotate-[4deg]">
+              <img alt="Vroom App" className="h-auto w-[230px] max-w-full drop-shadow-[0px_24px_38px_rgba(0,0,0,0.55)]" src={imgIPhone16} />
             </div>
-          </a>
+
+            {/* Floating Card 1 */}
+            <div className="absolute left-[8%] top-[15%] z-20 flex -rotate-[4deg] items-center gap-2 rounded-xl border border-white/10 bg-black/80 px-3 py-1.5 shadow-2xl backdrop-blur-md">
+              <div className="flex size-5 items-center justify-center rounded bg-[#c8ec66]/15 text-[#c8ec66]">
+                <svg className="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <span className="font-['DM_Sans:Medium',sans-serif] text-[10px] font-semibold text-white tracking-wide">Garantie 12 mois</span>
+            </div>
+
+            {/* Floating Card 2 */}
+            <div className="absolute right-[6%] bottom-[16%] z-20 flex rotate-[6deg] items-center gap-2 rounded-xl border border-white/10 bg-black/80 px-3 py-1.5 shadow-2xl backdrop-blur-md">
+              <div className="flex size-5 items-center justify-center rounded bg-[#c8ec66]/15 text-[#c8ec66]">
+                <svg className="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <span className="font-['DM_Sans:Medium',sans-serif] text-[10px] font-semibold text-white tracking-wide">Livraison 48h ⚡</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
