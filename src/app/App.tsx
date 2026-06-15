@@ -67,7 +67,14 @@ function PageWrapper({ path, children }: { path: string; children: React.ReactNo
     }
 
     return (
-      <ResponsivePageWrapper height={height} width={width}>
+      <ResponsivePageWrapper
+        className="showroom-responsive-wrapper"
+        backgroundColor="#181818"
+        backgroundTransitionY={3420}
+        backgroundTransitionColor="#181818"
+        height={height}
+        width={width}
+      >
         {children}
       </ResponsivePageWrapper>
     );
@@ -111,10 +118,18 @@ function PageWrapper({ path, children }: { path: string; children: React.ReactNo
 function ResponsivePageWrapper({
   width,
   height,
+  className,
+  backgroundColor,
+  backgroundTransitionY,
+  backgroundTransitionColor,
   children,
 }: {
   width: number;
   height: number;
+  className?: string;
+  backgroundColor?: string;
+  backgroundTransitionY?: number;
+  backgroundTransitionColor?: string;
   children: React.ReactNode;
 }) {
   const getScale = () => {
@@ -136,8 +151,23 @@ function ResponsivePageWrapper({
     return () => window.removeEventListener("resize", handleResize);
   }, [width]);
 
+  const wrapperBackground =
+    backgroundTransitionY !== undefined && backgroundTransitionColor
+      ? `linear-gradient(to bottom, ${backgroundColor ?? "transparent"} 0, ${backgroundColor ?? "transparent"} ${backgroundTransitionY * scale}px, ${backgroundTransitionColor} ${backgroundTransitionY * scale}px, ${backgroundTransitionColor} 100%)`
+      : backgroundColor;
+
   return (
-    <div className="relative mx-auto w-full overflow-x-hidden" style={{ height: height * scale }}>
+    <div
+      className={`relative mx-auto w-full overflow-x-hidden ${className ?? ""}`}
+      style={{
+        ["--responsive-page-scale" as string]: String(scale),
+        ["--responsive-page-transition-y" as string]: backgroundTransitionY ? `${backgroundTransitionY * scale}px` : "0px",
+        ["--responsive-page-bg" as string]: backgroundColor ?? "transparent",
+        ["--responsive-page-transition-color" as string]: backgroundTransitionColor ?? "transparent",
+        height: height * scale,
+        background: wrapperBackground,
+      }}
+    >
       <div
         className="absolute left-1/2 top-0 origin-top"
         style={{

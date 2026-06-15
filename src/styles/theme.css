@@ -202,4 +202,68 @@ body.light-showroom button[aria-label="Menu"] span {
   background-color: #181818 !important;
 }
 
+body.light-showroom .showroom-responsive-wrapper {
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0,
+    #ffffff var(--responsive-page-transition-y),
+    #181818 var(--responsive-page-transition-y),
+    #181818 100%
+  ) !important;
+}
 
+.range-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+
+.range-slider::-webkit-slider-runnable-track {
+  height: 20px;
+  background: transparent;
+}
+
+.range-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 9999px;
+  background: #6b7280;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+.range-slider::-webkit-slider-thumb:active {
+  cursor: grabbing;
+}
+
+.range-slider::-moz-range-track {
+  height: 20px;
+  background: transparent;
+}
+
+.range-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 9999px;
+  background: #6b7280;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+  cursor: grab;
+  pointer-events: auto;
+}
+
+body:not(.light-showroom) .range-slider::-webkit-slider-thumb {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 2px rgba(24, 24, 24, 0.35);
+}
+
+body:not(.light-showroom) .range-slider::-moz-range-thumb {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 2px rgba(24, 24, 24, 0.35);
+}

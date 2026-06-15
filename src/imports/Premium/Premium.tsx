@@ -5,6 +5,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import svgPaths from "./svg-wzz9z1ej01";
 import imgCaptureDecran20251209A1739081 from "./c8e73a968bf4d279e3e7f298702c6d9e2caeab3d.png";
 
+const DESKTOP_VEHICLES_PER_PAGE = 12;
+
 const BRAND_OPTIONS = [
   { id: "all", label: "Tous", count: 80 },
   { id: "mercedes-benz", label: "Mercedes-Benz", count: 12 },
@@ -40,6 +42,11 @@ const MOBILE_PRICE_OPTIONS = [
   { id: "20000-28000", label: "20 000 - 28 000 €" },
   { id: "over-28000", label: "> 28 000 €" },
 ] as const;
+
+const DEFAULT_DESKTOP_YEAR_MIN = 2014;
+const DEFAULT_DESKTOP_YEAR_MAX = 2025;
+const DEFAULT_DESKTOP_PRICE_MIN = 5000;
+const DEFAULT_DESKTOP_PRICE_MAX = 80000;
 
 const MOBILE_SHOWROOM_VEHICLES = [
   {
@@ -2132,19 +2139,41 @@ function Link1({ isActive, onClick, light }: { isActive: boolean; onClick: () =>
   );
 }
 
-function Group12({ light }: { light?: boolean }) {
-  const fillActive = light ? "#181818" : "#FFFAFA";
-  const fillInactive = light ? "#cfcfcf" : "#4F4F4F";
+function Group12({
+  light,
+  totalPages,
+  currentPage,
+  onSelectPage,
+}: {
+  light?: boolean;
+  totalPages: number;
+  currentPage: number;
+  onSelectPage: (page: number) => void;
+}) {
+  if (totalPages <= 1) {
+    return null;
+  }
+
   return (
-    <div className="absolute h-[14.813px] left-[1178px] top-[3260.59px] w-[79px]">
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 79 14.8125">
-        <g id="Group 71">
-          <circle cx="7.40625" cy="7.40625" fill={fillActive} id="Ellipse 6" r="7.40625" />
-          <circle cx="28.8021" cy="7.40625" fill={fillInactive} id="Ellipse 7" r="7.40625" />
-          <circle cx="50.1979" cy="7.40625" fill={fillInactive} id="Ellipse 8" r="7.40625" />
-          <circle cx="71.5938" cy="7.40625" fill={fillInactive} id="Ellipse 9" r="7.40625" />
-        </g>
-      </svg>
+    <div className="absolute left-[1178px] top-[3253px] flex items-center gap-[6.5px]">
+      {Array.from({ length: totalPages }, (_, index) => {
+        const isActive = index === currentPage;
+        const backgroundColor = isActive
+          ? light ? "#181818" : "#FFFAFA"
+          : light ? "#cfcfcf" : "#4F4F4F";
+
+        return (
+          <button
+            key={index}
+            type="button"
+            onClick={() => onSelectPage(index)}
+            aria-label={`Aller à la page ${index + 1}`}
+            aria-pressed={isActive}
+            className="size-[14.813px] rounded-full transition-transform hover:scale-110"
+            style={{ backgroundColor }}
+          />
+        );
+      })}
     </div>
   );
 }
@@ -2577,7 +2606,7 @@ function MobilePremiumView({
   setSelectedCategory,
   apiVehicles,
 }: {
-  openSection: (typeof FILTER_SECTIONS)[number] | null;
+  openSection: Array<(typeof FILTER_SECTIONS)[number]>;
   onReset: () => void;
   onSelectBrand: (brand: (typeof BRAND_OPTIONS)[number]["id"]) => void;
   onToggleSection: (section: (typeof FILTER_SECTIONS)[number]) => void;
@@ -2693,9 +2722,10 @@ function MobilePremiumView({
   }, [emblaApi, selectedBrand, selectedCategory, selectedFuel, selectedGearbox, selectedMileage, selectedPrice, selectedYear]);
 
   const isCitadine = selectedCategory === "citadine";
+  const isSectionOpen = (section: (typeof FILTER_SECTIONS)[number]) => openSection.includes(section);
 
   return (
-    <div className={`min-h-screen xl:hidden transition-colors duration-300 ${isCitadine ? "bg-white text-[#181818]" : "bg-[#181818] text-white"}`}>
+    <div className={`min-h-screen xl:hidden transition-colors duration-150 ${isCitadine ? "bg-white text-[#181818]" : "bg-[#181818] text-white"}`}>
       <div className="relative overflow-hidden px-5 pb-8 pt-24 md:px-8 md:pb-10 md:pt-28 lg:px-10">
         <div className="pointer-events-none absolute inset-x-[-25%] top-[-140px] h-[320px] rounded-full bg-[radial-gradient(circle_at_center,rgba(200,236,102,0.3),rgba(114,249,216,0.12),transparent_70%)] blur-3xl" />
         <div className="relative mx-auto max-w-md space-y-6 md:max-w-5xl md:space-y-8">
@@ -2743,7 +2773,7 @@ function MobilePremiumView({
 
               <div className="space-y-3">
                 <MobileFilterSection
-                  isOpen={openSection === "Type de carburant"}
+                  isOpen={isSectionOpen("Type de carburant")}
                   onToggle={() => onToggleSection("Type de carburant")}
                   title="Type de carburant"
                   light={isCitadine}
@@ -2760,7 +2790,7 @@ function MobilePremiumView({
                   ))}
                 </MobileFilterSection>
                 <MobileFilterSection
-                  isOpen={openSection === "Boîtes de vitesse"}
+                  isOpen={isSectionOpen("Boîtes de vitesse")}
                   onToggle={() => onToggleSection("Boîtes de vitesse")}
                   title="Boîtes de vitesse"
                   light={isCitadine}
@@ -2777,7 +2807,7 @@ function MobilePremiumView({
                   ))}
                 </MobileFilterSection>
                 <MobileFilterSection
-                  isOpen={openSection === "Kilométrage"}
+                  isOpen={isSectionOpen("Kilométrage")}
                   onToggle={() => onToggleSection("Kilométrage")}
                   title="Kilométrage"
                   light={isCitadine}
@@ -2794,7 +2824,7 @@ function MobilePremiumView({
                   ))}
                 </MobileFilterSection>
                 <MobileFilterSection
-                  isOpen={openSection === "Années"}
+                  isOpen={isSectionOpen("Années")}
                   onToggle={() => onToggleSection("Années")}
                   title="Années"
                   light={isCitadine}
@@ -2811,7 +2841,7 @@ function MobilePremiumView({
                   ))}
                 </MobileFilterSection>
                 <MobileFilterSection
-                  isOpen={openSection === "Prix"}
+                  isOpen={isSectionOpen("Prix")}
                   onToggle={() => onToggleSection("Prix")}
                   title="Prix"
                   light={isCitadine}
@@ -2913,10 +2943,18 @@ function DesktopFilterSidebar({
   onSelectGearbox,
   selectedMileage,
   onSelectMileage,
-  selectedYear,
-  onSelectYear,
-  selectedPrice,
-  onSelectPrice,
+  yearLowerBound,
+  yearUpperBound,
+  yearMin,
+  yearMax,
+  onYearMinChange,
+  onYearMaxChange,
+  priceLowerBound,
+  priceUpperBound,
+  priceMin,
+  priceMax,
+  onPriceMinChange,
+  onPriceMaxChange,
   openSection,
   onToggleSection,
   onReset,
@@ -2926,100 +2964,227 @@ function DesktopFilterSidebar({
   selectedBrand: string;
   onSelectBrand: (brand: string) => void;
   selectedFuel: string | null;
-  onSelectFuel: (val: string) => void;
+  onSelectFuel: (val: string | null) => void;
   selectedGearbox: string | null;
-  onSelectGearbox: (val: string) => void;
+  onSelectGearbox: (val: string | null) => void;
   selectedMileage: string | null;
-  onSelectMileage: (val: string) => void;
-  selectedYear: string | null;
-  onSelectYear: (val: string) => void;
-  selectedPrice: string | null;
-  onSelectPrice: (val: string) => void;
-  openSection: string | null;
+  onSelectMileage: (val: string | null) => void;
+  yearLowerBound: number;
+  yearUpperBound: number;
+  yearMin: number;
+  yearMax: number;
+  onYearMinChange: (value: number) => void;
+  onYearMaxChange: (value: number) => void;
+  priceLowerBound: number;
+  priceUpperBound: number;
+  priceMin: number;
+  priceMax: number;
+  onPriceMinChange: (value: number) => void;
+  onPriceMaxChange: (value: number) => void;
+  openSection: string[];
   onToggleSection: (section: string) => void;
   onReset: () => void;
   selectedCategory: "premium" | "citadine";
 }) {
   const isCitadine = selectedCategory === "citadine";
-  const filterSections = [
-    {
-      title: "Type de carburant",
-      options: MOBILE_FUEL_OPTIONS.map((o) => ({ id: o, label: o })),
-      selected: selectedFuel,
-      onSelect: onSelectFuel,
-    },
-    {
-      title: "Boîtes de vitesse",
-      options: MOBILE_GEARBOX_OPTIONS.map((o) => ({ id: o, label: o })),
-      selected: selectedGearbox,
-      onSelect: onSelectGearbox,
-    },
-    {
-      title: "Kilométrage",
-      options: MOBILE_MILEAGE_OPTIONS as readonly { id: string; label: string }[],
-      selected: selectedMileage,
-      onSelect: onSelectMileage,
-    },
-    {
-      title: "Années",
-      options: MOBILE_YEAR_OPTIONS as readonly { id: string; label: string }[],
-      selected: selectedYear,
-      onSelect: onSelectYear,
-    },
-    {
-      title: "Prix",
-      options: MOBILE_PRICE_OPTIONS as readonly { id: string; label: string }[],
-      selected: selectedPrice,
-      onSelect: onSelectPrice,
-    },
-  ];
+  const sectionBorder = isCitadine ? "border-[#181818]/18" : "border-white/18";
+  const titleColor = isCitadine ? "text-[#181818]" : "text-white";
+  const subtleColor = isCitadine ? "text-[#181818]/55" : "text-white/55";
+  const inputBorder = isCitadine ? "border-[#181818]/18 bg-white" : "border-white/18 bg-white/6";
+  const trackColor = isCitadine ? "bg-[#181818]/25" : "bg-white/25";
+  const thumbColor = isCitadine ? "bg-[#6b7280]" : "bg-white/75";
+  const isSectionOpen = (section: string) => openSection.includes(section);
+  const yearRange = Math.max(1, yearUpperBound - yearLowerBound);
+  const priceRange = Math.max(1, priceUpperBound - priceLowerBound);
+  const yearLeftPercent = ((yearMin - yearLowerBound) / yearRange) * 100;
+  const yearRightPercent = ((yearMax - yearLowerBound) / yearRange) * 100;
+  const priceLeftPercent = ((priceMin - priceLowerBound) / priceRange) * 100;
+  const priceRightPercent = ((priceMax - priceLowerBound) / priceRange) * 100;
+  const formatPrice = (value: number) => `${value.toLocaleString("fr-FR")}€`;
+
+  const renderRadioOption = (
+    label: string,
+    active: boolean,
+    onClick: () => void,
+    count?: number,
+  ) => (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex items-center gap-3 text-left pointer-events-auto cursor-pointer"
+    >
+      <div
+        className={`flex size-7 items-center justify-center rounded-full border-2 ${
+          isCitadine ? "border-[#6b7280]" : "border-white/80"
+        } ${active ? (isCitadine ? "border-[#181818] bg-[#181818]" : "border-white bg-white") : ""}`}
+      >
+        {active ? (
+          <div className={`size-2.5 rounded-full ${isCitadine ? "bg-white" : "bg-[#181818]"}`} />
+        ) : null}
+      </div>
+      <span className={`font-['Helvetica_Neue:Regular',sans-serif] text-[16px] ${titleColor}`}>
+        {label} {typeof count === "number" ? <span className={subtleColor}>({count})</span> : null}
+      </span>
+    </button>
+  );
 
   return (
     <div className="absolute left-[68px] top-[369px] w-[310px]">
-      <div className={`border-b ${isCitadine ? "border-[#181818]" : "border-white"}`}>
+      <div className={`border-b pb-6 ${sectionBorder}`}>
         <div className="flex items-center justify-between h-[55px]">
-          <span className={`font-['Helvetica_Neue:Bold',sans-serif] text-[14px] font-bold ${isCitadine ? "text-[#181818]" : "text-white"}`}>Marques</span>
-          <span className={`${isCitadine ? "text-[#181818]" : "text-white"} text-xl leading-none`}>—</span>
+          <span className={`font-['Helvetica_Neue:Bold',sans-serif] text-[14px] font-bold ${titleColor}`}>Marques</span>
+          <span className={`${titleColor} text-xl leading-none`}>—</span>
         </div>
-        <div className="flex flex-col gap-3 pb-5">
-          {brands.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => onSelectBrand(option.id)}
-              type="button"
-              className="flex items-center gap-3 text-left pointer-events-auto cursor-pointer"
-            >
-              <div
-                className={`flex-none size-[28px] rounded-full border-2 flex items-center justify-center ${
-                  isCitadine ? "border-[#181818]" : "border-white"
-                } ${selectedBrand === option.id ? (isCitadine ? "bg-[#181818]" : "bg-white") : ""}`}
-              >
-                {selectedBrand === option.id && (
-                  <div className={`size-3 rounded-full ${isCitadine ? "bg-white" : "bg-[#181818]"}`} />
-                )}
-              </div>
-              <span className={`font-['Helvetica_Neue:Regular',sans-serif] text-[16px] ${isCitadine ? "text-[#181818]" : "text-white"}`}>
-                {option.label}{" "}
-                <span className={isCitadine ? "text-[#181818]/70" : "text-white/70"}>({option.count})</span>
-              </span>
-            </button>
-          ))}
+        <div className="flex flex-col gap-4">
+          {brands.map((option) =>
+            renderRadioOption(option.label, selectedBrand === option.id, () => onSelectBrand(option.id), option.count),
+          )}
         </div>
       </div>
-      {filterSections.map((section) => (
-        <div key={section.title} className={`border-b ${isCitadine ? "border-[#181818]" : "border-white"}`}>
+
+      {[
+        {
+          title: "Type de carburant",
+          content: (
+            <div className="flex flex-col gap-4 pt-2 pb-6">
+              {renderRadioOption("Tous", selectedFuel === null, () => onSelectFuel(null))}
+              {MOBILE_FUEL_OPTIONS.map((option) =>
+                renderRadioOption(option, selectedFuel === option, () => onSelectFuel(selectedFuel === option ? null : option)),
+              )}
+            </div>
+          ),
+        },
+        {
+          title: "Boîtes de vitesse",
+          content: (
+            <div className="flex flex-col gap-4 pt-2 pb-6">
+              {renderRadioOption("Toutes", selectedGearbox === null, () => onSelectGearbox(null))}
+              {MOBILE_GEARBOX_OPTIONS.map((option) =>
+                renderRadioOption(option, selectedGearbox === option, () => onSelectGearbox(selectedGearbox === option ? null : option)),
+              )}
+            </div>
+          ),
+        },
+        {
+          title: "Kilométrage",
+          content: (
+            <div className="flex flex-col gap-4 pt-2 pb-6">
+              {renderRadioOption("Toutes", selectedMileage === null, () => onSelectMileage(null))}
+              {MOBILE_MILEAGE_OPTIONS.map((option) =>
+                renderRadioOption(option.label, selectedMileage === option.id, () => onSelectMileage(selectedMileage === option.id ? null : option.id)),
+              )}
+            </div>
+          ),
+        },
+        {
+          title: "Années",
+          content: (
+            <div className="pt-3 pb-6">
+              <div className="relative mb-5 h-5">
+                <div className={`absolute left-0 right-0 top-1/2 h-[3px] -translate-y-1/2 rounded-full ${trackColor}`} />
+                <div
+                  className="absolute top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-[#c8ec66]"
+                  style={{ left: `${yearLeftPercent}%`, right: `${100 - yearRightPercent}%` }}
+                />
+                <input
+                  type="range"
+                  min={yearLowerBound}
+                  max={yearUpperBound}
+                  step={1}
+                  value={yearMin}
+                  onChange={(event) => onYearMinChange(Number(event.target.value))}
+                  className="range-slider absolute inset-0 z-20 w-full"
+                  aria-label="Année minimale"
+                />
+                <input
+                  type="range"
+                  min={yearLowerBound}
+                  max={yearUpperBound}
+                  step={1}
+                  value={yearMax}
+                  onChange={(event) => onYearMaxChange(Number(event.target.value))}
+                  className="range-slider absolute inset-0 z-30 w-full"
+                  aria-label="Année maximale"
+                />
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <span className={`text-[14px] ${subtleColor}`}>De</span>
+                  <div className={`flex h-8 min-w-[74px] items-center rounded-[10px] border px-3 text-[14px] ${inputBorder} ${titleColor}`}>
+                    {yearMin}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={`text-[14px] ${subtleColor}`}>À</span>
+                  <div className={`flex h-8 min-w-[74px] items-center rounded-[10px] border px-3 text-[14px] ${inputBorder} ${titleColor}`}>
+                    {yearMax}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ),
+        },
+        {
+          title: "Prix",
+          content: (
+            <div className="pt-3 pb-6">
+              <div className="relative mb-3 h-5">
+                <div className={`absolute left-0 right-0 top-1/2 h-[3px] -translate-y-1/2 rounded-full ${trackColor}`} />
+                <div
+                  className="absolute top-1/2 h-[3px] -translate-y-1/2 rounded-full bg-[#c8ec66]"
+                  style={{ left: `${priceLeftPercent}%`, right: `${100 - priceRightPercent}%` }}
+                />
+                <input
+                  type="range"
+                  min={priceLowerBound}
+                  max={priceUpperBound}
+                  step={500}
+                  value={priceMin}
+                  onChange={(event) => onPriceMinChange(Number(event.target.value))}
+                  className="range-slider absolute inset-0 z-20 w-full"
+                  aria-label="Prix minimum"
+                />
+                <input
+                  type="range"
+                  min={priceLowerBound}
+                  max={priceUpperBound}
+                  step={500}
+                  value={priceMax}
+                  onChange={(event) => onPriceMaxChange(Number(event.target.value))}
+                  className="range-slider absolute inset-0 z-30 w-full"
+                  aria-label="Prix maximum"
+                />
+              </div>
+              <div className={`mb-1 flex justify-between text-[12px] ${subtleColor}`}>
+                <span>Minimum</span>
+                <span>Maximum</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className={`flex h-8 min-w-[108px] items-center rounded-[10px] border px-3 text-[14px] ${inputBorder} ${titleColor}`}>
+                  {formatPrice(priceMin)}
+                </div>
+                <span className={titleColor}>-</span>
+                <div className={`flex h-8 min-w-[108px] items-center rounded-[10px] border px-3 text-[14px] ${inputBorder} ${titleColor}`}>
+                  {formatPrice(priceMax)}
+                </div>
+              </div>
+            </div>
+          ),
+        },
+      ].map((section) => (
+        <div key={section.title} className={`border-b ${sectionBorder}`}>
           <button
             type="button"
             onClick={() => onToggleSection(section.title)}
             className="flex items-center justify-between w-full h-[55px] text-left pointer-events-auto cursor-pointer"
-            aria-expanded={openSection === section.title}
+            aria-expanded={isSectionOpen(section.title)}
           >
-            <span className={`font-['Helvetica_Neue:Bold',sans-serif] text-[14px] ${isCitadine ? "text-[#181818]" : "text-white"}`}>
+            <span className={`font-['Helvetica_Neue:Bold',sans-serif] text-[14px] ${titleColor}`}>
               {section.title}
             </span>
             <span
               className={`inline-flex transition-transform duration-200 ${
-                openSection === section.title ? "rotate-45" : ""
+                isSectionOpen(section.title) ? "rotate-45" : ""
               }`}
             >
               <svg fill="none" height="19.5" viewBox="0 0 19.5 19.5" width="19.5">
@@ -3027,24 +3192,7 @@ function DesktopFilterSidebar({
               </svg>
             </span>
           </button>
-          {openSection === section.title && (
-            <div className="pb-4 flex flex-wrap gap-2">
-              {section.options.map((opt) => (
-                <button
-                  key={opt.id}
-                  type="button"
-                  onClick={() => section.onSelect(opt.id)}
-                  className={`rounded px-3 py-1.5 font-['Helvetica_Neue:Regular',sans-serif] text-[13px] border transition-colors ${
-                    section.selected === opt.id
-                      ? (isCitadine ? "bg-[#181818] text-white border-[#181818]" : "bg-white text-[#181818] border-white")
-                      : (isCitadine ? "border-[#181818]/40 text-[#181818] hover:border-[#181818]/80" : "border-white/40 text-white hover:border-white/80")
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
+          {isSectionOpen(section.title) ? section.content : null}
         </div>
       ))}
       <button
@@ -3063,21 +3211,36 @@ function DesktopFilterSidebar({
 export default function Premium() {
   const [selectedBrand, setSelectedBrand] = useState<string>("all");
   const [selectedCategory, setSelectedCategory] = useState<"premium" | "citadine">("premium");
-  const [openSection, setOpenSection] = useState<string | null>("Type de carburant");
+  const [openSection, setOpenSection] = useState<string[]>(["Type de carburant"]);
   const [apiVehicles, setApiVehicles] = useState<Vehicle[]>([]);
   const [apiBrands, setApiBrands] = useState<{ id: string; label: string; count: number }[]>([]);
+  const [desktopPage, setDesktopPage] = useState(0);
   const [desktopSelectedFuel, setDesktopSelectedFuel] = useState<string | null>(null);
   const [desktopSelectedGearbox, setDesktopSelectedGearbox] = useState<string | null>(null);
   const [desktopSelectedMileage, setDesktopSelectedMileage] = useState<string | null>(null);
-  const [desktopSelectedYear, setDesktopSelectedYear] = useState<string | null>(null);
-  const [desktopSelectedPrice, setDesktopSelectedPrice] = useState<string | null>(null);
+  const [desktopYearMin, setDesktopYearMin] = useState(DEFAULT_DESKTOP_YEAR_MIN);
+  const [desktopYearMax, setDesktopYearMax] = useState(DEFAULT_DESKTOP_YEAR_MAX);
+  const [desktopPriceMin, setDesktopPriceMin] = useState(DEFAULT_DESKTOP_PRICE_MIN);
+  const [desktopPriceMax, setDesktopPriceMax] = useState(DEFAULT_DESKTOP_PRICE_MAX);
+  const fullYearMin = apiVehicles.length > 0
+    ? Math.max(DEFAULT_DESKTOP_YEAR_MIN, Math.min(...apiVehicles.map((vehicle) => vehicle.specs.year)))
+    : DEFAULT_DESKTOP_YEAR_MIN;
+  const fullYearMax = apiVehicles.length > 0
+    ? Math.max(fullYearMin, Math.max(...apiVehicles.map((vehicle) => vehicle.specs.year)))
+    : DEFAULT_DESKTOP_YEAR_MAX;
+  const fullPriceMin = apiVehicles.length > 0
+    ? Math.max(DEFAULT_DESKTOP_PRICE_MIN, Math.min(...apiVehicles.map((vehicle) => vehicle.price)))
+    : DEFAULT_DESKTOP_PRICE_MIN;
+  const fullPriceMax = apiVehicles.length > 0
+    ? Math.max(fullPriceMin, Math.max(...apiVehicles.map((vehicle) => vehicle.price)))
+    : DEFAULT_DESKTOP_PRICE_MAX;
 
   useEffect(() => {
     const isCitadine = selectedCategory === "citadine";
     const scrollContainer = document.querySelector(".h-\\[100dvh\\]");
     
     // Ensure transition classes are applied
-    document.body.classList.add("transition-colors", "duration-300");
+    document.body.classList.add("transition-colors", "duration-150");
 
     if (isCitadine) {
       document.body.classList.add("light-showroom");
@@ -3094,7 +3257,7 @@ export default function Premium() {
     }
     return () => {
       document.body.classList.remove("light-showroom");
-      document.body.classList.remove("transition-colors", "duration-300");
+      document.body.classList.remove("transition-colors", "duration-150");
       if (scrollContainer) {
         scrollContainer.classList.remove("bg-white");
         scrollContainer.classList.add("bg-[#181818]");
@@ -3119,20 +3282,6 @@ export default function Premium() {
     return mileageValue > 80000;
   };
 
-  const matchesYearDesktop = (yearValue: number, option: string | null) => {
-    if (!option) return true;
-    if (option === "2024-plus") return yearValue >= 2024;
-    if (option === "2022-2023") return yearValue >= 2022 && yearValue <= 2023;
-    return yearValue <= 2021;
-  };
-
-  const matchesPriceDesktop = (priceValue: number, option: string | null) => {
-    if (!option) return true;
-    if (option === "under-20000") return priceValue < 20000;
-    if (option === "20000-28000") return priceValue >= 20000 && priceValue <= 28000;
-    return priceValue > 28000;
-  };
-
   const desktopFilteredVehicles = apiVehicles.filter((v) => {
     const brandId = v.brand.toLowerCase().replace(/\s+/g, "-");
     const matchesBrand = selectedBrand === "all" || brandId === selectedBrand;
@@ -3143,10 +3292,50 @@ export default function Premium() {
       matchesFuel &&
       matchesGearbox &&
       matchesMileageDesktop(v.specs.mileage, desktopSelectedMileage) &&
-      matchesYearDesktop(v.specs.year, desktopSelectedYear) &&
-      matchesPriceDesktop(v.price, desktopSelectedPrice)
+      v.specs.year >= desktopYearMin &&
+      v.specs.year <= desktopYearMax &&
+      v.price >= desktopPriceMin &&
+      v.price <= desktopPriceMax
     );
   });
+
+  const totalDesktopPages = Math.ceil(desktopFilteredVehicles.length / DESKTOP_VEHICLES_PER_PAGE);
+  const safeDesktopPage = totalDesktopPages === 0 ? 0 : Math.min(desktopPage, totalDesktopPages - 1);
+  const paginatedDesktopVehicles = desktopFilteredVehicles.slice(
+    safeDesktopPage * DESKTOP_VEHICLES_PER_PAGE,
+    (safeDesktopPage + 1) * DESKTOP_VEHICLES_PER_PAGE,
+  );
+
+  useEffect(() => {
+    setDesktopPage(0);
+  }, [
+    selectedBrand,
+    selectedCategory,
+    desktopSelectedFuel,
+    desktopSelectedGearbox,
+    desktopSelectedMileage,
+    desktopYearMin,
+    desktopYearMax,
+    desktopPriceMin,
+    desktopPriceMax,
+  ]);
+
+  useEffect(() => {
+    if (apiVehicles.length === 0) {
+      return;
+    }
+
+    setDesktopYearMin(fullYearMin);
+    setDesktopYearMax(fullYearMax);
+    setDesktopPriceMin(fullPriceMin);
+    setDesktopPriceMax(fullPriceMax);
+  }, [apiVehicles, fullYearMin, fullYearMax, fullPriceMin, fullPriceMax]);
+
+  useEffect(() => {
+    if (desktopPage !== safeDesktopPage) {
+      setDesktopPage(safeDesktopPage);
+    }
+  }, [desktopPage, safeDesktopPage]);
 
   const DESKTOP_SLOTS: Array<{ leftBase: number; topBase: number; isGreen?: boolean }> = [
     { leftBase: 502, topBase: 445 },
@@ -3166,12 +3355,14 @@ export default function Premium() {
   const resetFilters = () => {
     setSelectedBrand("all");
     setSelectedCategory("premium");
-    setOpenSection("Type de carburant");
+    setOpenSection(["Type de carburant"]);
     setDesktopSelectedFuel(null);
     setDesktopSelectedGearbox(null);
     setDesktopSelectedMileage(null);
-    setDesktopSelectedYear(null);
-    setDesktopSelectedPrice(null);
+    setDesktopYearMin(fullYearMin);
+    setDesktopYearMax(fullYearMax);
+    setDesktopPriceMin(fullPriceMin);
+    setDesktopPriceMax(fullPriceMax);
   };
 
   const selectedBrandLabel = apiBrands.find((option) => option.id === selectedBrand)?.label ?? "Tous";
@@ -3182,13 +3373,17 @@ export default function Premium() {
         apiVehicles={apiVehicles}
         onReset={resetFilters}
         onSelectBrand={setSelectedBrand}
-        onToggleSection={(section) => setOpenSection((current) => current === section ? null : section)}
-        openSection={openSection as (typeof FILTER_SECTIONS)[number] | null}
+        onToggleSection={(section) =>
+          setOpenSection((current) =>
+            current.includes(section) ? current.filter((item) => item !== section) : [...current, section],
+          )
+        }
+        openSection={openSection as Array<(typeof FILTER_SECTIONS)[number]>}
         selectedBrand={selectedBrand as (typeof BRAND_OPTIONS)[number]["id"]}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <div className={`relative hidden size-full xl:block transition-colors duration-300 ${selectedCategory === "citadine" ? "bg-white text-[#181818]" : "bg-[#181818] text-white"}`} data-name="premium">
+      <div className={`relative hidden size-full xl:block transition-colors duration-150 ${selectedCategory === "citadine" ? "bg-white text-[#181818]" : "bg-[#181818] text-white"}`} data-name="premium">
         <div className="absolute h-[742.872px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
           <div className="absolute inset-[-26.92%_-7.51%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -3222,22 +3417,34 @@ export default function Premium() {
           onSelectGearbox={(val) => setDesktopSelectedGearbox((c) => c === val ? null : val)}
           selectedMileage={desktopSelectedMileage}
           onSelectMileage={(val) => setDesktopSelectedMileage((c) => c === val ? null : val)}
-          selectedYear={desktopSelectedYear}
-          onSelectYear={(val) => setDesktopSelectedYear((c) => c === val ? null : val)}
-          selectedPrice={desktopSelectedPrice}
-          onSelectPrice={(val) => setDesktopSelectedPrice((c) => c === val ? null : val)}
+          yearLowerBound={fullYearMin}
+          yearUpperBound={fullYearMax}
+          yearMin={desktopYearMin}
+          yearMax={desktopYearMax}
+          onYearMinChange={(value) => setDesktopYearMin(Math.min(value, desktopYearMax))}
+          onYearMaxChange={(value) => setDesktopYearMax(Math.max(value, desktopYearMin))}
+          priceLowerBound={fullPriceMin}
+          priceUpperBound={fullPriceMax}
+          priceMin={desktopPriceMin}
+          priceMax={desktopPriceMax}
+          onPriceMinChange={(value) => setDesktopPriceMin(Math.min(value, desktopPriceMax))}
+          onPriceMaxChange={(value) => setDesktopPriceMax(Math.max(value, desktopPriceMin))}
           openSection={openSection}
-          onToggleSection={(section) => setOpenSection((c) => c === section ? null : section)}
+          onToggleSection={(section) =>
+            setOpenSection((current) =>
+              current.includes(section) ? current.filter((item) => item !== section) : [...current, section],
+            )
+          }
           onReset={resetFilters}
           selectedCategory={selectedCategory}
         />
         {DESKTOP_SLOTS.map((slot, i) => (
           <VehicleCardDesktop
-            key={desktopFilteredVehicles[i]?.id ?? i}
+            key={paginatedDesktopVehicles[i]?.id ?? i}
             isGreen={!!slot.isGreen}
             leftBase={slot.leftBase}
             topBase={slot.topBase}
-            vehicle={desktopFilteredVehicles[i]}
+            vehicle={paginatedDesktopVehicles[i]}
           />
         ))}
         <div className="-translate-y-1/2 absolute flex flex-col font-['Helvetica_Neue:Bold',sans-serif] h-[38px] justify-center leading-[0] left-[517px] not-italic text-[24.8px] text-[transparent] top-[373px] w-[118px]">
@@ -3248,7 +3455,12 @@ export default function Premium() {
         </div>
         <Link isActive={selectedCategory === "citadine"} onClick={() => setSelectedCategory("citadine")} light={selectedCategory === "citadine"} />
         <Link1 isActive={selectedCategory === "premium"} onClick={() => setSelectedCategory("premium")} light={selectedCategory === "citadine"} />
-        <Group12 light={selectedCategory === "citadine"} />
+        <Group12
+          light={selectedCategory === "citadine"}
+          totalPages={totalDesktopPages}
+          currentPage={safeDesktopPage}
+          onSelectPage={setDesktopPage}
+        />
         <Group13 light={selectedCategory === "citadine"} />
         <Footer />
       </div>
