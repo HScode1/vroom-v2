@@ -172,10 +172,46 @@ function MobileSolutionArrow() {
   );
 }
 
+const solutionsData = [
+  {
+    key: "acheter" as const,
+    num: "01",
+    title: "ACHETER UN VÉHICULE",
+    slogan: "Trouvez la voiture de vos rêves",
+    description: "Découvrez notre sélection exclusive de véhicules d'exception, méticuleusement inspectés, préparés et garantis pour une sérénité totale.",
+    image: imgAcheterUnVehicule,
+    buttonLabel: "Notre sélection",
+    href: "/showroom",
+  },
+  {
+    key: "commander" as const,
+    num: "02",
+    title: "COMMANDER UN VÉHICULE",
+    slogan: "Sur mesure selon vos critères",
+    description: "Vous recherchez une configuration précise ? Notre service de recherche personnalisée trouve et importe pour vous le véhicule parfait.",
+    image: imgCommanderUnVehicule,
+    buttonLabel: "Choisir son véhicule",
+    href: "/showroom",
+  },
+  {
+    key: "vendre" as const,
+    num: "03",
+    title: "VENDRE UN VÉHICULE",
+    slogan: "Vendez en toute simplicité",
+    description: "Estimez gratuitement votre voiture et vendez-la au meilleur prix du marché, rapidement et sans aucun tracas administratif.",
+    image: imgVendreUnVehicule,
+    buttonLabel: "Vendre votre véhicule",
+    href: "/vendre-votre-vehicule",
+  },
+];
+
 function MobileNosSolutions() {
+  const [activeSolution, setActiveSolution] = useState<"acheter" | "commander" | "vendre">("acheter");
+
   return (
     <div className="absolute left-0 top-[928px] w-screen px-5 sm:px-8 lg:hidden">
       <div className="mx-auto max-w-[640px]">
+        {/* Badge */}
         <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
           <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
           <p className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]">
@@ -183,64 +219,95 @@ function MobileNosSolutions() {
           </p>
         </div>
 
+        {/* Section Title */}
         <p className="mt-5 text-center font-['Syne',sans-serif] text-[40px] font-extrabold leading-[44px] text-white sm:text-[46px] sm:leading-[50px]">
           <span className="font-['Syne',sans-serif] font-extrabold">{`Nos `}</span>
           <span className="font-['Syne',sans-serif] font-extrabold text-[#c8ec66]">Solutions</span>
         </p>
 
-        <div className="mt-8">
-          <div className="space-y-4">
-            <p className="font-['Syne',sans-serif] text-[34px] font-bold leading-[36px] text-white sm:text-[38px] sm:leading-[40px]">
-              ACHETER UN VÉHICULE
-            </p>
-            <p className="font-['Syne',sans-serif] text-[30px] font-bold leading-[32px] text-[#c8ec66]/22 sm:text-[34px] sm:leading-[36px]">
-              COMMANDER UN VÉHICULE
-            </p>
-            <p className="font-['Syne',sans-serif] text-[30px] font-bold leading-[32px] text-[#c8ec66]/22 sm:text-[34px] sm:leading-[36px]">
-              VENDRE UN VÉHICULE
-            </p>
-          </div>
-
-          <div className="relative mt-8 overflow-hidden rounded-[26px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_right,rgba(200,236,102,0.14),rgba(24,24,24,0.9)_58%)] px-5 py-6 shadow-[0px_20px_40px_-24px_rgba(0,0,0,0.55)]">
-            <div className="pointer-events-none absolute -left-10 top-10 size-24 rounded-full bg-[#bcff3d]/20 blur-[40px]" />
-            <div className="pointer-events-none absolute -right-6 bottom-6 size-28 rounded-full bg-[#c8ec66]/15 blur-[45px]" />
-            <div className="relative z-10">
-              <div className="flex items-center justify-between gap-4">
-                <div className="max-w-[48%]">
-                  <p className="font-['Helvetica_Neue:Light',sans-serif] text-[23px] leading-[27px] text-white">
-                    Trouvez la voiture de vos rêves
-                  </p>
-                </div>
-                <div className="w-[42%]">
-                  <img alt="" className="ml-auto h-auto w-full max-w-[140px]" src={imgAcheterUnVehicule} />
-                </div>
-              </div>
-
-              <a
-                className="mt-6 inline-flex h-[54px] items-center gap-3 rounded-[9999px] border-2 border-[#c8ec66] bg-[#c8ec66] px-6 shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
-                href="/showroom"
+        {/* Interactive Accordion */}
+        <div className="mt-8 space-y-4">
+          {solutionsData.map((sol) => {
+            const isExpanded = activeSolution === sol.key;
+            return (
+              <div 
+                key={sol.key} 
+                className="overflow-hidden rounded-[24px] border border-white/[0.04] bg-white/[0.01] transition-all duration-300"
               >
-                <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[17px] font-bold text-[#1f2937]">Notre sélection</span>
-                <MobileSolutionArrow />
-              </a>
-            </div>
-          </div>
+                {/* Header Button */}
+                <button
+                  onClick={() => setActiveSolution(sol.key)}
+                  className="flex w-full items-center justify-between px-5 py-4 text-left outline-none transition-colors duration-300 hover:bg-white/[0.02]"
+                  type="button"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className={`font-['Syne',sans-serif] text-xs font-semibold tracking-wider transition-colors duration-300 ${isExpanded ? "text-[#c8ec66]" : "text-white/30"}`}>
+                      {sol.num}
+                    </span>
+                    <span className={`font-['Syne',sans-serif] text-base sm:text-lg font-bold tracking-wide transition-all duration-300 ${isExpanded ? "text-[#c8ec66]" : "text-white/60"}`}>
+                      {sol.title}
+                    </span>
+                  </div>
+                  
+                  {/* Morphing Plus/Minus Icon */}
+                  <div className={`relative flex size-8 items-center justify-center rounded-full border transition-all duration-300 ${isExpanded ? "border-[#c8ec66] bg-[#c8ec66]/10 text-[#c8ec66] rotate-180" : "border-white/10 text-white/40"}`}>
+                    <span className="h-[1.5px] w-3.5 bg-current rounded-full" />
+                    <span className={`absolute h-3.5 w-[1.5px] bg-current rounded-full transition-transform duration-300 ${isExpanded ? "scale-0" : "scale-100"}`} />
+                  </div>
+                </button>
 
-          <div className="mt-4 overflow-hidden rounded-[22px] border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.03)] px-4 py-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="max-w-[52%]">
-                <p className="font-['Syne',sans-serif] text-[20px] font-bold leading-[24px] text-[#c8ec66]/75">
-                  COMMANDER UN VÉHICULE
-                </p>
-                <p className="mt-3 font-['Helvetica_Neue:Light',sans-serif] text-[15px] leading-[22px] text-white/70">
-                  Nous cherchons le bon véhicule pour votre besoin.
-                </p>
+                {/* Animated Body Content */}
+                <div
+                  className={`grid transition-all duration-500 ease-in-out ${
+                    isExpanded ? "grid-rows-[1fr] opacity-100 border-t border-white/[0.03]" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden min-h-0">
+                    <div className="relative overflow-hidden bg-[radial-gradient(circle_at_top_right,rgba(200,236,102,0.06),rgba(24,24,24,0)_70%)] px-5 py-6">
+                      
+                      {/* Ambient light glow behind the floating image */}
+                      <div className="pointer-events-none absolute -right-4 top-10 size-24 rounded-full bg-[#c8ec66]/10 blur-[40px]" />
+                      
+                      <div className="relative z-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                        {/* Text details */}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-['Helvetica_Neue:Light',sans-serif] text-[20px] sm:text-[22px] leading-tight text-white">
+                            {sol.slogan}
+                          </p>
+                          <p className="mt-2 font-['Helvetica_Neue',sans-serif] text-sm leading-relaxed text-white/60">
+                            {sol.description}
+                          </p>
+                          
+                          {/* CTA Button */}
+                          <div className="mt-5">
+                            <a
+                              className="inline-flex h-[48px] items-center gap-2.5 rounded-full border border-[#c8ec66] bg-[#c8ec66] px-5 shadow-[0px_10px_20px_-5px_rgba(200,236,102,0.15)] transition-all active:scale-[0.97] hover:bg-[#d4f67a] hover:border-[#d4f67a]"
+                              href={sol.href}
+                            >
+                              <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[14px] font-bold text-[#1f2937]">
+                                {sol.buttonLabel}
+                              </span>
+                              <MobileSolutionArrow />
+                            </a>
+                          </div>
+                        </div>
+
+                        {/* Floating Car Image */}
+                        <div className="relative flex items-center justify-center self-center sm:self-auto w-[45%] max-w-[160px] aspect-[4/3] sm:mt-0 mt-2">
+                          <img
+                            alt={sol.title}
+                            className="relative z-10 max-h-[100px] w-full object-contain drop-shadow-[0_12px_12px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out hover:scale-105"
+                            src={sol.image}
+                          />
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="w-[40%]">
-                <img alt="" className="ml-auto h-auto w-full max-w-[118px] opacity-90" src={imgCommanderUnVehicule} />
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -248,9 +315,14 @@ function MobileNosSolutions() {
 }
 
 function TabletNosSolutions() {
+  const [activeSolution, setActiveSolution] = useState<"acheter" | "commander" | "vendre">("acheter");
+
+  const sol = solutionsData.find((s) => s.key === activeSolution) || solutionsData[0];
+
   return (
     <div className="absolute left-0 top-[928px] hidden w-screen px-10 lg:block xl:hidden">
       <div className="mx-auto max-w-[1180px]">
+        {/* Badge */}
         <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
           <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
           <p
@@ -261,71 +333,75 @@ function TabletNosSolutions() {
           </p>
         </div>
 
+        {/* Section Title */}
         <p className="mt-6 text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] text-white">
           <span>{`Nos `}</span>
           <span className="text-[#c8ec66]">Solutions</span>
         </p>
 
-        <div className="mt-10 grid grid-cols-[minmax(0,380px)_minmax(0,1fr)] items-start gap-8 xl:gap-10">
-          <div className="pt-6">
-            <div className="space-y-5">
-              <p className="font-['Syne',sans-serif] text-[48px] font-bold leading-[0.95] text-white">
-                ACHETER UN VÉHICULE
-              </p>
-              <p className="font-['Syne',sans-serif] text-[38px] font-bold leading-[1] text-[#c8ec66]/22">
-                COMMANDER UN VÉHICULE
-              </p>
-              <p className="font-['Syne',sans-serif] text-[38px] font-bold leading-[1] text-[#c8ec66]/22">
-                VENDRE UN VÉHICULE
-              </p>
-            </div>
+        {/* Dynamic Split Layout */}
+        <div className="mt-10 grid grid-cols-[minmax(0,380px)_minmax(0,1fr)] items-center gap-8 xl:gap-10">
+          
+          {/* Left Menu Selection */}
+          <div className="space-y-6">
+            {solutionsData.map((s) => {
+              const isActive = activeSolution === s.key;
+              return (
+                <button
+                  key={s.key}
+                  onClick={() => setActiveSolution(s.key)}
+                  className={`block w-full text-left font-['Syne',sans-serif] font-bold transition-all duration-300 outline-none ${
+                    isActive 
+                      ? "text-[42px] leading-[44px] text-white opacity-100 translate-x-2" 
+                      : "text-[34px] leading-[36px] text-[#c8ec66]/20 hover:text-[#c8ec66]/40 hover:translate-x-1"
+                  }`}
+                  type="button"
+                >
+                  {s.title}
+                </button>
+              );
+            })}
           </div>
 
-          <div className="space-y-5">
-            <div className="relative overflow-hidden rounded-[34px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_right,rgba(200,236,102,0.16),rgba(24,24,24,0.9)_58%)] px-8 py-8 shadow-[0px_24px_60px_-30px_rgba(0,0,0,0.6)]">
-              <div className="pointer-events-none absolute -left-16 top-10 size-32 rounded-full bg-[#bcff3d]/20 blur-[56px]" />
-              <div className="pointer-events-none absolute -right-8 bottom-6 size-40 rounded-full bg-[#c8ec66]/15 blur-[60px]" />
+          {/* Right Card View */}
+          <div className="relative overflow-hidden rounded-[34px] border border-[rgba(255,255,255,0.05)] bg-[radial-gradient(circle_at_top_right,rgba(200,236,102,0.16),rgba(24,24,24,0.9)_58%)] px-8 py-8 shadow-[0px_24px_60px_-30px_rgba(0,0,0,0.6)] min-h-[320px] flex flex-col justify-between">
+            {/* Ambient background glows */}
+            <div className="pointer-events-none absolute -left-16 top-10 size-32 rounded-full bg-[#bcff3d]/15 blur-[56px]" />
+            <div className="pointer-events-none absolute -right-8 bottom-6 size-40 rounded-full bg-[#c8ec66]/10 blur-[60px]" />
 
-              <div className="relative z-10 flex items-center justify-between gap-8">
-                <div className="max-w-[320px]">
-                  <p className="font-['Helvetica_Neue:Light',sans-serif] text-[36px] leading-[38px] text-white">
-                    Trouvez la voiture de vos rêves
-                  </p>
+            <div className="relative z-10 flex items-center justify-between gap-8 h-full">
+              <div className="max-w-[340px] flex flex-col justify-center">
+                <p className="font-['Helvetica_Neue:Light',sans-serif] text-[32px] leading-[36px] text-white">
+                  {sol.slogan}
+                </p>
+                <p className="mt-3 text-[16px] leading-[24px] text-white/60">
+                  {sol.description}
+                </p>
 
+                <div className="mt-6">
                   <a
-                    className="mt-8 inline-flex h-[56px] items-center gap-3 rounded-[9999px] border-2 border-[#c8ec66] bg-[#c8ec66] px-7 shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60"
-                    href="/showroom"
+                    className="inline-flex h-[54px] items-center gap-3 rounded-[9999px] border border-[#c8ec66] bg-[#c8ec66] px-7 shadow-[0px_20px_40px_-10px_rgba(200,236,102,0.2)] transition-all active:scale-[0.97] hover:bg-[#d4f67a] hover:border-[#d4f67a]"
+                    href={sol.href}
                   >
-                    <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[18px] font-bold text-[#1f2937]">
-                      Notre sélection
+                    <span className="font-['Helvetica_Neue:Bold',sans-serif] text-[16px] font-bold text-[#1f2937]">
+                      {sol.buttonLabel}
                     </span>
                     <MobileSolutionArrow />
                   </a>
                 </div>
-
-                <div className="w-[44%] min-w-[260px]">
-                  <img alt="" className="ml-auto h-auto w-full max-w-[360px]" src={imgAcheterUnVehicule} />
-                </div>
               </div>
-            </div>
 
-            <div className="overflow-hidden rounded-[28px] border border-[rgba(255,255,255,0.05)] bg-[rgba(255,255,255,0.03)] px-6 py-5">
-              <div className="flex items-center justify-between gap-6">
-                <div className="max-w-[54%]">
-                  <p className="font-['Syne',sans-serif] text-[26px] font-bold leading-[28px] text-[#c8ec66]/75">
-                    COMMANDER UN VÉHICULE
-                  </p>
-                  <p className="mt-3 font-['Helvetica_Neue:Light',sans-serif] text-[17px] leading-[25px] text-white/70">
-                    Nous cherchons le bon véhicule pour votre besoin.
-                  </p>
-                </div>
-
-                <div className="w-[32%] min-w-[170px]">
-                  <img alt="" className="ml-auto h-auto w-full max-w-[210px] opacity-90" src={imgCommanderUnVehicule} />
-                </div>
+              {/* Floating Image */}
+              <div className="w-[40%] min-w-[240px] flex items-center justify-center relative aspect-[4/3]">
+                <img
+                  alt={sol.title}
+                  className="h-auto w-full max-w-[320px] object-contain drop-shadow-[0_20px_20px_rgba(0,0,0,0.6)] transition-all duration-500 ease-out transform hover:scale-[1.03]"
+                  src={sol.image}
+                />
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
