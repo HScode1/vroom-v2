@@ -1,5 +1,32 @@
-import { useNavigate } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import svgPaths from "./svg-g9ybnh21zu";
+
+function ConfirmationNotice({ requestId }: { requestId: string | null }) {
+  const hasRequestId = Boolean(requestId);
+
+  return (
+    <div className="absolute left-1/2 top-[32px] z-20 w-[min(720px,calc(100vw-32px))] -translate-x-1/2 rounded-[24px] border border-[rgba(188,255,61,0.22)] bg-[rgba(17,20,17,0.92)] px-5 py-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-md">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#bcff3d]">
+        {hasRequestId ? "Demande enregistrée" : "Confirmation de demande"}
+      </p>
+      <h1 className="mt-2 text-[20px] font-semibold text-white">
+        {hasRequestId
+          ? "Votre demande d’achat a bien été transmise."
+          : "Merci. Votre demande d’achat est prête."}
+      </h1>
+      <p className="mt-2 text-[14px] leading-[1.6] text-white/70">
+        {hasRequestId
+          ? "Un conseiller va étudier votre dossier et vous recontacter rapidement pour la suite."
+          : "Si vous arrivez directement sur cette page, vous pouvez simplement la considérer comme une confirmation générale."}
+      </p>
+      {hasRequestId && (
+        <p className="mt-3 text-[12px] text-white/45">
+          Référence dossier: <span className="font-mono text-white/70">{requestId}</span>
+        </p>
+      )}
+    </div>
+  );
+}
 
 function OverlayBorder() {
   return (
@@ -1613,8 +1640,12 @@ function Group1() {
 }
 
 export default function Etape2FormulaireAcheterVotreVehicule() {
+  const [searchParams] = useSearchParams();
+  const requestId = searchParams.get("requestId");
+
   return (
     <div className="bg-[#181818] relative min-h-screen size-full" data-name="Etape 2 formulaire acheter votre vehicule">
+      <ConfirmationNotice requestId={requestId} />
       <MobilePage />
       <div className="relative mx-auto hidden min-h-[2584px] w-[1440px] xl:block">
         <div className="absolute h-[742.87px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">

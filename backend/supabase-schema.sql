@@ -5,6 +5,7 @@
 
 -- Enable UUID extension (already enabled on Supabase)
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+CREATE EXTENSION IF NOT EXISTS btree_gist;
 
 -- ── Vehicles ──────────────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS vehicles (
@@ -53,8 +54,19 @@ CREATE TABLE IF NOT EXISTS appointments (
   booking    JSONB NOT NULL,
   customer   JSONB NOT NULL,
   project    JSONB NOT NULL,
+  start_at   TIMESTAMPTZ NOT NULL,
+  end_at     TIMESTAMPTZ NOT NULL,
+  calendar_event_id TEXT,
+  cancel_token TEXT NOT NULL DEFAULT gen_random_uuid()::text,
+  reschedule_token TEXT NOT NULL DEFAULT gen_random_uuid()::text,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE appointments DROP CONSTRAINT IF EXISTS appointments_no_active_overlap;
+ALTER TABLE appointments
+  ADD CONSTRAINT appointments_no_active_overlap
+  EXCLUDE USING gist (tstzrange(start_at, end_at, '[)') WITH &&)
+  WHERE (status IN ('Confirmé', 'En attente'));
 
 -- ── Contact messages ──────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS contact_messages (

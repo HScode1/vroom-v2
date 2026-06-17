@@ -3,6 +3,12 @@ import rateLimit from "express-rate-limit";
 import { store } from "../data/store.js";
 import { requireAdmin } from "../middleware/auth.js";
 import { BuyRequestSchema, SellRequestSchema, RequestStatusUpdateSchema } from "../schemas/index.js";
+import {
+  sendBuyRequestConfirmationToClient,
+  sendBuyRequestNotificationToTeam,
+  sendSellRequestConfirmationToClient,
+  sendSellRequestNotificationToTeam,
+} from "../services/email.js";
 
 const formLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -28,6 +34,29 @@ router.post("/buy", formLimiter, async (req, res, next) => {
   try {
     const data = BuyRequestSchema.parse(req.body);
     const request = await store.buyRequests.create(data);
+    const emails = await Promise.allSettled([
+      sendBuyRequestNotificationToTeam({
+        requestId: request.id,
+        customer: request.customer,
+        vehicleCriteria: request.vehicleCriteria,
+      }),
+      sendBuyRequestConfirmationToClient({
+        requestId: request.id,
+        customer: request.customer,
+        vehicleCriteria: request.vehicleCriteria,
+      }),
+    ]);
+
+    emails.forEach((result, index) => {
+      if (result.status === "rejected") {
+        console.error("Failed to send buy request email", {
+          requestId: request.id,
+          recipient: index === 0 ? "team" : "client",
+          error: result.reason,
+        });
+      }
+    });
+
     res.status(201).json({ id: request.id, message: "Demande enregistrée" });
   } catch (err) {
     next(err);
@@ -69,6 +98,29 @@ router.post("/sell", formLimiter, async (req, res, next) => {
   try {
     const data = SellRequestSchema.parse(req.body);
     const request = await store.sellRequests.create(data);
+    const emails = await Promise.allSettled([
+      sendSellRequestNotificationToTeam({
+        requestId: request.id,
+        customer: request.customer,
+        vehicle: request.vehicle,
+      }),
+      sendSellRequestConfirmationToClient({
+        requestId: request.id,
+        customer: request.customer,
+        vehicle: request.vehicle,
+      }),
+    ]);
+
+    emails.forEach((result, index) => {
+      if (result.status === "rejected") {
+        console.error("Failed to send sell request email", {
+          requestId: request.id,
+          recipient: index === 0 ? "team" : "client",
+          error: result.reason,
+        });
+      }
+    });
+
     res.status(201).json({ id: request.id, message: "Dossier de reprise enregistré" });
   } catch (err) {
     next(err);

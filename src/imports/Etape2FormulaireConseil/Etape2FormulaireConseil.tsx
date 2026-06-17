@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
+import { bookings } from "../../lib/api";
 import svgPaths from "./svg-t3kgt1lbc3";
 
 function buildGoogleCalendarUrl({
@@ -1289,11 +1291,14 @@ function DesktopEtape2FormulaireConseil({
 export default function Etape2FormulaireConseil() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [isCancelling, setIsCancelling] = useState(false);
   const bookingDate = formatBookingDate(searchParams.get("date"));
   const bookingTime = formatBookingTime(searchParams.get("slot"), searchParams.get("duration"));
   const bookingFormat = formatBookingFormat(searchParams.get("format"));
   const fullName = formatFullName(searchParams.get("firstName"), searchParams.get("lastName"));
   const email = searchParams.get("email") || "jean.dupont@email.com";
+  const bookingId = searchParams.get("bookingId");
+  const cancelToken = searchParams.get("cancelToken");
 
   const calendarUrl = buildGoogleCalendarUrl({
     date: searchParams.get("date"),
@@ -1302,6 +1307,24 @@ export default function Etape2FormulaireConseil() {
     format: searchParams.get("format"),
     fullName,
   });
+
+  const handleCancel = async () => {
+    if (isCancelling) return;
+    if (!bookingId || !cancelToken) {
+      navigate(`/conseils?${searchParams.toString()}`);
+      return;
+    }
+
+    setIsCancelling(true);
+    try {
+      await bookings.cancel(bookingId, cancelToken);
+      navigate("/conseils");
+    } catch (_error) {
+      navigate(`/conseils?${searchParams.toString()}`);
+    } finally {
+      setIsCancelling(false);
+    }
+  };
 
   return (
     <div className="w-full bg-[#181818]">
@@ -1312,8 +1335,8 @@ export default function Etape2FormulaireConseil() {
         bookingTime={bookingTime}
         bookingFormat={bookingFormat}
         calendarUrl={calendarUrl}
-        onEdit={() => navigate(`/conseils/formulaire?${searchParams.toString()}`)}
-        onCancel={() => navigate(`/conseils?${searchParams.toString()}`)}
+        onEdit={() => navigate(`/conseils?${searchParams.toString()}`)}
+        onCancel={handleCancel}
         onHome={() => navigate("/")}
       />
       <DesktopEtape2FormulaireConseil
@@ -1323,8 +1346,8 @@ export default function Etape2FormulaireConseil() {
         bookingTime={bookingTime}
         bookingFormat={bookingFormat}
         calendarUrl={calendarUrl}
-        onEdit={() => navigate(`/conseils/formulaire?${searchParams.toString()}`)}
-        onCancel={() => navigate(`/conseils?${searchParams.toString()}`)}
+        onEdit={() => navigate(`/conseils?${searchParams.toString()}`)}
+        onCancel={handleCancel}
         onHome={() => navigate("/")}
       />
     </div>

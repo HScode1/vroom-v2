@@ -6,6 +6,23 @@ import svgPaths from "./svg-fi2qbhww8w";
 type GearboxSelection = "automatique" | "manuelle" | "peuImporte";
 type HorizonSelection = "immediat" | "1-3mois" | "3-6mois" | "6plus";
 
+type BuyFormState = {
+  brand: string;
+  model: string;
+  year: string;
+  gearbox: GearboxSelection;
+  fuel: string;
+  budget: number;
+  horizon: HorizonSelection;
+  notes: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
+
+type BuyFormErrors = Partial<Record<"brand" | "model" | "year" | "gearbox" | "fuel" | "budget" | "horizon" | "notes" | "firstName" | "lastName" | "email" | "phone" | "submit", string>>;
+
 function mapGearbox(selection: GearboxSelection): string {
   if (selection === "manuelle") return "Manuelle";
   if (selection === "peuImporte") return "Peu importe";
@@ -26,40 +43,81 @@ function mapHorizon(selection: HorizonSelection): string {
   }
 }
 
-function submitBuyRequest(params: {
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_PATTERN = /^[0-9+\s().-]{6,20}$/;
+
+function collectBuyFormState(form: HTMLFormElement): BuyFormState {
+  const data = new FormData(form);
+  const budget = Number(data.get("budget") ?? 0);
+
+  return {
+    brand: String(data.get("brand") ?? "").trim(),
+    model: String(data.get("model") ?? "").trim(),
+    year: String(data.get("year") ?? "").trim(),
+    gearbox: String(data.get("gearbox") ?? "automatique") as GearboxSelection,
+    fuel: String(data.get("fuel") ?? "").trim(),
+    budget: Number.isFinite(budget) ? budget : 0,
+    horizon: String(data.get("horizon") ?? "immediat") as HorizonSelection,
+    notes: String(data.get("notes") ?? "").trim(),
+    firstName: String(data.get("firstName") ?? "").trim(),
+    lastName: String(data.get("lastName") ?? "").trim(),
+    email: String(data.get("email") ?? "").trim(),
+    phone: String(data.get("phone") ?? "").trim(),
+  };
+}
+
+function validateBuyForm(form: BuyFormState): BuyFormErrors {
+  const nextErrors: BuyFormErrors = {};
+
+  if (!form.brand) nextErrors.brand = "La marque est requise.";
+  if (!form.gearbox) nextErrors.gearbox = "La boîte est requise.";
+  if (!form.firstName) nextErrors.firstName = "Le prénom est requis.";
+  if (!form.lastName) nextErrors.lastName = "Le nom est requis.";
+
+  if (!form.email) {
+    nextErrors.email = "L'email est requis.";
+  } else if (!EMAIL_PATTERN.test(form.email)) {
+    nextErrors.email = "L'email doit être valide.";
+  }
+
+  if (!form.phone) {
+    nextErrors.phone = "Le téléphone est requis.";
+  } else if (!PHONE_PATTERN.test(form.phone)) {
+    nextErrors.phone = "Le téléphone doit être valide.";
+  }
+
+  if (form.budget <= 0) nextErrors.budget = "Le budget doit être supérieur à 0.";
+
+  return nextErrors;
+}
+
+async function submitBuyRequest(params: {
   navigate: (path: string) => void;
-  budget: number;
-  gearbox: GearboxSelection;
-  horizon: HorizonSelection;
+  form: BuyFormState;
 }) {
-  const { navigate, budget, gearbox, horizon } = params;
+  const { navigate, form } = params;
+  const response = await requests.createBuy({
+    customer: {
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      phone: form.phone,
+    },
+    vehicleCriteria: {
+      brand: form.brand,
+      model: form.model,
+      trim: "",
+      year: form.year,
+      gearbox: mapGearbox(form.gearbox),
+      fuel: form.fuel,
+      maxMileage: 0,
+      maxBudget: form.budget,
+      timeframe: mapHorizon(form.horizon),
+      notes: form.notes,
+    },
+  });
 
-  void requests
-    .createBuy({
-      customer: {
-        firstName: "Jean",
-        lastName: "Dupont",
-        email: "jean.dupont@email.com",
-        phone: "06 00 00 00 00",
-      },
-      vehicleCriteria: {
-        brand: "Volkswagen",
-        model: "Golf",
-        trim: "GTI ou R",
-        year: "2022 - 2023",
-        gearbox: mapGearbox(gearbox),
-        fuel: "Essence",
-        maxMileage: 60000,
-        maxBudget: budget,
-        timeframe: mapHorizon(horizon),
-        notes: "Recherche familiale fiable, usage quotidien + autoroute.",
-      },
-    })
-    .catch((error) => {
-      console.error("Impossible d'enregistrer la demande d'achat", error);
-    });
-
-  navigate("/acheter-votre-vehicule/etape-2");
+  navigate(`/acheter-votre-vehicule/etape-2?requestId=${encodeURIComponent(response.id)}`);
 }
 
 function OverlayBorder() {
@@ -773,7 +831,7 @@ function Container() {
 function Options() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 right-[468px] rounded-[12px] top-[73px]" data-name="Options">
-      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+      <select name="brand" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
         <option value="">Sélectionner...</option>
         <option>Audi</option>
         <option>BMW</option>
@@ -804,7 +862,7 @@ function Container1() {
 function Input() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[234px] overflow-clip right-[234px] rounded-[12px] top-[73px]" data-name="Input">
-      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
+      <input name="model" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
     </div>
   );
 }
@@ -822,7 +880,7 @@ function Container2() {
 function Options1() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[468px] right-0 rounded-[12px] top-[73px]" data-name="Options">
-      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+      <select name="year" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
         <option value="">Peu importe</option>
         {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
           <option key={y}>{y}</option>
@@ -888,7 +946,7 @@ function Container3() {
 function Options2() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[351px] right-0 rounded-[12px] top-[165px]" data-name="Options">
-      <select className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+      <select name="fuel" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
         <option value="">Peu importe</option>
         <option>Essence</option>
         <option>Diesel</option>
@@ -920,6 +978,7 @@ function Section1LeVehicule({ top = 119 }: { top?: number }) {
       <Options1 />
       <div className="absolute border-[rgba(255,255,255,0.4)] border-l-4 border-r-4 border-solid border-t-5 h-[5px] left-[666px] right-[16px] top-[94.5px]" data-name="Border" />
       <Label1 />
+      <input type="hidden" name="gearbox" value={boite} />
       {/* Automatique */}
       <div
         className={`absolute border border-solid h-[48px] left-0 right-[579.52px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${boite === 'automatique' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
@@ -1022,6 +1081,7 @@ function Section2Budget({ top = 368 }: { top?: number }) {
           style={{ left: `${pct}%` }}
         />
         <input
+          name="budget"
           type="range"
           min={min}
           max={max}
@@ -1152,6 +1212,7 @@ function Section3HorizonDachat({ top = 542 }: { top?: number }) {
   return (
     <div className="absolute h-[151px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 3 : Horizon d'achat">
       <HorizontalBorder4 />
+      <input type="hidden" name="horizon" value={horizon} />
       {/* Immédiatement */}
       <div className={`${card('immediat', horizon === 'immediat')} left-0 right-[525px]`} onClick={() => setHorizon('immediat')}>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:SemiBold',sans-serif] font-semibold h-[24px] justify-center left-[77px] right-[76.7px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>⚡</p></div>
@@ -1220,7 +1281,7 @@ function Label2() {
 function Textarea() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[88px] left-0 overflow-auto right-0 rounded-[12px] top-[73px]" data-name="Textarea">
-      <textarea className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] py-[14px] w-full h-full resize-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…" />
+      <textarea name="notes" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] py-[14px] w-full h-full resize-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…" />
     </div>
   );
 }
@@ -1285,7 +1346,7 @@ function Container4() {
 function Input2() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 overflow-clip right-[351px] rounded-[12px] top-[73px]" data-name="Input">
-      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" type="text" autoComplete="given-name" />
+      <input name="firstName" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" type="text" autoComplete="given-name" />
     </div>
   );
 }
@@ -1316,7 +1377,7 @@ function Container5() {
 function Input3() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[351px] overflow-clip right-0 rounded-[12px] top-[73px]" data-name="Input">
-      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" type="text" autoComplete="family-name" />
+      <input name="lastName" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" type="text" autoComplete="family-name" />
     </div>
   );
 }
@@ -1347,7 +1408,7 @@ function Container6() {
 function Input4() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 overflow-clip right-0 rounded-[12px] top-[153px]" data-name="Input">
-      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
+      <input name="email" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
     </div>
   );
 }
@@ -1388,7 +1449,7 @@ function Container7() {
 function Input5() {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[81.77px] overflow-clip right-0 rounded-br-[12px] rounded-tr-[12px] top-[255.39px]" data-name="Input">
-      <input className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
+      <input name="phone" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
     </div>
   );
 }
@@ -1442,14 +1503,20 @@ function Svg22() {
   );
 }
 
-function Button({ onSubmit }: { onSubmit: () => void }) {
+function Button({ onSubmit, isSubmitting }: { onSubmit: () => void; isSubmitting: boolean }) {
   return (
-    <div className="absolute bg-[#bcff3d] h-[54px] left-[40px] right-[40px] rounded-[14px] top-[61.18px] cursor-pointer" data-name="Button" onClick={onSubmit}>
+    <button
+      type="submit"
+      disabled={isSubmitting}
+      className="absolute bg-[#bcff3d] h-[54px] left-[40px] right-[40px] rounded-[14px] top-[61.18px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-70"
+      data-name="Button"
+      onClick={onSubmit}
+    >
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.82px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[188.096px]">
-        <p className="leading-[normal]">Envoyer ma demande</p>
+        <p className="leading-[normal]">{isSubmitting ? "Envoi en cours..." : "Envoyer ma demande"}</p>
       </div>
       <Svg22 />
-    </div>
+    </button>
   );
 }
 
@@ -1509,14 +1576,24 @@ function Svg25() {
   );
 }
 
-function FormBody({ top = 1303.78, onSubmit }: { top?: number; onSubmit: () => void }) {
+function FormBody({
+  top = 1303.78,
+  onSubmit,
+  isSubmitting,
+  submitError,
+}: {
+  top?: number;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  submitError: string;
+}) {
   return (
     <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t h-[177.19px] left-0 right-0" style={{ top }} data-name="form-body">
       <Svg21 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[15px] justify-center leading-[0] left-[64px] right-[62.54px] text-[12px] text-[rgba(255,255,255,0.4)] top-[33.5px]">
         <p className="leading-[19.2px]">Vos données sont strictement confidentielles et utilisées uniquement pour répondre à votre demande de véhicule.</p>
       </div>
-      <Button onSubmit={onSubmit} />
+      <Button onSubmit={onSubmit} isSubmitting={isSubmitting} />
       <Svg23 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-[203.2px] right-[471.48px] text-[11px] text-[rgba(255,255,255,0.25)] text-center top-[133.68px]">
         <p className="leading-[normal]">Sans engagement</p>
@@ -1529,6 +1606,9 @@ function FormBody({ top = 1303.78, onSubmit }: { top?: number; onSubmit: () => v
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-[465.05px] right-[186.82px] text-[11px] text-[rgba(255,255,255,0.25)] text-center top-[133.68px]">
         <p className="leading-[normal]">Confirmation par email</p>
       </div>
+      <div className="absolute left-[64px] right-[64px] top-[98px] text-[12px] text-[#ff8e8e]">
+        {submitError}
+      </div>
     </div>
   );
 }
@@ -1538,6 +1618,7 @@ function SuivantRow({ top, step, onNext, onPrev }: { top: number; step: number; 
     <div className="absolute left-[40px] right-[40px] flex gap-[12px]" style={{ top }}>
       {step > 1 && (
         <button
+          type="button"
           onClick={onPrev}
           className="flex-1 h-[54px] border border-[rgba(255,255,255,0.12)] rounded-[14px] bg-[rgba(255,255,255,0.04)] text-white text-[15px] font-bold cursor-pointer tracking-[0.3px] transition-colors hover:bg-[rgba(255,255,255,0.08)]"
           style={{ fontFamily: "'Syne', sans-serif" }}
@@ -1546,6 +1627,7 @@ function SuivantRow({ top, step, onNext, onPrev }: { top: number; step: number; 
         </button>
       )}
       <button
+        type="button"
         onClick={onNext}
         className="flex-1 h-[54px] bg-[#bcff3d] rounded-[14px] text-[#0c0d0c] text-[15px] font-bold cursor-pointer tracking-[0.3px] transition-opacity hover:opacity-90"
         style={{ fontFamily: "'Syne', sans-serif" }}
@@ -1559,6 +1641,7 @@ function SuivantRow({ top, step, onNext, onPrev }: { top: number; step: number; 
 function PrecedentButton({ top, onPrev }: { top: number; onPrev: () => void }) {
   return (
     <button
+      type="button"
       onClick={onPrev}
       className="absolute left-[40px] right-[40px] h-[48px] border border-[rgba(255,255,255,0.12)] rounded-[14px] bg-[rgba(255,255,255,0.04)] text-white text-[15px] font-bold cursor-pointer tracking-[0.3px] transition-colors hover:bg-[rgba(255,255,255,0.08)]"
       style={{ top, fontFamily: "'Syne', sans-serif" }}
@@ -1568,7 +1651,21 @@ function PrecedentButton({ top, onPrev }: { top: number; onPrev: () => void }) {
   );
 }
 
-function FormCard({ step, onNext, onPrev, onSubmit }: { step: number; onNext: () => void; onPrev: () => void; onSubmit: () => void }) {
+function FormCard({
+  step,
+  onNext,
+  onPrev,
+  onSubmit,
+  isSubmitting,
+  submitError,
+}: {
+  step: number;
+  onNext: () => void;
+  onPrev: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  submitError: string;
+}) {
   // Step 1 — Votre véhicule idéal
   // Section1: top=119, h=213, ends=332 → button at 368
   // Card height: 368+54+40 = 462
@@ -1603,7 +1700,7 @@ function FormCard({ step, onNext, onPrev, onSubmit }: { step: number; onNext: ()
     <>
       <Section4Coordonnees top={119} />
       <PrecedentButton top={465} onPrev={onPrev} />
-      <FormBody top={530} onSubmit={onSubmit} />
+      <FormBody top={530} onSubmit={onSubmit} isSubmitting={isSubmitting} submitError={submitError} />
     </>
   );
 
@@ -1626,8 +1723,32 @@ function FormCard({ step, onNext, onPrev, onSubmit }: { step: number; onNext: ()
 function FormSection() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
   const sectionHeights: Record<number, number> = { 1: 700, 2: 1020, 3: 980 };
-  const handleSubmit = () => submitBuyRequest({ navigate, budget: 20000, gearbox: "automatique", horizon: "immediat" });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = collectBuyFormState(event.currentTarget);
+    const nextErrors = validateBuyForm(form);
+    if (Object.keys(nextErrors).length > 0) {
+      setStatus("idle");
+      setSubmitError(Object.values(nextErrors).find(Boolean) ?? "Veuillez compléter les champs requis.");
+      return;
+    }
+
+    setStatus("submitting");
+    setSubmitError("");
+
+    try {
+      await submitBuyRequest({ navigate, form });
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setSubmitError(error instanceof Error ? error.message : "Impossible d'envoyer la demande.");
+    }
+  };
 
   return (
     <div
@@ -1641,12 +1762,16 @@ function FormSection() {
       <div className="absolute bottom-0 left-[880px] pointer-events-none top-[165px]">
         <Sidebar />
       </div>
-      <FormCard
-        step={currentStep}
-        onNext={() => setCurrentStep(s => Math.min(3, s + 1))}
-        onPrev={() => setCurrentStep(s => Math.max(1, s - 1))}
-        onSubmit={handleSubmit}
-      />
+      <form onSubmit={handleSubmit} className="absolute inset-0">
+        <FormCard
+          step={currentStep}
+          onNext={() => setCurrentStep((s) => Math.min(3, s + 1))}
+          onPrev={() => setCurrentStep((s) => Math.max(1, s - 1))}
+          onSubmit={() => undefined}
+          isSubmitting={status === "submitting"}
+          submitError={submitError}
+        />
+      </form>
     </div>
   );
 }
@@ -2011,10 +2136,33 @@ function MobileFormSection() {
   const [boite, setBoite] = useState<GearboxSelection>("automatique");
   const [budget, setBudget] = useState(20000);
   const [horizon, setHorizon] = useState<HorizonSelection>("immediat");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
   const min = 5000;
   const max = 100000;
   const pct = ((budget - min) / (max - min)) * 100;
-  const handleSubmit = () => submitBuyRequest({ navigate, budget, gearbox: boite, horizon });
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const form = collectBuyFormState(event.currentTarget);
+    const nextErrors = validateBuyForm(form);
+    if (Object.keys(nextErrors).length > 0) {
+      setStatus("idle");
+      setSubmitError(Object.values(nextErrors).find(Boolean) ?? "Veuillez compléter les champs requis.");
+      return;
+    }
+
+    setStatus("submitting");
+    setSubmitError("");
+
+    try {
+      await submitBuyRequest({ navigate, form });
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setSubmitError(error instanceof Error ? error.message : "Impossible d'envoyer la demande.");
+    }
+  };
 
   return (
     <section className="px-4 py-8">
@@ -2042,7 +2190,7 @@ function MobileFormSection() {
           })}
         </div>
 
-        <div className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
+        <form className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]" onSubmit={handleSubmit}>
           <div className="border-b border-[rgba(255,255,255,0.08)] px-5 py-5">
             <div className="flex items-start justify-between gap-4">
               <div className="flex min-w-0 items-start gap-3">
@@ -2074,7 +2222,7 @@ function MobileFormSection() {
                   <div className="grid gap-4">
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Marque *</span>
-                      <select className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                      <select name="brand" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
                         <option value="">Sélectionner...</option>
                         <option>Audi</option>
                         <option>BMW</option>
@@ -2091,11 +2239,11 @@ function MobileFormSection() {
                     </label>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Modèle</span>
-                      <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
+                      <input name="model" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
                     </label>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Année souhaitée</span>
-                      <select className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                      <select name="year" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
                         <option value="">Peu importe</option>
                         {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
                           <option key={y}>{y}</option>
@@ -2104,6 +2252,7 @@ function MobileFormSection() {
                     </label>
                     <div className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Type de boîte *</span>
+                      <input type="hidden" name="gearbox" value={boite} />
                       <div className="grid gap-2 min-[420px]:grid-cols-3">
                         {[
                           ["automatique", "Automatique"],
@@ -2130,7 +2279,7 @@ function MobileFormSection() {
                     </div>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Carburant</span>
-                      <select className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                      <select name="fuel" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
                         <option value="">Peu importe</option>
                         <option>Essence</option>
                         <option>Diesel</option>
@@ -2166,6 +2315,7 @@ function MobileFormSection() {
                     <div className="absolute left-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[#bcff3d]" style={{ width: `${pct}%` }} />
                     <div className="absolute top-1/2 size-[22px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#bcff3d] shadow-[0px_0px_0px_4px_rgba(188,255,61,0.15)]" style={{ left: `${pct}%` }} />
                     <input
+                      name="budget"
                       type="range"
                       min={min}
                       max={max}
@@ -2188,6 +2338,7 @@ function MobileFormSection() {
                     <span className="text-[#bcff3d]">⏱️</span>
                     <span>Quand souhaitez-vous acheter ?</span>
                   </div>
+                  <input type="hidden" name="horizon" value={horizon} />
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       ["immediat", "⚡", "Immédiatement", "Dès que possible"],
@@ -2222,6 +2373,7 @@ function MobileFormSection() {
                     <span>Précisions sur votre recherche</span>
                   </span>
                   <textarea
+                    name="notes"
                     className="min-h-[120px] rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]"
                     placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…"
                   />
@@ -2256,23 +2408,23 @@ function MobileFormSection() {
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Prénom *</span>
-                      <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" autoComplete="given-name" />
+                      <input name="firstName" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" autoComplete="given-name" />
                     </label>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Nom *</span>
-                      <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" autoComplete="family-name" />
+                      <input name="lastName" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" autoComplete="family-name" />
                     </label>
                   </div>
                   <label className="grid gap-2">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Email *</span>
-                    <input className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
+                    <input name="email" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
                     <span className="text-[11px] leading-[15.4px] text-[rgba(255,255,255,0.25)]">Notre équipe vous enverra la sélection de véhicules à cette adresse.</span>
                   </label>
                   <label className="grid gap-2">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Téléphone *</span>
                     <div className="flex overflow-hidden rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)]">
                       <div className="flex items-center border-r border-[rgba(255,255,255,0.08)] px-4 text-[14px] text-[rgba(255,255,255,0.55)]">🇫🇷 +33</div>
-                      <input className="h-12 flex-1 bg-transparent px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
+                      <input name="phone" className="h-12 flex-1 bg-transparent px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
                     </div>
                     <span className="text-[11px] leading-[15.4px] text-[rgba(255,255,255,0.25)]">Pour vous rappeler directement avec nos propositions.</span>
                   </label>
@@ -2291,12 +2443,12 @@ function MobileFormSection() {
                     Vos données sont strictement confidentielles et utilisées uniquement pour répondre à votre demande de véhicule.
                   </p>
                   <button
-                    type="button"
-                    onClick={handleSubmit}
+                    type="submit"
                     className="mt-5 h-[54px] w-full rounded-[14px] bg-[#bcff3d] font-['Syne',sans-serif] text-[15px] font-bold text-[#0c0d0c]"
                   >
-                    Envoyer ma demande
+                    {status === "submitting" ? "Envoi en cours..." : "Envoyer ma demande"}
                   </button>
+                  {submitError ? <div className="mt-3 text-[12px] text-[#ff8e8e]">{submitError}</div> : null}
                   <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-center text-[11px] text-[rgba(255,255,255,0.25)]">
                     <span>Sans engagement</span>
                     <span>Réponse sous 24h</span>
@@ -2306,7 +2458,7 @@ function MobileFormSection() {
               </>
             )}
           </div>
-        </div>
+        </form>
 
         <div className="mt-4">
           <MobileSidebarCards />

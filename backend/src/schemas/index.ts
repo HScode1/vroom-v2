@@ -80,6 +80,10 @@ export const BookingCreateSchema = z.object({
   }),
 });
 
+export const BookingRescheduleSchema = BookingCreateSchema.extend({
+  token: z.string().min(1),
+});
+
 export const BuyRequestSchema = z.object({
   vehicleCriteria: z.object({
     brand: z.string().min(1).max(100),

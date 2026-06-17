@@ -64,21 +64,31 @@ export const vehicles = {
 };
 
 // ── Uploads ───────────────────────────────────────────────────────────────────
+async function uploadFiles(path: string, files: File[], includeAuthToken: boolean): Promise<{ urls: string[] }> {
+  const token = includeAuthToken ? getToken() : null;
+  const form = new FormData();
+  files.forEach((f) => form.append("files", f));
+
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: form,
+  });
+
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error((body as { error?: string }).error ?? `HTTP ${res.status}`);
+  }
+
+  return res.json();
+}
+
 export const uploads = {
   async images(files: File[]): Promise<{ urls: string[] }> {
-    const token = getToken();
-    const form = new FormData();
-    files.forEach((f) => form.append("files", f));
-    const res = await fetch(`${BASE_URL}/api/v1/uploads/images`, {
-      method: "POST",
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-      body: form,
-    });
-    if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      throw new Error((body as { error?: string }).error ?? `HTTP ${res.status}`);
-    }
-    return res.json();
+    return uploadFiles("/api/v1/uploads/images", files, true);
+  },
+  async sellImages(files: File[]): Promise<{ urls: string[] }> {
+    return uploadFiles("/api/v1/uploads/sell-images", files, false);
   },
 };
 
@@ -105,7 +115,16 @@ export const requests = {
 export const bookings = {
   async list() { return request<Appointment[]>("/api/v1/bookings"); },
   async create(data: unknown) {
-    return request<{ id: string; message: string }>("/api/v1/bookings", { method: "POST", body: JSON.stringify(data) });
+    return request<BookingMutationResponse>("/api/v1/bookings", { method: "POST", body: JSON.stringify(data) });
+  },
+  async reschedule(id: string, data: unknown) {
+    return request<BookingMutationResponse>(`/api/v1/bookings/${id}/reschedule`, { method: "POST", body: JSON.stringify(data) });
+  },
+  async cancel(id: string, token: string) {
+    return request<{ id: string; message: string }>(`/api/v1/bookings/${id}/cancel`, {
+      method: "POST",
+      body: JSON.stringify({ token }),
+    });
   },
   async updateStatus(id: string, status: string) {
     return request<Appointment>(`/api/v1/bookings/${id}/status`, { method: "PATCH", body: JSON.stringify({ status }) });
@@ -162,7 +181,17 @@ export interface Appointment {
   id: string;
   status: "Confirmé" | "En attente" | "Annulé" | "Effectué";
   createdAt: string;
+  calendarEventId: string | null;
+  cancelToken: string;
+  rescheduleToken: string;
   booking: { date: string; time: string; duration: number; format: "visio" | "telephone" | "whatsapp" };
   customer: { firstName: string; lastName: string; email: string; phone: string };
   project: { budget: string; vehicleType: string; description: string };
+}
+
+export interface BookingMutationResponse {
+  id: string;
+  message: string;
+  cancelToken: string;
+  rescheduleToken: string;
 }

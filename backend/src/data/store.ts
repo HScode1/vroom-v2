@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { supabase } from "./supabase.js";
 
 export type VehicleStatus = "En ligne" | "Vendu" | "Brouillon";
@@ -6,6 +7,12 @@ export type RequestStatus = "Nouveau" | "En cours" | "Traité" | "Annulé";
 export type AppointmentStatus = "Confirmé" | "En attente" | "Annulé" | "Effectué";
 export type BookingFormat = "visio" | "telephone" | "whatsapp";
 export type EmailStatus = "pending" | "sent" | "failed";
+
+const BOOKING_TIMEZONE = "Europe/Paris";
+const BOOKING_SLOT_DURATION_MINUTES = 30;
+const BOOKING_WORKDAYS = new Set([1, 2, 3, 4, 5]);
+const BOOKING_SLOTS = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"] as const;
+const ACTIVE_APPOINTMENT_STATUSES: AppointmentStatus[] = ["Confirmé", "En attente"];
 
 export interface Vehicle {
   id: string;
@@ -67,6 +74,11 @@ export interface Appointment {
   id: string;
   status: AppointmentStatus;
   createdAt: string;
+  startAt?: string;
+  endAt?: string;
+  calendarEventId: string | null;
+  cancelToken: string;
+  rescheduleToken: string;
   booking: { date: string; time: string; duration: number; format: BookingFormat };
   customer: { firstName: string; lastName: string; email: string; phone: string };
   project: { budget: string; vehicleType: string; description: string };
@@ -142,10 +154,87 @@ function rowToAppointment(row: Record<string, unknown>): Appointment {
     id: row.id as string,
     status: row.status as AppointmentStatus,
     createdAt: row.created_at as string,
+    startAt: (row.start_at as string | null | undefined) ?? undefined,
+    endAt: (row.end_at as string | null | undefined) ?? undefined,
+    calendarEventId: (row.calendar_event_id as string | null | undefined) ?? null,
+    cancelToken: row.cancel_token as string,
+    rescheduleToken: row.reschedule_token as string,
     booking: row.booking as Appointment["booking"],
     customer: row.customer as Appointment["customer"],
     project: row.project as Appointment["project"],
   };
+}
+
+function parseDateTimeParts(date: string, time: string) {
+  const [year, month, day] = date.split("-").map(Number);
+  const [hour, minute] = time.split(":").map(Number);
+  return { year, month, day, hour, minute };
+}
+
+function getTimeZoneOffset(date: Date, timeZone: string) {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone,
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  const parts = formatter.formatToParts(date).reduce<Record<string, string>>((acc, part) => {
+    if (part.type !== "literal") acc[part.type] = part.value;
+    return acc;
+  }, {});
+
+  const zonedTime = Date.UTC(
+    Number(parts.year),
+    Number(parts.month) - 1,
+    Number(parts.day),
+    Number(parts.hour),
+    Number(parts.minute),
+    Number(parts.second)
+  );
+
+  return zonedTime - date.getTime();
+}
+
+function zonedTimeToUtc(parts: { year: number; month: number; day: number; hour: number; minute: number }, timeZone: string) {
+  const utcGuess = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, 0);
+  const offset = getTimeZoneOffset(new Date(utcGuess), timeZone);
+  return new Date(utcGuess - offset);
+}
+
+function addMinutes(date: Date, minutes: number) {
+  return new Date(date.getTime() + minutes * 60 * 1000);
+}
+
+function parseAppointmentWindow(appointment: {
+  booking: { date: string; time: string; duration: number };
+  startAt?: string | null;
+  endAt?: string | null;
+}) {
+  const fallbackStart = zonedTimeToUtc(parseDateTimeParts(appointment.booking.date, appointment.booking.time), BOOKING_TIMEZONE);
+  const start = appointment.startAt ? new Date(appointment.startAt) : fallbackStart;
+  const end = appointment.endAt ? new Date(appointment.endAt) : addMinutes(start, appointment.booking.duration);
+  return { start, end };
+}
+
+function parseSlotWindow(date: string, time: string) {
+  const start = zonedTimeToUtc(parseDateTimeParts(date, time), BOOKING_TIMEZONE);
+  return { start, end: addMinutes(start, BOOKING_SLOT_DURATION_MINUTES) };
+}
+
+function rangesOverlap(aStart: Date, aEnd: Date, bStart: Date, bEnd: Date) {
+  return aStart < bEnd && aEnd > bStart;
+}
+
+function getMonthBounds(year: number, month: number) {
+  const monthStart = zonedTimeToUtc({ year, month, day: 1, hour: 0, minute: 0 }, BOOKING_TIMEZONE);
+  const nextMonth = month === 12 ? { year: year + 1, month: 1 } : { year, month: month + 1 };
+  const monthEnd = zonedTimeToUtc({ year: nextMonth.year, month: nextMonth.month, day: 1, hour: 0, minute: 0 }, BOOKING_TIMEZONE);
+  return { monthStart, monthEnd };
 }
 
 function rowToEmailLog(row: Record<string, unknown>): EmailLog {
@@ -161,6 +250,13 @@ function rowToEmailLog(row: Record<string, unknown>): EmailLog {
     providerId: (row.provider_id as string | null) ?? null,
     error: (row.error as string | null) ?? null,
     metadata: (row.metadata as Record<string, unknown>) ?? {},
+  };
+}
+
+function createAppointmentTokens() {
+  return {
+    cancelToken: randomUUID(),
+    rescheduleToken: randomUUID(),
   };
 }
 
@@ -370,13 +466,21 @@ export const store = {
       return rowToAppointment(data);
     },
 
-    async create(appointmentData: Omit<Appointment, "id" | "status" | "createdAt">) {
+    async create(appointmentData: Omit<Appointment, "id" | "status" | "createdAt" | "calendarEventId" | "cancelToken" | "rescheduleToken">) {
+      const { start, end } = parseAppointmentWindow(appointmentData);
+      const { cancelToken, rescheduleToken } = createAppointmentTokens();
       const { data, error } = await supabase
         .from("appointments")
         .insert({
+          status: "Confirmé",
           booking: appointmentData.booking,
           customer: appointmentData.customer,
           project: appointmentData.project,
+          start_at: start.toISOString(),
+          end_at: end.toISOString(),
+          calendar_event_id: null,
+          cancel_token: cancelToken,
+          reschedule_token: rescheduleToken,
         })
         .select()
         .single();
@@ -384,10 +488,30 @@ export const store = {
       return rowToAppointment(data);
     },
 
-    async updateStatus(id: string, status: AppointmentStatus) {
+    async update(id: string, patch: Partial<Omit<Appointment, "id" | "createdAt">>) {
+      const updateData: Record<string, unknown> = {};
+      if (patch.booking !== undefined) {
+        updateData.booking = patch.booking;
+        const window = parseAppointmentWindow({
+          booking: patch.booking,
+          startAt: patch.startAt,
+          endAt: patch.endAt,
+        });
+        updateData.start_at = window.start.toISOString();
+        updateData.end_at = window.end.toISOString();
+      }
+      if (patch.status !== undefined) updateData.status = patch.status;
+      if (patch.startAt !== undefined && patch.booking === undefined) updateData.start_at = patch.startAt;
+      if (patch.endAt !== undefined && patch.booking === undefined) updateData.end_at = patch.endAt;
+      if (patch.calendarEventId !== undefined) updateData.calendar_event_id = patch.calendarEventId;
+      if (patch.cancelToken !== undefined) updateData.cancel_token = patch.cancelToken;
+      if (patch.rescheduleToken !== undefined) updateData.reschedule_token = patch.rescheduleToken;
+      if (patch.customer !== undefined) updateData.customer = patch.customer;
+      if (patch.project !== undefined) updateData.project = patch.project;
+
       const { data, error } = await supabase
         .from("appointments")
-        .update({ status })
+        .update(updateData)
         .eq("id", id)
         .select()
         .single();
@@ -395,35 +519,49 @@ export const store = {
       return rowToAppointment(data);
     },
 
+    async updateStatus(id: string, status: AppointmentStatus) {
+      return store.appointments.update(id, { status });
+    },
+
     async getAvailability(year: number, month: number) {
-      const startDate = `${year}-${String(month).padStart(2, "0")}-01`;
-      const endDate = `${year}-${String(month).padStart(2, "0")}-31`;
+      const { monthStart, monthEnd } = getMonthBounds(year, month);
 
       const { data, error } = await supabase
         .from("appointments")
-        .select("booking")
-        .gte("booking->>date", startDate)
-        .lte("booking->>date", endDate);
+        .select("status, booking, start_at, end_at")
+        .in("status", ACTIVE_APPOINTMENT_STATUSES)
+        .lt("start_at", monthEnd.toISOString())
+        .gt("end_at", monthStart.toISOString());
       if (error) throw error;
 
-      const bookedByDate = new Map<string, string[]>();
-      (data ?? []).forEach((row: { booking: { date: string; time: string } }) => {
-        const { date, time } = row.booking;
-        if (!bookedByDate.has(date)) bookedByDate.set(date, []);
-        bookedByDate.get(date)!.push(time);
-      });
+      const bookedWindows: { start: Date; end: Date }[] = (data ?? []).map((row: Record<string, unknown>) => {
+        const booking = row.booking as { date: string; time: string; duration?: number };
+        const { start, end } = parseAppointmentWindow({
+          booking: {
+            date: booking.date,
+            time: booking.time,
+            duration: booking.duration ?? 30,
+          },
+          startAt: row.start_at as string | null | undefined,
+          endAt: row.end_at as string | null | undefined,
+        });
+        return { start, end };
+      }).filter((window) => rangesOverlap(window.start, window.end, monthStart, monthEnd));
 
-      const slots = ["09:00","09:30","10:00","10:30","11:00","11:30","14:00","14:30","15:00","15:30","16:00","16:30"];
       const daysInMonth = new Date(year, month, 0).getDate();
-      const dates = [];
+      const dates: { day: number; available: boolean; slots: string[] }[] = [];
 
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month - 1, day);
         const weekday = date.getDay();
-        const isWeekend = weekday === 0 || weekday === 6;
+        const isWeekend = !BOOKING_WORKDAYS.has(weekday);
         const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-        const bookedSlots = bookedByDate.get(dateStr) ?? [];
-        const availableSlots = isWeekend ? [] : slots.filter((s) => !bookedSlots.includes(s));
+        const availableSlots = isWeekend
+          ? []
+          : BOOKING_SLOTS.filter((slot) => {
+              const { start: slotStart, end: slotEnd } = parseSlotWindow(dateStr, slot);
+              return !bookedWindows.some((window) => rangesOverlap(slotStart, slotEnd, window.start, window.end));
+            });
         dates.push({ day, available: availableSlots.length > 0, slots: availableSlots });
       }
 

@@ -13,16 +13,6 @@ type FormState = {
   project: string;
 };
 
-const DEFAULT_FORM: FormState = {
-  firstName: "Jean",
-  lastName: "Dupont",
-  email: "jean.dupont@email.com",
-  phone: "06 00 00 00 00",
-  budget: "",
-  vehicleType: "",
-  project: "Ex : je cherche un SUV familial fiable, idéalement diesel, kilométrage < 80 000 km, pour usage quotidien ville + autoroute…",
-};
-
 const BUDGET_OPTIONS = [
   { label: "Sélectionner...", value: "" },
   { label: "Moins de 10 000 €", value: "moins-10k" },
@@ -41,6 +31,62 @@ const VEHICLE_OPTIONS = [
   { label: "Monospace", value: "monospace" },
   { label: "Utilitaire", value: "utilitaire" },
 ];
+
+type FormErrors = Partial<Record<keyof FormState, string>>;
+
+function validateForm(form: FormState) {
+  const errors: FormErrors = {};
+  const firstName = form.firstName.trim();
+  const lastName = form.lastName.trim();
+  const email = form.email.trim();
+  const phone = form.phone.trim();
+  const budget = form.budget.trim();
+  const vehicleType = form.vehicleType.trim();
+
+  if (!firstName) errors.firstName = "Le prénom est requis.";
+  if (!lastName) errors.lastName = "Le nom est requis.";
+  if (!email) {
+    errors.email = "L'adresse email est requise.";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errors.email = "Adresse email invalide.";
+  }
+  if (!phone) errors.phone = "Le numéro de téléphone est requis.";
+  if (!budget) errors.budget = "Le budget est requis.";
+  if (!vehicleType) errors.vehicleType = "Le type de véhicule est requis.";
+
+  return errors;
+}
+
+function buildInitialForm(searchParams: URLSearchParams): FormState {
+  return {
+    firstName: searchParams.get("firstName") ?? "",
+    lastName: searchParams.get("lastName") ?? "",
+    email: searchParams.get("email") ?? "",
+    phone: searchParams.get("phone") ?? "",
+    budget: searchParams.get("budget") ?? "",
+    vehicleType: searchParams.get("vehicleType") ?? "",
+    project: searchParams.get("project") ?? "",
+  };
+}
+
+function buildBookingQuery(
+  form: FormState,
+  searchParams: URLSearchParams,
+  booking: { id: string; cancelToken: string; rescheduleToken: string }
+) {
+  const nextParams = new URLSearchParams(searchParams);
+  nextParams.set("bookingId", booking.id);
+  nextParams.set("cancelToken", booking.cancelToken);
+  nextParams.set("rescheduleToken", booking.rescheduleToken);
+  nextParams.set("firstName", form.firstName.trim());
+  nextParams.set("lastName", form.lastName.trim());
+  nextParams.set("email", form.email.trim());
+  nextParams.set("phone", form.phone.trim());
+  nextParams.set("budget", form.budget.trim());
+  nextParams.set("vehicleType", form.vehicleType.trim());
+  nextParams.set("project", form.project.trim());
+  return nextParams;
+}
 
 function formatBookingDate(value: string | null) {
   if (!value) {
@@ -486,7 +532,17 @@ function Body({ form, setForm, dateText, slotText, formatText }: { form: FormSta
   );
 }
 
-function Footer({ onBack, onSubmit }: { onBack: () => void; onSubmit: () => void }) {
+function Footer({
+  onBack,
+  onSubmit,
+  isSubmitting,
+  submitError,
+}: {
+  onBack: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  submitError: string | null;
+}) {
   return (
     <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t h-[223px] left-0 right-0 top-[979.38px]">
       <button type="button" onClick={onBack} className="absolute h-[16px] left-[36px] top-[24px] w-[141.72px] cursor-pointer text-left">
@@ -530,9 +586,19 @@ function Footer({ onBack, onSubmit }: { onBack: () => void; onSubmit: () => void
         <p className="leading-[normal]">Annulation gratuite 24h avant</p>
       </div>
 
-      <button type="button" onClick={onSubmit} className="absolute bg-[#bcff3d] h-[52px] left-[36px] overflow-clip right-[36px] rounded-[14px] top-[110px] cursor-pointer">
+      {submitError ? (
+        <div className="absolute left-[36px] right-[36px] top-[78px] rounded-[12px] border border-[rgba(255,99,99,0.22)] bg-[rgba(255,99,99,0.08)] px-4 py-3 text-[12px] text-[#ffb1b1]">
+          {submitError}
+        </div>
+      ) : null}
+      <button
+        type="button"
+        onClick={onSubmit}
+        disabled={isSubmitting}
+        className="absolute bg-[#bcff3d] h-[52px] left-[36px] overflow-clip right-[36px] rounded-[14px] top-[110px] cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+      >
         <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[18px] justify-center leading-[0] left-[calc(50%-12.83px)] text-[#0c0d0c] text-[15px] text-center top-1/2 tracking-[0.3px] w-[203.878px]">
-          <p className="leading-[normal]">Finaliser ma réservation</p>
+          <p className="leading-[normal]">{isSubmitting ? "Envoi..." : "Finaliser ma réservation"}</p>
         </div>
         <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%+106.75px)] size-[16px] top-1/2">
           <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
@@ -544,12 +610,32 @@ function Footer({ onBack, onSubmit }: { onBack: () => void; onSubmit: () => void
   );
 }
 
-function OverlayBorder({ form, setForm, dateText, slotText, formatText, onBack, onSubmit }: { form: FormState; setForm: Dispatch<SetStateAction<FormState>>; dateText: string; slotText: string; formatText: string; onBack: () => void; onSubmit: () => void }) {
+function OverlayBorder({
+  form,
+  setForm,
+  dateText,
+  slotText,
+  formatText,
+  onBack,
+  onSubmit,
+  isSubmitting,
+  submitError,
+}: {
+  form: FormState;
+  setForm: Dispatch<SetStateAction<FormState>>;
+  dateText: string;
+  slotText: string;
+  formatText: string;
+  onBack: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  submitError: string | null;
+}) {
   return (
     <div className="-translate-y-1/2 absolute bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.08)] border-solid h-[1204.38px] left-[381px] overflow-clip right-[379px] rounded-[28px] top-[calc(50%+71.19px)]">
       <TopBar />
       <Body form={form} setForm={setForm} dateText={dateText} slotText={slotText} formatText={formatText} />
-      <Footer onBack={onBack} onSubmit={onSubmit} />
+      <Footer onBack={onBack} onSubmit={onSubmit} isSubmitting={isSubmitting} submitError={submitError} />
     </div>
   );
 }
@@ -629,6 +715,8 @@ function MobileInfoForm({
   formatText,
   onBack,
   onSubmit,
+  isSubmitting,
+  submitError,
 }: {
   form: FormState;
   setForm: Dispatch<SetStateAction<FormState>>;
@@ -637,6 +725,8 @@ function MobileInfoForm({
   formatText: string;
   onBack: () => void;
   onSubmit: () => void;
+  isSubmitting: boolean;
+  submitError: string | null;
 }) {
   return (
     <div className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
@@ -810,6 +900,11 @@ function MobileInfoForm({
           <button type="button" onClick={onBack} className="text-[12px] text-[rgba(255,255,255,0.4)]">
             ← Modifier mon créneau
           </button>
+          {submitError ? (
+            <div className="mt-4 rounded-[12px] border border-[rgba(255,99,99,0.22)] bg-[rgba(255,99,99,0.08)] px-4 py-3 text-[12px] text-[#ffb1b1]">
+              {submitError}
+            </div>
+          ) : null}
           <div className="mt-5 space-y-3 text-[12px] text-[rgba(255,255,255,0.35)]">
             <p>Vos données sont strictement confidentielles et ne seront jamais partagées avec des tiers.</p>
             <div className="flex flex-wrap gap-4 text-[11px] text-[rgba(255,255,255,0.25)]">
@@ -820,9 +915,10 @@ function MobileInfoForm({
           <button
             type="button"
             onClick={onSubmit}
-            className="mt-6 w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+            disabled={isSubmitting}
+            className="mt-6 w-full rounded-[14px] bg-[#bcff3d] px-4 py-4 font-['Syne',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Finaliser ma réservation
+            {isSubmitting ? "Envoi..." : "Finaliser ma réservation"}
           </button>
         </div>
       </div>
@@ -875,6 +971,8 @@ function MobileRedirectionFormulaireConseil({
   formatText,
   onBack,
   onSubmit,
+  isSubmitting,
+  submitError,
 }: {
   form: FormState;
   setForm: Dispatch<SetStateAction<FormState>>;
@@ -883,6 +981,8 @@ function MobileRedirectionFormulaireConseil({
   formatText: string;
   onBack: () => void;
   onSubmit: () => void;
+  isSubmitting: boolean;
+  submitError: string | null;
 }) {
   return (
     <div className="relative overflow-x-hidden xl:hidden">
@@ -901,7 +1001,17 @@ function MobileRedirectionFormulaireConseil({
         </section>
 
         <section className="mt-10">
-          <MobileInfoForm form={form} setForm={setForm} dateText={dateText} slotText={slotText} formatText={formatText} onBack={onBack} onSubmit={onSubmit} />
+          <MobileInfoForm
+            form={form}
+            setForm={setForm}
+            dateText={dateText}
+            slotText={slotText}
+            formatText={formatText}
+            onBack={onBack}
+            onSubmit={onSubmit}
+            isSubmitting={isSubmitting}
+            submitError={submitError}
+          />
         </section>
 
         <MobileFooterReservation />
@@ -918,6 +1028,8 @@ function DesktopRedirectionFormulaireConseil({
   formatText,
   onBack,
   onSubmit,
+  isSubmitting,
+  submitError,
 }: {
   form: FormState;
   setForm: Dispatch<SetStateAction<FormState>>;
@@ -926,6 +1038,8 @@ function DesktopRedirectionFormulaireConseil({
   formatText: string;
   onBack: () => void;
   onSubmit: () => void;
+  isSubmitting: boolean;
+  submitError: string | null;
 }) {
   return (
     <div className="relative mx-auto hidden h-[2404px] w-[1440px] bg-[#181818] xl:block">
@@ -958,7 +1072,17 @@ function DesktopRedirectionFormulaireConseil({
         <p className="leading-[26.35px] mb-0">Choisissez votre créneau. Un expert VroomAdvisor vous</p>
         <p className="leading-[26.35px]">{`rappelle à l'heure choisie.`}</p>
       </div>
-      <OverlayBorder form={form} setForm={setForm} dateText={dateText} slotText={slotText} formatText={formatText} onBack={onBack} onSubmit={onSubmit} />
+      <OverlayBorder
+        form={form}
+        setForm={setForm}
+        dateText={dateText}
+        slotText={slotText}
+        formatText={formatText}
+        onBack={onBack}
+        onSubmit={onSubmit}
+        isSubmitting={isSubmitting}
+        submitError={submitError}
+      />
       <Footer1 />
     </div>
   );
@@ -967,47 +1091,65 @@ function DesktopRedirectionFormulaireConseil({
 export default function RedirectionFormulaireConseil() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [form, setForm] = useState(DEFAULT_FORM);
+  const [form, setForm] = useState(() => buildInitialForm(searchParams));
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const dateText = formatBookingDate(searchParams.get("date"));
   const slotText = `${searchParams.get("slot") || "10:30"} · ${searchParams.get("duration") || "30 min"}`;
   const formatText = formatBookingMode(searchParams.get("format"));
+  const bookingId = searchParams.get("bookingId");
+  const rescheduleToken = searchParams.get("rescheduleToken");
 
-  const handleSubmit = () => {
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.set("firstName", form.firstName);
-    nextParams.set("lastName", form.lastName);
-    nextParams.set("email", form.email);
-    nextParams.set("phone", form.phone);
-    nextParams.set("budget", form.budget);
-    nextParams.set("vehicleType", form.vehicleType);
-    nextParams.set("project", form.project);
+  const handleSubmit = async () => {
+    if (isSubmitting) return;
 
-    void bookings
-      .create({
+    const errors = validateForm(form);
+    if (Object.keys(errors).length > 0) {
+      setSubmitError("Merci de compléter les champs obligatoires avant de continuer.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const payload = {
         booking: {
-          date: searchParams.get("date") || "2026-03-13",
-          time: searchParams.get("slot") || "10:30",
+          date: searchParams.get("date") || "",
+          time: searchParams.get("slot") || "",
           duration: parseDurationMinutes(searchParams.get("duration")),
           format: (searchParams.get("format") as "visio" | "telephone" | "whatsapp") || "visio",
         },
         customer: {
-          firstName: form.firstName || DEFAULT_FORM.firstName,
-          lastName: form.lastName || DEFAULT_FORM.lastName,
-          email: form.email || DEFAULT_FORM.email,
-          phone: form.phone || DEFAULT_FORM.phone,
+          firstName: form.firstName.trim(),
+          lastName: form.lastName.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
         },
         project: {
-          budget: form.budget || "20 000 € - 35 000 €",
-          vehicleType: form.vehicleType || "SUV / 4x4",
-          description: form.project || "",
+          budget: form.budget.trim(),
+          vehicleType: form.vehicleType.trim(),
+          description: form.project.trim(),
         },
-      })
-      .catch((error) => {
-        console.error("Impossible de créer le rendez-vous", error);
-      });
+      };
 
-    navigate(`/conseils/formulaire/etape-2?${nextParams.toString()}`);
+      const response = bookingId && rescheduleToken
+        ? await bookings.reschedule(bookingId, { ...payload, token: rescheduleToken })
+        : await bookings.create(payload);
+
+      const nextParams = buildBookingQuery(form, searchParams, response);
+      navigate(`/conseils/formulaire/etape-2?${nextParams.toString()}`);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Impossible de créer le rendez-vous.";
+      if (message.includes("409") || message.toLowerCase().includes("disponible")) {
+        setSubmitError("Ce créneau n'est plus disponible. Choisissez un autre créneau.");
+      } else {
+        setSubmitError(message);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -1020,6 +1162,8 @@ export default function RedirectionFormulaireConseil() {
         formatText={formatText}
         onBack={() => navigate(`/conseils?${searchParams.toString()}`)}
         onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+        submitError={submitError}
       />
       <DesktopRedirectionFormulaireConseil
         form={form}
@@ -1029,6 +1173,8 @@ export default function RedirectionFormulaireConseil() {
         formatText={formatText}
         onBack={() => navigate(`/conseils?${searchParams.toString()}`)}
         onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+        submitError={submitError}
       />
     </div>
   );

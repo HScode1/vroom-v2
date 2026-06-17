@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
+import { bookings } from "../../lib/api";
 import svgPaths from "./svg-38w28sfzwv";
 
 type BookingMonth = {
@@ -11,64 +12,10 @@ type BookingMonth = {
     day: number;
     weekday: string;
     available: boolean;
+    slots: string[];
     isToday?: boolean;
   }[];
 };
-
-const BOOKING_MONTHS: BookingMonth[] = [
-  {
-    id: "2026-03",
-    label: "Mars 2026",
-    leadingPreview: [23, 24, 25, 26, 27, 28, 1],
-    trailingPreview: [28, 29],
-    dates: [
-      { day: 9, weekday: "Lu", available: true },
-      { day: 10, weekday: "Ma", available: true },
-      { day: 11, weekday: "Me", available: true },
-      { day: 12, weekday: "Je", available: true },
-      { day: 13, weekday: "Ve", available: true, isToday: true },
-      { day: 14, weekday: "Sa", available: true },
-      { day: 15, weekday: "Di", available: true },
-      { day: 16, weekday: "Lu", available: true },
-      { day: 17, weekday: "Ma", available: true },
-      { day: 18, weekday: "Me", available: true },
-      { day: 19, weekday: "Je", available: true },
-      { day: 20, weekday: "Ve", available: false },
-      { day: 21, weekday: "Sa", available: true },
-      { day: 22, weekday: "Di", available: true },
-      { day: 23, weekday: "Lu", available: true },
-      { day: 24, weekday: "Ma", available: true },
-      { day: 25, weekday: "Me", available: true },
-      { day: 26, weekday: "Je", available: true },
-      { day: 27, weekday: "Ve", available: true },
-      { day: 28, weekday: "Sa", available: true },
-      { day: 29, weekday: "Di", available: true },
-      { day: 30, weekday: "Lu", available: true },
-      { day: 31, weekday: "Ma", available: true },
-    ],
-  },
-  {
-    id: "2026-04",
-    label: "Avril 2026",
-    leadingPreview: [30, 31, 1, 2, 3, 4, 5],
-    trailingPreview: [18, 19],
-    dates: [
-      { day: 1, weekday: "Me", available: true },
-      { day: 2, weekday: "Je", available: true },
-      { day: 3, weekday: "Ve", available: true },
-      { day: 6, weekday: "Lu", available: true },
-      { day: 7, weekday: "Ma", available: true },
-      { day: 8, weekday: "Me", available: false },
-      { day: 9, weekday: "Je", available: true },
-      { day: 10, weekday: "Ve", available: true },
-      { day: 13, weekday: "Lu", available: true },
-      { day: 14, weekday: "Ma", available: true },
-      { day: 15, weekday: "Me", available: true },
-      { day: 16, weekday: "Je", available: true },
-      { day: 17, weekday: "Ve", available: true },
-    ],
-  },
-];
 
 const BOOKING_DURATIONS = [
   { id: "30", label: "30 min", description: "Conseil rapide", recommended: true },
@@ -83,17 +30,209 @@ const BOOKING_FORMATS = [
 
 const CALENDAR_WEEKDAYS = ["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"] as const;
 
-const BOOKING_SLOTS = [
-  { time: "09:00", available: true },
-  { time: "10:30", available: true },
-  { time: "11:00", available: true },
-  { time: "14:00", available: true },
-  { time: "15:00", available: false },
-  { time: "15:30", available: true },
-  { time: "16:00", available: true },
-  { time: "17:00", available: true },
-  { time: "18:00", available: true },
-] as const;
+const BOOKING_SLOTS = ["09:00", "10:30", "11:00", "14:00", "15:00", "15:30", "16:00", "17:00", "18:00"] as const;
+
+type BookingDateAvailability = {
+  day: number;
+  available: boolean;
+  slots: string[];
+  isToday?: boolean;
+};
+
+type BookingMonthAvailability = {
+  id: string;
+  label: string;
+  leadingPreview: number[];
+  trailingPreview: number[];
+  dates: BookingDateAvailability[];
+};
+
+type BookingMonthFetchState =
+  | { status: "loading"; data: BookingMonthAvailability }
+  | { status: "ready"; data: BookingMonthAvailability }
+  | { status: "error"; data: BookingMonthAvailability; error: string };
+
+function getMonthId(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+
+function getMonthLabel(monthId: string) {
+  const [year, month] = monthId.split("-").map(Number);
+  return new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" }).format(new Date(year, month - 1, 1));
+}
+
+function addMonthsToMonthId(monthId: string, offset: number) {
+  const [year, month] = monthId.split("-").map(Number);
+  const next = new Date(year, month - 1 + offset, 1);
+  return getMonthId(next);
+}
+
+function buildMonthAvailability(monthId: string, dates: BookingDateAvailability[] = []): BookingMonthAvailability {
+  const [year, month] = monthId.split("-").map(Number);
+  const monthStart = new Date(year, month - 1, 1);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const firstWeekday = (monthStart.getDay() + 6) % 7;
+  const trailingCount = (7 - ((firstWeekday + daysInMonth) % 7)) % 7;
+  const leadingPreview = Array.from({ length: firstWeekday }, (_, index) => {
+    const day = new Date(year, month - 1, 1 - (firstWeekday - index));
+    return day.getDate();
+  });
+  const trailingPreview = Array.from({ length: trailingCount }, (_, index) => index + 1);
+  const todayId = getMonthId(new Date());
+  const today = new Date();
+  const normalizedDates = dates.length > 0
+    ? dates.map((date) => ({
+        ...date,
+        isToday: monthId === todayId && date.day === today.getDate(),
+      }))
+    : Array.from({ length: daysInMonth }, (_, index) => {
+        const day = index + 1;
+        return {
+          day,
+          available: false,
+          slots: [],
+          isToday: monthId === todayId && day === today.getDate(),
+        };
+      });
+
+  return {
+    id: monthId,
+    label: getMonthLabel(monthId),
+    leadingPreview,
+    trailingPreview,
+    dates: normalizedDates,
+  };
+}
+
+function getMonthAvailabilityMessage(state?: BookingMonthFetchState | null) {
+  if (!state) return "Chargement des disponibilités...";
+  if (state.status === "loading") return "Chargement des disponibilités...";
+  if (state.status === "error") return state.error;
+  return "Disponibilités à jour";
+}
+
+function useBookingAvailability() {
+  const [searchParams] = useSearchParams();
+  const requestedDate = searchParams.get("date");
+  const requestedMonthId = requestedDate?.slice(0, 7) ?? getMonthId(new Date());
+  const initialDate = Number(requestedDate?.slice(8, 10));
+  const initialDuration = BOOKING_DURATIONS.find((duration) => duration.label === searchParams.get("duration"))?.id ?? "30";
+  const initialSlot = BOOKING_SLOTS.includes(searchParams.get("slot") as (typeof BOOKING_SLOTS)[number])
+    ? (searchParams.get("slot") as (typeof BOOKING_SLOTS)[number])
+    : "10:30";
+  const initialFormat = BOOKING_FORMATS.find((format) => format.id === searchParams.get("format"))?.id ?? "visio";
+
+  const [activeMonthId, setActiveMonthId] = useState(requestedMonthId);
+  const [monthState, setMonthState] = useState<Record<string, BookingMonthFetchState>>({
+    [requestedMonthId]: { status: "loading", data: buildMonthAvailability(requestedMonthId) },
+  });
+  const [selectedDate, setSelectedDate] = useState(Number.isFinite(initialDate) ? initialDate : 1);
+  const [selectedDuration, setSelectedDuration] = useState(initialDuration);
+  const [selectedSlot, setSelectedSlot] = useState(initialSlot);
+  const [selectedFormat, setSelectedFormat] = useState(initialFormat);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadMonth(monthId: string) {
+      setMonthState((current) => {
+        const existing = current[monthId];
+        if (existing?.status === "loading" || existing?.status === "ready") {
+          return current;
+        }
+        return { ...current, [monthId]: { status: "loading", data: buildMonthAvailability(monthId) } };
+      });
+
+      try {
+        const [year, month] = monthId.split("-").map(Number);
+        const response = await bookings.availability(year, month);
+        if (cancelled) return;
+        setMonthState((current) => ({
+          ...current,
+          [monthId]: {
+            status: "ready",
+            data: buildMonthAvailability(monthId, response.dates),
+          },
+        }));
+      } catch (error) {
+        if (cancelled) return;
+        setMonthState((current) => ({
+          ...current,
+          [monthId]: {
+            status: "error",
+            data: buildMonthAvailability(monthId),
+            error: error instanceof Error ? error.message : "Impossible de charger les disponibilités.",
+          },
+        }));
+      }
+    }
+
+    void loadMonth(activeMonthId);
+    void loadMonth(addMonthsToMonthId(activeMonthId, 1));
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeMonthId]);
+
+  const activeMonthState = monthState[activeMonthId];
+  const activeMonth = activeMonthState?.data ?? buildMonthAvailability(activeMonthId);
+  const selectedDateItem = activeMonth.dates.find((date) => date.day === selectedDate && date.available)
+    ?? activeMonth.dates.find((date) => date.available)
+    ?? activeMonth.dates[0];
+  const selectedDurationItem = BOOKING_DURATIONS.find((duration) => duration.id === selectedDuration) ?? BOOKING_DURATIONS[0];
+  const selectedSlotOptions = selectedDateItem?.available ? selectedDateItem.slots : [];
+
+  useEffect(() => {
+    const fallbackDate = activeMonth.dates.find((date) => date.available)?.day ?? activeMonth.dates[0]?.day ?? 1;
+    if (!activeMonth.dates.some((date) => date.day === selectedDate && date.available)) {
+      setSelectedDate(fallbackDate);
+    }
+  }, [activeMonthId, activeMonth.dates, selectedDate]);
+
+  useEffect(() => {
+    if (selectedSlotOptions.length === 0) return;
+    if (!selectedSlotOptions.includes(selectedSlot)) {
+      setSelectedSlot(selectedSlotOptions[0]);
+    }
+  }, [selectedDate, selectedSlot, selectedSlotOptions]);
+
+  useEffect(() => {
+    if (selectedDateItem?.available && !selectedSlotOptions.includes(selectedSlot)) {
+      setSelectedSlot(selectedSlotOptions[0] ?? selectedSlot);
+    }
+  }, [selectedDateItem, selectedSlot, selectedSlotOptions]);
+
+  const isReady = activeMonthState?.status === "ready";
+  const isLoading = !activeMonthState || activeMonthState.status === "loading";
+  const errorMessage = activeMonthState?.status === "error" ? activeMonthState.error : "";
+
+  const goToMonth = (offset: number) => {
+    setActiveMonthId((current) => addMonthsToMonthId(current, offset));
+  };
+
+  return {
+    activeMonth,
+    activeMonthId,
+    activeMonthState,
+    errorMessage,
+    goToMonth,
+    isLoading,
+    isReady,
+    selectedDate,
+    selectedDateItem,
+    selectedDuration,
+    selectedDurationItem,
+    selectedSlot,
+    selectedSlotOptions,
+    selectedFormat,
+    setSelectedDate,
+    setSelectedDuration,
+    setSelectedSlot,
+    setSelectedFormat,
+    monthMessage: getMonthAvailabilityMessage(activeMonthState),
+  };
+}
 
 const FAQ_ITEMS = [
   {
@@ -868,38 +1007,29 @@ function OverlayBorder() {
 
 function BookingCard() {
   const [searchParams] = useSearchParams();
-  const requestedDate = searchParams.get("date");
-  const requestedMonthId = requestedDate?.slice(0, 7);
-  const requestedDay = Number(requestedDate?.slice(8, 10));
-  const requestedDurationLabel = searchParams.get("duration");
-  const requestedSlot = searchParams.get("slot");
-  const requestedFormat = searchParams.get("format");
-
-  const initialMonthIndex = Math.max(
-    0,
-    BOOKING_MONTHS.findIndex((month) => month.id === requestedMonthId),
-  );
-  const initialMonth = BOOKING_MONTHS[initialMonthIndex] ?? BOOKING_MONTHS[0];
-  const initialDate =
-    initialMonth.dates.find((date) => date.day === requestedDay && date.available)?.day ??
-    initialMonth.dates.find((date) => date.available)?.day ??
-    initialMonth.dates[0].day;
-  const initialDuration =
-    BOOKING_DURATIONS.find((duration) => duration.label === requestedDurationLabel)?.id ?? "30";
-  const initialSlot =
-    BOOKING_SLOTS.find((slot) => slot.time === requestedSlot && slot.available)?.time ?? "10:30";
-  const initialFormat =
-    BOOKING_FORMATS.find((format) => format.id === requestedFormat)?.id ?? "visio";
-
-  const [activeMonthIndex, setActiveMonthIndex] = useState(initialMonthIndex);
-  const [selectedDate, setSelectedDate] = useState(initialDate);
-  const [selectedDuration, setSelectedDuration] = useState(initialDuration);
-  const [selectedSlot, setSelectedSlot] = useState(initialSlot);
-  const [selectedFormat, setSelectedFormat] = useState(initialFormat);
-
-  const activeMonth = BOOKING_MONTHS[activeMonthIndex];
-  const selectedDateItem = activeMonth.dates.find((date) => date.day === selectedDate) ?? activeMonth.dates[0];
-  const selectedDurationItem = BOOKING_DURATIONS.find((duration) => duration.id === selectedDuration) ?? BOOKING_DURATIONS[0];
+  const {
+    activeMonth,
+    errorMessage,
+    goToMonth,
+    isLoading,
+    monthMessage,
+    selectedDate,
+    selectedDateItem,
+    selectedDuration,
+    selectedDurationItem,
+    selectedFormat,
+    selectedSlot,
+    selectedSlotOptions,
+    setSelectedDate,
+    setSelectedDuration,
+    setSelectedFormat,
+    setSelectedSlot,
+  } = useBookingAvailability();
+  const isRescheduling = Boolean(searchParams.get("bookingId") && searchParams.get("rescheduleToken"));
+  const headerTitle = isRescheduling ? "Reprogrammation VroomAdvisor" : "Prise de rendez-vous VroomAdvisor";
+  const headerSubtitle = isRescheduling
+    ? "Choisissez un nouveau créneau pour votre rendez-vous existant."
+    : "Sélectionnez une date, une durée et un créneau.";
   let currentRow = 0;
   let previousWeekdayIndex = -1;
   const calendarCells = activeMonth.dates.map((date) => {
@@ -926,14 +1056,12 @@ function BookingCard() {
             <Svg />
           </div>
           <div className="absolute left-[92px] top-[18px]">
-            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold text-[14px] text-white">Prise de rendez-vous VroomAdvisor</p>
-            <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.4)]">
-              Sélectionnez une date, une durée et un créneau.
-            </p>
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold text-[14px] text-white">{headerTitle}</p>
+            <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.4)]">{headerSubtitle}</p>
           </div>
           <div className="absolute bg-[#bcff3d] h-[27px] right-[42px] rounded-[100px] top-[24px] w-[204px]">
             <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold leading-[27px] text-[#0c0d0c] text-[11px] text-center tracking-[0.44px]">
-              Prochain dispo : demain
+              {monthMessage}
             </p>
           </div>
         </div>
@@ -945,26 +1073,14 @@ function BookingCard() {
           <button
             type="button"
             className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[475px] rounded-[10px] size-[34px] top-[40px] text-[rgba(255,255,255,0.4)]"
-            onClick={() =>
-              setActiveMonthIndex((current) => {
-                const nextIndex = Math.max(0, current - 1);
-                setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
-                return nextIndex;
-              })
-            }
+            onClick={() => goToMonth(-1)}
           >
             ‹
           </button>
           <button
             type="button"
             className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid left-[515px] rounded-[10px] size-[34px] top-[40px] text-[rgba(255,255,255,0.4)]"
-            onClick={() =>
-              setActiveMonthIndex((current) => {
-                const nextIndex = Math.min(BOOKING_MONTHS.length - 1, current + 1);
-                setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
-                return nextIndex;
-              })
-            }
+            onClick={() => goToMonth(1)}
           >
             ›
           </button>
@@ -1122,22 +1238,23 @@ function BookingCard() {
           </div>
           <div className="absolute grid grid-cols-3 gap-4 left-[44px] right-[44px] top-[301px]">
             {BOOKING_SLOTS.map((slot) => {
-              const isSelected = slot.time === selectedSlot;
+              const isAvailable = selectedSlotOptions.includes(slot);
+              const isSelected = slot === selectedSlot;
               return (
                 <button
-                  key={slot.time}
+                  key={slot}
                   type="button"
-                  disabled={!slot.available}
-                  onClick={() => setSelectedSlot(slot.time)}
+                  disabled={!isAvailable}
+                  onClick={() => setSelectedSlot(slot)}
                   className={`h-[44px] rounded-[11px] border text-[14px] transition-colors ${
                     isSelected
                       ? "bg-[rgba(188,255,61,0.1)] border-[#bcff3d] text-[#bcff3d]"
-                      : slot.available
+                      : isAvailable
                         ? "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.4)] hover:border-[rgba(188,255,61,0.28)]"
                         : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.25)] line-through opacity-25"
                   }`}
                 >
-                  {slot.time}
+                  {slot}
                 </button>
               );
             })}
@@ -1185,14 +1302,29 @@ function BookingCard() {
             })}
           </div>
 
-          <a
-            href={`/conseils/formulaire?date=${activeMonth.id}-${String(selectedDate).padStart(2, "0")}&duration=${selectedDurationItem.label}&slot=${selectedSlot}&format=${selectedFormat}`}
-            className="absolute bg-[#bcff3d] h-[52px] left-[44px] right-[44px] rounded-[14px] top-[596px]"
+          {errorMessage ? (
+            <div className="absolute left-[44px] right-[44px] top-[548px] rounded-[12px] border border-[rgba(255,99,99,0.22)] bg-[rgba(255,99,99,0.08)] px-4 py-3 text-[12px] text-[#ffb1b1]">
+              {errorMessage}
+            </div>
+          ) : null}
+          <button
+            type="button"
+            disabled={isLoading || !!errorMessage || !selectedDateItem?.available || selectedSlotOptions.length === 0}
+            onClick={() => {
+              if (isLoading || errorMessage || !selectedDateItem?.available || selectedSlotOptions.length === 0) return;
+              const nextParams = new URLSearchParams(searchParams);
+              nextParams.set("date", `${activeMonth.id}-${String(selectedDate).padStart(2, "0")}`);
+              nextParams.set("duration", selectedDurationItem.label);
+              nextParams.set("slot", selectedSlot);
+              nextParams.set("format", selectedFormat);
+              window.location.assign(`/conseils/formulaire?${nextParams.toString()}`);
+            }}
+            className="absolute bg-[#bcff3d] h-[52px] left-[44px] right-[44px] rounded-[14px] top-[596px] disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span className="block font-['Plus_Jakarta_Sans:Bold',sans-serif] font-bold leading-[52px] text-[#0c0d0c] text-[15px] text-center tracking-[0.3px]">
-              Confirmer ma réservation →
+              {isLoading ? "Chargement..." : isRescheduling ? "Continuer la reprogrammation →" : "Confirmer ma réservation →"}
             </span>
-          </a>
+          </button>
 
           <div className="absolute left-[44px] right-[44px] top-[664px]">
             <p className="font-['Plus_Jakarta_Sans:Regular',sans-serif] text-[11px] text-[rgba(255,255,255,0.25)] text-center">
@@ -2310,32 +2442,29 @@ function MobileSectionTitle({
 
 function MobileBookingCard() {
   const [searchParams] = useSearchParams();
-  const requestedDate = searchParams.get("date");
-  const requestedMonthId = requestedDate?.slice(0, 7);
-  const requestedDay = Number(requestedDate?.slice(8, 10));
-  const requestedDurationLabel = searchParams.get("duration");
-  const requestedSlot = searchParams.get("slot");
-  const requestedFormat = searchParams.get("format");
-
-  const initialMonthIndex = Math.max(0, BOOKING_MONTHS.findIndex((month) => month.id === requestedMonthId));
-  const initialMonth = BOOKING_MONTHS[initialMonthIndex] ?? BOOKING_MONTHS[0];
-  const initialDate =
-    initialMonth.dates.find((date) => date.day === requestedDay && date.available)?.day ??
-    initialMonth.dates.find((date) => date.available)?.day ??
-    initialMonth.dates[0].day;
-  const initialDuration = BOOKING_DURATIONS.find((duration) => duration.label === requestedDurationLabel)?.id ?? "30";
-  const initialSlot = BOOKING_SLOTS.find((slot) => slot.time === requestedSlot && slot.available)?.time ?? "10:30";
-  const initialFormat = BOOKING_FORMATS.find((format) => format.id === requestedFormat)?.id ?? "visio";
-
-  const [activeMonthIndex, setActiveMonthIndex] = useState(initialMonthIndex);
-  const [selectedDate, setSelectedDate] = useState(initialDate);
-  const [selectedDuration, setSelectedDuration] = useState(initialDuration);
-  const [selectedSlot, setSelectedSlot] = useState(initialSlot);
-  const [selectedFormat, setSelectedFormat] = useState(initialFormat);
-
-  const activeMonth = BOOKING_MONTHS[activeMonthIndex];
-  const selectedDateItem = activeMonth.dates.find((date) => date.day === selectedDate) ?? activeMonth.dates[0];
-  const selectedDurationItem = BOOKING_DURATIONS.find((duration) => duration.id === selectedDuration) ?? BOOKING_DURATIONS[0];
+  const {
+    activeMonth,
+    errorMessage,
+    goToMonth,
+    isLoading,
+    monthMessage,
+    selectedDate,
+    selectedDateItem,
+    selectedDuration,
+    selectedDurationItem,
+    selectedFormat,
+    selectedSlot,
+    selectedSlotOptions,
+    setSelectedDate,
+    setSelectedDuration,
+    setSelectedFormat,
+    setSelectedSlot,
+  } = useBookingAvailability();
+  const isRescheduling = Boolean(searchParams.get("bookingId") && searchParams.get("rescheduleToken"));
+  const headerTitle = isRescheduling ? "Reprogrammation VroomAdvisor" : "Prise de rendez-vous VroomAdvisor";
+  const headerSubtitle = isRescheduling
+    ? "Choisissez un nouveau créneau pour votre rendez-vous existant."
+    : "Sélectionnez une date, une durée et un créneau.";
 
   return (
     <div className="rounded-[28px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
@@ -2345,12 +2474,12 @@ function MobileBookingCard() {
             <Svg />
           </div>
           <div className="min-w-0">
-            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold text-white">Prise de rendez-vous VroomAdvisor</p>
-            <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">Sélectionnez une date, une durée et un créneau.</p>
+            <p className="font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold text-white">{headerTitle}</p>
+            <p className="mt-1 text-[12px] text-[rgba(255,255,255,0.45)]">{headerSubtitle}</p>
           </div>
         </div>
         <div className="mt-4 inline-flex rounded-full bg-[#bcff3d] px-4 py-2 text-[11px] font-bold tracking-[0.44px] text-[#0c0d0c]">
-          Prochain dispo : demain
+          {monthMessage}
         </div>
       </div>
 
@@ -2361,26 +2490,14 @@ function MobileBookingCard() {
             <button
               type="button"
               className="flex size-9 items-center justify-center rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.5)]"
-              onClick={() =>
-                setActiveMonthIndex((current) => {
-                  const nextIndex = Math.max(0, current - 1);
-                  setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
-                  return nextIndex;
-                })
-              }
+              onClick={() => goToMonth(-1)}
             >
               ‹
             </button>
             <button
               type="button"
               className="flex size-9 items-center justify-center rounded-[10px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.5)]"
-              onClick={() =>
-                setActiveMonthIndex((current) => {
-                  const nextIndex = Math.min(BOOKING_MONTHS.length - 1, current + 1);
-                  setSelectedDate(BOOKING_MONTHS[nextIndex].dates[0].day);
-                  return nextIndex;
-                })
-              }
+              onClick={() => goToMonth(1)}
             >
               ›
             </button>
@@ -2472,22 +2589,23 @@ function MobileBookingCard() {
           <p className="text-[10px] uppercase tracking-[1.4px] text-[rgba(255,255,255,0.25)]">Créneaux disponibles</p>
           <div className="mt-3 grid grid-cols-3 gap-3">
             {BOOKING_SLOTS.map((slot) => {
-              const isSelected = slot.time === selectedSlot;
+              const isAvailable = selectedSlotOptions.includes(slot);
+              const isSelected = slot === selectedSlot;
               return (
                 <button
-                  key={slot.time}
+                  key={slot}
                   type="button"
-                  disabled={!slot.available}
-                  onClick={() => setSelectedSlot(slot.time)}
+                  disabled={!isAvailable}
+                  onClick={() => setSelectedSlot(slot)}
                   className={`h-[46px] rounded-[11px] border text-[14px] transition-colors ${
                     isSelected
                       ? "border-[#bcff3d] bg-[rgba(188,255,61,0.1)] text-[#bcff3d]"
-                      : slot.available
+                      : isAvailable
                         ? "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.65)]"
                         : "border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] text-[rgba(255,255,255,0.2)] opacity-30 line-through"
                   }`}
                 >
-                  {slot.time}
+                  {slot}
                 </button>
               );
             })}
@@ -2515,12 +2633,27 @@ function MobileBookingCard() {
           </div>
         </div>
 
-        <a
-          href={`/conseils/formulaire?date=${activeMonth.id}-${String(selectedDate).padStart(2, "0")}&duration=${selectedDurationItem.label}&slot=${selectedSlot}&format=${selectedFormat}`}
-          className="mt-7 block rounded-[14px] bg-[#bcff3d] px-4 py-4 text-center font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c]"
+        {errorMessage ? (
+          <div className="mt-5 rounded-[12px] border border-[rgba(255,99,99,0.22)] bg-[rgba(255,99,99,0.08)] px-4 py-3 text-[12px] text-[#ffb1b1]">
+            {errorMessage}
+          </div>
+        ) : null}
+        <button
+          type="button"
+          disabled={isLoading || !!errorMessage || !selectedDateItem?.available || selectedSlotOptions.length === 0}
+          onClick={() => {
+            if (isLoading || errorMessage || !selectedDateItem?.available || selectedSlotOptions.length === 0) return;
+            const nextParams = new URLSearchParams(searchParams);
+            nextParams.set("date", `${activeMonth.id}-${String(selectedDate).padStart(2, "0")}`);
+            nextParams.set("duration", selectedDurationItem.label);
+            nextParams.set("slot", selectedSlot);
+            nextParams.set("format", selectedFormat);
+            window.location.assign(`/conseils/formulaire?${nextParams.toString()}`);
+          }}
+          className="mt-7 block rounded-[14px] bg-[#bcff3d] px-4 py-4 text-center font-['Plus_Jakarta_Sans:Bold',sans-serif] text-[15px] font-bold tracking-[0.3px] text-[#0c0d0c] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Confirmer ma réservation →
-        </a>
+          {isLoading ? "Chargement..." : isRescheduling ? "Continuer la reprogrammation →" : "Confirmer ma réservation →"}
+        </button>
         <p className="mt-4 text-center text-[11px] text-[rgba(255,255,255,0.28)]">
           Confirmation par email · Annulation gratuite jusqu&apos;à 24h avant
         </p>

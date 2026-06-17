@@ -27,3 +27,11 @@ services:
         value: vehicles
       - key: MAX_FILE_SIZE_MB
         value: 10
+      - key: GOOGLE_CALENDAR_ID
+        sync: false
+      - key: GOOGLE_SERVICE_ACCOUNT_EMAIL
+        sync: false
+      - key: GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY
+        sync: false
+      - key: GOOGLE_CALENDAR_TIME_ZONE
+        value: Europe/Paris
