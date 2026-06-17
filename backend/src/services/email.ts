@@ -1,8 +1,13 @@
 import { Resend } from "resend";
+import { store } from "../data/store.js";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = "VroomAdvisor <reservations@vroomparis.fr>";
+const resend = new Resend(process.env.RESEND_API_KEY ?? "");
+const DEFAULT_FROM = "VroomAdvisor <reservations@vroomparis.fr>";
 const TEAM_EMAIL = process.env.TEAM_EMAIL ?? "contact@vroomparis.fr";
+
+function getFromAddress(): string {
+  return process.env.EMAIL_FROM?.trim() || DEFAULT_FROM;
+}
 
 function buildIcs(params: {
   date: string;
@@ -15,6 +20,10 @@ function buildIcs(params: {
   phone: string;
 }): string {
   const { date, time, durationMinutes, format, firstName, lastName, email, phone } = params;
+  const safeFirstName = escapeIcsText(firstName);
+  const safeLastName = escapeIcsText(lastName);
+  const safeEmail = escapeIcsText(email);
+  const safePhone = escapeIcsText(phone);
 
   const [year, month, day] = date.split("-").map(Number);
   const [hours, minutes] = time.split(":").map(Number);
@@ -40,10 +49,10 @@ function buildIcs(params: {
     "BEGIN:VEVENT",
     `DTSTART:${fmt(start)}`,
     `DTEND:${fmt(end)}`,
-    `SUMMARY:RDV VroomAdvisor — ${firstName} ${lastName}`,
-    `DESCRIPTION:Format : ${formatLabel}\\nClient : ${firstName} ${lastName}\\nTél : ${phone}\\nEmail : ${email}`,
+    `SUMMARY:RDV VroomAdvisor — ${safeFirstName} ${safeLastName}`,
+    `DESCRIPTION:Format : ${escapeIcsText(formatLabel)}\\nClient : ${safeFirstName} ${safeLastName}\\nTél : ${safePhone}\\nEmail : ${safeEmail}`,
     `ORGANIZER;CN=VroomAdvisor:mailto:${TEAM_EMAIL}`,
-    `ATTENDEE;CN=${firstName} ${lastName}:mailto:${email}`,
+    `ATTENDEE;CN=${safeFirstName} ${safeLastName}:mailto:${safeEmail}`,
     "LOCATION:VroomAdvisor - 4 bis Av. Alexandre Dumas\\, 95230 Soisy-sous-Montmorency",
     "STATUS:CONFIRMED",
     "END:VEVENT",
@@ -75,6 +84,98 @@ function escapeHtml(value: string): string {
     .replaceAll("'", "&#39;");
 }
 
+function escapeIcsText(value: string): string {
+  return value
+    .replaceAll("\\", "\\\\")
+    .replaceAll(";", "\\;")
+    .replaceAll(",", "\\,")
+    .replace(/\r?\n/g, "\\n");
+}
+
+type EmailSendParams = {
+  type: string;
+  template: string;
+  to: string;
+  subject: string;
+  html: string;
+  attachments?: { filename: string; content: string }[];
+  metadata?: Record<string, unknown>;
+};
+
+async function logEmailFailure(logId: string | null, error: string) {
+  if (!logId) return;
+  try {
+    await store.emailLogs.update(logId, { status: "failed", error });
+  } catch (logError) {
+    console.error("Failed to update email log as failed:", logError);
+  }
+}
+
+async function logEmailSuccess(logId: string | null, providerId: string | null) {
+  if (!logId) return;
+  try {
+    await store.emailLogs.update(logId, { status: "sent", providerId, error: null });
+  } catch (logError) {
+    console.error("Failed to update email log as sent:", logError);
+  }
+}
+
+async function sendTrackedEmail(params: EmailSendParams) {
+  let logId: string | null = null;
+
+  try {
+    const log = await store.emailLogs.create({
+      type: params.type,
+      template: params.template,
+      recipient: params.to,
+      subject: params.subject,
+      status: "pending",
+      providerId: null,
+      error: null,
+      metadata: params.metadata ?? {},
+    });
+    logId = log.id;
+  } catch (logError) {
+    console.error("Failed to create email log:", logError);
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    const error = new Error("RESEND_API_KEY is not configured");
+    await logEmailFailure(logId, error.message);
+    console.error("Email send failed", {
+      type: params.type,
+      template: params.template,
+      recipient: params.to,
+      error: error.message,
+    });
+    throw error;
+  }
+
+  try {
+    const response = await resend.emails.send({
+      from: getFromAddress(),
+      to: params.to,
+      subject: params.subject,
+      html: params.html,
+      attachments: params.attachments,
+    });
+
+    const providerId = (response as { data?: { id?: string } } | undefined)?.data?.id ?? null;
+    await logEmailSuccess(logId, providerId);
+    return response;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    await logEmailFailure(logId, message);
+    console.error("Email send failed", {
+      type: params.type,
+      template: params.template,
+      recipient: params.to,
+      error,
+    });
+    throw error;
+  }
+}
+
 export async function sendContactConfirmationToClient(params: {
   firstName: string;
   lastName: string;
@@ -82,6 +183,10 @@ export async function sendContactConfirmationToClient(params: {
   subject: string;
 }) {
   const { firstName, lastName, email, subject } = params;
+  const safeFirstName = escapeHtml(firstName);
+  const safeLastName = escapeHtml(lastName);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
 
   const html = `
 <!DOCTYPE html>
@@ -95,22 +200,22 @@ export async function sendContactConfirmationToClient(params: {
           <div style="width:72px;height:72px;background:rgba(188,255,61,0.12);border:1px solid rgba(188,255,61,0.25);border-radius:24px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#bcff3d;">✓</div>
           <h1 style="margin:0 0 12px;font-size:28px;font-weight:800;color:#ffffff;">Message bien reçu</h1>
           <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.65);line-height:1.6;">
-            Bonjour <strong style="color:rgba(255,255,255,0.9);">${escapeHtml(firstName)}</strong>, nous avons bien reçu votre demande.
+            Bonjour <strong style="color:rgba(255,255,255,0.9);">${safeFirstName}</strong>, nous avons bien reçu votre demande.
           </p>
         </td></tr>
         <tr><td style="padding:0 36px 36px;">
           <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;">
             <tr><td style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
               <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Nom</div>
-              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);">${escapeHtml(firstName)} ${escapeHtml(lastName)}</div>
+              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);">${safeFirstName} ${safeLastName}</div>
             </td></tr>
             <tr><td style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
               <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Sujet</div>
-              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);">${escapeHtml(subject)}</div>
+              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);">${safeSubject}</div>
             </td></tr>
             <tr><td style="padding:16px 20px;">
               <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Email de contact</div>
-              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);"><a href="mailto:${escapeHtml(email)}" style="color:#bcff3d;">${escapeHtml(email)}</a></div>
+              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);"><a href="mailto:${safeEmail}" style="color:#bcff3d;">${safeEmail}</a></div>
             </td></tr>
           </table>
         </td></tr>
@@ -122,14 +227,16 @@ export async function sendContactConfirmationToClient(params: {
       </table>
     </td></tr>
   </table>
-</body>
-</html>`;
+  </body>
+  </html>`;
 
-  await resend.emails.send({
-    from: FROM,
+  await sendTrackedEmail({
+    type: "contact",
+    template: "contact_confirmation",
     to: email,
     subject: `VroomAdvisor - confirmation de réception`,
     html,
+    metadata: { firstName, lastName, email, subject },
   });
 }
 
@@ -141,6 +248,11 @@ export async function sendContactNotificationToTeam(params: {
   message: string;
 }) {
   const { firstName, lastName, email, subject, message } = params;
+  const safeFirstName = escapeHtml(firstName);
+  const safeLastName = escapeHtml(lastName);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
+  const safeMessage = escapeHtml(message);
 
   const html = `
 <!DOCTYPE html>
@@ -160,28 +272,30 @@ export async function sendContactNotificationToTeam(params: {
             <tr><td style="padding:12px 16px;background:#f3f4f6;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e5e7eb;">Contact</td></tr>
             <tr><td style="padding:0;">
               <table width="100%" cellpadding="0" cellspacing="0">
-                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Nom :</strong> <span style="color:#111827;">${escapeHtml(firstName)} ${escapeHtml(lastName)}</span></td></tr>
-                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Email :</strong> <a href="mailto:${escapeHtml(email)}" style="color:#2563eb;">${escapeHtml(email)}</a></td></tr>
-                <tr><td style="padding:12px 16px;font-size:13px;"><strong style="color:#374151;">Sujet :</strong> <span style="color:#111827;">${escapeHtml(subject)}</span></td></tr>
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Nom :</strong> <span style="color:#111827;">${safeFirstName} ${safeLastName}</span></td></tr>
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Email :</strong> <a href="mailto:${safeEmail}" style="color:#2563eb;">${safeEmail}</a></td></tr>
+                <tr><td style="padding:12px 16px;font-size:13px;"><strong style="color:#374151;">Sujet :</strong> <span style="color:#111827;">${safeSubject}</span></td></tr>
               </table>
             </td></tr>
           </table>
           <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;border-radius:8px;overflow:hidden;">
             <tr><td style="padding:12px 16px;background:#f3f4f6;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e5e7eb;">Message</td></tr>
-            <tr><td style="padding:16px;font-size:14px;color:#111827;line-height:1.7;white-space:pre-wrap;">${escapeHtml(message)}</td></tr>
+            <tr><td style="padding:16px;font-size:14px;color:#111827;line-height:1.7;white-space:pre-wrap;">${safeMessage}</td></tr>
           </table>
         </td></tr>
       </table>
     </td></tr>
   </table>
-</body>
-</html>`;
+  </body>
+  </html>`;
 
-  await resend.emails.send({
-    from: FROM,
+  await sendTrackedEmail({
+    type: "contact",
+    template: "contact_notification",
     to: TEAM_EMAIL,
     subject: `Nouveau contact — ${firstName} ${lastName} · ${subject}`,
     html,
+    metadata: { firstName, lastName, email, subject },
   });
 }
 
@@ -198,6 +312,7 @@ export async function sendBookingConfirmationToClient(params: {
   const { date, time, durationMinutes, format, firstName, lastName, email } = params;
   const dateLabel = formatDate(date);
   const formatStr = formatLabel(format);
+  const safeFirstName = escapeHtml(firstName);
 
   const html = `
 <!DOCTYPE html>
@@ -223,7 +338,7 @@ export async function sendBookingConfirmationToClient(params: {
           <div style="width:72px;height:72px;background:rgba(188,255,61,0.12);border:1px solid rgba(188,255,61,0.25);border-radius:24px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:32px;">✓</div>
           <h1 style="margin:0 0 12px;font-size:28px;font-weight:800;color:#ffffff;">Rendez-vous <span style="color:#bcff3d;">confirmé !</span></h1>
           <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.55);line-height:1.6;">
-            Bonjour <strong style="color:rgba(255,255,255,0.9);">${firstName}</strong>, votre consultation automobile est bien réservée.<br>
+            Bonjour <strong style="color:rgba(255,255,255,0.9);">${safeFirstName}</strong>, votre consultation automobile est bien réservée.<br>
             Votre conseiller vous contactera à l'heure choisie.
           </p>
         </td></tr>
@@ -276,11 +391,13 @@ export async function sendBookingConfirmationToClient(params: {
 </body>
 </html>`;
 
-  await resend.emails.send({
-    from: FROM,
+  await sendTrackedEmail({
+    type: "booking",
+    template: "booking_confirmation",
     to: email,
     subject: `✅ Rendez-vous confirmé — ${dateLabel} à ${time}`,
     html,
+    metadata: { date, time, durationMinutes, format, firstName, lastName, email },
   });
 }
 
@@ -301,6 +418,13 @@ export async function sendBookingNotificationToTeam(params: {
   const dateLabel = formatDate(date);
   const formatStr = formatLabel(format);
   const icsContent = buildIcs({ date, time, durationMinutes, format, firstName, lastName, email, phone });
+  const safeFirstName = escapeHtml(firstName);
+  const safeLastName = escapeHtml(lastName);
+  const safeEmail = escapeHtml(email);
+  const safePhone = escapeHtml(phone);
+  const safeBudget = escapeHtml(budget);
+  const safeVehicleType = escapeHtml(vehicleType);
+  const safeDescription = escapeHtml(description);
 
   const html = `
 <!DOCTYPE html>
@@ -323,9 +447,9 @@ export async function sendBookingNotificationToTeam(params: {
             <tr><td style="padding:12px 16px;background:#f3f4f6;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e5e7eb;">Client</td></tr>
             <tr><td style="padding:0;">
               <table width="100%" cellpadding="0" cellspacing="0">
-                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Nom :</strong> <span style="color:#111827;">${firstName} ${lastName}</span></td></tr>
-                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Email :</strong> <a href="mailto:${email}" style="color:#2563eb;">${email}</a></td></tr>
-                <tr><td style="padding:12px 16px;font-size:13px;"><strong style="color:#374151;">Tél :</strong> <a href="tel:${phone}" style="color:#2563eb;">${phone}</a></td></tr>
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Nom :</strong> <span style="color:#111827;">${safeFirstName} ${safeLastName}</span></td></tr>
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Email :</strong> <a href="mailto:${safeEmail}" style="color:#2563eb;">${safeEmail}</a></td></tr>
+                <tr><td style="padding:12px 16px;font-size:13px;"><strong style="color:#374151;">Tél :</strong> <a href="tel:${safePhone}" style="color:#2563eb;">${safePhone}</a></td></tr>
               </table>
             </td></tr>
           </table>
@@ -345,9 +469,9 @@ export async function sendBookingNotificationToTeam(params: {
             <tr><td style="padding:12px 16px;background:#f3f4f6;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e5e7eb;">Projet</td></tr>
             <tr><td style="padding:0;">
               <table width="100%" cellpadding="0" cellspacing="0">
-                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Budget :</strong> <span style="color:#111827;">${budget}</span></td></tr>
-                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Véhicule :</strong> <span style="color:#111827;">${vehicleType}</span></td></tr>
-                ${description ? `<tr><td style="padding:12px 16px;font-size:13px;"><strong style="color:#374151;">Notes :</strong> <span style="color:#111827;">${description}</span></td></tr>` : ""}
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Budget :</strong> <span style="color:#111827;">${safeBudget}</span></td></tr>
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Véhicule :</strong> <span style="color:#111827;">${safeVehicleType}</span></td></tr>
+                ${description ? `<tr><td style="padding:12px 16px;font-size:13px;"><strong style="color:#374151;">Notes :</strong> <span style="color:#111827;">${safeDescription}</span></td></tr>` : ""}
               </table>
             </td></tr>
           </table>
@@ -365,8 +489,9 @@ export async function sendBookingNotificationToTeam(params: {
 </body>
 </html>`;
 
-  await resend.emails.send({
-    from: FROM,
+  await sendTrackedEmail({
+    type: "booking",
+    template: "booking_notification",
     to: TEAM_EMAIL,
     subject: `📅 Nouveau RDV — ${firstName} ${lastName} · ${dateLabel} ${time}`,
     html,
@@ -376,5 +501,6 @@ export async function sendBookingNotificationToTeam(params: {
         content: Buffer.from(icsContent).toString("base64"),
       },
     ],
+    metadata: { date, time, durationMinutes, format, firstName, lastName, email, phone, budget, vehicleType },
   });
 }

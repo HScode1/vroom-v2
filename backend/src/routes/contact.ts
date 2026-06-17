@@ -22,7 +22,7 @@ router.post("/", async (req, res, next) => {
     emailJobs.forEach((job, index) => {
       if (job.status === "rejected") {
         const target = index === 0 ? "team" : "client";
-        console.error(`Failed to send contact email to ${target}:`, job.reason);
+        console.error("Contact email failed", { target, reason: job.reason });
       }
     });
 

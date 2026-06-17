@@ -67,6 +67,22 @@ CREATE TABLE IF NOT EXISTS contact_messages (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- ── Email logs ───────────────────────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS email_logs (
+  id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  type       TEXT NOT NULL,
+  template   TEXT NOT NULL,
+  recipient  TEXT NOT NULL,
+  subject    TEXT NOT NULL,
+  status     TEXT NOT NULL DEFAULT 'pending'
+               CHECK (status IN ('pending', 'sent', 'failed')),
+  provider_id TEXT,
+  error      TEXT,
+  metadata   JSONB NOT NULL DEFAULT '{}'::jsonb,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- ── Auto-update updated_at on vehicles ───────────────────────────────────────
 CREATE OR REPLACE FUNCTION set_updated_at()
 RETURNS TRIGGER LANGUAGE plpgsql AS $$
@@ -81,6 +97,11 @@ CREATE TRIGGER vehicles_updated_at
   BEFORE UPDATE ON vehicles
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
+DROP TRIGGER IF EXISTS email_logs_updated_at ON email_logs;
+CREATE TRIGGER email_logs_updated_at
+  BEFORE UPDATE ON email_logs
+  FOR EACH ROW EXECUTE FUNCTION set_updated_at();
+
 -- ── Row Level Security ────────────────────────────────────────────────────────
 -- We use the service role key from the backend, so RLS can stay permissive.
 -- The backend enforces auth via JWT middleware.
@@ -89,6 +110,7 @@ ALTER TABLE buy_requests     ENABLE ROW LEVEL SECURITY;
 ALTER TABLE sell_requests    ENABLE ROW LEVEL SECURITY;
 ALTER TABLE appointments     ENABLE ROW LEVEL SECURITY;
 ALTER TABLE contact_messages ENABLE ROW LEVEL SECURITY;
+ALTER TABLE email_logs       ENABLE ROW LEVEL SECURITY;
 
 -- Allow all operations from the service role (backend)
 CREATE POLICY "service_role_all" ON vehicles         FOR ALL TO service_role USING (true) WITH CHECK (true);
@@ -96,6 +118,7 @@ CREATE POLICY "service_role_all" ON buy_requests     FOR ALL TO service_role USI
 CREATE POLICY "service_role_all" ON sell_requests    FOR ALL TO service_role USING (true) WITH CHECK (true);
 CREATE POLICY "service_role_all" ON appointments     FOR ALL TO service_role USING (true) WITH CHECK (true);
 CREATE POLICY "service_role_all" ON contact_messages FOR ALL TO service_role USING (true) WITH CHECK (true);
+CREATE POLICY "service_role_all" ON email_logs       FOR ALL TO service_role USING (true) WITH CHECK (true);
 
 -- Public can read "En ligne" vehicles only
 CREATE POLICY "public_read_vehicles" ON vehicles

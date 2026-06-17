@@ -5,6 +5,7 @@ export type VehicleTag = "Bonne affaire" | "Forte demande" | "Baisse de prix" | 
 export type RequestStatus = "Nouveau" | "En cours" | "Traité" | "Annulé";
 export type AppointmentStatus = "Confirmé" | "En attente" | "Annulé" | "Effectué";
 export type BookingFormat = "visio" | "telephone" | "whatsapp";
+export type EmailStatus = "pending" | "sent" | "failed";
 
 export interface Vehicle {
   id: string;
@@ -81,6 +82,20 @@ export interface ContactMessage {
   message: string;
 }
 
+export interface EmailLog {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  type: string;
+  template: string;
+  recipient: string;
+  subject: string;
+  status: EmailStatus;
+  providerId: string | null;
+  error: string | null;
+  metadata: Record<string, unknown>;
+}
+
 // ── Row mappers (snake_case DB → camelCase TS) ────────────────────────────────
 
 function rowToVehicle(row: Record<string, unknown>): Vehicle {
@@ -130,6 +145,22 @@ function rowToAppointment(row: Record<string, unknown>): Appointment {
     booking: row.booking as Appointment["booking"],
     customer: row.customer as Appointment["customer"],
     project: row.project as Appointment["project"],
+  };
+}
+
+function rowToEmailLog(row: Record<string, unknown>): EmailLog {
+  return {
+    id: row.id as string,
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+    type: row.type as string,
+    template: row.template as string,
+    recipient: row.recipient as string,
+    subject: row.subject as string,
+    status: row.status as EmailStatus,
+    providerId: (row.provider_id as string | null) ?? null,
+    error: (row.error as string | null) ?? null,
+    metadata: (row.metadata as Record<string, unknown>) ?? {},
   };
 }
 
@@ -397,6 +428,48 @@ export const store = {
       }
 
       return { month: `${year}-${String(month).padStart(2, "0")}`, dates };
+    },
+  },
+
+  emailLogs: {
+    async create(logData: Omit<EmailLog, "id" | "createdAt" | "updatedAt">) {
+      const { data, error } = await supabase
+        .from("email_logs")
+        .insert({
+          type: logData.type,
+          template: logData.template,
+          recipient: logData.recipient,
+          subject: logData.subject,
+          status: logData.status,
+          provider_id: logData.providerId,
+          error: logData.error,
+          metadata: logData.metadata,
+        })
+        .select()
+        .single();
+      if (error) throw error;
+      return rowToEmailLog(data);
+    },
+
+    async update(id: string, patch: Partial<Omit<EmailLog, "id" | "createdAt" | "updatedAt">>) {
+      const updateData: Record<string, unknown> = {};
+      if (patch.type !== undefined) updateData.type = patch.type;
+      if (patch.template !== undefined) updateData.template = patch.template;
+      if (patch.recipient !== undefined) updateData.recipient = patch.recipient;
+      if (patch.subject !== undefined) updateData.subject = patch.subject;
+      if (patch.status !== undefined) updateData.status = patch.status;
+      if (patch.providerId !== undefined) updateData.provider_id = patch.providerId;
+      if (patch.error !== undefined) updateData.error = patch.error;
+      if (patch.metadata !== undefined) updateData.metadata = patch.metadata;
+
+      const { data, error } = await supabase
+        .from("email_logs")
+        .update(updateData)
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) throw error;
+      return rowToEmailLog(data);
     },
   },
 
