@@ -8,6 +8,7 @@ import { Input as UITextInput } from "../../app/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../app/components/ui/select";
 import { Textarea as UITextarea } from "../../app/components/ui/textarea";
 import { cn } from "../../app/components/ui/utils";
+import { contact } from "../../lib/api";
 
 const valueCards = [
   {
@@ -118,6 +119,58 @@ const contactSubjects = [
   "Financement",
   "Question générale",
 ];
+
+const MESSAGE_MIN_LENGTH = 10;
+const MESSAGE_MAX_LENGTH = 2000;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type ContactFormState = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+type ContactFormErrors = Partial<Record<keyof ContactFormState, string>> & {
+  submit?: string;
+};
+
+function validateContactForm(form: ContactFormState): ContactFormErrors {
+  const nextErrors: ContactFormErrors = {};
+
+  if (!form.firstName.trim()) nextErrors.firstName = "Le prénom est requis.";
+  if (!form.lastName.trim()) nextErrors.lastName = "Le nom est requis.";
+
+  if (!form.email.trim()) {
+    nextErrors.email = "L'email est requis.";
+  } else if (!EMAIL_PATTERN.test(form.email.trim())) {
+    nextErrors.email = "L'email doit être valide.";
+  }
+
+  if (!form.subject.trim()) nextErrors.subject = "Le sujet est requis.";
+
+  const messageLength = form.message.trim().length;
+  if (!messageLength) {
+    nextErrors.message = "Le message est requis.";
+  } else if (messageLength < MESSAGE_MIN_LENGTH) {
+    nextErrors.message = `Le message doit contenir au moins ${MESSAGE_MIN_LENGTH} caractères.`;
+  } else if (messageLength > MESSAGE_MAX_LENGTH) {
+    nextErrors.message = `Le message doit contenir au maximum ${MESSAGE_MAX_LENGTH} caractères.`;
+  }
+
+  return nextErrors;
+}
+
+async function submitContactForm(form: ContactFormState): Promise<void> {
+  await contact.send({
+    firstName: form.firstName.trim(),
+    lastName: form.lastName.trim(),
+    email: form.email.trim(),
+    subject: form.subject.trim(),
+    message: form.message.trim(),
+  });
+}
 
 function OverlayBorder() {
   return (
@@ -616,14 +669,6 @@ function SectionNosValeurs() {
         <p className="leading-[44px] mb-0">Nos valeurs,</p>
         <p className="leading-[44px] text-[#bcff3d]">votre confiance</p>
       </div>
-      <div className="absolute left-[418px] right-0 top-[52px]">
-        <div className="inline-flex rounded-full border border-[rgba(188,255,61,0.18)] bg-[rgba(188,255,61,0.08)] px-4 py-2 text-[11px] uppercase tracking-[1.1px] text-[#bcff3d]">
-          {valueCards.find((card) => card.id === activeValue)?.title}
-        </div>
-      </div>
-      <div className="absolute left-[418px] right-[80px] top-[88px] text-[14px] leading-[24px] text-[rgba(255,255,255,0.5)]">
-        {valueCards.find((card) => card.id === activeValue)?.description}
-      </div>
       {valueCards.map((card) => {
         const isActive = activeValue === card.id;
 
@@ -957,18 +1002,13 @@ function FormulaireSimple() {
     subject: "",
     message: "",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [errors, setErrors] = useState<ContactFormErrors>({});
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const nextErrors: Record<string, string> = {};
-
-    if (!form.firstName.trim()) nextErrors.firstName = "Le prénom est requis.";
-    if (!form.lastName.trim()) nextErrors.lastName = "Le nom est requis.";
-    if (!form.email.trim()) nextErrors.email = "L'email est requis.";
-    if (!form.message.trim()) nextErrors.message = "Le message est requis.";
+    const nextErrors = validateContactForm(form);
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
@@ -977,7 +1017,17 @@ function FormulaireSimple() {
     }
 
     setErrors({});
-    setStatus("success");
+    setStatus("submitting");
+
+    try {
+      await submitContactForm(form);
+      setStatus("success");
+    } catch (error) {
+      setErrors({
+        submit: error instanceof Error ? error.message : "Impossible d'envoyer le message.",
+      });
+      setStatus("error");
+    }
   };
 
   return (
@@ -1059,31 +1109,37 @@ function FormulaireSimple() {
       <div className="absolute left-[28px] right-[28px] top-[353px]">
         <UITextarea
           value={form.message}
-          onChange={(event) => setForm((current) => ({ ...current, message: event.target.value }))}
+          onChange={(event) => setForm((current) => ({ ...current, message: event.target.value.slice(0, MESSAGE_MAX_LENGTH) }))}
           placeholder="Votre message…"
           aria-invalid={Boolean(errors.message)}
+          maxLength={MESSAGE_MAX_LENGTH}
           className="h-[80px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-white placeholder:text-[rgba(255,255,255,0.25)]"
         />
       </div>
       <div className="absolute right-[28px] top-[441px] text-[11px] text-[rgba(255,255,255,0.3)]">
-        {form.message.length}/500
+        {form.message.length}/{MESSAGE_MAX_LENGTH}
       </div>
-      <div className="absolute left-[28px] top-[441px] text-[11px] text-[#ff8e8e]">
-        {errors.firstName || errors.lastName || errors.email || errors.message || ""}
+      <div className="absolute left-[28px] top-[441px] max-w-[340px] text-[11px] text-[#ff8e8e]">
+        {errors.submit || errors.firstName || errors.lastName || errors.email || errors.subject || errors.message || ""}
       </div>
       <div className="absolute border-[rgba(255,255,255,0.08)] border-solid border-t left-0 right-0 top-[473px]">
         <button
           type="submit"
-          className="absolute left-[28px] right-[28px] top-[16px] h-[49px] rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01]"
+          disabled={status === "submitting"}
+          className="absolute left-[28px] right-[28px] top-[16px] h-[49px] rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
         >
           <div className="-translate-x-1/2 -translate-y-1/2 absolute left-[calc(50%-10.85px)] top-1/2 flex h-[17px] w-[152.398px] flex-col justify-center text-center font-['Syne',sans-serif] text-[14px] font-bold text-[#0c0d0c] leading-[0]">
-            <p className="leading-[normal]">Envoyer le message</p>
+            <p className="leading-[normal]">{status === "submitting" ? "Envoi en cours..." : "Envoyer le message"}</p>
           </div>
           <Svg13 />
         </button>
         <div className="-translate-y-1/2 absolute left-[147.41px] right-[146.7px] top-[82px] flex flex-col justify-center text-center font-['DM_Sans:Regular',sans-serif] text-[11px] leading-[0] text-[rgba(255,255,255,0.25)]">
           <p className="leading-[normal]">
-            {status === "success" ? "Message prêt à être envoyé · Vérifiez vos informations" : "Données confidentielles · Réponse sous 24h"}
+            {status === "success"
+              ? "Message envoyé avec succès · Réponse sous 24h"
+              : status === "error"
+                ? "Une erreur est survenue · Réessayez dans un instant"
+                : "Données confidentielles · Réponse sous 24h"}
           </p>
         </div>
       </div>
@@ -1699,18 +1755,13 @@ function MobileContactForm() {
     subject: "",
     message: "",
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const [errors, setErrors] = useState<ContactFormErrors>({});
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const nextErrors: Record<string, string> = {};
-
-    if (!form.firstName.trim()) nextErrors.firstName = "Le prénom est requis.";
-    if (!form.lastName.trim()) nextErrors.lastName = "Le nom est requis.";
-    if (!form.email.trim()) nextErrors.email = "L'email est requis.";
-    if (!form.message.trim()) nextErrors.message = "Le message est requis.";
+    const nextErrors = validateContactForm(form);
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
@@ -1719,7 +1770,17 @@ function MobileContactForm() {
     }
 
     setErrors({});
-    setStatus("success");
+    setStatus("submitting");
+
+    try {
+      await submitContactForm(form);
+      setStatus("success");
+    } catch (error) {
+      setErrors({
+        submit: error instanceof Error ? error.message : "Impossible d'envoyer le message.",
+      });
+      setStatus("error");
+    }
   };
 
   return (
@@ -1802,26 +1863,34 @@ function MobileContactForm() {
         </label>
         <UITextarea
           value={form.message}
-          onChange={(event) => setForm((current) => ({ ...current, message: event.target.value.slice(0, 500) }))}
+          onChange={(event) => setForm((current) => ({ ...current, message: event.target.value.slice(0, MESSAGE_MAX_LENGTH) }))}
           placeholder="Votre message…"
           aria-invalid={Boolean(errors.message)}
+          maxLength={MESSAGE_MAX_LENGTH}
           className="min-h-[120px] rounded-[11px] border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-white placeholder:text-[rgba(255,255,255,0.25)]"
         />
         <div className="flex items-center justify-between text-[11px]">
-          <span className="text-[#ff8e8e]">{errors.firstName || errors.lastName || errors.email || errors.message || ""}</span>
-          <span className="text-[rgba(255,255,255,0.3)]">{form.message.length}/500</span>
+          <span className="max-w-[70%] text-[#ff8e8e]">{errors.submit || errors.firstName || errors.lastName || errors.email || errors.subject || errors.message || ""}</span>
+          <span className="text-[rgba(255,255,255,0.3)]">{form.message.length}/{MESSAGE_MAX_LENGTH}</span>
         </div>
       </div>
 
       <div className="mt-6 border-t border-[rgba(255,255,255,0.08)] pt-5">
         <button
           type="submit"
-          className="relative h-[52px] w-full rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01]"
+          disabled={status === "submitting"}
+          className="relative h-[52px] w-full rounded-[13px] bg-[#bcff3d] transition-transform duration-200 hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
         >
-          <span className="font-['Syne',sans-serif] text-[14px] font-bold text-[#0c0d0c]">Envoyer le message</span>
+          <span className="font-['Syne',sans-serif] text-[14px] font-bold text-[#0c0d0c]">
+            {status === "submitting" ? "Envoi en cours..." : "Envoyer le message"}
+          </span>
         </button>
         <div className="mt-4 text-center font-['DM_Sans:Regular',sans-serif] text-[11px] text-[rgba(255,255,255,0.28)]">
-          {status === "success" ? "Message prêt à être envoyé · Vérifiez vos informations" : "Données confidentielles · Réponse sous 24h"}
+          {status === "success"
+            ? "Message envoyé avec succès · Réponse sous 24h"
+            : status === "error"
+              ? "Une erreur est survenue · Réessayez dans un instant"
+              : "Données confidentielles · Réponse sous 24h"}
         </div>
       </div>
     </form>

@@ -66,6 +66,125 @@ function formatLabel(format: string): string {
   return "Visioconférence";
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+export async function sendContactConfirmationToClient(params: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  subject: string;
+}) {
+  const { firstName, lastName, email, subject } = params;
+
+  const html = `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#181818;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#181818;padding:40px 16px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#1e1e1e;border-radius:24px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;">
+        <tr><td style="padding:40px 36px 32px;text-align:center;">
+          <div style="width:72px;height:72px;background:rgba(188,255,61,0.12);border:1px solid rgba(188,255,61,0.25);border-radius:24px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#bcff3d;">✓</div>
+          <h1 style="margin:0 0 12px;font-size:28px;font-weight:800;color:#ffffff;">Message bien reçu</h1>
+          <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.65);line-height:1.6;">
+            Bonjour <strong style="color:rgba(255,255,255,0.9);">${escapeHtml(firstName)}</strong>, nous avons bien reçu votre demande.
+          </p>
+        </td></tr>
+        <tr><td style="padding:0 36px 36px;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;">
+            <tr><td style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Nom</div>
+              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);">${escapeHtml(firstName)} ${escapeHtml(lastName)}</div>
+            </td></tr>
+            <tr><td style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Sujet</div>
+              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);">${escapeHtml(subject)}</div>
+            </td></tr>
+            <tr><td style="padding:16px 20px;">
+              <div style="font-size:10px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Email de contact</div>
+              <div style="font-size:14px;font-weight:500;color:rgba(255,255,255,0.9);"><a href="mailto:${escapeHtml(email)}" style="color:#bcff3d;">${escapeHtml(email)}</a></div>
+            </td></tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:0 36px 32px;text-align:center;">
+          <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6;">
+            Un membre de l'équipe vous répondra sous 24h ouvrées.
+          </p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+  await resend.emails.send({
+    from: FROM,
+    to: email,
+    subject: `VroomAdvisor - confirmation de réception`,
+    html,
+  });
+}
+
+export async function sendContactNotificationToTeam(params: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  subject: string;
+  message: string;
+}) {
+  const { firstName, lastName, email, subject, message } = params;
+
+  const html = `
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:'Helvetica Neue',Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 16px;">
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;">
+        <tr><td style="background:#181818;padding:20px 28px;">
+          <span style="font-size:18px;font-weight:800;color:#ffffff;">Vroom<span style="color:#bcff3d;">Advisor</span></span>
+          <span style="float:right;background:#bcff3d;color:#000;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;">Nouveau contact</span>
+        </td></tr>
+        <tr><td style="padding:28px;">
+          <h2 style="margin:0 0 20px;font-size:20px;color:#111827;">Nouveau message depuis le site</h2>
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;border-radius:8px;overflow:hidden;margin-bottom:20px;">
+            <tr><td style="padding:12px 16px;background:#f3f4f6;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e5e7eb;">Contact</td></tr>
+            <tr><td style="padding:0;">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Nom :</strong> <span style="color:#111827;">${escapeHtml(firstName)} ${escapeHtml(lastName)}</span></td></tr>
+                <tr><td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;font-size:13px;"><strong style="color:#374151;">Email :</strong> <a href="mailto:${escapeHtml(email)}" style="color:#2563eb;">${escapeHtml(email)}</a></td></tr>
+                <tr><td style="padding:12px 16px;font-size:13px;"><strong style="color:#374151;">Sujet :</strong> <span style="color:#111827;">${escapeHtml(subject)}</span></td></tr>
+              </table>
+            </td></tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9fafb;border-radius:8px;overflow:hidden;">
+            <tr><td style="padding:12px 16px;background:#f3f4f6;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:0.8px;border-bottom:1px solid #e5e7eb;">Message</td></tr>
+            <tr><td style="padding:16px;font-size:14px;color:#111827;line-height:1.7;white-space:pre-wrap;">${escapeHtml(message)}</td></tr>
+          </table>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+
+  await resend.emails.send({
+    from: FROM,
+    to: TEAM_EMAIL,
+    subject: `Nouveau contact — ${firstName} ${lastName} · ${subject}`,
+    html,
+  });
+}
+
 export async function sendBookingConfirmationToClient(params: {
   date: string;
   time: string;
