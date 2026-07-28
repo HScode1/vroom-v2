@@ -16,6 +16,14 @@ const galleryImages = [img8301, imgPictureA291, imgPictureA292, imgPictureA293, 
 const thumbnailImages = [imgPictureA290, imgPictureA291, imgPictureA292, imgPictureA293, imgPictureA294, imgPictureA295, imgPictureA296];
 const sellerNotePreview = "BMW X3 xDrive30i AWD 2019 Blanc alpin | 2.0L TwinPower Turbo | Boîte automatique 8 vitesses. Ce BMW X3, ayant appartenu à un seul propriétaire et repris localement, offre l'équilibre parfait entre luxe, performance et technologie.";
 const sellerNoteFull = "BMW X3 xDrive30i AWD 2019 Blanc alpin | 2.0L TwinPower Turbo | Boîte automatique 8 vitesses. Ce BMW X3, ayant appartenu à un seul propriétaire et repris localement, offre l'équilibre parfait entre luxe, performance et technologie. Avec la dynamique de conduite légendaire de BMW et sa transmission intégrale intelligente, ce SUV est conçu pour un usage quotidien confortable comme pour les longs trajets.";
+const DESKTOP_PAGE_WIDTH = 1920;
+const DESKTOP_PAGE_HEIGHT = 2719;
+
+function getDesktopPageScale() {
+  if (typeof window === "undefined") return 0.85;
+
+  return Math.min(0.85, Math.max(0.2, (window.innerWidth - 32) / DESKTOP_PAGE_WIDTH));
+}
 
 function ThumbnailButton({
   index,
@@ -1224,12 +1232,20 @@ export default function PageProduitPremium() {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isPriceHistoryOpen, setIsPriceHistoryOpen] = useState(true);
   const [sellerNotesExpanded, setSellerNotesExpanded] = useState(false);
+  const [desktopPageScale, setDesktopPageScale] = useState(getDesktopPageScale);
 
   useEffect(() => {
     if (!id) return;
     setSelectedImageIndex(0);
     vehiclesApi.get(id).then(setVehicle).catch(() => navigate("/showroom"));
   }, [id, navigate]);
+
+  useEffect(() => {
+    const handleResize = () => setDesktopPageScale(getDesktopPageScale());
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const dynamicGallery: string[] = vehicle
     ? vehicle.gallery.length > 0
@@ -1467,7 +1483,14 @@ export default function PageProduitPremium() {
           <MobileFooter />
         </div>
       </div>
-      <div className="relative mx-auto hidden min-h-[2719px] w-[1920px] xl:block">
+      <div
+        className="relative hidden w-full overflow-hidden xl:block"
+        style={{ height: DESKTOP_PAGE_HEIGHT * desktopPageScale }}
+      >
+        <div
+          className="absolute left-1/2 top-0 min-h-[2719px] w-[1920px] origin-top"
+          style={{ transform: `translateX(-50%) scale(${desktopPageScale})` }}
+        >
         <div className="absolute h-[742.871px] left-[-793px] top-[-242px] w-[2664.781px]" data-name="Union">
           <div className="absolute inset-[-26.92%_-7.51%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 3064.78 1142.87">
@@ -1529,7 +1552,8 @@ export default function PageProduitPremium() {
             <p className="leading-[12px]">{selectedImageIndex + 1} / {dynamicGallery.length}</p>
           </div>
         </div>
-        <Footer />
+          <Footer />
+        </div>
       </div>
     </div>
   );
