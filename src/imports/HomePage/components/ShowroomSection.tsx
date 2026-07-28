@@ -158,18 +158,6 @@ function Button7({ onClick }: { onClick: () => void }) {
   );
 }
 
-function Svg35() {
-  return (
-    <div className="-translate-y-1/2 absolute left-[167.88px] size-[13px] top-1/2" data-name="SVG">
-      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
-        <g id="SVG">
-          <path d={svgPaths.p3be6c058} id="Vector" stroke="var(--stroke-0, white)" strokeOpacity="0.4" strokeWidth="1.35417" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
 function HorizontalBorder1({ vehicles, activeIndex, onPrevious, onNext, onSelect }: { vehicles: Vehicle[]; activeIndex: number; onPrevious: () => void; onNext: () => void; onSelect: (index: number) => void }) {
   return (
     <div className="absolute h-[103px] left-[136px] right-[66px] top-[3690px]" data-name="HorizontalBorder">
@@ -190,11 +178,9 @@ function HorizontalBorder1({ vehicles, activeIndex, onPrevious, onNext, onSelect
           );
         })}
       </div>
-      <a className="-translate-y-1/2 absolute h-[16px] left-[1014px] top-[calc(50%+3.5px)] w-[180.88px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" href="/showroom">
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[16px] justify-center leading-[0] left-0 text-[13px] text-[rgba(255,255,255,0.4)] top-1/2 w-[160.204px]">
-          <p className="leading-[normal]">Voir tous nos véhicules</p>
-        </div>
-        <Svg35 />
+      <a className="-translate-y-1/2 absolute left-[984px] top-[calc(50%+3.5px)] inline-flex h-[44px] items-center gap-2 rounded-[100px] border border-[#bcff3d] bg-[#bcff3d] px-5 font-['Syne',sans-serif] text-[13px] font-bold text-[#0c0d0c] transition-colors hover:border-[#d4ff60] hover:bg-[#d4ff60] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" href="/showroom">
+        <span>Voir tous nos véhicules</span>
+        <MobileCtaArrow />
       </a>
     </div>
   );
@@ -237,14 +223,7 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
   return (
     <div className="absolute left-0 top-[3215px] w-screen px-5 sm:px-8 lg:hidden">
       <div className="mx-auto max-w-[640px]">
-        <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
-          <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
-          <p className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]">
-            Véhicules disponibles
-          </p>
-        </div>
-
-        <p className="mt-5 text-center font-['Syne',sans-serif] text-[38px] font-extrabold leading-[42px] tracking-[-1.2px] text-white sm:text-[46px] sm:leading-[50px]">
+        <p className="text-center font-['Syne',sans-serif] text-[38px] font-extrabold leading-[42px] tracking-[-1.2px] text-white sm:text-[46px] sm:leading-[50px]">
           Notre <span className="text-[#bcff3d]">showroom</span>
         </p>
 
@@ -329,11 +308,9 @@ function MobileShowroom({ vehicles }: { vehicles: Vehicle[] }) {
           </div>
         </div>
 
-        <a className="mt-5 inline-flex items-center gap-2 font-['Syne',sans-serif] text-[13px] font-bold text-[rgba(255,255,255,0.4)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" href="/showroom">
+        <a className="mt-5 inline-flex h-[44px] items-center gap-2 rounded-[100px] border border-[#bcff3d] bg-[#bcff3d] px-5 font-['Syne',sans-serif] text-[13px] font-bold text-[#0c0d0c] transition-colors hover:border-[#d4ff60] hover:bg-[#d4ff60] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" href="/showroom">
           <span>Voir tous nos véhicules</span>
-          <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
-            <path d={svgPaths.p3be6c058} stroke="var(--stroke-0, white)" strokeOpacity="0.4" strokeWidth="1.35417" />
-          </svg>
+          <MobileCtaArrow />
         </a>
       </div>
     </div>
@@ -358,17 +335,7 @@ function TabletShowroom({ vehicles }: { vehicles: Vehicle[] }) {
   return (
     <div className="absolute left-0 top-[3215px] hidden w-screen px-10 lg:block xl:hidden">
       <div className="mx-auto max-w-[1180px]">
-        <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
-          <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
-          <p
-            className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]"
-            style={{ fontVariationSettings: "'opsz' 14" }}
-          >
-            Véhicules disponibles
-          </p>
-        </div>
-
-        <p className="mt-6 text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] tracking-[-1.4px] text-white">
+        <p className="text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] tracking-[-1.4px] text-white">
           Notre <span className="text-[#bcff3d]">showroom</span>
         </p>
 
@@ -460,11 +427,9 @@ function TabletShowroom({ vehicles }: { vehicles: Vehicle[] }) {
             })}
           </div>
 
-          <a className="inline-flex items-center gap-2 font-['Syne',sans-serif] text-[13px] font-bold text-[rgba(255,255,255,0.4)] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/50" href="/showroom">
+          <a className="inline-flex h-[44px] items-center gap-2 rounded-[100px] border border-[#bcff3d] bg-[#bcff3d] px-5 font-['Syne',sans-serif] text-[13px] font-bold text-[#0c0d0c] transition-colors hover:border-[#d4ff60] hover:bg-[#d4ff60] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60" href="/showroom">
             <span>Voir tous nos véhicules</span>
-            <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
-              <path d={svgPaths.p3be6c058} stroke="var(--stroke-0, white)" strokeOpacity="0.4" strokeWidth="1.35417" />
-            </svg>
+            <MobileCtaArrow />
           </a>
         </div>
       </div>
@@ -499,12 +464,6 @@ export default function ShowroomSection() {
       <TabletShowroom vehicles={showroomVehicles} />
 
       <div className="hidden xl:block">
-        <div className="-translate-x-1/2 absolute bg-[rgba(188,255,61,0.08)] border border-[rgba(188,255,61,0.2)] border-solid h-[28px] left-[calc(50%+10px)] rounded-[100px] top-[3035px] w-[208px]">
-          <div className="-translate-y-1/2 absolute bg-[#bcff3d] left-[18px] rounded-[2.5px] size-[5px] top-1/2" />
-          <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[calc(50%+8.5px)] text-[#bcff3d] text-[11px] text-center top-1/2 tracking-[1.76px] uppercase w-[177px]">
-            <p className="leading-[normal]">Véhicules disponibles</p>
-          </div>
-        </div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-extrabold h-[62px] justify-center leading-[0] left-[383px] right-[382.58px] text-[52px] text-white top-[3099px] tracking-[-1.56px]">
           <p>
             <span className="leading-[54.6px]">{`Notre `}</span>
