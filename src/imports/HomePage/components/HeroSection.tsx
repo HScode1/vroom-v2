@@ -67,7 +67,7 @@ function MobileHeroSection() {
             <path d={svgPaths.p8610900} stroke="var(--stroke-0, #BCFF3D)" />
           </svg>
           <p className="font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.45)]" style={{ fontVariationSettings: "'opsz' 14" }}>
-            Garantie 12 mois incluse
+            Garanties incluses
           </p>
         </div>
         <p className="font-['DM_Sans:Light',sans-serif] text-[12px] font-light text-[rgba(255,255,255,0.36)]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -111,7 +111,7 @@ function TabletHeroSection() {
             <path d={svgPaths.p8610900} stroke="var(--stroke-0, #BCFF3D)" />
           </svg>
           <p className="font-['DM_Sans:Regular',sans-serif] text-[12px] text-[rgba(255,255,255,0.45)]" style={{ fontVariationSettings: "'opsz' 14" }}>
-            Garantie 12 mois incluse
+            Garanties incluses
           </p>
         </div>
         <p className="font-['DM_Sans:Light',sans-serif] text-[12px] font-light text-[rgba(255,255,255,0.36)]" style={{ fontVariationSettings: "'opsz' 14" }}>
@@ -225,7 +225,7 @@ export default function HeroSection() {
             className="-translate-y-1/2 absolute left-[75px] top-[743px] flex h-[16px] w-[134.475px] flex-col justify-center font-['DM_Sans:Regular',sans-serif] text-[12px] font-normal leading-[0] text-[rgba(255,255,255,0.35)]"
             style={{ fontVariationSettings: "'opsz' 14" }}
           >
-            <p className="leading-[normal]">Garantie 12 mois incluse</p>
+            <p className="leading-[normal]">Garanties incluses</p>
           </div>
 
           <div

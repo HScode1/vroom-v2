@@ -3,7 +3,6 @@ import Footer from "./components/Footer";
 import NosSolutions from "./components/NosSolutions";
 import VroomForBusiness from "./components/VroomForBusiness";
 import ConsultationSection from "./components/ConsultationSection";
-import VousEtesSection from "./components/VousEtesSection";
 import ShowroomSection from "./components/ShowroomSection";
 import AchetezSection from "./components/AchetezSection";
 
@@ -13,7 +12,6 @@ export default function HomePage() {
       <HeroSection />
       <div className="absolute inset-0" style={{ transform: "translateY(calc(100dvh - 860px))" }}>
         <AchetezSection />
-        <VousEtesSection />
         <VroomForBusiness />
         <Footer />
         <ConsultationSection />
