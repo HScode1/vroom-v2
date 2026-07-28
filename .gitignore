@@ -82,6 +82,7 @@ typings/
 .env.test.local
 .env.production.local
 .env.local
+config.env
 
 # parcel-bundler var/cache directory (https://parceljs.org/usage.html#cache)
 .cache

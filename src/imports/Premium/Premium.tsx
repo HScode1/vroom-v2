@@ -3214,6 +3214,8 @@ export default function Premium() {
   const [openSection, setOpenSection] = useState<string[]>(["Type de carburant"]);
   const [apiVehicles, setApiVehicles] = useState<Vehicle[]>([]);
   const [apiBrands, setApiBrands] = useState<{ id: string; label: string; count: number }[]>([]);
+  const [apiStatus, setApiStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [apiReloadKey, setApiReloadKey] = useState(0);
   const [desktopPage, setDesktopPage] = useState(0);
   const [desktopSelectedFuel, setDesktopSelectedFuel] = useState<string | null>(null);
   const [desktopSelectedGearbox, setDesktopSelectedGearbox] = useState<string | null>(null);
@@ -3266,14 +3268,36 @@ export default function Premium() {
   }, [selectedCategory]);
 
   useEffect(() => {
-    vehiclesApi.list({ status: "En ligne", limit: 50 }).then((res) => {
-      setApiVehicles(res.data);
-    }).catch(() => {});
-    vehiclesApi.getFilters().then((res) => {
-      const total = res.brands.reduce((sum, b) => sum + b.count, 0);
-      setApiBrands([{ id: "all", label: "Tous", count: total }, ...res.brands]);
-    }).catch(() => {});
-  }, []);
+    let cancelled = false;
+
+    async function loadShowroom() {
+      setApiStatus("loading");
+
+      try {
+        const [vehiclesResponse, filtersResponse] = await Promise.all([
+          vehiclesApi.list({ status: "En ligne", limit: 50 }),
+          vehiclesApi.getFilters(),
+        ]);
+
+        if (cancelled) return;
+
+        const total = filtersResponse.brands.reduce((sum, brand) => sum + brand.count, 0);
+        setApiVehicles(vehiclesResponse.data);
+        setApiBrands([{ id: "all", label: "Tous", count: total }, ...filtersResponse.brands]);
+        setApiStatus("ready");
+      } catch (error) {
+        if (cancelled) return;
+        console.error("Impossible de charger le showroom", error);
+        setApiStatus("error");
+      }
+    }
+
+    void loadShowroom();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [apiReloadKey]);
 
   const matchesMileageDesktop = (mileageValue: number, option: string | null) => {
     if (!option) return true;
@@ -3369,6 +3393,28 @@ export default function Premium() {
 
   return (
     <>
+      {apiStatus !== "ready" && (
+        <div
+          aria-live="polite"
+          className="fixed left-1/2 top-24 z-[100] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 rounded-lg border border-white/15 bg-[#181818]/95 px-5 py-4 text-center text-white shadow-2xl backdrop-blur"
+          role={apiStatus === "error" ? "alert" : "status"}
+        >
+          {apiStatus === "loading" ? (
+            <p className="text-sm">Chargement des véhicules…</p>
+          ) : (
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:text-left">
+              <p className="text-sm">Le showroom est temporairement indisponible.</p>
+              <button
+                className="shrink-0 rounded-full bg-[#c8ec66] px-4 py-2 text-sm font-semibold text-[#181818] transition hover:bg-[#d7f58a]"
+                onClick={() => setApiReloadKey((key) => key + 1)}
+                type="button"
+              >
+                Réessayer
+              </button>
+            </div>
+          )}
+        </div>
+      )}
       <MobilePremiumView
         apiVehicles={apiVehicles}
         onReset={resetFilters}

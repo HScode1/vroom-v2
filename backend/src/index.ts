@@ -18,16 +18,27 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "Vroom2026!";
 
 const app = express();
 
-const allowedOrigins = [
-  FRONTEND_URL,
+function normalizeOrigin(origin: string) {
+  return origin.trim().replace(/\/+$/, "");
+}
+
+const configuredFrontendOrigins = FRONTEND_URL
+  .split(",")
+  .map(normalizeOrigin)
+  .filter(Boolean);
+
+const allowedOrigins = new Set([
+  ...configuredFrontendOrigins,
   "http://localhost:5173",
   "http://localhost:4173",
+  "https://vroomadvisor.fr",
+  "https://www.vroomadvisor.fr",
   "https://boisterous-unicorn-aab3a7.netlify.app",
-];
+]);
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.has(normalizeOrigin(origin))) {
       callback(null, true);
     } else {
       callback(new Error(`CORS: origin not allowed — ${origin}`));
