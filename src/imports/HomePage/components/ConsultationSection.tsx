@@ -31,7 +31,7 @@ function Svg26() {
 
 function OverlayBorder3() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[126px] rounded-[8px] top-[5811px] w-[205.25px]" data-name="Overlay+Border">
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[126px] rounded-[8px] top-[4589px] w-[205.25px]" data-name="Overlay+Border">
       <Svg26 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[31px] text-[12px] text-[rgba(255,255,255,0.6)] top-1/2 w-[160.699px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">Visio · Téléphone · WhatsApp</p>
@@ -57,7 +57,7 @@ function Svg27() {
 
 function OverlayBorder4() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[339.25px] rounded-[8px] top-[5811px] w-[143.19px]" data-name="Overlay+Border">
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[339.25px] rounded-[8px] top-[4589px] w-[143.19px]" data-name="Overlay+Border">
       <Svg27 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[31px] text-[12px] text-[rgba(255,255,255,0.6)] top-1/2 w-[98.542px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">30 ou 45 minutes</p>
@@ -80,7 +80,7 @@ function Svg28() {
 
 function OverlayBorder5() {
   return (
-    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[126px] rounded-[8px] top-[5851px] w-[250.92px]" data-name="Overlay+Border">
+    <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[28px] left-[126px] rounded-[8px] top-[4629px] w-[250.92px]" data-name="Overlay+Border">
       <Svg28 />
       <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:9pt_Regular',sans-serif] font-normal h-[16px] justify-center leading-[0] left-[31px] text-[12px] text-[rgba(255,255,255,0.6)] top-1/2 w-[206.6px]" style={{ fontVariationSettings: "'opsz' 9" }}>
         <p className="leading-[normal]">{`Accompagnement jusqu'à la livraison`}</p>
@@ -158,7 +158,7 @@ function getCalendarCells(monthDate: Date) {
 
 function Button3() {
   return (
-    <button className="absolute bg-[#bcff3d] h-[45px] left-[126px] rounded-[100px] top-[5919px] w-[277.36px] cursor-pointer transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 focus:ring-offset-2 focus:ring-offset-[#181818]" data-name="Button" onClick={scrollToConsultationCalendar} type="button">
+    <button className="absolute bg-[#bcff3d] h-[45px] left-[126px] rounded-[100px] top-[4697px] w-[277.36px] cursor-pointer transition-transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 focus:ring-offset-2 focus:ring-offset-[#181818]" data-name="Button" onClick={scrollToConsultationCalendar} type="button">
       <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['Syne',sans-serif] font-bold h-[17px] justify-center leading-[0] left-[calc(50%-15.68px)] text-[#0d0d0d] text-[14px] text-center top-1/2 tracking-[0.14px] w-[216px]">
         <p className="leading-[normal]">Réserver un créneau</p>
       </div>
@@ -689,7 +689,7 @@ function Calendar() {
   };
 
   return (
-    <div className="absolute hidden h-[782.22px] left-[832px] right-[136.56px] top-[5232px] lg:block" data-name="CALENDAR" id="home-consultation-calendar">
+    <div className="absolute hidden h-[782.22px] left-[832px] right-[136.56px] top-[4010px] lg:block" data-name="CALENDAR" id="home-consultation-calendar">
       <div className="absolute inset-[-30px]" style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg viewBox=\\'0 0 531.44 842.22\\' xmlns=\\'http://www.w3.org/2000/svg\\' preserveAspectRatio=\\'none\\'><rect x=\\'0\\' y=\\'0\\' height=\\'100%\\' width=\\'100%\\' fill=\\'url(%23grad)\\' opacity=\\'1\\'/><defs><radialGradient id=\\'grad\\' gradientUnits=\\'userSpaceOnUse\\' cx=\\'0\\' cy=\\'0\\' r=\\'10\\' gradientTransform=\\'matrix(42.515 0 0 67.378 265.72 421.11)\\'><stop stop-color=\\'rgba(188,255,61,0.05)\\' offset=\\'0\\'/><stop stop-color=\\'rgba(188,255,61,0)\\' offset=\\'0.7\\'/></radialGradient></defs></svg>')" }} data-name="Gradient" />
       <div className="-translate-y-1/2 absolute backdrop-blur-[10px] bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.08)] border-solid h-[782.22px] left-0 right-0 rounded-[24px] top-1/2" data-name="Overlay+Border+OverlayBlur">
         <div className="absolute bg-[#bcff3d] h-[25px] left-[calc(23.13%-0.54px)] right-[calc(23.13%-0.54px)] rounded-[100px] top-[-16px]" data-name="Background">
@@ -1073,7 +1073,7 @@ function MobileCalendar({ calendarId = "home-consultation-calendar-mobile" }: { 
 
 function TabletConsultationSection() {
   return (
-    <div className="absolute left-0 top-[5200px] hidden w-screen px-10 lg:block xl:hidden">
+    <div className="absolute left-0 top-[3978px] hidden w-screen px-10 lg:block xl:hidden">
       <div className="mx-auto grid max-w-[1180px] grid-cols-[minmax(0,420px)_minmax(0,1fr)] items-start gap-8">
         <div className="pt-4">
           <div className="font-['Syne',sans-serif] font-extrabold leading-[0] text-[0px] tracking-[0.5px] text-white">
@@ -1127,7 +1127,7 @@ function TabletConsultationSection() {
 export default function ConsultationSection() {
   return (
     <>
-      <div className="absolute left-0 top-[6102px] w-screen px-5 sm:px-8 lg:hidden">
+      <div className="absolute left-0 top-[4530px] w-screen px-5 sm:px-8 lg:hidden">
         <div className="mx-auto max-w-[640px]">
           <div className="font-['Syne',sans-serif] font-extrabold leading-[0] text-[0px] text-white tracking-[0.32px]">
             <p className="mb-0 font-['Syne',sans-serif] text-[40px] font-extrabold leading-[38px] sm:text-[48px] sm:leading-[44px]">{`Votre `}</p>
@@ -1175,7 +1175,7 @@ export default function ConsultationSection() {
       <TabletConsultationSection />
 
       <div className="hidden xl:block">
-        <div className="absolute font-['Syne',sans-serif] font-extrabold h-[305px] leading-[0] left-[126px] text-[0px] text-white top-[5200px] tracking-[0.58px] w-[665px] whitespace-pre-wrap">
+        <div className="absolute font-['Syne',sans-serif] font-extrabold h-[305px] leading-[0] left-[126px] text-[0px] text-white top-[3978px] tracking-[0.58px] w-[665px] whitespace-pre-wrap">
           <p className="font-['Syne',sans-serif] font-extrabold leading-none mb-0 text-[58px]">{`Votre `}</p>
           <p className="font-['Syne',sans-serif] font-extrabold mb-0 text-[58px]">
             <span className="leading-none">prochain véhicul</span>
@@ -1194,11 +1194,11 @@ export default function ConsultationSection() {
         <OverlayBorder4 />
         <OverlayBorder5 />
         <Button3 />
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Roboto:SemiBold',sans-serif] font-semibold h-[105px] justify-center leading-[0] left-[126px] text-[35px] text-white top-[5605.5px] w-[501px] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Roboto:SemiBold',sans-serif] font-semibold h-[105px] justify-center leading-[0] left-[126px] text-[35px] text-white top-[4383.5px] w-[501px] whitespace-pre-wrap" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="leading-[42px] mb-0">{`L'expertise qui change tout. `}</p>
           <p className="leading-[42px]">En 30 minutes.</p>
         </div>
-        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Light',sans-serif] font-light h-[137px] justify-center leading-[0] left-[126px] text-[19px] text-white top-[5726.5px] w-[468px]">
+        <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Light',sans-serif] font-light h-[137px] justify-center leading-[0] left-[126px] text-[19px] text-white top-[4504.5px] w-[468px]">
           <p className="leading-[28px]">{`Nos experts analysent votre profil, comparent les meilleures options du marché et vous accompagnent jusqu'à la livraison — en visio, par téléphone ou WhatsApp.`}</p>
         </div>
         <Calendar />

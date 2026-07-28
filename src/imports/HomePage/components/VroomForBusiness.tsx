@@ -31,7 +31,7 @@ const benefits = [
 
 function ProLogo() {
   return (
-    <div className="mx-auto w-fit text-center" aria-label="Vroom Solution Pro">
+    <div className="w-fit text-left" aria-label="Vroom Solution Pro">
       <p className="font-['Wix_Madefor_Display:Bold',sans-serif] text-[46px] font-bold leading-[0.86] tracking-[-1.8px] text-white sm:text-[54px] xl:text-[58px]">
         vroom
       </p>
@@ -45,7 +45,7 @@ function ProLogo() {
 
 function BenefitItem({ icon: Icon, label }: (typeof benefits)[number]) {
   return (
-    <div className="flex flex-col items-center justify-center gap-2 text-center lg:flex-row lg:gap-4">
+    <div className="flex flex-col items-center justify-center gap-2 text-center lg:flex-row lg:justify-start lg:gap-4 lg:text-left">
       <span className="flex size-[38px] shrink-0 items-center justify-center rounded-full border border-[#c8ec66]/25 bg-[#c8ec66]/10 shadow-[inset_0_0_16px_rgba(200,236,102,0.05)] sm:size-[44px] xl:size-[48px]">
         <Icon className="size-[19px] text-[#c8ec66] sm:size-[21px] xl:size-[22px]" strokeWidth={1.8} aria-hidden="true" />
       </span>
@@ -173,7 +173,7 @@ function ActionCard({ icon: Icon, title, description, linkLabel, subject }: Acti
 export default function VroomForBusiness() {
   return (
     <section
-      className="absolute left-0 top-[7650px] h-[787px] w-screen overflow-hidden bg-[#073250] lg:top-[6296px] xl:left-[calc((1440px-100vw)/2)]"
+      className="absolute left-0 top-[6078px] h-[787px] w-screen overflow-hidden bg-[#073250] lg:top-[5074px] xl:left-[calc((1440px-100vw)/2)]"
       data-name="Vroom Solution Pro"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(0,153,255,0.16),transparent_38%),radial-gradient(circle_at_86%_14%,rgba(200,236,102,0.23),transparent_42%),linear-gradient(112deg,#062d4c_0%,#07394d_49%,#204b36_100%)]" />

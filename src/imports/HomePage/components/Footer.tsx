@@ -66,7 +66,7 @@ function TwitterIcon() {
 
 export default function Footer() {
   return (
-    <div className="absolute left-0 right-0 top-[8437px] bg-[#181818] lg:top-[7083px]" data-name="Footer">
+    <div className="absolute left-0 right-0 top-[6865px] bg-[#181818] lg:top-[5861px]" data-name="Footer">
       <footer className="mt-10 border-t border-[#1f2937] py-8 lg:hidden w-screen max-w-full">
         <div className="mx-auto max-w-[760px] px-5 sm:px-8">
           <div className="space-y-8 rounded-[24px] bg-[#111411] p-5 sm:p-6">
