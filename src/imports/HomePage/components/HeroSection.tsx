@@ -119,16 +119,18 @@ function TabletHeroSection() {
         </p>
       </div>
 
-      <div className="absolute bottom-8 right-[55px] z-40">
+      <div className="absolute bottom-8 left-1/2 z-40 flex -translate-x-1/2 items-center gap-8">
+        <div className="h-px w-[80px] shrink-0 bg-[rgba(255,255,255,0.16)]" aria-hidden="true" />
         <button
-          className="flex h-[48px] min-w-[292px] items-center justify-center gap-3 rounded-[100px] bg-[#bcff3d] px-6 font-['Syne',sans-serif] text-[13px] font-extrabold tracking-[0.52px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
+          className="flex h-[43px] min-w-[263px] shrink-0 items-center justify-center gap-[11px] rounded-[100px] bg-[#bcff3d] px-[22px] font-['Syne',sans-serif] text-[12px] font-extrabold tracking-[0.47px] text-[#0c0d0c] shadow-[0px_18px_40px_-22px_rgba(188,255,61,0.9)]"
           onClick={() => navigate("/acheter-votre-vehicule")}
         >
           <span>Acheter votre véhicule</span>
-          <svg className="size-[13px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
+          <svg className="size-[12px]" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
             <path d={svgPaths.p3d0c5000} stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.35417" />
           </svg>
         </button>
+        <div className="h-px w-[80px] shrink-0 bg-[rgba(255,255,255,0.16)]" aria-hidden="true" />
       </div>
     </div>
   );
@@ -235,16 +237,17 @@ export default function HeroSection() {
             <p className="leading-[normal]">Contrôlés · Garantis · Livrés à domicile</p>
           </div>
 
-          <div className="absolute right-[65px] top-[710px] h-[69px] w-[271.64px]" data-name="CTA BAS DROITE">
+          <div className="absolute left-1/2 top-[710px] flex h-[60px] -translate-x-1/2 items-center gap-[42px]" data-name="CTA CENTRE">
+            <div className="h-px w-[160px] shrink-0 bg-[rgba(255,255,255,0.16)]" aria-hidden="true" />
             <button
-              className="absolute right-[-0.36px] top-0 h-[44px] w-[306px] rounded-[100px] bg-[#bcff3d] cursor-pointer"
+              className="relative h-[47px] w-[360px] shrink-0 rounded-[100px] bg-[#bcff3d] cursor-pointer"
               data-name="Link"
               onClick={() => navigate("/acheter-votre-vehicule")}
             >
-              <div className="absolute left-[18px] top-1/2 flex h-[16px] w-[247px] -translate-y-1/2 flex-col justify-center font-['Syne',sans-serif] text-[13px] font-extrabold leading-[0] tracking-[0.52px] text-[#0c0d0c]">
+              <div className="absolute inset-x-[43px] top-1/2 flex h-[15px] -translate-y-1/2 flex-col justify-center font-['Syne',sans-serif] text-[12px] font-extrabold leading-[0] tracking-[0.47px] text-[#0c0d0c]">
                 <p className="leading-[normal]">Acheter votre véhicule</p>
               </div>
-              <div className="absolute left-[265px] top-1/2 size-[13px] -translate-y-1/2" data-name="SVG">
+              <div className="absolute right-[29px] top-1/2 size-[12px] -translate-y-1/2" data-name="SVG">
                 <svg className="absolute inset-0 block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 13 13">
                   <g id="SVG">
                     <path d={svgPaths.p3d0c5000} id="Vector" stroke="var(--stroke-0, #0C0D0C)" strokeWidth="1.35417" />
@@ -252,15 +255,7 @@ export default function HeroSection() {
                 </svg>
               </div>
             </button>
-
-            <div className="absolute right-[151.92px] top-[62px] h-px w-[24px] bg-[rgba(255,255,255,0.15)]" data-name="Horizontal Divider" />
-
-            <div
-              className="-translate-y-1/2 absolute right-[143.92px] top-[62.5px] flex h-[13px] w-[144.232px] translate-x-full flex-col justify-center font-['DM_Sans:Regular',sans-serif] text-[10px] font-normal uppercase leading-[0] tracking-[1.4px] text-[rgba(255,255,255,0.18)]"
-              style={{ fontVariationSettings: "'opsz' 14" }}
-            >
-              <p className="leading-[normal]">Scroll pour explorer</p>
-            </div>
+            <div className="h-px w-[160px] shrink-0 bg-[rgba(255,255,255,0.16)]" aria-hidden="true" />
           </div>
         </div>
       </div>

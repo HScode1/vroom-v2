@@ -30,17 +30,6 @@ const desktopSolutionContent: Record<
   },
 };
 
-function Badge() {
-  return (
-    <div className="-translate-x-1/2 absolute bg-[rgba(188,255,61,0.08)] border border-[rgba(188,255,61,0.2)] border-solid h-[28px] left-[calc(50%+7.93px)] rounded-[100px] top-[928px] w-[248px]" data-name="Overlay+Border">
-      <div className="-translate-y-1/2 absolute bg-[#bcff3d] left-[18px] rounded-[2.5px] size-[5px] top-1/2" data-name="Background" />
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute flex flex-col font-['DM_Sans:Medium',sans-serif] font-medium h-[14px] justify-center leading-[0] left-[calc(50%+6.66px)] text-[#bcff3d] text-[11px] text-center top-1/2 tracking-[1.76px] uppercase w-[196px] whitespace-nowrap" style={{ fontVariationSettings: "'opsz' 14" }}>
-        <p className="leading-[normal]">Ce que nous faisons</p>
-      </div>
-    </div>
-  );
-}
-
 function ServiceList({
   activeSolution,
   onHoverSolution,
@@ -66,23 +55,23 @@ function ServiceList({
 
   return (
     <div
-      className="absolute contents font-['Syne',sans-serif] font-bold leading-[1.5] left-[120px] top-[1173px]"
+      className="absolute contents font-['Syne',sans-serif] font-bold leading-[1.5] left-[120px] top-[1812px]"
       onMouseLeave={onLeaveSolutions}
     >
       <p
-        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1173px] ${getTextWidthClassName("acheter")} ${getTextClassName("acheter")}`}
+        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1812px] ${getTextWidthClassName("acheter")} ${getTextClassName("acheter")}`}
         onMouseEnter={() => onHoverSolution("acheter")}
       >
         ACHETER UN VÉHICULE
       </p>
       <p
-        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1280px] ${getTextWidthClassName("commander")} ${getTextClassName("commander")}`}
+        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1919px] ${getTextWidthClassName("commander")} ${getTextClassName("commander")}`}
         onMouseEnter={() => onHoverSolution("commander")}
       >
         COMMANDER UN VÉHICULE
       </p>
       <p
-        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[1380px] ${getTextWidthClassName("vendre")} ${getTextClassName("vendre")}`}
+        className={`absolute left-[120px] z-10 cursor-pointer overflow-hidden whitespace-nowrap transition-all duration-300 top-[2019px] ${getTextWidthClassName("vendre")} ${getTextClassName("vendre")}`}
         onMouseEnter={() => onHoverSolution("vendre")}
       >
         VENDRE UN VÉHICULE
@@ -93,7 +82,7 @@ function ServiceList({
 
 function CarKeyImage() {
   return (
-    <div className="absolute inset-[21.42%_35.14%_68.98%_-7.99%]" data-name="COMMANDER UN VÉHICULE">
+    <div className="absolute left-[-7.99%] right-[35.14%] top-[928px] h-[715px]" data-name="COMMANDER UN VÉHICULE">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img alt="" className="absolute h-full left-[13.24%] max-w-none top-0 w-[73.53%]" src={imgCommanderUnVehicule} />
       </div>
@@ -103,7 +92,7 @@ function CarKeyImage() {
 
 function AcheterImage({ activeSolution }: { activeSolution: DesktopSolution }) {
   return (
-    <div className="absolute inset-[14.79%_14.61%_79.72%_43.89%]" data-name="ACHETER UN VÉHICULE">
+    <div className="absolute left-[43.89%] right-[14.61%] top-[1740px] h-[409px]" data-name="ACHETER UN VÉHICULE">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img
           alt=""
@@ -142,7 +131,7 @@ function SelectionButton({
 }) {
   return (
     <a
-      className={`-translate-x-1/2 absolute z-10 bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[1340px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 ${buttonWidthClassName}`}
+      className={`-translate-x-1/2 absolute z-10 bg-[#c8ec66] border-2 border-[#c8ec66] border-solid h-[56px] left-[calc(50%+453.96px)] overflow-clip rounded-[9999px] shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)] top-[1979px] focus:outline-none focus:ring-2 focus:ring-[#bcff3d]/60 ${buttonWidthClassName}`}
       data-name="Button"
       href={href}
     >
@@ -211,16 +200,8 @@ function MobileNosSolutions() {
   return (
     <div className="absolute left-0 top-[928px] w-screen px-5 sm:px-8 lg:hidden">
       <div className="mx-auto max-w-[640px]">
-        {/* Badge */}
-        <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
-          <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
-          <p className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]">
-            Ce que nous faisons
-          </p>
-        </div>
-
         {/* Section Title */}
-        <p className="mt-5 text-center font-['Syne',sans-serif] text-[40px] font-extrabold leading-[44px] text-white sm:text-[46px] sm:leading-[50px]">
+        <p className="text-center font-['Syne',sans-serif] text-[40px] font-extrabold leading-[44px] text-white sm:text-[46px] sm:leading-[50px]">
           <span className="font-['Syne',sans-serif] font-extrabold">{`Nos `}</span>
           <span className="font-['Syne',sans-serif] font-extrabold text-[#c8ec66]">Solutions</span>
         </p>
@@ -322,19 +303,8 @@ function TabletNosSolutions() {
   return (
     <div className="absolute left-0 top-[928px] hidden w-screen px-10 lg:block xl:hidden">
       <div className="mx-auto max-w-[1180px]">
-        {/* Badge */}
-        <div className="mx-auto flex w-fit items-center gap-2 rounded-[100px] border border-[rgba(188,255,61,0.2)] bg-[rgba(188,255,61,0.08)] px-4 py-2">
-          <div className="size-[5px] rounded-[2.5px] bg-[#bcff3d]" />
-          <p
-            className="font-['DM_Sans:Medium',sans-serif] text-[11px] font-medium uppercase tracking-[1.76px] text-[#bcff3d]"
-            style={{ fontVariationSettings: "'opsz' 14" }}
-          >
-            Ce que nous faisons
-          </p>
-        </div>
-
         {/* Section Title */}
-        <p className="mt-6 text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] text-white">
+        <p className="text-center font-['Syne',sans-serif] text-[56px] font-extrabold leading-[60px] text-white">
           <span>{`Nos `}</span>
           <span className="text-[#c8ec66]">Solutions</span>
         </p>
@@ -418,9 +388,18 @@ export default function NosSolutions() {
       <TabletNosSolutions />
 
       <div className="hidden xl:block">
-        <Badge />
+        <CarKeyImage />
 
-        <p className="-translate-x-1/2 absolute z-10 font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[704.5px] text-[48px] text-center text-white top-[956px] w-[1187px]">
+        <div className="-translate-x-full absolute z-10 font-['Syne',sans-serif] font-bold h-[138px] leading-[0] left-[1286px] text-[0px] text-right text-white top-[1275px] w-[661px] whitespace-pre-wrap">
+          <p className="mb-0 text-[35px] font-semibold leading-[1.2]">
+            <span>{`Nous croyons que `}</span>
+            <span className="text-[#bcff3d]">la meilleur route</span>
+            <span>{` est celle qui se construit avec `}</span>
+          </p>
+          <p className="text-[35px] font-semibold leading-[1.2] text-[#bcff3d]">nos clients</p>
+        </div>
+
+        <p className="-translate-x-1/2 absolute z-10 font-['Syne',sans-serif] font-extrabold h-[72px] leading-[0] left-[704.5px] text-[48px] text-center text-white top-[1595px] w-[1187px]">
           <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5]">{`Nos `}</span>
           <span className="font-['Syne',sans-serif] font-extrabold leading-[1.5] text-[#c8ec66]">Solutions</span>
         </p>
@@ -431,23 +410,10 @@ export default function NosSolutions() {
           onLeaveSolutions={() => setActiveDesktopSolution("acheter")}
         />
 
-        <CarKeyImage />
+        <AcheterImage activeSolution={activeDesktopSolution} />
 
-        <div className="absolute contents inset-[14.79%_14.61%_79.72%_43.89%]">
-          <AcheterImage activeSolution={activeDesktopSolution} />
-        </div>
-
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute z-10 flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[20px] justify-center leading-[0] left-[1170px] not-italic text-[34px] text-center text-white top-[1247px] w-[280px]">
+        <div className="-translate-x-1/2 -translate-y-1/2 absolute z-10 flex flex-col font-['Helvetica_Neue:Light',sans-serif] h-[20px] justify-center leading-[0] left-[1170px] not-italic text-[34px] text-center text-white top-[1886px] w-[280px]">
           <p className="leading-[31px]">{activeDesktopContent.title}</p>
-        </div>
-
-        <div className="-translate-x-full absolute z-10 font-['Syne',sans-serif] font-bold h-[138px] leading-[0] left-[1286px] text-[0px] text-right text-white top-[1942px] w-[661px] whitespace-pre-wrap">
-          <p className="mb-0 text-[35px] font-semibold leading-[1.2]">
-            <span>{`Nous croyons que `}</span>
-            <span className="text-[#bcff3d]">la meilleur route</span>
-            <span>{` est celle qui se construit avec `}</span>
-          </p>
-          <p className="text-[35px] font-semibold leading-[1.2] text-[#bcff3d]">nos clients</p>
         </div>
 
         <SelectionButton
