@@ -23,6 +23,21 @@ type BuyFormState = {
 
 type BuyFormErrors = Partial<Record<"brand" | "model" | "year" | "gearbox" | "fuel" | "budget" | "horizon" | "notes" | "firstName" | "lastName" | "email" | "phone" | "submit", string>>;
 
+const INITIAL_BUY_FORM_STATE: BuyFormState = {
+  brand: "",
+  model: "",
+  year: "",
+  gearbox: "automatique",
+  fuel: "",
+  budget: 20000,
+  horizon: "immediat",
+  notes: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+};
+
 function mapGearbox(selection: GearboxSelection): string {
   if (selection === "manuelle") return "Manuelle";
   if (selection === "peuImporte") return "Peu importe";
@@ -45,26 +60,6 @@ function mapHorizon(selection: HorizonSelection): string {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^[0-9+\s().-]{6,20}$/;
-
-function collectBuyFormState(form: HTMLFormElement): BuyFormState {
-  const data = new FormData(form);
-  const budget = Number(data.get("budget") ?? 0);
-
-  return {
-    brand: String(data.get("brand") ?? "").trim(),
-    model: String(data.get("model") ?? "").trim(),
-    year: String(data.get("year") ?? "").trim(),
-    gearbox: String(data.get("gearbox") ?? "automatique") as GearboxSelection,
-    fuel: String(data.get("fuel") ?? "").trim(),
-    budget: Number.isFinite(budget) ? budget : 0,
-    horizon: String(data.get("horizon") ?? "immediat") as HorizonSelection,
-    notes: String(data.get("notes") ?? "").trim(),
-    firstName: String(data.get("firstName") ?? "").trim(),
-    lastName: String(data.get("lastName") ?? "").trim(),
-    email: String(data.get("email") ?? "").trim(),
-    phone: String(data.get("phone") ?? "").trim(),
-  };
-}
 
 function validateBuyForm(form: BuyFormState): BuyFormErrors {
   const nextErrors: BuyFormErrors = {};
@@ -105,11 +100,11 @@ async function submitBuyRequest(params: {
     },
     vehicleCriteria: {
       brand: form.brand,
-      model: form.model,
+      model: form.model || "Non précisé",
       trim: "",
       year: form.year,
       gearbox: mapGearbox(form.gearbox),
-      fuel: form.fuel,
+      fuel: form.fuel || "Peu importe",
       maxMileage: 0,
       maxBudget: form.budget,
       timeframe: mapHorizon(form.horizon),
@@ -828,10 +823,10 @@ function Container() {
   );
 }
 
-function Options() {
+function Options({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 right-[468px] rounded-[12px] top-[73px]" data-name="Options">
-      <select name="brand" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+      <select name="brand" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
         <option value="">Sélectionner...</option>
         <option>Audi</option>
         <option>BMW</option>
@@ -859,10 +854,10 @@ function Container1() {
   );
 }
 
-function Input() {
+function Input({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[234px] overflow-clip right-[234px] rounded-[12px] top-[73px]" data-name="Input">
-      <input name="model" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
+      <input name="model" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
     </div>
   );
 }
@@ -877,10 +872,10 @@ function Container2() {
   );
 }
 
-function Options1() {
+function Options1({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[468px] right-0 rounded-[12px] top-[73px]" data-name="Options">
-      <select name="year" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+      <select name="year" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
         <option value="">Peu importe</option>
         {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
           <option key={y}>{y}</option>
@@ -943,10 +938,10 @@ function Container3() {
   );
 }
 
-function Options2() {
+function Options2({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[351px] right-0 rounded-[12px] top-[165px]" data-name="Options">
-      <select name="fuel" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
+      <select name="fuel" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full appearance-none cursor-pointer [&>option]:bg-[#181818]">
         <option value="">Peu importe</option>
         <option>Essence</option>
         <option>Diesel</option>
@@ -959,57 +954,63 @@ function Options2() {
   );
 }
 
-function Section1LeVehicule({ top = 119 }: { top?: number }) {
-  const [boite, setBoite] = useState<'automatique' | 'manuelle' | 'peuImporte'>('automatique');
-
+function Section1LeVehicule({
+  top = 119,
+  form,
+  onGearboxChange,
+}: {
+  top?: number;
+  form: BuyFormState;
+  onGearboxChange: (gearbox: GearboxSelection) => void;
+}) {
   return (
     <div className="absolute h-[213px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 1 : Le véhicule">
       <HorizontalBorder2 />
       <Label />
-      <Options />
+      <Options defaultValue={form.brand} />
       <div className="absolute border-[rgba(255,255,255,0.4)] border-l-4 border-r-4 border-solid border-t-5 h-[5px] left-[198px] right-[484px] top-[94.5px]" data-name="Border" />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[13px] justify-center leading-[0] left-[234px] right-[403.78px] text-[11px] text-[rgba(255,255,255,0.25)] top-[59.5px] tracking-[0.88px] uppercase">
         <p className="leading-[normal]">Modèle</p>
       </div>
-      <Input />
+      <Input defaultValue={form.model} />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[13px] justify-center leading-[0] left-[468px] right-[107.04px] text-[11px] text-[rgba(255,255,255,0.25)] top-[59.5px] tracking-[0.88px] uppercase">
         <p className="leading-[normal]">Année souhaitée</p>
       </div>
-      <Options1 />
+      <Options1 defaultValue={form.year} />
       <div className="absolute border-[rgba(255,255,255,0.4)] border-l-4 border-r-4 border-solid border-t-5 h-[5px] left-[666px] right-[16px] top-[94.5px]" data-name="Border" />
       <Label1 />
-      <input type="hidden" name="gearbox" value={boite} />
+      <input type="hidden" name="gearbox" value={form.gearbox} />
       {/* Automatique */}
       <div
-        className={`absolute border border-solid h-[48px] left-0 right-[579.52px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${boite === 'automatique' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
-        onClick={() => setBoite('automatique')}
+        className={`absolute border border-solid h-[48px] left-0 right-[579.52px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${form.gearbox === 'automatique' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => onGearboxChange('automatique')}
       >
-        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[14px] text-center top-[23px] w-[88.817px] transition-colors ${boite === 'automatique' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.17px)] text-[14px] text-center top-[23px] w-[88.817px] transition-colors ${form.gearbox === 'automatique' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
           <p className="leading-[normal]">Automatique</p>
         </div>
       </div>
       {/* Manuelle */}
       <div
-        className={`absolute border border-solid h-[48px] left-[120.48px] right-[465.25px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${boite === 'manuelle' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
-        onClick={() => setBoite('manuelle')}
+        className={`absolute border border-solid h-[48px] left-[120.48px] right-[465.25px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${form.gearbox === 'manuelle' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => onGearboxChange('manuelle')}
       >
-        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[14px] text-center top-[23px] w-[57.987px] transition-colors ${boite === 'manuelle' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.19px)] text-[14px] text-center top-[23px] w-[57.987px] transition-colors ${form.gearbox === 'manuelle' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
           <p className="leading-[normal]">Manuelle</p>
         </div>
       </div>
       {/* Peu importe */}
       <div
-        className={`absolute border border-solid h-[48px] left-[234.75px] right-[350.98px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${boite === 'peuImporte' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
-        onClick={() => setBoite('peuImporte')}
+        className={`absolute border border-solid h-[48px] left-[234.75px] right-[350.98px] rounded-[12px] top-[165px] cursor-pointer transition-colors ${form.gearbox === 'peuImporte' ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)]'}`}
+        onClick={() => onGearboxChange('peuImporte')}
       >
-        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.15px)] text-[14px] text-center top-[23px] w-[79.071px] transition-colors ${boite === 'peuImporte' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
+        <div className={`-translate-x-1/2 -translate-y-1/2 absolute flex flex-col h-[18px] justify-center leading-[0] left-[calc(50%+0.15px)] text-[14px] text-center top-[23px] w-[79.071px] transition-colors ${form.gearbox === 'peuImporte' ? "font-['DM_Sans:SemiBold',sans-serif] font-semibold text-[#bcff3d]" : "font-['DM_Sans:Regular',sans-serif] font-normal text-[rgba(255,255,255,0.4)]"}`} style={{ fontVariationSettings: "'opsz' 14" }}>
           <p className="leading-[normal]">Peu importe</p>
         </div>
       </div>
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:SemiBold',sans-serif] font-semibold h-[13px] justify-center leading-[0] left-[351px] right-[263.16px] text-[11px] text-[rgba(255,255,255,0.25)] top-[151.5px] tracking-[0.88px] uppercase">
         <p className="leading-[normal]">Carburant</p>
       </div>
-      <Options2 />
+      <Options2 defaultValue={form.fuel} />
       <div className="absolute border-[rgba(255,255,255,0.4)] border-l-4 border-r-4 border-solid border-t-5 h-[5px] left-[666px] right-[16px] top-[186.5px]" data-name="Border" />
     </div>
   );
@@ -1054,8 +1055,7 @@ function Input1() {
   );
 }
 
-function Section2Budget({ top = 368 }: { top?: number }) {
-  const [budget, setBudget] = useState(20000);
+function Section2Budget({ top = 368, budget, onBudgetChange }: { top?: number; budget: number; onBudgetChange: (budget: number) => void }) {
   const min = 5000;
   const max = 100000;
   const pct = ((budget - min) / (max - min)) * 100;
@@ -1087,7 +1087,7 @@ function Section2Budget({ top = 368 }: { top?: number }) {
           max={max}
           step={1000}
           value={budget}
-          onChange={(e) => setBudget(Number(e.target.value))}
+          onChange={(e) => onBudgetChange(Number(e.target.value))}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         />
       </div>
@@ -1203,10 +1203,8 @@ function ParagraphOverlayBorder3() {
   );
 }
 
-function Section3HorizonDachat({ top = 542 }: { top?: number }) {
-  const [horizon, setHorizon] = useState<'immediat' | '1-3mois' | '3-6mois' | '6plus'>('immediat');
-
-  const card = (val: typeof horizon, active: boolean) =>
+function Section3HorizonDachat({ top = 542, horizon, onHorizonChange }: { top?: number; horizon: HorizonSelection; onHorizonChange: (horizon: HorizonSelection) => void }) {
+  const card = (val: HorizonSelection, active: boolean) =>
     `absolute border border-solid h-[98px] rounded-[12px] top-[53px] cursor-pointer transition-colors ${active ? 'bg-[rgba(188,255,61,0.08)] border-[#bcff3d] text-[#bcff3d]' : 'bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.4)]'}`;
 
   return (
@@ -1214,25 +1212,25 @@ function Section3HorizonDachat({ top = 542 }: { top?: number }) {
       <HorizontalBorder4 />
       <input type="hidden" name="horizon" value={horizon} />
       {/* Immédiatement */}
-      <div className={`${card('immediat', horizon === 'immediat')} left-0 right-[525px]`} onClick={() => setHorizon('immediat')}>
+      <div className={`${card('immediat', horizon === 'immediat')} left-0 right-[525px]`} onClick={() => onHorizonChange('immediat')}>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:SemiBold',sans-serif] font-semibold h-[24px] justify-center left-[77px] right-[76.7px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>⚡</p></div>
         <div className={`-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[31.28px] right-[29.08px] text-[13px] top-[54.5px]`} style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Immédiatement</p></div>
         <div className={`-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[37.83px] opacity-60 right-[37.51px] text-[11px] top-[73px]`} style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Dès que possible</p></div>
       </div>
       {/* Dans 1 à 3 mois */}
-      <div className={`${card('1-3mois', horizon === '1-3mois')} left-[175px] right-[350px]`} onClick={() => setHorizon('1-3mois')}>
+      <div className={`${card('1-3mois', horizon === '1-3mois')} left-[175px] right-[350px]`} onClick={() => onHorizonChange('1-3mois')}>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[24px] justify-center left-[74.75px] right-[74.39px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>📅</p></div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[34.58px] right-[33.22px] text-[13px] top-[54.5px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Dans 1 à 3 mois</p></div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[24.77px] opacity-60 right-[24.21px] text-[11px] top-[73px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Je prépare mon projet</p></div>
       </div>
       {/* Dans 3 à 6 mois */}
-      <div className={`${card('3-6mois', horizon === '3-6mois')} left-[350px] right-[175px]`} onClick={() => setHorizon('3-6mois')}>
+      <div className={`${card('3-6mois', horizon === '3-6mois')} left-[350px] right-[175px]`} onClick={() => onHorizonChange('3-6mois')}>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[24px] justify-center left-[74.75px] right-[74.39px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>🗓️</p></div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[32.73px] right-[31.64px] text-[13px] top-[54.5px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Dans 3 à 6 mois</p></div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[39.89px] opacity-60 right-[39.58px] text-[11px] top-[73px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Je me renseigne</p></div>
       </div>
       {/* + de 6 mois */}
-      <div className={`${card('6plus', horizon === '6plus')} left-[525px] right-0`} onClick={() => setHorizon('6plus')}>
+      <div className={`${card('6plus', horizon === '6plus')} left-[525px] right-0`} onClick={() => onHorizonChange('6plus')}>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[24px] justify-center left-[74.75px] right-[74.39px] text-[18px] top-[28px]" style={{ fontVariationSettings: "'opsz' 14" }}><p>🔭</p></div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Bold',sans-serif] font-bold h-[17px] justify-center left-[45.8px] right-[45.17px] text-[13px] top-[54.5px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">+ de 6 mois</p></div>
         <div className="-translate-y-1/2 absolute flex flex-col font-['DM_Sans:Regular',sans-serif] font-normal h-[14px] justify-center left-[54.06px] opacity-60 right-[53.71px] text-[11px] top-[73px]" style={{ fontVariationSettings: "'opsz' 14" }}><p className="leading-[normal]">Pas pressé</p></div>
@@ -1278,20 +1276,20 @@ function Label2() {
   );
 }
 
-function Textarea() {
+function Textarea({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[88px] left-0 overflow-auto right-0 rounded-[12px] top-[73px]" data-name="Textarea">
-      <textarea name="notes" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] py-[14px] w-full h-full resize-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…" />
+      <textarea name="notes" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] py-[14px] w-full h-full resize-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…" />
     </div>
   );
 }
 
-function Section4Notes({ top = 729 }: { top?: number }) {
+function Section4Notes({ top = 729, form }: { top?: number; form: BuyFormState }) {
   return (
     <div className="absolute h-[161px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 4 : Notes">
       <HorizontalBorder5 />
       <Label2 />
-      <Textarea />
+      <Textarea defaultValue={form.notes} />
     </div>
   );
 }
@@ -1343,10 +1341,10 @@ function Container4() {
   );
 }
 
-function Input2() {
+function Input2({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 overflow-clip right-[351px] rounded-[12px] top-[73px]" data-name="Input">
-      <input name="firstName" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" type="text" autoComplete="given-name" />
+      <input name="firstName" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" type="text" autoComplete="given-name" />
     </div>
   );
 }
@@ -1374,10 +1372,10 @@ function Container5() {
   );
 }
 
-function Input3() {
+function Input3({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[351px] overflow-clip right-0 rounded-[12px] top-[73px]" data-name="Input">
-      <input name="lastName" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" type="text" autoComplete="family-name" />
+      <input name="lastName" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" type="text" autoComplete="family-name" />
     </div>
   );
 }
@@ -1405,10 +1403,10 @@ function Container6() {
   );
 }
 
-function Input4() {
+function Input4({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-0 overflow-clip right-0 rounded-[12px] top-[153px]" data-name="Input">
-      <input name="email" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
+      <input name="email" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
     </div>
   );
 }
@@ -1446,30 +1444,30 @@ function Container7() {
   );
 }
 
-function Input5() {
+function Input5({ defaultValue }: { defaultValue: string }) {
   return (
     <div className="absolute bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)] border-solid h-[48px] left-[81.77px] overflow-clip right-0 rounded-br-[12px] rounded-tr-[12px] top-[255.39px]" data-name="Input">
-      <input name="phone" className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
+      <input name="phone" defaultValue={defaultValue} className="absolute inset-0 bg-transparent border-none outline-none text-white text-[14px] px-[18px] w-full h-full placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
     </div>
   );
 }
 
-function Section4Coordonnees({ top = 926 }: { top?: number }) {
+function Section4Coordonnees({ top = 926, form }: { top?: number; form: BuyFormState }) {
   return (
     <div className="absolute h-[325.78px] left-[40px] right-[40px]" style={{ top }} data-name="SECTION 4 : Coordonnées">
       <HorizontalBorder6 />
       <Label3 />
-      <Input2 />
+      <Input2 defaultValue={form.firstName} />
       <Label4 />
-      <Input3 />
+      <Input3 defaultValue={form.lastName} />
       <Label5 />
-      <Input4 />
+      <Input4 defaultValue={form.email} />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-0 right-[339.91px] text-[11px] text-[rgba(255,255,255,0.25)] top-[215.5px]">
         <p className="leading-[15.4px]">Notre équipe vous enverra la sélection de véhicules à cette adresse.</p>
       </div>
       <Label6 />
       <OverlayBorder14 />
-      <Input5 />
+      <Input5 defaultValue={form.phone} />
       <div className="-translate-y-1/2 absolute flex flex-col font-['Plus_Jakarta_Sans:Regular',sans-serif] font-normal h-[13px] justify-center leading-[0] left-0 right-[405.99px] text-[11px] text-[rgba(255,255,255,0.25)] top-[317.89px]">
         <p className="leading-[15.4px]">Pour vous rappeler directement avec nos propositions.</p>
       </div>
@@ -1653,6 +1651,10 @@ function PrecedentButton({ top, onPrev }: { top: number; onPrev: () => void }) {
 
 function FormCard({
   step,
+  form,
+  onGearboxChange,
+  onBudgetChange,
+  onHorizonChange,
   onNext,
   onPrev,
   onSubmit,
@@ -1660,6 +1662,10 @@ function FormCard({
   submitError,
 }: {
   step: number;
+  form: BuyFormState;
+  onGearboxChange: (gearbox: GearboxSelection) => void;
+  onBudgetChange: (budget: number) => void;
+  onHorizonChange: (horizon: HorizonSelection) => void;
   onNext: () => void;
   onPrev: () => void;
   onSubmit: () => void;
@@ -1671,7 +1677,7 @@ function FormCard({
   // Card height: 368+54+40 = 462
   const renderStep1 = () => (
     <>
-      <Section1LeVehicule top={119} />
+      <Section1LeVehicule top={119} form={form} onGearboxChange={onGearboxChange} />
       <SuivantRow top={368} step={1} onNext={onNext} onPrev={onPrev} />
     </>
   );
@@ -1684,9 +1690,9 @@ function FormCard({
   // Card height: 685+54+40 = 779
   const renderStep2 = () => (
     <>
-      <Section2Budget top={119} />
-      <Section3HorizonDachat top={297} />
-      <Section4Notes top={484} />
+      <Section2Budget top={119} budget={form.budget} onBudgetChange={onBudgetChange} />
+      <Section3HorizonDachat top={297} horizon={form.horizon} onHorizonChange={onHorizonChange} />
+      <Section4Notes top={484} form={form} />
       <SuivantRow top={685} step={2} onNext={onNext} onPrev={onPrev} />
     </>
   );
@@ -1698,7 +1704,7 @@ function FormCard({
   // Card height: 720
   const renderStep3 = () => (
     <>
-      <Section4Coordonnees top={119} />
+      <Section4Coordonnees top={119} form={form} />
       <PrecedentButton top={465} onPrev={onPrev} />
       <FormBody top={530} onSubmit={onSubmit} isSubmitting={isSubmitting} submitError={submitError} />
     </>
@@ -1723,14 +1729,30 @@ function FormCard({
 function FormSection() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [formState, setFormState] = useState<BuyFormState>(INITIAL_BUY_FORM_STATE);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
   const sectionHeights: Record<number, number> = { 1: 700, 2: 1020, 3: 980 };
 
+  const handleFormChange = (event: React.FormEvent<HTMLFormElement>) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement)) {
+      return;
+    }
+
+    const { name } = target;
+    if (!name) return;
+
+    setFormState((prev) => ({
+      ...prev,
+      [name]: name === "budget" ? Number(target.value) : target.value,
+    }));
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = collectBuyFormState(event.currentTarget);
+    const form = formState;
     const nextErrors = validateBuyForm(form);
     if (Object.keys(nextErrors).length > 0) {
       setStatus("idle");
@@ -1762,9 +1784,13 @@ function FormSection() {
       <div className="absolute bottom-0 left-[880px] pointer-events-none top-[165px]">
         <Sidebar />
       </div>
-      <form onSubmit={handleSubmit} className="absolute inset-0">
+      <form onSubmit={handleSubmit} onChange={handleFormChange} className="absolute inset-0">
         <FormCard
           step={currentStep}
+          form={formState}
+          onGearboxChange={(gearbox) => setFormState((prev) => ({ ...prev, gearbox }))}
+          onBudgetChange={(budget) => setFormState((prev) => ({ ...prev, budget }))}
+          onHorizonChange={(horizon) => setFormState((prev) => ({ ...prev, horizon }))}
           onNext={() => setCurrentStep((s) => Math.min(3, s + 1))}
           onPrev={() => setCurrentStep((s) => Math.max(1, s - 1))}
           onSubmit={() => undefined}
@@ -2133,18 +2159,30 @@ function MobileSidebarCards() {
 function MobileFormSection() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
-  const [boite, setBoite] = useState<GearboxSelection>("automatique");
-  const [budget, setBudget] = useState(20000);
-  const [horizon, setHorizon] = useState<HorizonSelection>("immediat");
+  const [formState, setFormState] = useState<BuyFormState>(INITIAL_BUY_FORM_STATE);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [submitError, setSubmitError] = useState("");
   const min = 5000;
   const max = 100000;
-  const pct = ((budget - min) / (max - min)) * 100;
+  const pct = ((formState.budget - min) / (max - min)) * 100;
+  const handleFormChange = (event: React.FormEvent<HTMLFormElement>) => {
+    const target = event.target;
+    if (!(target instanceof HTMLInputElement || target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement)) {
+      return;
+    }
+
+    const { name } = target;
+    if (!name) return;
+
+    setFormState((prev) => ({
+      ...prev,
+      [name]: name === "budget" ? Number(target.value) : target.value,
+    }));
+  };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = collectBuyFormState(event.currentTarget);
+    const form = formState;
     const nextErrors = validateBuyForm(form);
     if (Object.keys(nextErrors).length > 0) {
       setStatus("idle");
@@ -2190,7 +2228,7 @@ function MobileFormSection() {
           })}
         </div>
 
-        <form className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]" onSubmit={handleSubmit}>
+        <form className="rounded-[24px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]" onSubmit={handleSubmit} onChange={handleFormChange}>
           <div className="border-b border-[rgba(255,255,255,0.08)] px-5 py-5">
             <div className="flex items-start justify-between gap-4">
               <div className="flex min-w-0 items-start gap-3">
@@ -2222,7 +2260,7 @@ function MobileFormSection() {
                   <div className="grid gap-4">
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Marque *</span>
-                      <select name="brand" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                      <select name="brand" defaultValue={formState.brand} className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
                         <option value="">Sélectionner...</option>
                         <option>Audi</option>
                         <option>BMW</option>
@@ -2239,11 +2277,11 @@ function MobileFormSection() {
                     </label>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Modèle</span>
-                      <input name="model" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
+                      <input name="model" defaultValue={formState.model} className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Ex : Clio, Golf, 3 Series…" />
                     </label>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Année souhaitée</span>
-                      <select name="year" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                      <select name="year" defaultValue={formState.year} className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
                         <option value="">Peu importe</option>
                         {Array.from({ length: 26 }, (_, i) => 2025 - i).map((y) => (
                           <option key={y}>{y}</option>
@@ -2252,19 +2290,19 @@ function MobileFormSection() {
                     </label>
                     <div className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Type de boîte *</span>
-                      <input type="hidden" name="gearbox" value={boite} />
+                      <input type="hidden" name="gearbox" value={formState.gearbox} />
                       <div className="grid gap-2 min-[420px]:grid-cols-3">
                         {[
                           ["automatique", "Automatique"],
                           ["manuelle", "Manuelle"],
                           ["peuImporte", "Peu importe"],
                         ].map(([value, label]) => {
-                          const active = boite === value;
+                          const active = formState.gearbox === value;
                           return (
                             <button
                               key={value}
                               type="button"
-                              onClick={() => setBoite(value as typeof boite)}
+                              onClick={() => setFormState((prev) => ({ ...prev, gearbox: value as GearboxSelection }))}
                               className={`h-12 rounded-[12px] border text-[13px] transition-colors ${
                                 active
                                   ? "border-[#bcff3d] bg-[rgba(188,255,61,0.08)] font-semibold text-[#bcff3d]"
@@ -2279,7 +2317,7 @@ function MobileFormSection() {
                     </div>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Carburant</span>
-                      <select name="fuel" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
+                      <select name="fuel" defaultValue={formState.fuel} className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none [&>option]:bg-[#181818]">
                         <option value="">Peu importe</option>
                         <option>Essence</option>
                         <option>Diesel</option>
@@ -2308,7 +2346,7 @@ function MobileFormSection() {
                     <span className="text-[#bcff3d]">💶</span>
                     <span>Votre budget maximum</span>
                   </div>
-                  <div className="font-['Syne',sans-serif] text-[34px] text-[#bcff3d]">{budget.toLocaleString("fr-FR")} <span className="text-[18px] text-[rgba(255,255,255,0.4)]">€</span></div>
+                  <div className="font-['Syne',sans-serif] text-[34px] text-[#bcff3d]">{formState.budget.toLocaleString("fr-FR")} <span className="text-[18px] text-[rgba(255,255,255,0.4)]">€</span></div>
                   <div className="mt-1 text-[12px] text-[rgba(255,255,255,0.4)]">budget maximum TTC</div>
                   <div className="relative mt-6 h-7">
                     <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-[rgba(255,255,255,0.08)]" />
@@ -2320,8 +2358,8 @@ function MobileFormSection() {
                       min={min}
                       max={max}
                       step={1000}
-                      value={budget}
-                      onChange={(e) => setBudget(Number(e.target.value))}
+                      value={formState.budget}
+                      onChange={(e) => setFormState((prev) => ({ ...prev, budget: Number(e.target.value) }))}
                       className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
                     />
                   </div>
@@ -2338,7 +2376,7 @@ function MobileFormSection() {
                     <span className="text-[#bcff3d]">⏱️</span>
                     <span>Quand souhaitez-vous acheter ?</span>
                   </div>
-                  <input type="hidden" name="horizon" value={horizon} />
+                  <input type="hidden" name="horizon" value={formState.horizon} />
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       ["immediat", "⚡", "Immédiatement", "Dès que possible"],
@@ -2346,12 +2384,12 @@ function MobileFormSection() {
                       ["3-6mois", "🗓️", "Dans 3 à 6 mois", "Je me renseigne"],
                       ["6plus", "🔭", "+ de 6 mois", "Pas pressé"],
                     ].map(([value, icon, title, subtitle]) => {
-                      const active = horizon === value;
+                      const active = formState.horizon === value;
                       return (
                         <button
                           key={value}
                           type="button"
-                          onClick={() => setHorizon(value as typeof horizon)}
+                          onClick={() => setFormState((prev) => ({ ...prev, horizon: value as HorizonSelection }))}
                           className={`rounded-[14px] border px-3 py-4 text-center transition-colors ${
                             active
                               ? "border-[#bcff3d] bg-[rgba(188,255,61,0.08)] text-[#bcff3d]"
@@ -2374,6 +2412,7 @@ function MobileFormSection() {
                   </span>
                   <textarea
                     name="notes"
+                    defaultValue={formState.notes}
                     className="min-h-[120px] rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 py-3 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]"
                     placeholder="Ex : je cherche une berline familiale fiable pour usage quotidien + autoroute, kilométrage < 60 000 km, de préférence en noir ou gris…"
                   />
@@ -2408,23 +2447,23 @@ function MobileFormSection() {
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Prénom *</span>
-                      <input name="firstName" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" autoComplete="given-name" />
+                      <input name="firstName" defaultValue={formState.firstName} className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Jean" autoComplete="given-name" />
                     </label>
                     <label className="grid gap-2">
                       <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Nom *</span>
-                      <input name="lastName" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" autoComplete="family-name" />
+                      <input name="lastName" defaultValue={formState.lastName} className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="Dupont" autoComplete="family-name" />
                     </label>
                   </div>
                   <label className="grid gap-2">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Email *</span>
-                    <input name="email" className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
+                    <input name="email" defaultValue={formState.email} className="h-12 rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)] px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="jean.dupont@email.com" type="email" autoComplete="email" />
                     <span className="text-[11px] leading-[15.4px] text-[rgba(255,255,255,0.25)]">Notre équipe vous enverra la sélection de véhicules à cette adresse.</span>
                   </label>
                   <label className="grid gap-2">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.88px] text-[rgba(255,255,255,0.28)]">Téléphone *</span>
                     <div className="flex overflow-hidden rounded-[12px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.04)]">
                       <div className="flex items-center border-r border-[rgba(255,255,255,0.08)] px-4 text-[14px] text-[rgba(255,255,255,0.55)]">🇫🇷 +33</div>
-                      <input name="phone" className="h-12 flex-1 bg-transparent px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
+                      <input name="phone" defaultValue={formState.phone} className="h-12 flex-1 bg-transparent px-4 text-[14px] text-white outline-none placeholder:text-[rgba(255,255,255,0.25)]" placeholder="6 00 00 00 00" type="tel" autoComplete="tel" />
                     </div>
                     <span className="text-[11px] leading-[15.4px] text-[rgba(255,255,255,0.25)]">Pour vous rappeler directement avec nos propositions.</span>
                   </label>

@@ -1,8 +1,21 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
+import { requests, type BuyRequest } from "../../lib/api";
 import svgPaths from "./svg-g9ybnh21zu";
 
-function ConfirmationNotice({ requestId }: { requestId: string | null }) {
+function ConfirmationNotice({
+  requestId,
+  request,
+  isLoading,
+  error,
+}: {
+  requestId: string | null;
+  request: BuyRequest | null;
+  isLoading: boolean;
+  error: string;
+}) {
   const hasRequestId = Boolean(requestId);
+  const summary = request?.vehicleCriteria;
 
   return (
     <div className="absolute left-1/2 top-[32px] z-20 w-[min(720px,calc(100vw-32px))] -translate-x-1/2 rounded-[24px] border border-[rgba(188,255,61,0.22)] bg-[rgba(17,20,17,0.92)] px-5 py-4 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-md">
@@ -24,6 +37,50 @@ function ConfirmationNotice({ requestId }: { requestId: string | null }) {
           Référence dossier: <span className="font-mono text-white/70">{requestId}</span>
         </p>
       )}
+      {isLoading ? (
+        <p className="mt-4 text-[13px] text-white/55">Chargement du récapitulatif…</p>
+      ) : null}
+      {error ? (
+        <p className="mt-4 text-[13px] text-[#ff8e8e]">{error}</p>
+      ) : null}
+      {summary ? (
+        <div className="mt-4 grid gap-3 rounded-[18px] border border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.03)] p-4 text-[13px] text-white/75 sm:grid-cols-2">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Marque</div>
+            <div className="mt-1 text-white">{summary.brand}</div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Modèle</div>
+            <div className="mt-1 text-white">{summary.model}</div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Année</div>
+            <div className="mt-1 text-white">{summary.year || "Peu importe"}</div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Carburant</div>
+            <div className="mt-1 text-white">{summary.fuel}</div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Boîte</div>
+            <div className="mt-1 text-white">{summary.gearbox}</div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Budget max</div>
+            <div className="mt-1 text-white">{summary.maxBudget.toLocaleString("fr-FR")} €</div>
+          </div>
+          <div className="sm:col-span-2">
+            <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Délai</div>
+            <div className="mt-1 text-white">{summary.timeframe}</div>
+          </div>
+          {summary.notes ? (
+            <div className="sm:col-span-2">
+              <div className="text-[10px] uppercase tracking-[0.14em] text-white/35">Notes</div>
+              <div className="mt-1 text-white/75">{summary.notes}</div>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -1642,10 +1699,45 @@ function Group1() {
 export default function Etape2FormulaireAcheterVotreVehicule() {
   const [searchParams] = useSearchParams();
   const requestId = searchParams.get("requestId");
+  const [request, setRequest] = useState<BuyRequest | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!requestId) return;
+
+    let cancelled = false;
+
+    const loadRequest = async () => {
+      setIsLoading(true);
+      setError("");
+
+      try {
+        const response = await requests.getBuy(requestId);
+        if (!cancelled) {
+          setRequest(response);
+        }
+      } catch (loadError) {
+        if (!cancelled) {
+          setError(loadError instanceof Error ? loadError.message : "Impossible de charger le récapitulatif.");
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    void loadRequest();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [requestId]);
 
   return (
     <div className="bg-[#181818] relative min-h-screen size-full" data-name="Etape 2 formulaire acheter votre vehicule">
-      <ConfirmationNotice requestId={requestId} />
+      <ConfirmationNotice requestId={requestId} request={request} isLoading={isLoading} error={error} />
       <MobilePage />
       <div className="relative mx-auto hidden min-h-[2584px] w-[1440px] xl:block">
         <div className="absolute h-[742.87px] left-[-464px] top-[-197px] w-[2664.782px]" data-name="Union">

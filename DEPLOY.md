@@ -24,6 +24,9 @@ ADMIN_PASSWORD=<ton mot de passe sécurisé>
 SUPABASE_URL=https://xxxx.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=eyJ...
 SUPABASE_STORAGE_BUCKET=vehicles
+RESEND_API_KEY=re_xxxxx
+TEAM_EMAIL=contact@vroomparis.fr
+EMAIL_FROM=VroomAdvisor <reservations@vroomparis.fr>
 MAX_FILE_SIZE_MB=10
 ```
 
@@ -72,3 +75,5 @@ npm run dev
 cp .env.example .env.local   # VITE_API_URL=http://localhost:3001
 npm run dev
 ```
+
+Pour tester les notifications email en local, renseigne aussi `RESEND_API_KEY`, `TEAM_EMAIL` et `EMAIL_FROM` dans `backend/.env`.

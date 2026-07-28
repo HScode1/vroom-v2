@@ -34,6 +34,7 @@ const BOOKING_SLOTS = ["09:00", "10:30", "11:00", "14:00", "15:00", "15:30", "16
 
 type BookingDateAvailability = {
   day: number;
+  weekday?: (typeof CALENDAR_WEEKDAYS)[number];
   available: boolean;
   slots: string[];
   isToday?: boolean;
@@ -80,20 +81,20 @@ function buildMonthAvailability(monthId: string, dates: BookingDateAvailability[
   const trailingPreview = Array.from({ length: trailingCount }, (_, index) => index + 1);
   const todayId = getMonthId(new Date());
   const today = new Date();
-  const normalizedDates = dates.length > 0
-    ? dates.map((date) => ({
-        ...date,
-        isToday: monthId === todayId && date.day === today.getDate(),
-      }))
-    : Array.from({ length: daysInMonth }, (_, index) => {
-        const day = index + 1;
-        return {
-          day,
-          available: false,
-          slots: [],
-          isToday: monthId === todayId && day === today.getDate(),
-        };
-      });
+  const availabilityByDay = new Map(dates.map((date) => [date.day, date]));
+  const normalizedDates = Array.from({ length: daysInMonth }, (_, index) => {
+    const day = index + 1;
+    const availability = availabilityByDay.get(day);
+    const weekdayIndex = (new Date(year, month - 1, day).getDay() + 6) % 7;
+
+    return {
+      day,
+      weekday: CALENDAR_WEEKDAYS[weekdayIndex],
+      available: availability?.available ?? false,
+      slots: availability?.slots ?? [],
+      isToday: monthId === todayId && day === today.getDate(),
+    };
+  });
 
   return {
     id: monthId,
@@ -177,14 +178,15 @@ function useBookingAvailability() {
 
   const activeMonthState = monthState[activeMonthId];
   const activeMonth = activeMonthState?.data ?? buildMonthAvailability(activeMonthId);
-  const selectedDateItem = activeMonth.dates.find((date) => date.day === selectedDate && date.available)
+  const selectedDateItem = activeMonth.dates.find((date) => date.day === selectedDate)
     ?? activeMonth.dates.find((date) => date.available)
     ?? activeMonth.dates[0];
   const selectedDurationItem = BOOKING_DURATIONS.find((duration) => duration.id === selectedDuration) ?? BOOKING_DURATIONS[0];
   const selectedSlotOptions = selectedDateItem?.available ? selectedDateItem.slots : [];
 
   useEffect(() => {
-    const fallbackDate = activeMonth.dates.find((date) => date.available)?.day ?? activeMonth.dates[0]?.day ?? 1;
+    const fallbackDate = activeMonth.dates.find((date) => date.available)?.day;
+    if (fallbackDate === undefined) return;
     if (!activeMonth.dates.some((date) => date.day === selectedDate && date.available)) {
       setSelectedDate(fallbackDate);
     }
@@ -1030,23 +1032,19 @@ function BookingCard() {
   const headerSubtitle = isRescheduling
     ? "Choisissez un nouveau créneau pour votre rendez-vous existant."
     : "Sélectionnez une date, une durée et un créneau.";
-  let currentRow = 0;
-  let previousWeekdayIndex = -1;
+  const firstDayOffset = activeMonth.leadingPreview.length;
   const calendarCells = activeMonth.dates.map((date) => {
-    const weekdayIndex = CALENDAR_WEEKDAYS.indexOf(date.weekday);
-
-    if (previousWeekdayIndex !== -1 && weekdayIndex <= previousWeekdayIndex) {
-      currentRow += 1;
-    }
-
-    previousWeekdayIndex = weekdayIndex;
+    const cellIndex = firstDayOffset + date.day - 1;
 
     return {
       ...date,
-      row: currentRow,
-      col: weekdayIndex,
+      row: Math.floor(cellIndex / 7),
+      col: cellIndex % 7,
     };
   });
+  const lastCalendarCell = calendarCells[calendarCells.length - 1];
+  const trailingStartCol = lastCalendarCell ? lastCalendarCell.col + 1 : firstDayOffset;
+  const trailingRow = lastCalendarCell ? lastCalendarCell.row : 0;
 
   return (
     <div className="absolute h-[850px] left-[80px] right-[80px] top-[658.56px]" data-name="BOOKING CARD">
@@ -1157,7 +1155,11 @@ function BookingCard() {
             <div
               key={`trailing-${activeMonth.id}-${day}-${index}`}
               className="absolute text-[15px] text-[rgba(255,255,255,0.2)] text-center"
-              style={{ left: `${48 + (5 + index) * 72.44}px`, top: "500.19px", width: "66.44px" }}
+              style={{
+                left: `${48 + ((trailingStartCol + index) % 7) * 72.44}px`,
+                top: `${210.44 + (trailingRow + Math.floor((trailingStartCol + index) / 7)) * 72.44}px`,
+                width: "66.44px",
+              }}
             >
               <p className="font-['DM_Sans:9pt_Regular',sans-serif] leading-[66.44px]" style={{ fontVariationSettings: "'opsz' 9" }}>
                 {day}
@@ -2026,7 +2028,7 @@ function BackgroundBorder13() {
 }
 
 function SectionFaq() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(-1);
 
   return (
     <div className="absolute h-[631.52px] left-[80px] right-[80px] top-[1799.35px]" data-name="Section - FAQ">
@@ -2663,7 +2665,7 @@ function MobileBookingCard() {
 }
 
 function MobileConseilsPage() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(-1);
 
   return (
     <div className="relative overflow-x-hidden xl:hidden">

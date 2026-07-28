@@ -30,6 +30,16 @@ router.get("/buy", requireAdmin, async (_req, res, next) => {
   }
 });
 
+router.get("/buy/:id", async (req, res, next) => {
+  try {
+    const request = await store.buyRequests.findById(req.params.id);
+    if (!request) { res.status(404).json({ error: "Demande introuvable" }); return; }
+    res.json(request);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/buy", formLimiter, async (req, res, next) => {
   try {
     const data = BuyRequestSchema.parse(req.body);

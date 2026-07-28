@@ -76,8 +76,16 @@ function buildBookingQuery(
 ) {
   const nextParams = new URLSearchParams(searchParams);
   nextParams.set("bookingId", booking.id);
-  nextParams.set("cancelToken", booking.cancelToken);
-  nextParams.set("rescheduleToken", booking.rescheduleToken);
+  if (booking.cancelToken) {
+    nextParams.set("cancelToken", booking.cancelToken);
+  } else {
+    nextParams.delete("cancelToken");
+  }
+  if (booking.rescheduleToken) {
+    nextParams.set("rescheduleToken", booking.rescheduleToken);
+  } else {
+    nextParams.delete("rescheduleToken");
+  }
   nextParams.set("firstName", form.firstName.trim());
   nextParams.set("lastName", form.lastName.trim());
   nextParams.set("email", form.email.trim());
@@ -1137,6 +1145,10 @@ export default function RedirectionFormulaireConseil() {
       const response = bookingId && rescheduleToken
         ? await bookings.reschedule(bookingId, { ...payload, token: rescheduleToken })
         : await bookings.create(payload);
+
+      if (!response.cancelToken || !response.rescheduleToken) {
+        throw new Error("Le backend de réservation n'a pas renvoyé les jetons attendus. Vérifie que l'API déployée est à jour.");
+      }
 
       const nextParams = buildBookingQuery(form, searchParams, response);
       navigate(`/conseils/formulaire/etape-2?${nextParams.toString()}`);

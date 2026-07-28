@@ -20,7 +20,9 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error((body as { error?: string }).error ?? `HTTP ${res.status}`);
+    const payload = body as { error?: string; details?: string };
+    const message = payload.error ?? `HTTP ${res.status}`;
+    throw new Error(payload.details ? `${message}: ${payload.details}` : message);
   }
 
   if (res.status === 204) return undefined as T;
@@ -95,6 +97,7 @@ export const uploads = {
 // ── Requests ──────────────────────────────────────────────────────────────────
 export const requests = {
   async listBuy() { return request<BuyRequest[]>("/api/v1/requests/buy"); },
+  async getBuy(id: string) { return request<BuyRequest>(`/api/v1/requests/buy/${id}`); },
   async createBuy(data: unknown) {
     return request<{ id: string; message: string }>("/api/v1/requests/buy", { method: "POST", body: JSON.stringify(data) });
   },

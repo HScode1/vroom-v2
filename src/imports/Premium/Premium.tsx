@@ -2569,7 +2569,7 @@ function MobileVehicleCard({
 
 function MobileFooter() {
   return (
-    <footer className="border-t border-white/10 px-5 py-8 text-white">
+    <footer className="border-t border-white/10 bg-[#181818] px-5 py-8 text-white">
       <div className="mx-auto max-w-md space-y-6 md:max-w-3xl md:px-3">
         <div className="space-y-3">
           <p className="font-['Wix_Madefor_Display:Regular',sans-serif] text-xl">Qu’attendez-vous ?</p>

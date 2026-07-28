@@ -1321,7 +1321,7 @@ function BackgroundBorder5() {
 }
 
 function SectionFaq() {
-  const [openItem, setOpenItem] = useState<string | undefined>("faq-1");
+  const [openItem, setOpenItem] = useState<string | undefined>(undefined);
   const leftColumnItems = faqItems.filter((_, index) => index % 2 === 0);
   const rightColumnItems = faqItems.filter((_, index) => index % 2 === 1);
 
@@ -1898,7 +1898,7 @@ function MobileContactForm() {
 }
 
 function MobileAboutPage() {
-  const [openItem, setOpenItem] = useState<string | undefined>("faq-1");
+  const [openItem, setOpenItem] = useState<string | undefined>(undefined);
 
   return (
     <div className="relative overflow-x-hidden xl:hidden">
