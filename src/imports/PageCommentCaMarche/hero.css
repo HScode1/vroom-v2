@@ -1,0 +1,75 @@
+.how-it-works-hero {
+  background: linear-gradient(to bottom, #181818 0%, #181818 78%, #0a0a0a 100%);
+}
+
+@media (min-width: 768px) {
+  .how-it-works-hero__intro {
+    padding-top: clamp(220px, 15.5vw, 300px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .how-it-works-hero__heading {
+    display: grid;
+    grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 28px;
+  }
+
+  .how-it-works-hero__step {
+    padding: 36px clamp(32px, 2.7vw, 52px);
+  }
+}
+
+.how-it-works-hero__halo {
+  position: absolute;
+  inset: 0 0 auto;
+  height: clamp(560px, 48vw, 920px);
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  /* Fade across the cards, without a seam below the heading. */
+  mask-image: linear-gradient(#000 0%, #000 45%, transparent 100%);
+}
+
+.how-it-works-hero__halo-lime {
+  position: absolute;
+  top: 14%;
+  left: -24%;
+  width: 85%;
+  height: 62%;
+  transform: rotate(-24deg);
+  background: radial-gradient(ellipse closest-side,
+    rgb(185 222 83 / 62%) 0%,
+    rgb(159 193 70 / 40%) 35%,
+    rgb(141 181 65 / 16%) 65%,
+    rgb(141 181 65 / 0%) 100%);
+  filter: blur(clamp(24px, 3vw, 56px));
+}
+
+.how-it-works-hero__halo-mint {
+  position: absolute;
+  top: -31%;
+  left: 24%;
+  width: 88%;
+  height: 65%;
+  transform: rotate(17deg);
+  background: radial-gradient(ellipse closest-side,
+    rgb(135 221 185 / 68%) 0%,
+    rgb(114 205 173 / 52%) 36%,
+    rgb(98 190 159 / 22%) 67%,
+    rgb(98 190 159 / 0%) 100%);
+  filter: blur(clamp(20px, 2.8vw, 52px));
+}
+
+@media (max-width: 639px) {
+  .how-it-works-hero__halo-lime {
+    left: -65%;
+    width: 145%;
+  }
+
+  .how-it-works-hero__halo-mint {
+    left: 5%;
+    width: 140%;
+  }
+}

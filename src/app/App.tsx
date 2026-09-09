@@ -1,28 +1,31 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, NavLink, Navigate, useLocation } from "react-router";
 import appLogo from "../imports/HomePage/logo.png";
 import HomePage from "../imports/HomePage/HomePage";
-import AProposDeNous from "../imports/AProposDeNous/AProposDeNous";
-import PageConseil from "../imports/PageConseil/PageConseil";
-import RedirectionFormulaireConseil from "../imports/RedirectionFormulaireConseil/RedirectionFormulaireConseil";
-import Etape2FormulaireConseil from "../imports/Etape2FormulaireConseil/Etape2FormulaireConseil";
-import PageCmsVendreVotreVehicule from "../imports/PageCmsVendreVotreVehicule/PageCmsVendreVotreVehicule";
-import Etape2FormulaireVendreVotreVehicule from "../imports/Etape2FormulaireVendreVotreVehicule/Etape2FormulaireVendreVotreVehicule";
-import FormulaireAcheterVotreVehicule from "../imports/FormulaireAcheterVotreVehicule/FormulaireAcheterVotreVehicule";
-import Etape2FormulaireAcheterVotreVehicule from "../imports/Etape2FormulaireAcheterVotreVehicule/Etape2FormulaireAcheterVotreVehicule";
-import Premium from "../imports/Premium/Premium";
-import PageProduitPremium from "../imports/PageProduitPremium/PageProduitPremium";
 import { AdminAuthProvider, useAdminAuth } from "../admin/context/AdminAuthContext";
 import { AdminDataProvider } from "../admin/context/AdminDataContext";
-import AdminLayout from "../admin/layout/AdminLayout";
-import AdminLogin from "../admin/pages/AdminLogin";
-import AdminDashboard from "../admin/pages/AdminDashboard";
-import AdminVehicules from "../admin/pages/AdminVehicules";
-import AdminVehiculeForm from "../admin/pages/AdminVehiculeForm";
-import AdminDemandesAchat from "../admin/pages/AdminDemandesAchat";
-import AdminDemandesVente from "../admin/pages/AdminDemandesVente";
-import AdminDemandeVenteDetail from "../admin/pages/AdminDemandeVenteDetail";
-import AdminRendezVous from "../admin/pages/AdminRendezVous";
+
+const AProposDeNous = lazy(() => import("../imports/AProposDeNous/AProposDeNous"));
+const PageConseil = lazy(() => import("../imports/PageConseil/PageConseil"));
+const RedirectionFormulaireConseil = lazy(() => import("../imports/RedirectionFormulaireConseil/RedirectionFormulaireConseil"));
+const Etape2FormulaireConseil = lazy(() => import("../imports/Etape2FormulaireConseil/Etape2FormulaireConseil"));
+const PageCmsVendreVotreVehicule = lazy(() => import("../imports/PageCmsVendreVotreVehicule/PageCmsVendreVotreVehicule"));
+const Etape2FormulaireVendreVotreVehicule = lazy(() => import("../imports/Etape2FormulaireVendreVotreVehicule/Etape2FormulaireVendreVotreVehicule"));
+const FormulaireAcheterVotreVehicule = lazy(() => import("../imports/FormulaireAcheterVotreVehicule/FormulaireAcheterVotreVehicule"));
+const Etape2FormulaireAcheterVotreVehicule = lazy(() => import("../imports/Etape2FormulaireAcheterVotreVehicule/Etape2FormulaireAcheterVotreVehicule"));
+const Premium = lazy(() => import("../imports/Premium/Premium"));
+const PageProduitPremium = lazy(() => import("../imports/PageProduitPremium/PageProduitPremium"));
+const PageCommentCaMarche = lazy(() => import("../imports/PageCommentCaMarche/PageCommentCaMarche"));
+
+const AdminLayout = lazy(() => import("../admin/layout/AdminLayout"));
+const AdminLogin = lazy(() => import("../admin/pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("../admin/pages/AdminDashboard"));
+const AdminVehicules = lazy(() => import("../admin/pages/AdminVehicules"));
+const AdminVehiculeForm = lazy(() => import("../admin/pages/AdminVehiculeForm"));
+const AdminDemandesAchat = lazy(() => import("../admin/pages/AdminDemandesAchat"));
+const AdminDemandesVente = lazy(() => import("../admin/pages/AdminDemandesVente"));
+const AdminDemandeVenteDetail = lazy(() => import("../admin/pages/AdminDemandeVenteDetail"));
+const AdminRendezVous = lazy(() => import("../admin/pages/AdminRendezVous"));
 
 const NAV_LINKS = [
   { to: "/", label: "Accueil" },
@@ -31,6 +34,7 @@ const NAV_LINKS = [
   { to: "/acheter-votre-vehicule", label: "Acheter" },
   { to: "/vendre-votre-vehicule", label: "Vendre" },
   { to: "/conseils", label: "Conseil" },
+  { to: "/comment-ca-marche", label: "Comment ça marche" },
 ];
 
 const PAGE_SIZES: Record<string, { width: number; height: number }> = {
@@ -45,6 +49,7 @@ const PAGE_SIZES: Record<string, { width: number; height: number }> = {
   "/acheter-votre-vehicule/etape-2": { width: 1440, height: 2584 },
   "/showroom": { width: 1920, height: 3833 },
   "/showroom/produit": { width: 1920, height: 2719 },
+  "/comment-ca-marche": { width: 1440, height: 2885 },
 };
 
 function PageWrapper({ path, children }: { path: string; children: React.ReactNode }) {
@@ -102,6 +107,7 @@ function PageWrapper({ path, children }: { path: string; children: React.ReactNo
     path === "/vendre-votre-vehicule/formulaire" ||
     path === "/acheter-votre-vehicule" ||
     path === "/acheter-votre-vehicule/etape-2" ||
+    path === "/comment-ca-marche" ||
     path === "/showroom/produit"
   ) {
     return <div className="relative w-full">{children}</div>;
@@ -260,20 +266,26 @@ function HamburgerNav() {
   );
 }
 
+function RouteLoading() {
+  return <div className="flex min-h-full items-center justify-center bg-[#181818] text-sm text-white/60">Chargement…</div>;
+}
+
 export default function App() {
   return (
     <AdminAuthProvider>
-      <AdminDataProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Suspense fallback={<RouteLoading />}>
           <Routes>
             {/* ── Admin routes (own full-screen layout) ── */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route
               path="/admin"
               element={
-                <ProtectedAdminRoute>
-                  <AdminLayout />
-                </ProtectedAdminRoute>
+                <AdminDataProvider>
+                  <ProtectedAdminRoute>
+                    <AdminLayout />
+                  </ProtectedAdminRoute>
+                </AdminDataProvider>
               }
             >
               <Route index element={<AdminDashboard />} />
@@ -303,6 +315,7 @@ export default function App() {
                     <Route path="/acheter-votre-vehicule" element={<PageWrapper path="/acheter-votre-vehicule"><FormulaireAcheterVotreVehicule /></PageWrapper>} />
                     <Route path="/acheter-votre-vehicule/etape-2" element={<PageWrapper path="/acheter-votre-vehicule/etape-2"><Etape2FormulaireAcheterVotreVehicule /></PageWrapper>} />
                     <Route path="/showroom" element={<PageWrapper path="/showroom"><Premium /></PageWrapper>} />
+                    <Route path="/comment-ca-marche" element={<PageWrapper path="/comment-ca-marche"><PageCommentCaMarche /></PageWrapper>} />
                     <Route path="/showroom/produit" element={<PageWrapper path="/showroom/produit"><PageProduitPremium /></PageWrapper>} />
                     <Route path="/showroom/:id" element={<PageProduitPremium />} />
                   </Routes>
@@ -310,8 +323,8 @@ export default function App() {
               }
             />
           </Routes>
-        </BrowserRouter>
-      </AdminDataProvider>
+        </Suspense>
+      </BrowserRouter>
     </AdminAuthProvider>
   );
 }
